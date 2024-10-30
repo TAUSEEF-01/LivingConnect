@@ -269,10 +269,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
+  
   emailText: {
     fontSize: 18,
     marginBottom: 20,
   },
 });
-
-// export default styles;
