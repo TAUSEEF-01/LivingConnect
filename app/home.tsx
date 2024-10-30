@@ -122,6 +122,7 @@ export default function HomeScreen() {
       ],
       { cancelable: false }
     );
+    //tamzid
   };
 
   const testPage = async () => {
