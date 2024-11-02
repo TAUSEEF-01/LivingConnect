@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontWeight: "bold",
+    marginTop: 60,
     fontSize: 50,
     letterSpacing: 2,
   },
@@ -212,7 +213,8 @@ const styles = StyleSheet.create({
   formContainer: {
     alignItems: "center",
     marginHorizontal: 16,
-    marginTop: 20,
+    marginTop: 100,
+    marginBottom: 20,
   },
   inputContainer: {
     backgroundColor: "rgba(0,0,0,0.05)",

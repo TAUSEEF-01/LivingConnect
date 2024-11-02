@@ -203,7 +203,6 @@ const styles = StyleSheet.create({
     top: "30%", // Position the title at 30% from the top
     width: "100%", // Full width
   },
-
   title: {
     color: "black",
     fontWeight: "bold",
@@ -220,7 +219,8 @@ const styles = StyleSheet.create({
   formContainer: {
     alignItems: "center",
     marginHorizontal: 16,
-    marginTop: 180,
+    marginTop: 200,
+    marginBottom: 100,
   },
   inputContainer: {
     backgroundColor: "rgba(0,0,0,0.05)",
