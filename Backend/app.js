@@ -1,0 +1,887 @@
+
+
+// ##########################################################
+
+
+
+// const express = require("express");
+// const app = express();
+// const path = require("path");
+// const hbs = require("hbs");
+// const collection = require("./Database/userInfo");
+
+// const tempelatePath = path.join(__dirname, "./templates");
+
+// app.use(express.json());
+// app.set("view engine", "hbs");
+// app.set("views", tempelatePath);
+// app.use(express.urlencoded({ extended: false }));
+
+// app.get("/", (req, res) => {
+//   res.render("login");
+// });
+// app.get("/signup", (req, res) => {
+//   res.render("signup");
+// });
+
+// app.post("/signup", async (req, res) => {
+//   const { name, password } = req.body;
+
+//   if (password.length < 7) {
+//     return res.render("signup", {
+//       error: "Password must be at least 7 characters long.",
+//     });
+//   }
+
+//   const data = {
+//     name,
+//     password,
+//   };
+
+//   await collection.insertMany([data]);
+
+//   res.render("home");
+// });
+
+// app.all("/login", async (req, res) => {
+//   if (req.method === "GET") {
+//     res.render("login");
+//   } else if (req.method === "POST") {
+//     try {
+//       const check = await collection.findOne({ name: req.body.name });
+
+//       if (check.password === req.body.password) {
+//         res.render("home");
+//       } else {
+//         res.send("Wrong Password!");
+//       }
+//     } catch {
+//       res.send("Wrong Details!");
+//     }
+//   }
+// });
+
+// app.get("/logout", (req, res) => {
+//   res.redirect("/login");
+// });
+
+// app.listen(3000, () => {
+//   console.log("Port Connected at the following website http://localhost:3000/");
+// });
+
+
+
+
+
+// // #############################################################################                                    
+
+// const express = require("express");
+// const app = express();
+// // const hbs = require("hbs");
+// const collection = require("./models/userModel");
+
+
+
+// // app.use(express.json());
+// // app.set("view engine", "hbs");
+// // app.use(express.urlencoded({ extended: false }));
+
+
+
+// app.listen(3000 , ()=>{
+//     console.log("Node js server started!");
+// });
+
+
+
+
+///////////////////////////////////
+
+
+
+
+
+// app.post("/register", async (req, res) => {
+//   const { email, password } = req.body;
+
+//   if (!email || !password) {
+//     return res.status(400).json({ error: "Please all fields are required" });
+//   }
+
+//   const userExits = await User.findOne({ email });
+//   console.log("userExits", userExits);
+
+//   if (userExits) {
+//     return res.status(400).json({ error: 'User already exists' });
+//   }
+
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password with salt rounds
+
+//     // Insert the new user with the hashed password (adjust according to your DB setup)
+//     const newUser = { email, password: hashedPassword };
+//     await User.create(newUser); // or any other DB operation
+
+//     res.status(201).json({ message: "User registered successfully" });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
+
+
+
+// app.post("/register", async (req, res) => {
+//   const { email, password } = req.body;
+
+//   if (!email || !password) {
+//     return res.status(400).json({ error: "Please all fields are required" });
+//   }
+
+//   try {
+//     const hashedPassword = await bcrypt.hash(password, 10); // Hash the password with salt rounds
+
+//     // Save user to the database
+//     const newUser = new collection({
+//       email,
+//       password: hashedPassword,
+//     });
+
+//     await newUser.save(); // Save the user to MongoDB
+
+//     res.status(201).json({ message: "User registered successfully" });
+//   } catch (err) {
+//     console.error("Error during registration:", err); // Log the actual error
+//     res.status(500).json({ message: "Server error", error: err.message }); // Send error message
+//   }
+// });
+
+
+
+
+
+// ########################################################
+
+// const express = require("express");
+// const mongoose = require("mongoose");
+// const bcrypt = require("bcrypt");
+// const cors = require("cors");
+// const User = require("./models/userModel"); // Import the User model
+
+// const bodyParser = require('body-parser');
+
+// // const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
+
+
+
+
+
+
+// const app = express();
+// const PORT = 5000;
+
+// // app.use(cors());
+// app.use(cors({
+//   origin: '*',  // Be more specific in production
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization']
+// }));
+
+// app.use(express.json());
+
+// app.use(bodyParser.json()); // Middleware to parse JSON bodies
+// app.use(bodyParser.urlencoded({ extended: true })); // Middleware for URL-encoded data
+
+
+// app.set('view engine', 'ejs'); // Setting EJS as the template engine
+// app.set('views', './views'); // Specify the directory for your view templates
+
+// // mongoose
+// //   .connect("mongodb://localhost:27017/UserInfo", { useNewUrlParser: true, useUnifiedTopology: true })
+// //   .then(() => console.log("MongoDB Connected"))
+// //   .catch((err) => console.error("MongoDB connection error:", err));
+
+
+// mongoose.connect("mongodb://localhost:27017/UserInfo")
+// // mongoose.connect("mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/LoginSignup?retryWrites=true&w=majority&appName=Cluster0")
+// .then(()=>{
+//     console.log("MongoDB Connected Succesfully!");
+// })
+// .catch((err) => {
+//     console.error("Failed to Connect:", err.message);
+// });
+
+
+// app.post("/register", async (req, res) => {
+
+//   console.log("Request received at /register endpoint");
+  
+//   const { email, password } = req.body;
+
+//   console.log("Received email:", email, "Password:", password);
+
+
+//   if (!email || !password) {
+//     return res.status(400).json({ error: 'Please all fields are required' });
+//   }
+  
+//   //! check if user already exists
+//   const userExits = await User.findOne({ email });
+//   console.log("userExits", userExits);
+
+//   if (userExits) {
+//     return res.status(400).json({ error: 'User already exists' });
+//   }
+
+//   try {
+//     // Hash the password
+//     const hashedPassword = await bcrypt.hash(password, 10);
+
+//     // Save to the database
+//     const newUser = await User.create({
+//       email,
+//       password: hashedPassword,
+//     });
+
+//     console.log("user created", newUser);
+
+//     // const data = {
+//     //   email,
+//     //   password: hashedPassword
+//     // };
+//     // await collection.insertMany([data]);
+//     // await newUser.save();
+
+//     res.status(201).json({ message: "User registered successfully" });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
+
+
+// const jwt = require("jsonwebtoken");
+// const Session = require("./models/sessionModel"); // Ensure correct import
+
+// // Function to generate a token
+// const generateToken = (userId) => {
+//   const payload = { id: userId };
+//   const secretKey = "abc@123"; // Keep this secret and secure
+//   const options = { expiresIn: "2h" }; // Token expires in 2 hours
+
+//   return jwt.sign(payload, secretKey, options);
+// };
+
+// // Login endpoint
+// app.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+
+//   try {
+//     const user = await User.findOne({ email });
+//     if (!user) {
+//       return res.status(404).json({ message: "User not found." });
+//     }
+
+//     const isPasswordValid = await bcrypt.compare(password, user.password);
+//     if (!isPasswordValid) {
+//       return res.status(401).json({ message: "Invalid credentials." });
+//     }
+
+//     // Generate token
+//     const token = generateToken(user._id);
+//     console.log("Generated Token:", token);
+
+//     // Save the token in the session model
+//     await Session.create({ userId: user._id, token });
+
+//     // Respond to the client
+//     res.status(200).json({
+//       message: "Login successful.",
+//       token,
+//       user: { email: user.email, id: user._id }
+//     });
+//   } catch (err) {
+//     console.error("Error during login:", err.message);
+//     res.status(500).json({ message: "Internal server error." });
+//   }
+// });
+
+
+
+
+// // app.post("/login", async (req, res) => {
+
+// //   const { email, password } = req.body;
+
+// //   // console.log(`login with ${email}`);
+
+// //   try {
+// //     const user = await User.findOne({ email });
+// //     if (!user) {
+// //       return res.status(404).json({ message: "User not found." });
+// //     }
+
+// //     const isPasswordValid = await bcrypt.compare(password, user.password);
+// //     if (!isPasswordValid) {
+// //       return res.status(401).json({ message: "Invalid credentials." });
+// //     }
+
+
+// //     const token = generateToken(user._id);
+// //     // await YourSessionModel.create({ token });
+// //     console.log("Generated Token:", token);
+
+// //     res.status(200).json({ message: "Login successful.", user: { email: user.email } });
+// //   } catch (err) {
+// //     res.status(500).json({ message: "Internal server error." });
+// //   }
+// // });
+
+
+// app.post("/logout", async (req, res) => {
+//   console.log("Authorization Header:", req.headers.authorization);
+
+//   const token = req.headers.authorization?.split(" ")[1];
+//   console.log("Extracted Token:", token);
+
+//   if (!token) {
+//     return res.status(400).json({ message: "Token is required for logout" });
+//   }
+
+//   try {
+//     console.log("Deleting token from database...");
+    
+//     // Use the correct Session model
+//     const result = await Session.deleteOne({ token });
+//     console.log("Delete Result:", result);
+
+//     if (result.deletedCount === 0) {
+//       return res.status(404).json({ message: "Token not found" });
+//     }
+
+//     res.status(200).json({ message: "Logout successful" });
+//   } catch (err) {
+//     console.error("Error during logout:", err);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+
+
+// // app.post("/logout", async (req, res) => {
+// //   console.log(req.body);
+
+// //   const token = req.headers.authorization?.split(" ")[1];
+
+// //   if (!token) {
+// //     return res.status(400).json({ message: "Token is required for logout" });
+// //   }
+
+// //   // Remove token from the database or invalidate the session
+// //   try {
+// //     await YourSessionModel.deleteOne({ token });
+// //     res.status(200).json({ message: "Logout successful" });
+// //   } catch (err) {
+// //     console.error("Error during logout:", err.message);
+// //     res.status(500).json({ message: "Internal server error" });
+// //   }
+// // });
+
+
+// // app.post("/logout", async (req, res) => {
+// //   try {
+// //     const authHeader = req.headers.authorization;
+// //     if (!authHeader) return res.status(401).json({ message: "Unauthorized" });
+
+// //     const token = authHeader.split(" ")[1];
+// //     // Invalidate the session (remove the token from the DB or session store)
+// //     await YourSessionModel.deleteOne({ token });
+
+// //     res.status(200).json({ message: "Logged out successfully" });
+// //   } catch (err) {
+// //     res.status(500).json({ message: "Internal server error" });
+// //   }
+// // });
+
+
+
+// // app.get("/verify", async (req, res) => {
+
+// //   console.log("verifying!!");
+
+// //   try {
+// //     const authHeader = req.headers.authorization;
+// //     if (!authHeader) return res.status(401).json({ message: "Unauthorized" });
+
+// //     const token = authHeader.split(" ")[1];
+// //     // Validate the token/session (if using sessions, query your DB here)
+// //     const sessionValid = await YourSessionModel.findOne({ token });
+// //     if (!sessionValid) return res.status(401).json({ message: "Invalid session" });
+
+// //     res.status(200).json({ message: "Session valid" });
+
+
+// //   } catch (err) {
+// //     res.status(500).json({ message: "Internal server error" });
+// //   }
+// // });
+
+
+// // const validateToken = (token) => {
+// //   try {
+// //     const secretKey = "abc@123"; // Must match the key used during token generation
+// //     return jwt.verify(token, secretKey); // Returns decoded payload if valid
+// //   } catch (err) {
+// //     console.error("Invalid Token:", err.message);
+// //     return null; // Token is invalid
+// //   }
+// // };
+
+// // app.get("/verify", restrictToLoggedinUserOnly, async (req, res) => {
+
+// //   console.log("verifying!!");
+
+// //   try {
+// //     // const authHeader = req.headers.authorization;
+// //     // if (!authHeader) return res.status(401).json({ message: "Unauthorized" });
+
+// //     // const token = authHeader.split(" ")[1];
+// //     // // Validate the token/session (if using sessions, query your DB here)
+// //     // const sessionValid = await YourSessionModel.findOne({ token });
+
+// //     const sessionValid = await validateToken(req.token);
+// //     if (!sessionValid) return res.status(401).json({ message: "Invalid session" });
+
+// //     res.status(200).json({ message: "Session valid" });
+
+// //   } catch (err) {
+// //     res.status(500).json({ message: "Internal server error" });
+// //   }
+// // });
+
+
+
+
+
+
+// // const validateToken = (token) => {
+// //   try {
+// //     const secretKey = "abc@123"; // Must match the key used during token generation
+// //     return jwt.verify(token, secretKey); // Returns decoded payload if valid
+// //   } catch (err) {
+// //     console.error("Invalid Token:", err.message); 
+// //     return null; // Token is invalid
+// //   }
+// // };
+
+// // Middleware to restrict access to logged-in users only
+// // const restrictToLoggedinUserOnly = async (req, res, next) => {
+// //   const authHeader = req.headers.authorization;
+// //   if (!authHeader) return res.status(401).json({ message: "Unauthorized" });
+
+// //   const token = authHeader.split(" ")[1];
+// //   if (!token) return res.status(400).json({ message: "Token is required" });
+
+// //   // Validate the token first
+// //   const decoded = validateToken(token);
+// //   if (!decoded) return res.status(401).json({ message: "Invalid or expired token" });
+
+// //   // Check if the session exists in the database
+// //   const session = await Session.findOne({ token });
+// //   if (!session) return res.status(401).json({ message: "Session not found" });
+
+// //   // Attach the user ID to the request for use in other routes
+// //   req.userId = decoded.id; 
+// //   next(); // Proceed to the next middleware or route handler
+// // };
+
+
+// const validateToken = (token) => {
+//   try {
+//     const secretKey = "abc@123";
+//     return jwt.verify(token, secretKey); // Returns decoded payload if valid
+//   } catch (err) {
+//     console.error("Invalid or expired token:", err.message);
+//     return null; // Token is invalid or expired
+//   }
+// };
+
+
+
+
+// app.get("/verify", async (req, res) => {
+//   console.log("Verifying token...");
+
+//   const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+//   if (!token) {
+//     return res.status(401).json({ message: "Unauthorized: No token provided" });
+//   }
+
+//   try {
+//     console.log("Token being verified:", token);
+
+//     // Validate the token
+//     const decoded = validateToken(token); // Verify the JWT token
+//     if (!decoded) {
+//       return res.status(401).json({ message: "Invalid or expired token" });
+//     }
+
+//     console.log("Decoded token:", decoded);
+
+//     // Find the session by token
+//     const session = await Session.findOne({ token });
+//     console.log("Session found in DB:", session);
+
+//     if (!session) {
+//       return res.status(401).json({ message: "Session not found" });
+//     }
+
+//     // Optional: Check if the session has expired (based on createdAt or the token's expiration)
+//     const now = Date.now();
+//     const sessionExpiry = new Date(session.createdAt).getTime() + 2 * 60 * 60 * 1000; // 2 hours session expiry
+
+//     if (now > sessionExpiry) {
+//       return res.status(401).json({ message: "Session expired" });
+//     }
+
+//     res.status(200).json({ message: "Session valid", userId: decoded.id });
+
+//   } catch (err) {
+//     console.error("Error during verification:", err.message);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+
+// // app.get("/verify", restrictToLoggedinUserOnly, async (req, res) => {
+// //   console.log("Verifying token...");
+
+// //   const token = req.headers.authorization.split(" ")[1]; // Extract token from Authorization header
+// //   console.log("Token being verified:", token);
+
+// //   try {
+// //     // Validate the token
+// //     const decoded = validateToken(token);
+// //     if (!decoded) {
+// //       return res.status(401).json({ message: "Invalid or expired token" });
+// //     }
+
+// //     // Check if the session exists in the database
+// //     const session = await Session.findOne({ token });
+// //     console.log("Session found:", session);
+
+// //     if (!session) {
+// //       return res.status(401).json({ message: "Session not found" });
+// //     }
+
+// //     res.status(200).json({ message: "Session valid", userId: decoded.id });
+// //   } catch (err) {
+// //     console.error("Error during verification:", err.message);
+// //     res.status(500).json({ message: "Internal server error" });
+// //   }
+// // });
+
+
+
+// app.get("/", async (req, res) => {
+//   res.status(200).json({ message: "Session valid" });
+// });
+
+
+// app.listen(PORT, '0.0.0.0', () => {
+//   console.log(`Server running on http://10.0.2.2:${PORT}`);
+//   console.log(`Server accessible at http://localhost:${PORT}`);
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 555555555555555555555555555555555555555555555555555555555555555555
+
+
+
+const express = require("express");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const cors = require("cors");
+const User = require("./models/userModel"); // Import the User model
+const Session = require("./models/sessionModel"); // Ensure correct import
+const bodyParser = require('body-parser');
+// const AsyncStorage = require("@react-native-async-storage/async-storage");
+
+const jwt = require("jsonwebtoken");
+
+const { generateToken } = require("./utils/generateToken");
+const { validateToken } = require("./utils/validateToken");
+
+// const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
+
+const app = express();
+const PORT = 5000;
+
+// app.use(cors());
+app.use(cors({
+  origin: '*',  // Be more specific in production
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(express.json());
+
+app.use(bodyParser.json()); // Middleware to parse JSON bodies
+app.use(bodyParser.urlencoded({ extended: true })); // Middleware for URL-encoded data
+
+app.set('view engine', 'ejs'); // Setting EJS as the template engine
+app.set('views', './views'); // Specify the directory for your view templates
+
+
+mongoose.connect("mongodb://localhost:27017/UserInfo")
+// mongoose.connect("mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/LoginSignup?retryWrites=true&w=majority&appName=Cluster0")
+.then(()=>{
+    console.log("MongoDB Connected Succesfully!");
+})
+.catch((err) => {
+    console.error("Failed to Connect:", err.message);
+});
+
+
+// register endpoint
+app.post("/register", async (req, res) => {
+
+  console.log("Request received at /register endpoint");
+  
+  const { email, password } = req.body;
+  console.log("Received email:", email, "Password:", password);
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Please all fields are required' });
+  }
+  
+  const userExits = await User.findOne({ email });
+  console.log("userExits", userExits);
+
+  if (userExits) {
+    return res.status(400).json({ error: 'User already exists' });
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = await User.create({
+      email,
+      password: hashedPassword,
+    });
+
+    console.log("user created", newUser);
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+
+// Login endpoint // check previous login session ****
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid credentials." });
+    }
+
+    // Generate token
+    const token = generateToken(user._id);
+    console.log("Generated Token:", token);
+
+    // Save the token in the session model
+    await Session.create({ userId: user._id, token });
+    // await AsyncStorage.setItem("userToken", token);
+
+    // const keys = await AsyncStorage.getAllKeys();
+    // console.log("AsyncStorage keys:", keys); // Logs all keys in AsyncStorage
+
+    // Respond to the client
+    res.status(200).json({
+      message: "Login successful.",
+      token,
+      user: { email: user.email, id: user._id }
+    });
+  } catch (err) {
+    console.error("Error during login:", err.message);
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+
+// logout endpoint
+app.post("/logout", async (req, res) => {
+  console.log("Authorization Header:", req.headers.authorization);
+
+  const token = req.headers.authorization?.split(" ")[1];
+  console.log("Extracted Token:", token);
+
+  if (!token) {
+    return res.status(400).json({ message: "Token is required for logout" });
+  }
+
+
+  // Validate the token
+  const decoded = validateToken(token); // Verify the JWT token
+  if (!decoded) {
+    return res.status(401).json({ message: "Invalid or expired token" });
+  }
+
+  try {
+    console.log("Deleting token from database...");
+    
+    // Use the correct Session model
+    const result = await Session.deleteOne({ token });
+    console.log("Delete Result:", result);
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "Token not found" });
+    }
+
+    // await AsyncStorage.clear();
+
+    res.status(200).json({ message: "Logout successful" });
+  } catch (err) {
+    console.error("Error during logout:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+// verify endpoint
+app.get("/verify", async (req, res) => {
+  console.log("Verifying token...");
+
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    console.log("Token being verified:", token);
+
+    // Validate the token
+    const decoded = validateToken(token); // Verify the JWT token
+    if (!decoded) {
+      return res.status(401).json({ message: "Invalid or expired token" });
+    }
+
+    console.log("Decoded token:", decoded);
+
+    // Find the session by token
+    const session = await Session.findOne({ token });
+    console.log("Session found in DB:", session);
+
+    if (!session) {
+      return res.status(401).json({ message: "Session not found" });
+    }
+
+    // No session expiration check; session is considered valid indefinitely
+    // res.status(200).json({ message: "Session valid", userId: decoded.id });
+
+
+    const userId = await User.findById(decoded.id);
+    console.log("User found in DB:", userId);
+
+    res.status(200).json({
+      message: "Session valid",
+      userId: decoded.id,
+      user: { email: userId.email, id: userId._id }
+    });
+
+  } catch (err) {
+    console.error("Error during verification:", err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
+
+// app.get("/verify", async (req, res) => {
+//   console.log("Verifying token...");
+
+//   const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+//   if (!token) {
+//     return res.status(401).json({ message: "Unauthorized: No token provided" });
+//   }
+
+//   try {
+//     console.log("Token being verified:", token);
+
+//     // Validate the token
+//     const decoded = validateToken(token); // Verify the JWT token
+//     if (!decoded) {
+//       return res.status(401).json({ message: "Invalid or expired token" });
+//     }
+
+//     console.log("Decoded token:", decoded);
+
+//     // Find the session by token
+//     const session = await Session.findOne({ token });
+//     console.log("Session found in DB:", session);
+
+//     if (!session) {
+//       return res.status(401).json({ message: "Session not found" });
+//     }
+
+//     // Optional: Check if the session has expired (based on createdAt or the token's expiration)
+//     const now = Date.now();
+//     const sessionExpiry = new Date(session.createdAt).getTime() + 2 * 60 * 60 * 1000; // 2 hours session expiry
+
+//     if (now > sessionExpiry) {
+//       return res.status(401).json({ message: "Session expired" });
+//     }
+
+//     res.status(200).json({ message: "Session valid", userId: decoded.id });
+
+//   } catch (err) {
+//     console.error("Error during verification:", err.message);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// });
+
+
+app.get("/", async (req, res) => {
+  res.status(200).json({ message: "Session valid" });
+});
+
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://10.0.2.2:${PORT}`);
+  console.log(`Server accessible at http://localhost:${PORT}`);
+});
