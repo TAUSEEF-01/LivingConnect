@@ -12,16 +12,32 @@ export default function Profile() {
     const fetchUserEmail = async () => {
       try {
         const token = await AsyncStorage.getItem("userToken");
+        // console.log(token);
+        // if (!token) {
+        //   router.replace("/login");
+        //   return;
+        // }
 
+        // Fetch user data
         const response = await axios.get("http://192.168.50.242:5000/verify", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
+
+        // console.log(response);
+
         const data = await response.data;
 
-        setUserEmail(data.user.email); // Update with user email from backend
+        // console.log(data.user.email);
+        
+        // if (response.status === 200) {
+          setUserEmail(data.user.email); // Update with user email from backend
+        // } else {
+        //   router.replace("/login");
+        // }
       } catch (err) {
         console.error("Error fetching user data:", err);
+        // router.replace("/login");
       }
     };
 
@@ -45,13 +61,9 @@ export default function Profile() {
               // Call backend to invalidate session (optional)
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
-                await axios.post(
-                  "http://192.168.50.242:5000/logout",
-                  {},
-                  {
-                    headers: { Authorization: `Bearer ${token}` },
-                  }
-                );
+                await axios.post("http://192.168.50.242:5000/logout", {}, {
+                  headers: { Authorization: `Bearer ${token}` },
+                });
               }
 
               // Clear token from AsyncStorage

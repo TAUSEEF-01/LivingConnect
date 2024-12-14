@@ -12,6 +12,43 @@ export default function LoginScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // const handleLogin = async () => {
+  //   setLoading(true);
+  //   setError("");
+  
+  //   try {
+  //     const response = await fetch("http://192.168.50.242:5000/login", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ email, password }),
+  //     });
+  
+  //     const data = await response.json();
+  
+  //     if (response.ok) {
+  //       // Save the token to AsyncStorage
+  //       await AsyncStorage.setItem("userToken", data.token);
+  
+  //       // Navigate to the main page
+  //       console.log("Login successful:", data);
+  //       // router.replace("/(tabs)/mainPage");
+  //       router.replace("/screens/about_us");
+  //     } else {
+  //       console.error("Login failed. Status:", response.status, "Message:", data.message);
+  //       setError(data.message || "Failed to log in.");
+  //     }
+  //   } catch (err) {
+  //     console.error("Error during login:", err.message);
+  //     setError("Something went wrong. Please try again.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  
+
+
   const handleLogin = async () => {
     setLoading(true);
     setError("");
@@ -28,12 +65,21 @@ export default function LoginScreen() {
 
       if (response.ok) {
         // Login successful
+        // console.log("Login successful:", data);
+        
         console.log("logged in!");
 
         const token = data.token;
         await AsyncStorage.setItem("userToken", token);
+        
+        // console.log("Token saved to AsyncStorage:", token);
 
-        router.replace("/(tabs)/mainPage"); // Navigate to the main page
+        // router.replace("/(tabs)/mainPage"); // Navigate to the main page
+        router.replace("/pages/mainPage");
+
+        // router.replace("/(tabs)/explore"); // Navigate to the main page
+
+        // router.replace("/screens/about_us"); // Navigate to the main page
       } else {
         // Login failed
         setError(data.message || "Failed to log in.");
@@ -194,8 +240,8 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
   titleHome: {
-    color: "Black",
-    fontWeight: "bold",
+    color: 'Black',
+    fontWeight: 'bold',
     fontSize: 50,
     letterSpacing: 2,
   },
@@ -257,3 +303,4 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
+

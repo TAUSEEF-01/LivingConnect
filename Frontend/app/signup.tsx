@@ -13,20 +13,66 @@ export default function SignUpScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+
+  // const handleSignUp = async () => {
+  //   if (password !== confirmPassword) {
+  //     setError("Passwords don't match");
+  //     return;
+  //   }
+  
+  //   setLoading(true);
+  //   setError("");
+  //   try {
+  //     // Use your computer's IP
+  //     const response = await axios.post("http://localhost:5000/register", {
+  //       email,
+  //       password,
+  //     });
+  
+  //     console.log("Full response:", response); // Add this for more detailed logging
+  
+  //     if (response.status === 201) {
+  //       router.replace("/login");
+  //     } else {
+  //       setError(response.data.message || "Failed to register");
+  //     }
+  //   } catch (error) {
+  //     // More detailed error logging
+  //     console.error("Full error object:", error);
+  //     console.error("Error response:", error.response);
+  //     console.error("Error request:", error.request);
+      
+  //     setError(
+  //       error.response?.data?.message || 
+  //       error.response?.data?.error || 
+  //       "Sign up failed"
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const handleSignUp = async () => {
     if (password !== confirmPassword) {
       setError("Passwords don't match");
       return;
     }
 
+    
+
     setLoading(true);
     setError("");
     try {
+
+      // console.log("here we go1");
+
       // Send registration data to the server
       const response = await axios.post("http://192.168.50.242:5000/register", {
         email,
         password,
       });
+
+      // console.log("here we go2");
 
       if (response.status === 201) {
         router.replace("/login"); // Redirect to login page after successful signup
@@ -40,6 +86,53 @@ export default function SignUpScreen() {
       setLoading(false);
     }
   };
+
+  
+  // const testRegister = async () => {
+  //   try {
+  //     const userData = {
+  //       email: "test@example.com",
+  //       password: "password123",
+  //     };
+
+  //     const response = await axios.post("http://192.168.50.242:5000/register", userData);
+
+  //     // const response = await axios.post("http://localhost:5000/register", {
+  //     //   email: "test@example.com",
+  //     //   password: "password123",
+  //     // }, {
+  //     //   headers: {
+  //     //     'Content-Type': 'application/json'
+  //     //   }
+  //     // });
+      
+  //     console.log("API response:", response.data);
+  //   } catch (error) {
+  //     console.error("API error:", error.response ? error.response.data : error.message);
+  //   }
+  // };
+
+
+
+  // const testRegister1 = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:5000/register", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         email: "test@example.com",
+  //         password: "password123",
+  //       }),
+  //     });
+  //     const data = await response.json();
+  //     console.log("API response:", data);
+  //   } catch (error) {
+  //     console.error("API error:", error.message);
+  //   }
+  // };
+  
 
   return (
     <View style={styles.container}>
@@ -190,6 +283,9 @@ const styles = StyleSheet.create({
     paddingTop: 160,
     paddingBottom: 40,
   },
+  // titleContainer: {
+  //   alignItems: "center",
+  // },
 
   titleContainer: {
     alignItems: "center",
