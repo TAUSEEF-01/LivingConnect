@@ -1467,7 +1467,7 @@ app.post('/home-details', async (req, res) => {
       details,
       memberRestriction,
       rent,
-      rentPeriod,
+      // rentPeriod,
       location,
       facitlities,
       availability,
@@ -1481,7 +1481,7 @@ app.post('/home-details', async (req, res) => {
       details,
       memberRestriction,
       rent,
-      rentPeriod,
+      // rentPeriod,
       location,
       facitlities,
       availability,
@@ -1490,6 +1490,8 @@ app.post('/home-details', async (req, res) => {
 
     // Save the new home details to the database
     const savedHomeDetails = await newHomeDetails.save();
+
+    console.log("Saved Home Details!");
 
     res.status(201).json({
       message: 'Home details added successfully',

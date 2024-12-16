@@ -269,7 +269,8 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
 
         <TouchableOpacity
           style={localStyles.rentAHome}
-          onPress={() => router.push("/Rent/rentAHome")}
+          // onPress={() => router.push("/Rent/rentAHome")}
+          onPress={() => router.push("/Rent/temp")}
         >
           <Text style={localStyles.buttonText}>Rent A Home</Text>
         </TouchableOpacity>

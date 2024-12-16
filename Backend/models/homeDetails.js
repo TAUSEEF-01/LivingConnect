@@ -20,10 +20,10 @@ const homeDetails = new mongoose.Schema({
   },
 
   rent: { type: Number, required: true },
-  rentPeriod: {
-    type: String,
-    required: true,
-  },
+  // rentPeriod: {
+  //   type: String,
+  //   required: true,
+  // },
 
   location: {
     city: { type: String, required: true },
