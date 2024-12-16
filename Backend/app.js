@@ -1362,7 +1362,149 @@ app.get("/getUserInfo", async (req, res) => {
     console.error('Failed to retrieve user info', err);
     return res.status(500).json({ message: 'Failed to retrieve user info' });
   }
-})
+});
+
+
+
+
+// app.use(express.json());
+
+app.post('/updateHomeDetails', async (req, res) => {
+  const { userId, images, type, rent, details, location } = req.body;
+
+  try {
+    const updatedHomeDetails = await HomeDetails.findOneAndUpdate(
+      { userId },  // Assuming you're updating by userId, you could use a different approach
+      { images, type, rent, details, location },
+      { new: true, upsert: true }  // Upsert: Create if not exists, otherwise update
+    );
+
+    if (updatedHomeDetails) {
+      res.status(200).json({ message: 'Home details updated successfully!', data: updatedHomeDetails });
+    } else {
+      res.status(400).json({ message: 'Failed to update home details' });
+    }
+  } catch (error) {
+    console.error('Error updating home details:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
+
+const HomeDetails = require('./models/homeDetails');
+
+
+// app.post('/home-details', async (req, res) => {
+//   try {
+//     const { 
+//       // userId, 
+//       type, 
+//       rent, 
+//       // images = [], 
+//       details, 
+//       location 
+//     } = req.body;
+
+//     // // Validate user exists
+//     // const userExists = await UserModel.findById(userId);
+//     // if (!userExists) {
+//     //   return res.status(404).json({ message: 'User not found' });
+//     // }
+
+//     // Create new home details
+//     const newHomeDetails = new HomeDetails({
+//       // userId,
+//       type,
+//       rent: Number(rent),
+//       // images,
+//       details: {
+//         beds: Number(details.beds),
+//         baths: Number(details.baths),
+//         size: Number(details.size),
+//         balcony: Number(details.balcony),
+//         floor: Number(details.floor),
+//         parking: details.parking,
+//         lift: details.lift,
+//         gasSupply: details.gasSupply
+//       },
+//       location: {
+//         city: location.city,
+//         region: location.region
+//       }
+//     });
+
+//     console.log(newHomeDetails);
+
+//     // Save to database
+//     const savedHomeDetails = await newHomeDetails.save();
+
+//     res.status(201).json({
+//       message: 'Home details added successfully',
+//       homeDetails: savedHomeDetails
+//     });
+
+//   } catch (error) {
+//     console.error('Error adding home details:', error);
+//     res.status(500).json({ 
+//       message: 'Error adding home details', 
+//       error: error.message 
+//     });
+//   }
+// });
+
+
+
+
+
+// Create new home details
+app.post('/home-details', async (req, res) => {
+  try {
+    const {
+      userId,
+      PropertyType,
+      details,
+      memberRestriction,
+      rent,
+      rentPeriod,
+      location,
+      facitlities,
+      availability,
+      images
+    } = req.body;
+
+    // Create a new home details document
+    const newHomeDetails = new HomeDetails({
+      userId,
+      PropertyType,
+      details,
+      memberRestriction,
+      rent,
+      rentPeriod,
+      location,
+      facitlities,
+      availability,
+      images
+    });
+
+    // Save the new home details to the database
+    const savedHomeDetails = await newHomeDetails.save();
+
+    res.status(201).json({
+      message: 'Home details added successfully',
+      homeDetails: savedHomeDetails
+    });
+  } catch (error) {
+    console.error('Error adding home details:', error);
+    res.status(500).json({
+      message: 'Error adding home details',
+      error: error.message
+    });
+  }
+});
+
+
 
 
 app.listen(PORT, '0.0.0.0', () => {
