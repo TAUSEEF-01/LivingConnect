@@ -780,6 +780,9 @@ export default function Profile() {
     }
   };
 
+
+
+
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -818,6 +821,9 @@ export default function Profile() {
       // setLoading(false);
     }
   };
+
+
+  
 
   const handleSaveProfile = async () => {
     // Validation

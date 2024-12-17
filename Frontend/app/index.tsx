@@ -153,14 +153,17 @@ export default function Index() {
             // router.replace("/pages/showAll");
           } else {
             // Invalid token, navigate to login
+            await AsyncStorage.clear();
             router.replace("/login");
           }
         } else {
+          await AsyncStorage.clear();
           // No token found, navigate to login
           router.replace("/login");
         }
       } catch (error) {
         console.error("Error checking authentication:", error);
+        await AsyncStorage.clear();
         router.replace("/login");
       }
     };

@@ -1460,9 +1460,19 @@ const HomeDetails = require('./models/homeDetails');
 
 // Create new home details
 app.post('/home-details', async (req, res) => {
+
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  console.log("Home Details api called");
+
   try {
+
+    const userInfo = await getUserInfo(token);
+
+    const userId = userInfo._id;
+
     const {
-      userId,
+      // userId,
       PropertyType,
       details,
       memberRestriction,
@@ -1473,6 +1483,10 @@ app.post('/home-details', async (req, res) => {
       availability,
       images
     } = req.body;
+
+
+    console.log(req.body);  // Add this line to see the incoming data
+
 
     // Create a new home details document
     const newHomeDetails = new HomeDetails({
@@ -1487,6 +1501,10 @@ app.post('/home-details', async (req, res) => {
       availability,
       images
     });
+
+
+    console.log(newHomeDetails);  // Check if _id is available
+
 
     // Save the new home details to the database
     const savedHomeDetails = await newHomeDetails.save();
