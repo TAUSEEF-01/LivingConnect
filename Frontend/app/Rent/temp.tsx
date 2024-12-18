@@ -546,8 +546,6 @@ import axios from "axios";
 
 const HomeDetailsForm = () => {
   
-
-
   const pickImage = async () => {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -592,7 +590,7 @@ const HomeDetailsForm = () => {
     details: { beds: "", baths: "", size: "", balcony: "", floor: "" },
     memberRestriction: "",
     rent: "",
-    // rentPeriod: "",
+    rentPeriod: "",
     location: { city: "", area: "", sector: "", road: "", houseNumber: "" },
     facilities: {
       garage: false,
@@ -903,6 +901,17 @@ const HomeDetailsForm = () => {
         }}
       />
 
+{/* <Text style={styles.sectionTitle}>Rent Period</Text> */}
+      <RentPeriodRadio
+              formData={formData}
+              handleInputChange={handleInputChange}
+            />
+      
+            {/* Display Selected Value for Debugging
+            <Text style={stylesRadio.debugText}>
+              Selected Rent Period: {formData.rentPeriod || "None"}
+            </Text> */}
+
       {/* 
 <Text style={styles.sectionTitle}>Rent Period</Text>
 <TextInput
@@ -1086,6 +1095,88 @@ const HomeDetailsForm = () => {
     </ScrollView>
   );
 };
+
+
+
+// RentPeriodRadio Component
+const RentPeriodRadio = ({ formData, handleInputChange }) => {
+  const options = ["daily", "weekly", "monthly", "yearly"];
+
+  return (
+    <View style={stylesRadio.inputContainer}>
+      <Text style={stylesRadio.sectionTitle}>Rent Period</Text>
+      {options.map((option) => (
+        <TouchableOpacity
+          key={option}
+          style={stylesRadio.radioContainer}
+          onPress={() => handleInputChange("rentPeriod", option)}
+        >
+          <View style={stylesRadio.radioCircle}>
+            {formData.rentPeriod === option && (
+              <View style={stylesRadio.radioSelected} />
+            )}
+          </View>
+          <Text style={stylesRadio.radioLabel}>{option.charAt(0).toUpperCase() + option.slice(1)}</Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+};
+
+
+
+const stylesRadio = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    padding: 16,
+  },
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 8,
+  },
+  inputContainer: {
+    marginBottom: 24,
+  },
+  radioContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  radioCircle: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#007BFF",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 10,
+  },
+  radioSelected: {
+    height: 10,
+    width: 10,
+    borderRadius: 5,
+    backgroundColor: "#007BFF",
+  },
+  radioLabel: {
+    fontSize: 16,
+    color: "#333",
+  },
+  debugText: {
+    marginTop: 16,
+    fontSize: 16,
+    color: "#333",
+  },
+});
+
+
 
 const styles = StyleSheet.create({
   container: {
