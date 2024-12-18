@@ -582,6 +582,15 @@ const HomeDetailsForm = () => {
   };
   
 
+
+  // Function to remove an image by index
+  const removeImage = (indexToRemove) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      images: prevState.images.filter((_, index) => index !== indexToRemove),
+    }));
+  };
+
 // image upload end
 
   const [formData, setFormData] = useState({
@@ -1070,15 +1079,48 @@ const HomeDetailsForm = () => {
       
 
 
-      <View style={stylesImages.imageContainer}>
+      {/* <View style={stylesImages.imageContainer}>
   {formData.images.length > 0 ? (
     <ScrollView horizontal>
       {formData.images.map((image, index) => (
-        <Image
+        <><Image
           key={index}
           source={{ uri: image }}
-          style={stylesImages.uploadedImage}
-        />
+          // style={stylesImages.uploadedImage} />
+          style={stylesImages.imagePreview} />
+          
+          <TouchableOpacity
+            style={stylesImages.cancelButton}
+            onPress={() => removeImage(index)}
+          >
+            <Text style={stylesImages.cancelButtonText}>X</Text>
+          </TouchableOpacity></>
+      ))}
+    </ScrollView>
+  ) : (
+    <Text style={stylesImages.placeholderText}>No images uploaded yet.</Text>
+  )}
+</View> */}
+
+
+
+{/* Display Selected Image Previews */}
+<View style={stylesImages.imageContainer}>
+  {formData.images.length > 0 ? (
+    <ScrollView horizontal>
+      {formData.images.map((image, index) => (
+        <View key={index} style={stylesImages.imageWrapper}>
+          {/* Image Preview */}
+          <Image source={{ uri: image }} style={stylesImages.imagePreview} />
+
+          {/* Cancel Button */}
+          <TouchableOpacity
+            style={stylesImages.cancelButton}
+            onPress={() => removeImage(index)}
+          >
+            <Text style={stylesImages.cancelButtonText}>X</Text>
+          </TouchableOpacity>
+        </View>
       ))}
     </ScrollView>
   ) : (
@@ -1406,5 +1448,24 @@ const stylesImages = StyleSheet.create({
   placeholderText: {
     color: "gray",
     fontSize: 16,
+  },
+
+
+
+  cancelButton: {
+    position: "absolute",
+    top: 5,
+    right: 5,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    borderRadius: 12,
+    width: 24,
+    height: 24,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cancelButtonText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
