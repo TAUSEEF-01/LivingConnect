@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const homeDetails = new mongoose.Schema({
-  // userId: { type: String, required: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: String, required: true },
+  // userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
   PropertyType: {
     type: String, // rent or sale or sublet
@@ -21,10 +21,10 @@ const homeDetails = new mongoose.Schema({
   },
 
   rent: { type: Number, required: true },
-  // rentPeriod: {
-  //   type: String,
-  //   required: true,
-  // },
+  rentPeriod: {
+    type: String,
+    required: true,
+  },
 
   location: {
     city: { type: String, required: true },

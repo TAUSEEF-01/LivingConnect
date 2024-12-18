@@ -1461,15 +1461,23 @@ const HomeDetails = require('./models/homeDetails');
 // Create new home details
 app.post('/home-details', async (req, res) => {
 
+  console.log("Home Details api called");
+
   const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
 
-  console.log("Home Details api called");
+  console.log("Token:", token);
+
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized: No token provided' });
+  }
 
   try {
 
     const userInfo = await getUserInfo(token);
 
-    const userId = userInfo._id;
+    // const userId = userInfo._id;
+    const userId = userInfo.userId;
+
 
     const {
       // userId,
@@ -1511,7 +1519,7 @@ app.post('/home-details', async (req, res) => {
 
     console.log("Saved Home Details!");
 
-    res.status(201).json({
+    res.status(200).json({
       message: 'Home details added successfully',
       homeDetails: savedHomeDetails
     });

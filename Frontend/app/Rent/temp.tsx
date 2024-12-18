@@ -541,6 +541,7 @@ import {
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
+import axios from "axios";
 
 
 const HomeDetailsForm = () => {
@@ -646,21 +647,36 @@ const HomeDetailsForm = () => {
   };
 
   const handleSubmit = async () => {
-    console.log("Payload:", JSON.stringify(formData, null, 2));
+    console.log("Payload:", JSON.stringify(formData));
 
     const token = await AsyncStorage.getItem("userToken");
     
     try {
-      const response = await fetch("http://192.168.50.242:5000/home-details", {
-        method: "POST",
-        headers: { 
-          // "Content-Type": "application/json" 
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      },
-    );
-      if (response.ok) {
+      // const response1 = await fetch("http://192.168.50.242:5000/home-details", {
+      //   method: "POST",
+      //   headers: { 
+      //     // "Content-Type": "application/json" 
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      //   body: JSON.stringify(formData),
+      // },
+
+
+      const response = await axios.post(
+        "http://192.168.50.242:5000/home-details",
+        formData,
+        {
+          
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+
+    // );
+      if (response.status === 200) {
         console.log("Form submitted successfully");
       } else {
         console.error("Submission failed");
@@ -672,7 +688,7 @@ const HomeDetailsForm = () => {
 
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState("rent");
+  const [selectedType, setSelectedType] = useState("Select Property Types");
 
   const propertyTypes = ["rent", "sale", "sublet", "Over a Time period"];
 
@@ -682,6 +698,7 @@ const HomeDetailsForm = () => {
 
   const handleTypeSelect = (type) => {
     setSelectedType(type);
+    formData.PropertyType = type;
     setIsOpen(false);
   };
 
@@ -742,6 +759,7 @@ const HomeDetailsForm = () => {
                         selectedType === type && styles.selectedItemText,
                       ]}
                     >
+                      {/* {formData.PropertyType = type ? type : "rent"} */}
                       {type}
                     </Text>
                   </TouchableOpacity>
