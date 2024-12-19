@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expoApp",
-    "slug": "expoApp",
+    "name": "LivingConnect",
+    "slug": "LivingConnect",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

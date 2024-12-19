@@ -136,7 +136,7 @@ export default function Index() {
         if (token) {
           console.log("Token found in AsyncStorage");
           // Check the token validity using the verify endpoint
-          const response = await axios.get("http://192.168.50.242:5000/verify", {
+          const response = await axios.get("http://192.168.50.242:5000/auth/verify", {
             headers: {
               Authorization: `Bearer ${token}`, // Send token in the Authorization header
               // Authorization: `Bearer ${lol}`, // Send token in the Authorization header
@@ -153,14 +153,17 @@ export default function Index() {
             // router.replace("/pages/showAll");
           } else {
             // Invalid token, navigate to login
+            await AsyncStorage.clear();
             router.replace("/login");
           }
         } else {
+          await AsyncStorage.clear();
           // No token found, navigate to login
           router.replace("/login");
         }
       } catch (error) {
         console.error("Error checking authentication:", error);
+        await AsyncStorage.clear();
         router.replace("/login");
       }
     };

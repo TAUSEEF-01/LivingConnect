@@ -19,7 +19,7 @@ export default function Profile() {
         // }
 
         // Fetch user data
-        const response = await axios.get("http://192.168.50.242:5000/verify", {
+        const response = await axios.get("http://192.168.50.242:5000/auth/verify", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -61,7 +61,7 @@ export default function Profile() {
               // Call backend to invalidate session (optional)
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
-                await axios.post("http://192.168.50.242:5000/logout", {}, {
+                await axios.post("http://192.168.50.242:5000/auth/logout", {}, {
                   headers: { Authorization: `Bearer ${token}` },
                 });
               }

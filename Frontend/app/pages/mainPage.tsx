@@ -1642,8 +1642,9 @@ import { router, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import styles from "../../styles";
-
 import SidePanel from "../sidePanel/sidePanel";
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 
 // const SidePanel = ({ isVisible, onClose }) => {
 //   const handleLogout = async () => {
@@ -1737,6 +1738,7 @@ export default function MainPage() {
 
   const handleShowAllPress = async () => {
     router.push("/pages/showAll");
+    // router.push("/pages/temp");
     // router.replace("/pages/showAll");
   };
 
@@ -1753,6 +1755,16 @@ export default function MainPage() {
   const handleSubletPress = async () => {
     router.push("/pages/categorySublet");
     // router.replace("/pages/showAll");
+  };
+
+  const handleRentAHomePress = async () => {
+    router.push("/Rent/rentAHome");
+    // router.replace("/Rent/rentAHome");
+  };
+
+  const handleProvideServicesPress = async () => {
+    router.push("/services/deliveryServices");
+    // router.replace("/services/deliveryServices");
   };
 
   const [properties, setProperties] = useState([]);
@@ -1863,6 +1875,7 @@ export default function MainPage() {
             </Text>
           </TouchableOpacity>
 
+
           <TouchableOpacity
             style={[
               localStyles.tab,
@@ -1882,6 +1895,7 @@ export default function MainPage() {
             </Text>
           </TouchableOpacity>
 
+
           <TouchableOpacity
             style={[
               localStyles.tab,
@@ -1900,18 +1914,61 @@ export default function MainPage() {
           </TouchableOpacity>
         </View>
 
+
         {/* Filter */}
         <View style={localStyles.filter}>
           <View style={localStyles.filterOptions}>
-            <TouchableOpacity style={localStyles.filterButton} onPress={handleHomePress}>
+            {/* <TouchableOpacity
+              style={localStyles.filterButton}
+              onPress={handleHomePress}
+            >
               <Text style={localStyles.filterButtonText}>Home</Text>
             </TouchableOpacity>
+
+
             <TouchableOpacity style={localStyles.filterButton}>
-              <Text style={localStyles.filterButtonText} onPress={handleApartmentPress}>Apartment</Text>
-            </TouchableOpacity>
+              <Text
+                style={localStyles.filterButtonText}
+                onPress={handleApartmentPress}
+              >
+                Apartment
+              </Text>
+            </TouchableOpacity> 
+            
             <TouchableOpacity style={localStyles.filterButton}>
-              <Text style={localStyles.filterButtonText} onPress={handleSubletPress}>Sublet</Text>
+              <Text
+                style={localStyles.filterButtonText}
+                onPress={handleSubletPress}
+              >
+                Sublet
+              </Text>
+            </TouchableOpacity> */}
+
+
+            <TouchableOpacity style={localStyles.filterButton}>
+              
+              {/* <Text style={localStyles.plusButton}>+</Text> */}
+              <Ionicons name="add-circle-outline" style={localStyles.plusButton} />
+              <Text
+              style={localStyles.filterButtonText}
+              onPress={handleRentAHomePress}
+              >
+                Add Home
+              </Text>
             </TouchableOpacity>
+
+
+            <TouchableOpacity style={localStyles.filterButton}>
+              {/* <Text style={localStyles.plusButton}>+</Text> */}
+              <Ionicons name="add-circle-outline" style={localStyles.plusButton} />
+              <Text
+                style={localStyles.filterButtonText}
+                onPress={handleProvideServicesPress}
+              >
+                Add Service
+              </Text>
+            </TouchableOpacity>
+            
             {/* <TouchableOpacity style={localStyles.filterButton}>
               <Text style={localStyles.filterButtonText}>Hotel</Text>
             </TouchableOpacity> */}
@@ -2006,7 +2063,6 @@ export default function MainPage() {
             <Text style={localStyles.categories}>Apartment</Text>
           </TouchableOpacity>
           <ScrollView horizontal style={localStyles.cardContainer}>
-            
             {Array.isArray(properties) && properties.length > 0 ? (
               properties.map((property) => (
                 <View key={property._id} style={localStyles.card}>
@@ -2031,12 +2087,12 @@ export default function MainPage() {
             )}
           </ScrollView>
 
-
           <TouchableOpacity onPress={handleSubletPress}>
             <Text style={localStyles.categories}>Sublet</Text>
           </TouchableOpacity>
-          <ScrollView horizontal style={localStyles.cardContainer}>
 
+
+          <ScrollView horizontal style={localStyles.cardContainer}>
             {Array.isArray(properties) && properties.length > 0 ? (
               properties.map((property) => (
                 <View key={property._id} style={localStyles.card}>
@@ -2168,16 +2224,27 @@ const localStyles = StyleSheet.create({
   filterOptions: {
     flexDirection: "row",
     justifyContent: "space-between",
+    // justifyContent: "space-around",
     marginBottom: 12,
+  },
+  plusButton: {
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    color: '#fff',
+    textAlign: "center",
+    marginBottom: 1,
   },
   filterButton: {
     // backgroundColor: "grey",
     backgroundColor: "#38bdf8",
     paddingHorizontal: 16,
     paddingVertical: 12,
+    // paddingBottom: 12,
+    // paddingTop: 1,
+
     borderRadius: 8,
     // width: 115,
-    width: "32%",
+    width: "49%",
     marginBottom: 1,
     marginTop: 1,
   },
@@ -2196,7 +2263,8 @@ const localStyles = StyleSheet.create({
   },
   filterActions: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    // justifyContent: "space-around",
+    justifyContent: "space-between",
     marginTop: 12,
   },
   actionButton: {
@@ -2204,7 +2272,7 @@ const localStyles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     borderRadius: 8,
-    width: "48%",
+    width: "49%",
     marginBottom: 1,
     marginTop: 1,
   },

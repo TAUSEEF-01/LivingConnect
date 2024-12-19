@@ -627,7 +627,7 @@ const SidePanel = ({ isVisible, onClose }) => {
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
                 await axios.post(
-                  "http://192.168.50.242:5000/logout",
+                  "http://192.168.50.242:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -794,7 +794,7 @@ export default function MainPage() {
       <TouchableOpacity onPress={toggleSidePanel}>
           <View style={localStyles.menuIcon}></View>
         </TouchableOpacity>
-        <Text style={localStyles.logo}>Fast Home App</Text>
+        <Text style={localStyles.logo}>Living Connect</Text>
       </View>
 
       {isSidePanelVisible && (

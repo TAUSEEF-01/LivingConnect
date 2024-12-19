@@ -211,7 +211,7 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
                 await axios.post(
-                  "http://192.168.50.242:5000/logout",
+                  "http://192.168.50.242:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -270,13 +270,18 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
         <TouchableOpacity
           style={localStyles.rentAHome}
           onPress={() => router.push("/Rent/rentAHome")}
+          // onPress={() => router.push("/Rent/temp")}
+          // onPress={() => router.push("/Rent/testImageUpload")}
         >
           <Text style={localStyles.buttonText}>Rent A Home</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={localStyles.provideServices}
-          onPress={() => router.push("/services/deliveryServices")}
+          // onPress={() => router.push("/services/deliveryServices")}
+          // onPress={() => router.push("/Rent/rentAHome")}
+          onPress={() => router.push("/pages/HomeInfoPage/homeDetailsShowPage")}
+          // onPress={() => router.push("/Rent/testImageUpload")}
         >
           <Text style={localStyles.buttonText}>Provide Services</Text>
         </TouchableOpacity>
