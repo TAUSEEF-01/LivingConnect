@@ -16,6 +16,7 @@ const homeDetails = new mongoose.Schema({
     balcony: { type: Number, required: true },
     floor: { type: Number },
   },
+  
   memberRestriction: {
     type: String,
   },

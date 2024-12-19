@@ -1,30 +1,199 @@
+// import React, { useEffect, useState } from "react";
+// import {
+//   View,
+//   Text,
+//   ScrollView,
+//   StyleSheet,
+//   Image,
+//   ActivityIndicator,
+//   Alert,
+// } from "react-native";
+// import axios from "axios";
+
+// const HomeDetailsPage = () => {
+//   const [home, setHome] = useState(null); // To store the single home object
+//   const [loading, setLoading] = useState(true);
+
+//   // Fetch home details from the backend
+//   const fetchHomeDetails = async () => {
+//     try {
+//       const response = await axios.get(
+//         "http://192.168.50.242:5000/houseDetails/get-homes-details/67641be675a585b5610f677c"
+//       );
+//       console.log(response.data); // Log response to verify structure
+//       setHome(response.data); // Set the home data
+//     } catch (error) {
+//       Alert.alert("Error", "Failed to fetch home details.");
+//       console.error(error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchHomeDetails();
+//   }, []);
+
+//   if (loading) {
+//     return (
+//       <View style={styles.loaderContainer}>
+//         <ActivityIndicator size="large" color="#007BFF" />
+//       </View>
+//     );
+//   }
+
+//   if (!home) {
+//     return (
+//       <View style={styles.noDataContainer}>
+//         <Text style={styles.noDataText}>No home details found.</Text>
+//       </View>
+//     );
+//   }
+
+//   return (
+//     <ScrollView style={styles.container}>
+//       <View style={styles.card}>
+//         {/* Property Type and Rent */}
+//         <Text style={styles.title}>
+//           {home.PropertyType} - ${home.rent} ({home.rentPeriod})
+//         </Text>
+//         {/* Location */}
+//         <Text style={styles.subtitle}>
+//           {home.location.city}, {home.location.area}, {home.location.road}
+//         </Text>
+//         {/* Details */}
+//         <Text style={styles.details}>
+//           Beds: {home.details.beds}, Baths: {home.details.baths}, Size:{" "}
+//           {home.details.size || "N/A"} sq.m.
+//         </Text>
+//         <Text style={styles.details}>
+//           Balcony: {home.details.balcony}, Floor:{" "}
+//           {home.details.floor || "N/A"}
+//         </Text>
+//         {/* Availability */}
+//         <Text style={styles.details}>
+//           Available:{" "}
+//           {new Date(home.availability.from).toLocaleDateString()} -{" "}
+//           {new Date(home.availability.to).toLocaleDateString()}
+//         </Text>
+//         {/* Facilities */}
+//         <Text style={styles.details}>
+//           Member Restriction: {home.memberRestriction || "None"}
+//         </Text>
+//         {/* Images */}
+//         <ScrollView horizontal style={styles.imageScroll}>
+//           {home.images.map((image, index) => (
+//             <Image
+//               key={index}
+//               source={{ uri: image }} // Replace `image` with full URL if needed
+//               style={styles.image}
+//             />
+//           ))}
+//         </ScrollView>
+//       </View>
+//     </ScrollView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 16,
+//     backgroundColor: "#f9f9f9",
+//   },
+//   loaderContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   noDataContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   noDataText: {
+//     fontSize: 16,
+//     color: "#555",
+//   },
+//   card: {
+//     backgroundColor: "#fff",
+//     padding: 16,
+//     borderRadius: 8,
+//     marginBottom: 16,
+//     shadowColor: "#000",
+//     shadowOpacity: 0.1,
+//     shadowRadius: 4,
+//     shadowOffset: { width: 0, height: 2 },
+//     elevation: 3,
+//   },
+//   title: {
+//     fontSize: 18,
+//     fontWeight: "bold",
+//     marginBottom: 8,
+//   },
+//   subtitle: {
+//     fontSize: 14,
+//     color: "#555",
+//     marginBottom: 8,
+//   },
+//   details: {
+//     fontSize: 14,
+//     marginBottom: 4,
+//   },
+//   imageScroll: {
+//     marginTop: 8,
+//   },
+//   image: {
+//     width: 100,
+//     height: 100,
+//     borderRadius: 8,
+//     marginRight: 8,
+//   },
+// });
+
+// export default HomeDetailsPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  ScrollView,
   StyleSheet,
+  ScrollView,
   Image,
   ActivityIndicator,
   Alert,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocalSearchParams } from "expo-router";
 import axios from "axios";
 
 const HomeDetailsPage = () => {
-  const [home, setHome] = useState(null); // To store the single home object
+  const { homeId } = useLocalSearchParams(); // Get homeId from router params
+  const [home, setHome] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch home details from the backend
   const fetchHomeDetails = async () => {
     try {
+      if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/get-homes-details/67641be675a585b5610f677c"
+        `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
       );
-      console.log(response.data); // Log response to verify structure
-      setHome(response.data); // Set the home data
+      setHome(response.data);
     } catch (error) {
       Alert.alert("Error", "Failed to fetch home details.");
-      console.error(error);
+      console.error("Error fetching home details:", error);
     } finally {
       setLoading(false);
     }
@@ -32,7 +201,7 @@ const HomeDetailsPage = () => {
 
   useEffect(() => {
     fetchHomeDetails();
-  }, []);
+  }, [homeId]);
 
   if (loading) {
     return (
@@ -44,110 +213,189 @@ const HomeDetailsPage = () => {
 
   if (!home) {
     return (
-      <View style={styles.noDataContainer}>
-        <Text style={styles.noDataText}>No home details found.</Text>
+      <View style={styles.loaderContainer}>
+        <Text style={styles.errorText}>Home details not found</Text>
       </View>
     );
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.card}>
-        {/* Property Type and Rent */}
-        <Text style={styles.title}>
-          {home.PropertyType} - ${home.rent} ({home.rentPeriod})
+    // <ScrollView style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+      {/* Header */}
+      <Text style={styles.title}>{home?.PropertyType.toUpperCase() || "N/A"}</Text>
+      <Text style={styles.rent}>
+        Rent: {home?.rent || 0} Tk ({home?.rentPeriod || "N/A"})
+      </Text>
+
+      {/* Image Gallery */}
+      <ScrollView horizontal style={styles.imageContainer}>
+        {home?.images?.map((image, index) => (
+          <Image
+            key={index}
+            source={{ uri: image }}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        )) || (
+          <Text style={styles.errorText}>No images available</Text>
+        )}
+
+      </ScrollView>
+
+
+      <View> 
+        <Text style={styles.imageText}>Images ({home?.images?.length || 0})</Text>
+      </View> 
+      
+        <View style ={styles.infoSection}>
+      {/* Location Details */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Location</Text>
+        <Text style={styles.text}>
+          {home?.location?.city || "N/A"}, {home?.location?.area || "N/A"}
         </Text>
-        {/* Location */}
-        <Text style={styles.subtitle}>
-          {home.location.city}, {home.location.area}, {home.location.road}
+        <Text style={styles.text}>
+          Road: {home?.location?.road || "N/A"}, House:{" "}
+          {home?.location?.houseNumber || "N/A"}
         </Text>
-        {/* Details */}
-        <Text style={styles.details}>
-          Beds: {home.details.beds}, Baths: {home.details.baths}, Size:{" "}
-          {home.details.size || "N/A"} sq.m.
+      </View>
+
+      {/* Property Details */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Property Details</Text>
+        <Text style={styles.text}>Beds: {home?.details?.beds || 0}</Text>
+        <Text style={styles.text}>Baths: {home?.details?.baths || 0}</Text>
+        <Text style={styles.text}>
+          Size: {home?.details?.size || "N/A"} sq.m.
         </Text>
-        <Text style={styles.details}>
-          Balcony: {home.details.balcony}, Floor:{" "}
-          {home.details.floor || "N/A"}
+        <Text style={styles.text}>
+          Balcony: {home?.details?.balcony || 0}
         </Text>
-        {/* Availability */}
-        <Text style={styles.details}>
-          Available:{" "}
-          {new Date(home.availability.from).toLocaleDateString()} -{" "}
-          {new Date(home.availability.to).toLocaleDateString()}
+        <Text style={styles.text}>Floor:{" "}
+          {home?.details?.floor || "N/A"}
         </Text>
-        {/* Facilities */}
-        <Text style={styles.details}>
-          Member Restriction: {home.memberRestriction || "None"}
+      </View>
+
+      {/* Facilities */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Facilities</Text>
+        {/* <Text style={styles.text}>
+          {Object.entries(home?.facitlities || {})
+            .filter(([_, value]) => value)
+            .map(([key]) => key.replace(/([A-Z])/g, " $1"))
+            .join("\n") || "None"}
+        </Text> */}
+
+        <Text style={styles.text}>
+          {Object.entries(home?.facitlities || {})
+            .map(([key, value]) => `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`)
+            .join("\n") || "None"}
         </Text>
-        {/* Images */}
-        <ScrollView horizontal style={styles.imageScroll}>
-          {home.images.map((image, index) => (
-            <Image
-              key={index}
-              source={{ uri: image }} // Replace `image` with full URL if needed
-              style={styles.image}
-            />
-          ))}
-        </ScrollView>
+      </View>
+
+      {/* Availability */}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Availability</Text>
+        <Text style={styles.text}>
+          From:{" "}
+          {home?.availability?.from
+            ? new Date(home.availability.from).toLocaleDateString()
+            : "N/A"}
+        </Text>
+        <Text style={styles.text}>
+          To:{" "}
+          {home?.availability?.to
+            ? new Date(home.availability.to).toLocaleDateString()
+            : "N/A"}
+        </Text>
+      </View>
       </View>
     </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: "#f9f9f9",
+    // padding: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 10,
+    backgroundColor: "black",
   },
   loaderContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  noDataContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  title: {
+    // marginTop: 20,
+    textAlign: "center",
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#38bdf8",
+    marginBottom: 12,
   },
-  noDataText: {
-    fontSize: 16,
-    color: "#555",
+  rent: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#fa0269",
+    marginBottom: 16,
   },
-  card: {
-    backgroundColor: "#fff",
+  imageContainer: {
+    // alignContent: "center",
+    alignSelf: "center",
+    marginBottom: 8,
+    flexDirection: "row",
+  },
+  image: {
+    alignContent: "center",
+    width: 350,
+    height: 200,
+    borderRadius: 8,
+    marginRight: 12,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
+  imageText: {
+    textAlign: "center",
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#fff",
+    marginBottom: 14,
+  },
+  section: {
+    // borderBottomWidth: 1,
+    marginBottom: 20,
+    backgroundColor: "#2d3748",
     padding: 16,
     borderRadius: 8,
-    marginBottom: 16,
-    shadowColor: "#000",
+    shadowColor: "#fff",
     shadowOpacity: 0.1,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
     elevation: 3,
   },
-  title: {
-    fontSize: 18,
+  sectionTitle: {
+    fontSize: 20,
     fontWeight: "bold",
+    color: "#fff",
     marginBottom: 8,
   },
-  subtitle: {
-    fontSize: 14,
-    color: "#555",
-    marginBottom: 8,
+  text: {
+    fontSize: 16,
+    color: "#faf5f5",
+    lineHeight: 24,
   },
-  details: {
-    fontSize: 14,
-    marginBottom: 4,
+  errorText: {
+    fontSize: 16,
+    color: "#666",
   },
-  imageScroll: {
+  infoSection: {
     marginTop: 8,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
-    marginRight: 8,
+    // marginBottom: 10,
   },
 });
 

@@ -1021,6 +1021,12 @@ const HomeDetailsForm = () => {
         handleInputChange={handleInputChange}
       />
 
+
+      <MemberRestrictions
+        formData={formData}
+        handleInputChange={handleInputChange}
+      />
+
       {/* Location */}
       <Text style={styles.sectionTitle}>Location</Text>
       {["city", "area", "sector", "road", "houseNumber"].map((field) => (
@@ -1157,6 +1163,34 @@ const RentPeriodRadio = ({ formData, handleInputChange }) => {
           key={option}
           style={stylesRadio.radioContainer}
           onPress={() => handleInputChange("rentPeriod", option)}
+        >
+          <View style={stylesRadio.radioCircle}>
+            {formData.rentPeriod === option && (
+              <View style={stylesRadio.radioSelected} />
+            )}
+          </View>
+          <Text style={stylesRadio.radioLabel}>
+            {option.charAt(0).toUpperCase() + option.slice(1)}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+  );
+};
+
+
+// RentPeriodRadio Component
+const MemberRestrictions = ({ formData, handleInputChange }) => {
+  const options = ["No Restriction", "Only Family", "Only Male", "Only Female"];
+
+  return (
+    <View style={stylesRadio.inputContainer}>
+      <Text style={stylesRadio.sectionTitle}>Member Restriction</Text>
+      {options.map((option) => (
+        <TouchableOpacity
+          key={option}
+          style={stylesRadio.radioContainer}
+          onPress={() => handleInputChange("memberRestriction", option)}
         >
           <View style={stylesRadio.radioCircle}>
             {formData.rentPeriod === option && (

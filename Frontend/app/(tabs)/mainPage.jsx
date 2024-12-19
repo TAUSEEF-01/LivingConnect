@@ -794,7 +794,7 @@ export default function MainPage() {
       <TouchableOpacity onPress={toggleSidePanel}>
           <View style={localStyles.menuIcon}></View>
         </TouchableOpacity>
-        <Text style={localStyles.logo}>Fast Home App</Text>
+        <Text style={localStyles.logo}>Living Connect</Text>
       </View>
 
       {isSidePanelVisible && (

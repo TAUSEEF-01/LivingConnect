@@ -1645,10 +1645,10 @@ app.use(routes);
 
 // Endpoint to get all properties
 app.get('/properties', async (req, res) => {
-  console.log("Request received at /api/properties endpoint");
+  console.log("Request received at /properties endpoint");
 
   try {
-    // console.log("Request received at /api/properties endpoint");
+    // console.log("Request received at /properties endpoint");
     const properties = await Property.find();
     res.status(200).json({ message: "Done!", properties});
   } catch (error) {
