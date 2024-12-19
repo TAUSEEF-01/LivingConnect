@@ -306,6 +306,8 @@ export default function PropertyList() {
             />
           </View>
         </View>
+
+
         <View style={styles.container}>
           {/* Header */}
           <View style={styles.header}>
@@ -346,20 +348,20 @@ export default function PropertyList() {
             <Text style={styles.cardSubText}>Aradippou, Larnaca</Text>
             <Text style={styles.cardFooter}>Presented by La Mer Estates</Text>
           </View>
-        </View>
-
-        <View style={styles.card}>
-          <Image
-            source={{ uri: 'https://via.placeholder.com/300x150' }}
-            style={styles.cardImage}
-          />
-          <View style={styles.cardContent}>
-            <Text style={styles.cardTitle}>€200,000 plus VAT</Text>
-            <Text style={styles.cardSubText}>2 bed | 75 m²</Text>
-            <Text style={styles.cardSubText}>City Center, Nicosia</Text>
-            <Text style={styles.cardFooter}>Presented by City Homes</Text>
           </View>
-        </View> */}
+
+          <View style={styles.card}>
+            <Image
+              source={{ uri: 'https://via.placeholder.com/300x150' }}
+              style={styles.cardImage}
+            />
+            <View style={styles.cardContent}>
+              <Text style={styles.cardTitle}>€200,000 plus VAT</Text>
+              <Text style={styles.cardSubText}>2 bed | 75 m²</Text>
+              <Text style={styles.cardSubText}>City Center, Nicosia</Text>
+              <Text style={styles.cardFooter}>Presented by City Homes</Text>
+            </View>
+          </View> */}
 
             {/* <Text>Property List</Text> */}
             {Array.isArray(properties) && properties.length > 0 ? (
@@ -454,7 +456,6 @@ const styles = StyleSheet.create({
     // marginBottom: 1,
     // marginTop: 1
   },
-
 
   filterContainer: {
     padding: 16,
