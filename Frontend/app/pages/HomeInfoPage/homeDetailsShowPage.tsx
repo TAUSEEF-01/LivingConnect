@@ -278,6 +278,13 @@ const HomeDetailsPage = () => {
         </Text>
       </View>
 
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Member Restrictions</Text>
+        <Text style={styles.memberRestriction}>
+        {home?.memberRestriction || "N/A"}
+      </Text>
+      </View>
+
       {/* Facilities */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Facilities</Text>
@@ -383,6 +390,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     marginBottom: 8,
+  },
+  memberRestriction: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#02eefa",
+    marginBottom: 16,
   },
   text: {
     fontSize: 16,

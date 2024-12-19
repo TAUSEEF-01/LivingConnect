@@ -904,7 +904,7 @@ const HomeDetailsForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("Select Property Types");
 
-  const propertyTypes = ["rent", "sale", "sublet", "Over a Time period"];
+  const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -1153,7 +1153,7 @@ export default HomeDetailsForm;
 
 // RentPeriodRadio Component
 const RentPeriodRadio = ({ formData, handleInputChange }) => {
-  const options = ["daily", "weekly", "monthly", "yearly"];
+  const options = ["Daily", "Weekly", "Monthly", "Yearly"];
 
   return (
     <View style={stylesRadio.inputContainer}>

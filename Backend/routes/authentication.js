@@ -3,16 +3,12 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-
-const User = require("../models/userModel"); // Import the User model
-const Session = require("../models/sessionModel"); // Ensure correct import
-
+const User = require("../models/userModelDB"); // Import the User model
+const Session = require("../models/sessionModelDB"); // Ensure correct import
 
 const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
 const { getUserInfo } = require("../utils/getUserInfo");
-
-
 
 // register endpoint
 router.post("/register", async (req, res) => {
@@ -70,7 +66,7 @@ router.post("/login", async (req, res) => {
 
     // Save the token in the session model
     await Session.create({ userId: user._id, token });
-    
+
     // await AsyncStorage.setItem("userToken", token);
     // const keys = await AsyncStorage.getAllKeys();
     // console.log("AsyncStorage keys:", keys); // Logs all keys in AsyncStorage

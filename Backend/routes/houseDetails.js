@@ -3,9 +3,9 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const User = require("../models/userModel"); // Import the User model
-const Session = require("../models/sessionModel"); // Ensure correct import
-const HomeDetails = require("../models/homeDetails");
+const User = require("../models/userModelDB"); // Import the User model
+const Session = require("../models/sessionModelDB"); // Ensure correct import
+const HomeDetails = require("../models/homeDetailsDB");
 
 const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
@@ -22,12 +22,10 @@ router.post("/updateHomeDetails", async (req, res) => {
     );
 
     if (updatedHomeDetails) {
-      res
-        .status(200)
-        .json({
-          message: "Home details updated successfully!",
-          data: updatedHomeDetails,
-        });
+      res.status(200).json({
+        message: "Home details updated successfully!",
+        data: updatedHomeDetails,
+      });
     } else {
       res.status(400).json({ message: "Failed to update home details" });
     }
@@ -116,7 +114,6 @@ router.get("/get-homes-details/:id", async (req, res) => {
   }
 });
 
-
 // Endpoint to fetch all home details
 router.get("/get-all-Homes-details", async (req, res) => {
   try {
@@ -126,6 +123,5 @@ router.get("/get-all-Homes-details", async (req, res) => {
     res.status(500).json({ message: "Error fetching home details", error });
   }
 });
-
 
 module.exports = router;

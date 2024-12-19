@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/userModel'); // Import your User model
+const jwt = require("jsonwebtoken");
+const User = require("../models/userModelDB"); // Import your User model
 
 // Secret key for JWT (ensure this is securely stored in an environment variable)
 // const secretKey = process.env.JWT_SECRET || "abc@123";
@@ -15,10 +15,10 @@ const getUserInfo = async (token) => {
     const userId = decoded.id;
 
     // Fetch user details from the database
-    const user = await User.findById(userId, 'email _id'); // Only retrieve email and _id
+    const user = await User.findById(userId, "email _id"); // Only retrieve email and _id
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     // Return the email and userId
@@ -26,11 +26,11 @@ const getUserInfo = async (token) => {
       email: user.email,
       userId: user._id,
       contactNumber: user.contactNumber,
-      profileImage: user.profileImage
+      profileImage: user.profileImage,
     };
   } catch (error) {
-    console.error('Error decoding token or fetching user:', error.message);
-    throw new Error('Invalid or expired token');
+    console.error("Error decoding token or fetching user:", error.message);
+    throw new Error("Invalid or expired token");
   }
 };
 

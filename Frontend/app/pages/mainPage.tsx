@@ -1643,8 +1643,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import styles from "../../styles";
 import SidePanel from "../sidePanel/sidePanel";
-import Ionicons from '@expo/vector-icons/Ionicons';
-
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 // const SidePanel = ({ isVisible, onClose }) => {
 //   const handleLogout = async () => {
@@ -1758,11 +1757,14 @@ export default function MainPage() {
   };
 
   const handleRentAHomePress = async () => {
-    router.push("/Rent/rentAHome");
-    // router.replace("/Rent/rentAHome");
+  // const handleRentAHomePress = () => {
+
+    router.push("/Rent/rentAHomeForm");
+    // router.replace("/Rent/rentAHomeForm");
   };
 
   const handleProvideServicesPress = async () => {
+    // const handleProvideServicesPress = () => {
     router.push("/services/deliveryServices");
     // router.replace("/services/deliveryServices");
   };
@@ -1875,7 +1877,6 @@ export default function MainPage() {
             </Text>
           </TouchableOpacity>
 
-
           <TouchableOpacity
             style={[
               localStyles.tab,
@@ -1895,7 +1896,6 @@ export default function MainPage() {
             </Text>
           </TouchableOpacity>
 
-
           <TouchableOpacity
             style={[
               localStyles.tab,
@@ -1913,7 +1913,6 @@ export default function MainPage() {
             </Text>
           </TouchableOpacity>
         </View>
-
 
         {/* Filter */}
         <View style={localStyles.filter}>
@@ -1944,31 +1943,40 @@ export default function MainPage() {
               </Text>
             </TouchableOpacity> */}
 
-
             <TouchableOpacity style={localStyles.filterButton}>
-              
               {/* <Text style={localStyles.plusButton}>+</Text> */}
-              <Ionicons name="add-circle-outline" style={localStyles.plusButton} />
+              <Ionicons
+                name="add-circle-outline"
+                style={localStyles.plusButton}
+              />
               <Text
-              style={localStyles.filterButtonText}
-              onPress={handleRentAHomePress}
+                style={localStyles.filterButtonText}
+                onPress={() => {
+                  handleRentAHomePress(),
+                  console.log("Rent a Home button pressed")
+                }}
               >
                 Add Home
               </Text>
             </TouchableOpacity>
 
-
             <TouchableOpacity style={localStyles.filterButton}>
               {/* <Text style={localStyles.plusButton}>+</Text> */}
-              <Ionicons name="add-circle-outline" style={localStyles.plusButton} />
+              <Ionicons
+                name="add-circle-outline"
+                style={localStyles.plusButton}
+              />
               <Text
                 style={localStyles.filterButtonText}
-                onPress={handleProvideServicesPress}
+                onPress={() => {
+                  handleProvideServicesPress(),
+                  console.log("Provide Services button pressed")
+                }}
               >
                 Add Service
               </Text>
             </TouchableOpacity>
-            
+
             {/* <TouchableOpacity style={localStyles.filterButton}>
               <Text style={localStyles.filterButtonText}>Hotel</Text>
             </TouchableOpacity> */}
@@ -2090,7 +2098,6 @@ export default function MainPage() {
           <TouchableOpacity onPress={handleSubletPress}>
             <Text style={localStyles.categories}>Sublet</Text>
           </TouchableOpacity>
-
 
           <ScrollView horizontal style={localStyles.cardContainer}>
             {Array.isArray(properties) && properties.length > 0 ? (
@@ -2228,9 +2235,9 @@ const localStyles = StyleSheet.create({
     marginBottom: 12,
   },
   plusButton: {
-    fontSize: 22, 
-    fontWeight: 'bold', 
-    color: '#fff',
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#fff",
     textAlign: "center",
     marginBottom: 1,
   },

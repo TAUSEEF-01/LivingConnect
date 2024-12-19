@@ -3,8 +3,8 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const User = require("../models/userModel"); // Import the User model
-const Session = require("../models/sessionModel"); // Ensure correct import
+const User = require("../models/userModelDB"); // Import the User model
+const Session = require("../models/sessionModelDB"); // Ensure correct import
 
 const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
