@@ -1736,7 +1736,8 @@ export default function MainPage() {
   };
 
   const handleShowAllPress = async () => {
-    router.push("/pages/showAll");
+    // router.push("/pages/showAll");
+    router.push("/pages/temp");
     // router.replace("/pages/showAll");
   };
 

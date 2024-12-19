@@ -116,4 +116,16 @@ router.get("/get-homes-details/:id", async (req, res) => {
   }
 });
 
+
+// Endpoint to fetch all home details
+router.get("/get-all-Homes-details", async (req, res) => {
+  try {
+    const homes = await HomeDetails.find({});
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
+  }
+});
+
+
 module.exports = router;
