@@ -782,6 +782,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import axios from "axios";
+import { router } from "expo-router";
 
 const HomeDetailsForm = () => {
   const pickImage = async () => {
@@ -876,7 +877,7 @@ const HomeDetailsForm = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/home-details",
+        "http://192.168.50.242:5000/houseDetails/home-details",
         formData,
         {
           headers: {
@@ -889,6 +890,7 @@ const HomeDetailsForm = () => {
       // );
       if (response.status === 200) {
         console.log("Form submitted successfully");
+        router.replace("/pages/mainPage");
       } else {
         console.error("Submission failed");
       }

@@ -17,7 +17,7 @@ const HomeDetailsPage = () => {
   // Fetch home details from the backend
   const fetchHomeDetails = async () => {
     try {
-      const response = await axios.get("http://192.168.50.242:5000/get-homes-details/:id");
+      const response = await axios.get("http://192.168.50.242:5000/houseDetails/get-homes-details/:id");
       setHomes(response.data);
     } catch (error) {
       Alert.alert("Error", "Failed to fetch home details.");

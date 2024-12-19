@@ -67,7 +67,7 @@ export default function SignUpScreen() {
       // console.log("here we go1");
 
       // Send registration data to the server
-      const response = await axios.post("http://192.168.50.242:5000/register", {
+      const response = await axios.post("http://192.168.50.242:5000/auth/register", {
         email,
         password,
       });

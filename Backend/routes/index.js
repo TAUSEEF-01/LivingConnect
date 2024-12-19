@@ -7,10 +7,11 @@ router.use("/auth", authenticationRoutes); // Routes from authentication.js
 const profileRoutes = require("./profile");
 router.use("/profile", profileRoutes);
 
+const houseDetailsRoutes = require("./houseDetails");
+router.use("/houseDetails", houseDetailsRoutes);
+
 router.get("/", async (req, res) => {
   res.status(200).json({ message: "Session valid" });
 });
-
-
 
 module.exports = router;

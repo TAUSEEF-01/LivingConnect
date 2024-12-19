@@ -5,128 +5,114 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/userModel"); // Import the User model
 const Session = require("../models/sessionModel"); // Ensure correct import
-const HomeDetails = require('../models/homeDetails');
+const HomeDetails = require("../models/homeDetails");
 
 const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
 const { getUserInfo } = require("../utils/getUserInfo");
 
+router.post("/updateHomeDetails", async (req, res) => {
+  const { userId, images, type, rent, details, location } = req.body;
 
+  try {
+    const updatedHomeDetails = await HomeDetails.findOneAndUpdate(
+      { userId }, // Assuming you're updating by userId, you could use a different approach
+      { images, type, rent, details, location },
+      { new: true, upsert: true } // Upsert: Create if not exists, otherwise update
+    );
 
-
-
-app.post('/updateHomeDetails', async (req, res) => {
-    const { userId, images, type, rent, details, location } = req.body;
-  
-    try {
-      const updatedHomeDetails = await HomeDetails.findOneAndUpdate(
-        { userId },  // Assuming you're updating by userId, you could use a different approach
-        { images, type, rent, details, location },
-        { new: true, upsert: true }  // Upsert: Create if not exists, otherwise update
-      );
-  
-      if (updatedHomeDetails) {
-        res.status(200).json({ message: 'Home details updated successfully!', data: updatedHomeDetails });
-      } else {
-        res.status(400).json({ message: 'Failed to update home details' });
-      }
-    } catch (error) {
-      console.error('Error updating home details:', error);
-      res.status(500).json({ message: 'Internal server error' });
+    if (updatedHomeDetails) {
+      res
+        .status(200)
+        .json({
+          message: "Home details updated successfully!",
+          data: updatedHomeDetails,
+        });
+    } else {
+      res.status(400).json({ message: "Failed to update home details" });
     }
-  });
-  
-  
-  
-  
+  } catch (error) {
+    console.error("Error updating home details:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
-  
 // Create new home details
-app.post('/home-details', async (req, res) => {
+router.post("/home-details", async (req, res) => {
+  console.log("Home Details api called");
 
-    console.log("Home Details api called");
-  
-    const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
-  
-    console.log("Token:", token);
-  
-    if (!token) {
-      return res.status(401).json({ message: 'Unauthorized: No token provided' });
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  console.log("Token:", token);
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    const {
+      // userId,
+      PropertyType,
+      details,
+      memberRestriction,
+      rent,
+      rentPeriod,
+      location,
+      facitlities,
+      availability,
+      images,
+    } = req.body;
+
+    console.log(req.body); // Add this line to see the incoming data
+
+    // Create a new home details document
+    const newHomeDetails = new HomeDetails({
+      userId,
+      PropertyType,
+      details,
+      memberRestriction,
+      rent,
+      rentPeriod,
+      location,
+      facitlities,
+      availability,
+      images,
+    });
+
+    console.log(newHomeDetails); // Check if _id is available
+
+    // Save the new home details to the database
+    const savedHomeDetails = await newHomeDetails.save();
+
+    console.log("Saved Home Details!");
+
+    res.status(200).json({
+      message: "Home details added successfully",
+      homeDetails: savedHomeDetails,
+    });
+  } catch (error) {
+    console.error("Error adding home details:", error);
+    res.status(500).json({
+      message: "Error adding home details",
+      error: error.message,
+    });
+  }
+});
+
+// Endpoint to fetch a single home by ID
+router.get("/get-homes-details/:id", async (req, res) => {
+  try {
+    const home = await HomeDetails.findById(req.params.id);
+    if (!home) {
+      return res.status(404).json({ message: "Home not found" });
     }
-  
-    try {
-  
-      const userInfo = await getUserInfo(token);
-  
-      // const userId = userInfo._id;
-      const userId = userInfo.userId;
-  
-  
-      const {
-        // userId,
-        PropertyType,
-        details,
-        memberRestriction,
-        rent,
-        rentPeriod,
-        location,
-        facitlities,
-        availability,
-        images
-      } = req.body;
-  
-  
-      console.log(req.body);  // Add this line to see the incoming data
-  
-  
-      // Create a new home details document
-      const newHomeDetails = new HomeDetails({
-        userId,
-        PropertyType,
-        details,
-        memberRestriction,
-        rent,
-        rentPeriod,
-        location,
-        facitlities,
-        availability,
-        images
-      });
-  
-  
-      console.log(newHomeDetails);  // Check if _id is available
-  
-  
-      // Save the new home details to the database
-      const savedHomeDetails = await newHomeDetails.save();
-  
-      console.log("Saved Home Details!");
-  
-      res.status(200).json({
-        message: 'Home details added successfully',
-        homeDetails: savedHomeDetails
-      });
-    } catch (error) {
-      console.error('Error adding home details:', error);
-      res.status(500).json({
-        message: 'Error adding home details',
-        error: error.message
-      });
-    }
-  });
-  
-  
-  
-  // Endpoint to fetch a single home by ID
-  app.get("/get-homes-details/:id", async (req, res) => {
-    try {
-      const home = await HomeDetails.findById(req.params.id);
-      if (!home) {
-        return res.status(404).json({ message: "Home not found" });
-      }
-      res.status(200).json(home);
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching home details", error });
-    }
-  });
-  
+    res.status(200).json(home);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
+  }
+});
+
+module.exports = router;

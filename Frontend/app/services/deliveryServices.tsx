@@ -233,7 +233,7 @@ export default function MyImage() {
       }
 
       setLoading(true);
-      const response = await axios.get("http://192.168.50.242:5000/get-profile", {
+      const response = await axios.get("http://192.168.50.242:5000/profile/get-profile", {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
