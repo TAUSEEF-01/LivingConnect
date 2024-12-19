@@ -106,6 +106,7 @@ router.post("/home-details", async (req, res) => {
 router.get("/get-homes-details/:id", async (req, res) => {
   try {
     const home = await HomeDetails.findById(req.params.id);
+    // const home = await HomeDetails.findById("67641db8d20432a2fb09230c");
     if (!home) {
       return res.status(404).json({ message: "Home not found" });
     }

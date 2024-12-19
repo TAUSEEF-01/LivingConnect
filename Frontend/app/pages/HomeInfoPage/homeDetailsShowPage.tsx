@@ -11,14 +11,17 @@ import {
 import axios from "axios";
 
 const HomeDetailsPage = () => {
-  const [homes, setHomes] = useState([]);
+  const [home, setHome] = useState(null); // To store the single home object
   const [loading, setLoading] = useState(true);
 
   // Fetch home details from the backend
   const fetchHomeDetails = async () => {
     try {
-      const response = await axios.get("http://192.168.50.242:5000/houseDetails/get-homes-details/:id");
-      setHomes(response.data);
+      const response = await axios.get(
+        "http://192.168.50.242:5000/houseDetails/get-homes-details/67641be675a585b5610f677c"
+      );
+      console.log(response.data); // Log response to verify structure
+      setHome(response.data); // Set the home data
     } catch (error) {
       Alert.alert("Error", "Failed to fetch home details.");
       console.error(error);
@@ -39,55 +42,55 @@ const HomeDetailsPage = () => {
     );
   }
 
+  if (!home) {
+    return (
+      <View style={styles.noDataContainer}>
+        <Text style={styles.noDataText}>No home details found.</Text>
+      </View>
+    );
+  }
+
   return (
     <ScrollView style={styles.container}>
-      {homes.length > 0 ? (
-        homes.map((home) => (
-          <View key={home._id} style={styles.card}>
-            {/* Property Type and Rent */}
-            <Text style={styles.title}>
-              {home.PropertyType} - ${home.rent} ({home.rentPeriod})
-            </Text>
-            {/* Location */}
-            <Text style={styles.subtitle}>
-              {home.location.city}, {home.location.area}, {home.location.road}
-            </Text>
-            {/* Facilities */}
-            <Text style={styles.details}>
-              Beds: {home.details.beds}, Baths: {home.details.baths}, Size:{" "}
-              {home.details.size || "N/A"} sq.m.
-            </Text>
-            <Text style={styles.details}>
-              Balcony: {home.details.balcony}, Floor: {home.details.floor || "N/A"}
-            </Text>
-            {/* Availability */}
-            <Text style={styles.details}>
-              Available: {new Date(home.availability.from).toLocaleDateString()}{" "}
-              - {new Date(home.availability.to).toLocaleDateString()}
-            </Text>
-            {/* Facilities */}
-            <Text style={styles.details}>
-              Facilities:{" "}
-              {Object.entries(home.facitlities)
-                .filter(([_, value]) => value)
-                .map(([key]) => key)
-                .join(", ") || "None"}
-            </Text>
-            {/* Images */}
-            <ScrollView horizontal style={styles.imageScroll}>
-              {home.images.map((image, index) => (
-                <Image
-                  key={index}
-                  source={{ uri: image }}
-                  style={styles.image}
-                />
-              ))}
-            </ScrollView>
-          </View>
-        ))
-      ) : (
-        <Text style={styles.noData}>No homes found.</Text>
-      )}
+      <View style={styles.card}>
+        {/* Property Type and Rent */}
+        <Text style={styles.title}>
+          {home.PropertyType} - ${home.rent} ({home.rentPeriod})
+        </Text>
+        {/* Location */}
+        <Text style={styles.subtitle}>
+          {home.location.city}, {home.location.area}, {home.location.road}
+        </Text>
+        {/* Details */}
+        <Text style={styles.details}>
+          Beds: {home.details.beds}, Baths: {home.details.baths}, Size:{" "}
+          {home.details.size || "N/A"} sq.m.
+        </Text>
+        <Text style={styles.details}>
+          Balcony: {home.details.balcony}, Floor:{" "}
+          {home.details.floor || "N/A"}
+        </Text>
+        {/* Availability */}
+        <Text style={styles.details}>
+          Available:{" "}
+          {new Date(home.availability.from).toLocaleDateString()} -{" "}
+          {new Date(home.availability.to).toLocaleDateString()}
+        </Text>
+        {/* Facilities */}
+        <Text style={styles.details}>
+          Member Restriction: {home.memberRestriction || "None"}
+        </Text>
+        {/* Images */}
+        <ScrollView horizontal style={styles.imageScroll}>
+          {home.images.map((image, index) => (
+            <Image
+              key={index}
+              source={{ uri: image }} // Replace `image` with full URL if needed
+              style={styles.image}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </ScrollView>
   );
 };
@@ -102,6 +105,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  noDataContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noDataText: {
+    fontSize: 16,
+    color: "#555",
   },
   card: {
     backgroundColor: "#fff",
@@ -136,12 +148,6 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 8,
     marginRight: 8,
-  },
-  noData: {
-    fontSize: 16,
-    color: "#555",
-    textAlign: "center",
-    marginTop: 20,
   },
 });
 
