@@ -904,7 +904,7 @@ const HomeDetailsForm = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("Select Property Types");
 
-  const propertyTypes = ["rent", "sale", "sublet", "Over a Time period"];
+  const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -939,13 +939,17 @@ const HomeDetailsForm = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Home Details</Text>
+      <Text style={styles.title}>Home Details Form</Text>
 
       <Text style={styles.sectionTitle}>Property Type</Text>
+      
       <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
-        <Text style={styles.dropdownText}>{selectedType}</Text>
-        <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
+        <View style={styles.dropdownContent}>
+          <Text style={styles.dropdownText}>{selectedType}  </Text>
+          <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
+        </View>
       </TouchableOpacity>
+      
       {isOpen && (
         <View style={styles.dropdownMenu}>
           {propertyTypes.map((type) => (
@@ -978,6 +982,7 @@ const HomeDetailsForm = () => {
             <TextInput
               style={styles.input}
               placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              placeholderTextColor="#666" // Makes placeholder text white
               keyboardType="numeric"
               value={formData.details[field].toString()}
               onChangeText={(text) =>
@@ -996,6 +1001,7 @@ const HomeDetailsForm = () => {
         style={styles.input}
         keyboardType="numeric" // Only show numeric keyboard
         placeholder="Size (sq meters)"
+        placeholderTextColor="#666" // Makes placeholder text white
         value={formData.details["size"].toString()} // Ensure value is a string
         onChangeText={(value) => {
           const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
@@ -1007,6 +1013,7 @@ const HomeDetailsForm = () => {
       <TextInput
         style={styles.input}
         placeholder="Rent"
+        placeholderTextColor="#666" // Makes placeholder text white
         value={formData.rent.toString()} // Ensure value is a string
         keyboardType="numeric" // Only show numeric keyboard
         onChangeText={(value) => {
@@ -1016,12 +1023,13 @@ const HomeDetailsForm = () => {
       />
 
       {/* <Text style={styles.sectionTitle}>Rent Period</Text> */}
+      <Text style={styles.sectionTitle}>Rent Period</Text>
       <RentPeriodRadio
         formData={formData}
         handleInputChange={handleInputChange}
       />
 
-
+      <Text style={styles.sectionTitle}>Member Restriction</Text>      
       <MemberRestrictions
         formData={formData}
         handleInputChange={handleInputChange}
@@ -1034,6 +1042,7 @@ const HomeDetailsForm = () => {
           key={field}
           style={styles.input}
           placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+          placeholderTextColor="#666" // Makes placeholder text white
           value={formData.location[field]}
           onChangeText={(text) => handleInputChange(`location.${field}`, text)}
         />
@@ -1047,6 +1056,7 @@ const HomeDetailsForm = () => {
             {facility.charAt(0).toUpperCase() + facility.slice(1)}
           </Text>
           <Switch
+            style={styles.switch}
             value={formData.facilities[facility]}
             onValueChange={(value) =>
               handleInputChange(`facilities.${facility}`, value)
@@ -1055,16 +1065,16 @@ const HomeDetailsForm = () => {
         </View>
       ))}
 
-      <View>
-        <Text style={stylesDate.sectionTitle}>Availability</Text>
 
+      <Text style={styles.sectionTitle}>Availability</Text>
+      <View>
         {/* From Date Picker */}
         <TouchableOpacity
           onPress={() => setShowFromPicker(true)}
           style={stylesDate.dateInput}
         >
           <Text style={stylesDate.dateText}>
-            {formData.availability.from || "From (Select Date)"}
+            {formData.availability.from || "Post Date (Select Date)"}
           </Text>
         </TouchableOpacity>
         {showFromPicker && (
@@ -1086,7 +1096,7 @@ const HomeDetailsForm = () => {
           style={stylesDate.dateInput}
         >
           <Text style={stylesDate.dateText}>
-            {formData.availability.to || "To (Select Date)"}
+            {formData.availability.to || "Available From (Select Date)"}
           </Text>
         </TouchableOpacity>
         {showToPicker && (
@@ -1103,8 +1113,7 @@ const HomeDetailsForm = () => {
         )}
       </View>
 
-      <Text style={stylesImages.sectionTitle}>Images</Text>
-
+      <Text style={styles.sectionTitle}>Images</Text>
       {/* Button to Add Images */}
       <TouchableOpacity style={stylesImages.addButton} onPress={pickImage}>
         <Text style={stylesImages.buttonText}>Add Image</Text>
@@ -1153,11 +1162,11 @@ export default HomeDetailsForm;
 
 // RentPeriodRadio Component
 const RentPeriodRadio = ({ formData, handleInputChange }) => {
-  const options = ["daily", "weekly", "monthly", "yearly"];
+  const options = ["Daily", "Weekly", "Monthly", "Yearly"];
 
   return (
     <View style={stylesRadio.inputContainer}>
-      <Text style={stylesRadio.sectionTitle}>Rent Period</Text>
+      {/* <Text style={stylesRadio.sectionTitle}>Rent Period</Text> */}
       {options.map((option) => (
         <TouchableOpacity
           key={option}
@@ -1185,7 +1194,7 @@ const MemberRestrictions = ({ formData, handleInputChange }) => {
 
   return (
     <View style={stylesRadio.inputContainer}>
-      <Text style={stylesRadio.sectionTitle}>Member Restriction</Text>
+      {/* <Text style={stylesRadio.sectionTitle}>Member Restriction</Text> */}
       {options.map((option) => (
         <TouchableOpacity
           key={option}
@@ -1193,7 +1202,7 @@ const MemberRestrictions = ({ formData, handleInputChange }) => {
           onPress={() => handleInputChange("memberRestriction", option)}
         >
           <View style={stylesRadio.radioCircle}>
-            {formData.rentPeriod === option && (
+            {formData.memberRestriction === option && (
               <View style={stylesRadio.radioSelected} />
             )}
           </View>
@@ -1206,31 +1215,109 @@ const MemberRestrictions = ({ formData, handleInputChange }) => {
   );
 };
 
+// const stylesRadio = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     padding: 16,
+//   },
+//   pageTitle: {
+//     fontSize: 24,
+//     fontWeight: "bold",
+//     marginBottom: 16,
+//   },
+//   sectionTitle: {
+//     fontSize: 18,
+//     fontWeight: "600",
+//     marginBottom: 8,
+//     color: "white"
+//   },
+//   inputContainer: {
+//     marginBottom: 24,
+//     flexDirection: "row",
+//     flexWrap: "wrap", // Wrap to the next line
+//     justifyContent: "space-between", // Space between
+//   },
+//   radioContainer: {
+//     flexDirection: "row",
+//     alignItems: "center",
+//     marginBottom: 12,
+//   },
+//   radioCircle: {
+//     height: 20,
+//     width: 20,
+//     borderRadius: 10,
+//     borderWidth: 2,
+//     borderColor: "#007BFF",
+//     alignItems: "center",
+//     justifyContent: "center",
+//     marginRight: 10,
+//   },
+//   radioSelected: {
+//     height: 10,
+//     width: 10,
+//     borderRadius: 5,
+//     backgroundColor: "#007BFF",
+//   },
+//   radioLabel: {
+//     fontSize: 16,
+//     color: "white",
+//   },
+//   debugText: {
+//     marginTop: 16,
+//     fontSize: 16,
+//     color: "#333",
+//   },
+// });
+
+
+
 const stylesRadio = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    padding: 16,
-  },
-  pageTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "600",
-    marginBottom: 8,
-  },
+  // container: {
+  //   flex: 1,
+  //   backgroundColor: "#fff",
+  //   padding: 16,
+    
+  //   // paddingHorizontal: 30
+  // },
+  // pageTitle: {
+  //   fontSize: 24,
+  //   fontWeight: "bold",
+  //   // marginBottom: 16,
+  // },
+  // sectionTitle: {
+
+  //   fontSize: 18,
+  //   fontWeight: "600",
+  //   marginBottom: 8,
+  //   color: "white"
+  // },
   inputContainer: {
-    marginBottom: 24,
+    // marginTop: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    backgroundColor: "#2d3748",
+    
+    // marginBottom: 24,
+    flexDirection: "row",
+    flexWrap: "wrap", // Wrap to the next line
+    justifyContent: "space-between", // Space between
+    borderRadius: 8,
+    borderColor: "#ccc",
   },
   radioContainer: {
+    
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 12,
+    marginBottom: 5,
+    marginTop: 5,
+    width: "48%",
+    // paddingHorizontal: 10,
+    // marginLeft: 15,
+    // marginRight: 15
   },
   radioCircle: {
+    
     height: 20,
     width: 20,
     borderRadius: 10,
@@ -1248,9 +1335,10 @@ const stylesRadio = StyleSheet.create({
   },
   radioLabel: {
     fontSize: 16,
-    color: "#333",
+    color: "white",
   },
   debugText: {
+    
     marginTop: 16,
     fontSize: 16,
     color: "#333",
@@ -1261,8 +1349,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // flexGrow: 1,
-    padding: 16,
-    backgroundColor: "#f9f9f9",
+    padding: 20,
+    backgroundColor: "black" // "#132639",
     // width: "100%",
     // marginVertical: 16,
   },
@@ -1270,30 +1358,58 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
+    // marginBottom: 15,
     textAlign: "center",
+    color: "#66e0ff",
   },
-  sectionTitle: { fontSize: 18, fontWeight: "bold", marginTop: 12 },
+  sectionTitle: { 
+    fontSize: 20, 
+    fontWeight: "bold", 
+    marginTop: 30,
+    marginBottom: 6,
+    paddingVertical: 4,
+    color: "white",
+    backgroundColor: "#66e0ff",
+    // paddingVertical: 10,
+    textAlign: "center",
+    borderRadius: 8
+   },
 
+  // dropdown: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   alignItems: "center",
+    // paddingVertical: 12,
+    // paddingHorizontal: 16,
+  //   backgroundColor: "#2d3748",
+  //   borderRadius: 8,
+  // },
   dropdown: {
+    padding: 10,
+    borderWidth: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    // borderColor: "#ccc",
+    borderRadius: 8,
+    backgroundColor: "#2d3748",
+  },
+
+  dropdownContent: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 8,
   },
   dropdownText: {
     fontSize: 16,
-    color: "#333",
+    color: "white",
   },
   dropdownIcon: {
     fontSize: 18,
-    color: "#666",
+    color: "#38bdf8", //"#666",
+    // marginLeft: 18,    
   },
   dropdownMenu: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#f0f0f0", // 1f2937
     borderRadius: 8,
     marginTop: 8,
     overflow: "hidden",
@@ -1303,7 +1419,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   selectedItem: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#38bdf8",// "#e0e0e0",
   },
   dropdownItemText: {
     fontSize: 16,
@@ -1317,19 +1433,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap", // Wrap to the next line
     justifyContent: "space-between", // Space between inputs
-    marginBottom: 12,
+    // marginBottom: 12,
+    
+    
   },
   inputWrapper: {
-    width: "48%", // Ensures 2 columns per row
-    marginBottom: 12,
+    width: "49.5%", // Ensures 2 columns per row
+    // marginBottom: 12,
+    // marginTop: 5
   },
   input: {
-    height: 40,
+    // height: 40,
+    // padding: 10,
+    // paddingVertical: 12,
+    // paddingHorizontal: 16,
     borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    paddingHorizontal: 12,
-    backgroundColor: "#fff",
+    // borderColor: "#ccc",
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    backgroundColor: "#2d3748",
+    color: "white",
+    fontSize: 16,
+    marginTop:3
   },
 
   // input: {
@@ -1355,6 +1480,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     // marginTop: 15,
     marginBottom: 10,
+    color: "white",
+    
   },
   // inputBox: {
   //   borderWidth: 1,
@@ -1374,10 +1501,23 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 10,
+    // marginBottom: 10,
+    backgroundColor: "#2d3748",
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    paddingVertical: 2,
+    marginBottom: 5,
+    borderColor: "black",
+    
   },
+  // switch:{
+  //   backgroundColor: "#2d3748",
+  // },
   switchLabel: {
     fontSize: 16,
+    color: "white",
+    marginLeft: 15,
+    
   },
   submitButton: {
     // marginTop: 20,
@@ -1401,19 +1541,24 @@ const stylesDate = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 8,
+    color: "white",
+    // paddingVertical: 12,
   },
   dateInput: {
-    height: 40,
+    // height: 40,
     borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
+    // borderColor: "#ccc",
+    borderRadius: 8,
     paddingHorizontal: 12,
+    paddingVertical: 18,
     justifyContent: "center",
-    backgroundColor: "#fff",
-    marginBottom: 12,
+    backgroundColor: "#2d3748",
+    marginBottom: 3,
+    borderColor: "black",
   },
   dateText: {
-    color: "#000",
+    fontSize: 16,
+    color: "#02eefa",
   },
 });
 
@@ -1427,6 +1572,7 @@ const stylesImages = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "white"
   },
   input: {
     height: 40,
@@ -1437,11 +1583,17 @@ const stylesImages = StyleSheet.create({
     marginBottom: 10,
   },
   addButton: {
-    backgroundColor: "#007BFF",
-    padding: 12,
-    borderRadius: 4,
-    alignItems: "center",
-    marginBottom: 16,
+    marginBottom: 15,
+     padding: 14,
+     backgroundColor: "#38bdf8",
+     borderRadius: 8,
+     alignItems: "center",
+     width: "100%",
+    // backgroundColor: "#38bdf8",
+    // padding: 12,
+    // borderRadius: 4,
+    // alignItems: "center",
+    // marginBottom: 16,
   },
   buttonText: {
     color: "#fff",
@@ -1459,8 +1611,8 @@ const stylesImages = StyleSheet.create({
     gap: 10,
   },
   imagePreview: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 150,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#ccc",

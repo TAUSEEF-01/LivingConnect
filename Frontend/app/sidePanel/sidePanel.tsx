@@ -7,37 +7,37 @@
 
 // const SidePanel = ({ isVisible, onClose }) => {
 //   const handleLogout = async () => {
-    // Alert.alert(
-    //   "Log Out",
-    //   "Are you sure you want to log out?",
-    //   [
-    //     {
-    //       text: "Cancel",
-    //       onPress: () => null,
-    //       style: "cancel",
-    //     },
-    //     {
-    //       text: "Yes",
-    //       onPress: async () => {
-    //         try {
-    //           const token = await AsyncStorage.getItem("userToken");
-    //           if (token) {
-    //             await axios.post(
-    //               "http://192.168.50.242:5000/logout",
-    //               {},
-    //               { headers: { Authorization: `Bearer ${token}` } }
-    //             );
-    //           }
-    //           await AsyncStorage.removeItem("userToken");
-    //           router.replace("/login");
-    //         } catch (error) {
-    //           console.error("Logout error:", error);
-    //         }
-    //       },
-    //     },
-    //   ],
-    //   { cancelable: false }
-    // );
+// Alert.alert(
+//   "Log Out",
+//   "Are you sure you want to log out?",
+//   [
+//     {
+//       text: "Cancel",
+//       onPress: () => null,
+//       style: "cancel",
+//     },
+//     {
+//       text: "Yes",
+//       onPress: async () => {
+//         try {
+//           const token = await AsyncStorage.getItem("userToken");
+//           if (token) {
+//             await axios.post(
+//               "http://192.168.50.242:5000/logout",
+//               {},
+//               { headers: { Authorization: `Bearer ${token}` } }
+//             );
+//           }
+//           await AsyncStorage.removeItem("userToken");
+//           router.replace("/login");
+//         } catch (error) {
+//           console.error("Logout error:", error);
+//         }
+//       },
+//     },
+//   ],
+//   { cancelable: false }
+// );
 //   };
 
 //   return (
@@ -172,7 +172,6 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
     //           const keys = await AsyncStorage.getAllKeys();
     //            console.log("AsyncStorage keys:", keys); // Logs all keys in AsyncStorage
 
-
     //           const token = await AsyncStorage.getItem("userToken");
     //           if (token) {
     //             await axios.post(
@@ -193,8 +192,6 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
     //   { cancelable: false }
     // );
 
-
-
     Alert.alert(
       "Log Out",
       "Are you sure you want to log out?",
@@ -212,6 +209,7 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
               if (token) {
                 await axios.post(
                   "http://192.168.50.242:5000/auth/logout",
+                  // "http://192.168.50.242:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -255,21 +253,21 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
           <Text style={localStyles.profileName}>Profile</Text>
         </View> */}
 
-<TouchableOpacity
-  style={localStyles.profileSection}
-  onPress={() => router.push("/profile/showProfile")} // Adjust the path as per your routing setup
->
-  <View style={localStyles.profileCircle}>
-    <Text style={localStyles.profileInitial}>
-      {userName.charAt(0).toUpperCase()}
-    </Text>
-  </View>
-  <Text style={localStyles.profileName}>Profile</Text>
-</TouchableOpacity>
-
         <TouchableOpacity
+          style={localStyles.profileSection}
+          onPress={() => router.push("/profile/showProfile")} // Adjust the path as per your routing setup
+        >
+          <View style={localStyles.profileCircle}>
+            <Text style={localStyles.profileInitial}>
+              {userName.charAt(0).toUpperCase()}
+            </Text>
+          </View>
+          <Text style={localStyles.profileName}>Profile</Text>
+        </TouchableOpacity>
+
+        {/* <TouchableOpacity
           style={localStyles.rentAHome}
-          onPress={() => router.push("/Rent/rentAHome")}
+          onPress={() => router.push("/Rent/rentAHomeForm")}
           // onPress={() => router.push("/Rent/temp")}
           // onPress={() => router.push("/Rent/testImageUpload")}
         >
@@ -279,12 +277,12 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
         <TouchableOpacity
           style={localStyles.provideServices}
           // onPress={() => router.push("/services/deliveryServices")}
-          // onPress={() => router.push("/Rent/rentAHome")}
+          // onPress={() => router.push("/Rent/rentAHomeForm")}
           onPress={() => router.push("/pages/HomeInfoPage/homeDetailsShowPage")}
           // onPress={() => router.push("/Rent/testImageUpload")}
         >
           <Text style={localStyles.buttonText}>Provide Services</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         {/* Navigation Buttons */}
         <TouchableOpacity

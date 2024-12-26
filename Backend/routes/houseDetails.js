@@ -3,15 +3,16 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const User = require("../models/userModel"); // Import the User model
-const Session = require("../models/sessionModel"); // Ensure correct import
-const HomeDetails = require("../models/homeDetails");
+const User = require("../models/userModelDB"); // Import the User model
+const Session = require("../models/sessionModelDB"); // Ensure correct import
+const HomeDetails = require("../models/homeDetailsDB");
 
 const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
 const { getUserInfo } = require("../utils/getUserInfo");
 
 router.post("/updateHomeDetails", async (req, res) => {
+  console.log("Update Home Details api called");
   const { userId, images, type, rent, details, location } = req.body;
 
   try {
@@ -22,12 +23,10 @@ router.post("/updateHomeDetails", async (req, res) => {
     );
 
     if (updatedHomeDetails) {
-      res
-        .status(200)
-        .json({
-          message: "Home details updated successfully!",
-          data: updatedHomeDetails,
-        });
+      res.status(200).json({
+        message: "Home details updated successfully!",
+        data: updatedHomeDetails,
+      });
     } else {
       res.status(400).json({ message: "Failed to update home details" });
     }
@@ -52,6 +51,9 @@ router.post("/home-details", async (req, res) => {
   try {
     const userInfo = await getUserInfo(token);
     const userId = userInfo.userId;
+    const email = userInfo.email;
+    const contactNumber = userInfo.contactNumber;
+    const profileImage = userInfo.profileImage;
 
     const {
       // userId,
@@ -71,6 +73,9 @@ router.post("/home-details", async (req, res) => {
     // Create a new home details document
     const newHomeDetails = new HomeDetails({
       userId,
+      email,
+      contactNumber,
+      profileImage,
       PropertyType,
       details,
       memberRestriction,
@@ -82,7 +87,7 @@ router.post("/home-details", async (req, res) => {
       images,
     });
 
-    console.log(newHomeDetails); // Check if _id is available
+    // console.log(newHomeDetails); // Check if _id is available
 
     // Save the new home details to the database
     const savedHomeDetails = await newHomeDetails.save();
@@ -116,7 +121,6 @@ router.get("/get-homes-details/:id", async (req, res) => {
   }
 });
 
-
 // Endpoint to fetch all home details
 router.get("/get-all-Homes-details", async (req, res) => {
   try {
@@ -126,6 +130,5 @@ router.get("/get-all-Homes-details", async (req, res) => {
     res.status(500).json({ message: "Error fetching home details", error });
   }
 });
-
 
 module.exports = router;

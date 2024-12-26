@@ -2,6 +2,17 @@ const mongoose = require("mongoose");
 
 const homeDetails = new mongoose.Schema({
   userId: { type: String, required: true },
+  email: {
+    type: String,
+  },
+  contactNumber: {
+    type: String,
+    default: null, // Default value set to null
+  },
+  profileImage: {
+    type: String,
+    default: null, // Default value set to null
+  },
   // userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 
   PropertyType: {
