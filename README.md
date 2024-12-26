@@ -1,1 +1,1 @@
-# FastHomeApp
+# LivingConnect
