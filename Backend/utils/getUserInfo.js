@@ -15,13 +15,15 @@ const getUserInfo = async (token) => {
     const userId = decoded.id;
 
     // Fetch user details from the database
-    const user = await User.findById(userId, "email _id"); // Only retrieve email and _id
+    // const user = await User.findById(userId, "email _id"); // Only retrieve email and _id
+    const user = await User.findById(userId);
 
     if (!user) {
       throw new Error("User not found");
     }
 
     // Return the email and userId
+    // console.log(user);
     return {
       email: user.email,
       userId: user._id,

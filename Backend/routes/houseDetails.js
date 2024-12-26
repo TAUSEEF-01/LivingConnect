@@ -12,6 +12,7 @@ const { validateToken } = require("../utils/validateToken");
 const { getUserInfo } = require("../utils/getUserInfo");
 
 router.post("/updateHomeDetails", async (req, res) => {
+  console.log("Update Home Details api called");
   const { userId, images, type, rent, details, location } = req.body;
 
   try {
@@ -50,6 +51,9 @@ router.post("/home-details", async (req, res) => {
   try {
     const userInfo = await getUserInfo(token);
     const userId = userInfo.userId;
+    const email = userInfo.email;
+    const contactNumber = userInfo.contactNumber;
+    const profileImage = userInfo.profileImage;
 
     const {
       // userId,
@@ -69,6 +73,9 @@ router.post("/home-details", async (req, res) => {
     // Create a new home details document
     const newHomeDetails = new HomeDetails({
       userId,
+      email,
+      contactNumber,
+      profileImage,
       PropertyType,
       details,
       memberRestriction,

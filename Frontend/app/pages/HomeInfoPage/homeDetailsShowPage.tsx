@@ -153,18 +153,6 @@
 
 // export default HomeDetailsPage;
 
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -174,23 +162,43 @@ import {
   Image,
   ActivityIndicator,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+interface OwnerInfo {
+  email: string;
+  name: string;
+  contactNumber: string;
+}
+
 
 const HomeDetailsPage = () => {
   const { homeId } = useLocalSearchParams(); // Get homeId from router params
   const [home, setHome] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [profile, setProfile] = useState<OwnerInfo | null>(null);
+
+  // useEffect(() => {
+  //   async function fetchHomeDetails() {
+
+
   const fetchHomeDetails = async () => {
+
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
         `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
       );
+
+      // console.log("Fetched home details:", response.data);
+      // console.log("fnc1");
       setHome(response.data);
+      // fetchUserProfile();
     } catch (error) {
       Alert.alert("Error", "Failed to fetch home details.");
       console.error("Error fetching home details:", error);
@@ -198,10 +206,79 @@ const HomeDetailsPage = () => {
       setLoading(false);
     }
   };
+    // }
 
   useEffect(() => {
     fetchHomeDetails();
-  }, [homeId]);
+    // fetchUserProfile();
+  // }, [homeId]);
+    }, []);
+
+
+  
+  
+  // // useEffect(() => {
+  //   // async function fetchUserProfile() {
+
+  // const fetchUserProfile = async () => {
+  //   console.log("fetchUserProfile userId: ", home.userId);
+  //   // if(!home.userId) return;
+
+  //   try {
+  //     if (!home.userId) throw new Error("No User ID provided");
+  //     // console.log("fnc2");
+  //     // console.log("fetchUserProfile userId: ", home.userId);
+
+  //     // setLoading(true);
+  //     // const response = await axios.get(
+  //     //   "http://192.168.50.242:5000/profile/getUserInfo/id",
+  //     //   {
+  //     //     params: { userId: home?.userId }, // Pass userId as a query parameter
+  //     //   }
+  //     //   // {
+  //     //     // headers: {
+  //     //     //   Authorization: `Bearer ${token}`,
+  //     //     //   "Content-Type": "application/json",
+  //     //     // },
+  //     //     // {
+  //     //     //   "userId": home?.userId,
+  //     //     // },
+  //     //     // {
+  //     //     //   headers: {
+  //     //     //     // Add headers if required
+  //     //     //     // Authorization: `Bearer ${token}`,
+  //     //     //     "Content-Type": "application/json",
+  //     //     //   },
+  //     //     // },
+  //     //   // }
+  //     // );
+
+  //     // const response = await axios.get(
+  //     //   "http://192.168.50.242:5000/profile/getUserInfo/id",
+  //     //   {
+  //     //     params: { userId: home.userId }, // Pass userId as a query parameter
+  //     //   }
+  //     // );
+
+  //     const response = await axios.get(
+  //       `http://192.168.50.242:5000/profile/getUserInfo/${home.userId}`
+  //     );
+
+  //     console.log(response.data);
+
+  //     setProfile(response.data);
+  //     // setLoading(false);
+  //   } catch (err) {
+  //     console.error("Failed to fetch profile:", err);
+  //     setLoading(false);
+  //   }
+  // };
+  // // }
+
+  // useEffect(() => {
+  //   fetchUserProfile();
+  // }, []);
+
 
   if (loading) {
     return (
@@ -223,103 +300,136 @@ const HomeDetailsPage = () => {
     // <ScrollView style={styles.container}>
     <SafeAreaView style={styles.container}>
       <ScrollView>
-      {/* Header */}
-      <Text style={styles.title}>{home?.PropertyType.toUpperCase() || "N/A"}</Text>
-      <Text style={styles.rent}>
-        Rent: {home?.rent || 0} Tk ({home?.rentPeriod || "N/A"})
-      </Text>
-
-      {/* Image Gallery */}
-      <ScrollView horizontal style={styles.imageContainer}>
-        {home?.images?.map((image, index) => (
-          <Image
-            key={index}
-            source={{ uri: image }}
-            style={styles.image}
-            resizeMode="cover"
-          />
-        )) || (
-          <Text style={styles.errorText}>No images available</Text>
-        )}
-
-      </ScrollView>
-
-
-      <View> 
-        <Text style={styles.imageText}>Images ({home?.images?.length || 0})</Text>
-      </View> 
-      
-        <View style ={styles.infoSection}>
-      {/* Location Details */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Location</Text>
-        <Text style={styles.text}>
-          {home?.location?.city || "N/A"}, {home?.location?.area || "N/A"}
+        {/* Header */}
+        <Text style={styles.title}>
+          {home?.PropertyType.toUpperCase() || "N/A"}
         </Text>
-        <Text style={styles.text}>
-          Road: {home?.location?.road || "N/A"}, House:{" "}
-          {home?.location?.houseNumber || "N/A"}
+        <Text style={styles.rent}>
+          Rent: {home?.rent || 0} Tk ({home?.rentPeriod || "N/A"})
         </Text>
-      </View>
 
-      {/* Property Details */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Property Details</Text>
-        <Text style={styles.text}>Beds: {home?.details?.beds || 0}</Text>
-        <Text style={styles.text}>Baths: {home?.details?.baths || 0}</Text>
-        <Text style={styles.text}>
-          Size: {home?.details?.size || "N/A"} sq.m.
-        </Text>
-        <Text style={styles.text}>
-          Balcony: {home?.details?.balcony || 0}
-        </Text>
-        <Text style={styles.text}>Floor:{" "}
-          {home?.details?.floor || "N/A"}
-        </Text>
-      </View>
+        {/* Image Gallery */}
+        <ScrollView horizontal style={styles.imageContainer}>
+          {home?.images?.map((image, index) => (
+            <Image
+              key={index}
+              source={{ uri: image }}
+              style={styles.image}
+              resizeMode="cover"
+            />
+          )) || <Text style={styles.errorText}>No images available</Text>}
+        </ScrollView>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Member Restrictions</Text>
-        <Text style={styles.memberRestriction}>
-        {home?.memberRestriction || "N/A"}
-      </Text>
-      </View>
+        <View>
+          <Text style={styles.imageText}>
+            Images ({home?.images?.length || 0})
+          </Text>
+        </View>
 
-      {/* Facilities */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Facilities</Text>
-        {/* <Text style={styles.text}>
+        <View style={styles.infoSection}>
+          {/* Location Details */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Location</Text>
+            <Text style={styles.text}>
+              {home?.location?.city || "N/A"}, {home?.location?.area || "N/A"}
+            </Text>
+            <Text style={styles.text}>
+              Road: {home?.location?.road || "N/A"}, House:{" "}
+              {home?.location?.houseNumber || "N/A"}
+            </Text>
+          </View>
+
+          {/* Property Details */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Property Details</Text>
+            <Text style={styles.text}>Beds: {home?.details?.beds || 0}</Text>
+            <Text style={styles.text}>Baths: {home?.details?.baths || 0}</Text>
+            <Text style={styles.text}>
+              Size: {home?.details?.size || "N/A"} sq.m.
+            </Text>
+            <Text style={styles.text}>
+              Balcony: {home?.details?.balcony || 0}
+            </Text>
+            <Text style={styles.text}>
+              Floor: {home?.details?.floor || "N/A"}
+            </Text>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Member Restrictions</Text>
+            <Text style={styles.memberRestriction}>
+              {home?.memberRestriction || "N/A"}
+            </Text>
+          </View>
+
+          {/* Facilities */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Facilities</Text>
+            {/* <Text style={styles.text}>
           {Object.entries(home?.facitlities || {})
             .filter(([_, value]) => value)
             .map(([key]) => key.replace(/([A-Z])/g, " $1"))
             .join("\n") || "None"}
         </Text> */}
 
-        <Text style={styles.text}>
-          {Object.entries(home?.facitlities || {})
-            .map(([key, value]) => `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`)
-            .join("\n") || "None"}
-        </Text>
-      </View>
+            <Text style={styles.text}>
+              {Object.entries(home?.facitlities || {})
+                .map(
+                  ([key, value]) =>
+                    `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`
+                )
+                .join("\n") || "None"}
+            </Text>
+          </View>
 
-      {/* Availability */}
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Availability</Text>
-        <Text style={styles.text}>
-          From:{" "}
-          {home?.availability?.from
-            ? new Date(home.availability.from).toLocaleDateString()
-            : "N/A"}
-        </Text>
-        <Text style={styles.text}>
-          To:{" "}
-          {home?.availability?.to
-            ? new Date(home.availability.to).toLocaleDateString()
-            : "N/A"}
-        </Text>
-      </View>
-      </View>
-    </ScrollView>
+          {/* Availability */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Availability</Text>
+            <Text style={styles.text}>
+              From:{" "}
+              {home?.availability?.from
+                ? new Date(home.availability.from).toLocaleDateString()
+                : "N/A"}
+            </Text>
+            <Text style={styles.text}>
+              To:{" "}
+              {home?.availability?.to
+                ? new Date(home.availability.to).toLocaleDateString()
+                : "N/A"}
+            </Text>
+          </View>
+
+          {/* User info */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Owner</Text>
+            {/* <Text style={styles.text}> */}
+              {/* {profile?.email || "N/A"} */}
+              {/* Email: {home.email || "N/A"} */}
+            {/* </Text> */}
+
+            {/* <Text style={styles.text}>
+              Email: {home.email || "N/A"}
+            </Text> */}
+
+
+            {/* <Text style={styles.text}>
+              Contact Number: {home.contactNumber || "N/A"}
+            </Text> */}
+
+            <Text style={styles.text}>
+              Contact Number: <Text style={styles.callText}>{home.contactNumber || "N/A"}</Text>
+            </Text>
+            <TouchableOpacity
+                style={styles.callButton}
+                onPress={()=> router.push("/screens/contact_us")}
+            >
+                <Text style={styles.buttonText}>Call</Text>
+            </TouchableOpacity>
+            
+          </View>
+
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -409,6 +519,30 @@ const styles = StyleSheet.create({
   infoSection: {
     marginTop: 8,
     // marginBottom: 10,
+  },
+  callText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#02eefa",
+    marginBottom: 16,
+  },
+  callButton: {
+    // backgroundColor: "grey",
+    backgroundColor: "#38bdf8",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    // paddingBottom: 12,
+    // paddingTop: 1,
+
+    borderRadius: 8,
+    // width: 115,
+    width: "100%",
+    marginBottom: 1,
+    marginTop: 10,
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "white",
   },
 });
 

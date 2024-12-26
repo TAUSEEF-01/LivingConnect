@@ -1193,7 +1193,7 @@ const MemberRestrictions = ({ formData, handleInputChange }) => {
           onPress={() => handleInputChange("memberRestriction", option)}
         >
           <View style={stylesRadio.radioCircle}>
-            {formData.rentPeriod === option && (
+            {formData.memberRestriction === option && (
               <View style={stylesRadio.radioSelected} />
             )}
           </View>

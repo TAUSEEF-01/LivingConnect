@@ -187,6 +187,7 @@ export default function MyImage() {
   }, []);
 
   const fetchUserProfile = async () => {
+    
     try {
       // Retrieve the token from AsyncStorage
       const token = await AsyncStorage.getItem("userToken");

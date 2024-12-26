@@ -82,6 +82,7 @@ router.post("/update-profile", async (req, res) => {
 
 // Endpoint to get user profile
 router.get("/get-profile", async (req, res) => {
+  console.log("Get profile endpoint called");
   const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
 
   if (!token) {
@@ -134,6 +135,39 @@ router.get("/getUserInfo", async (req, res) => {
     res
       .status(200)
       .json({ message: "User info retrieved", userInfo: userInfo });
+  } catch (err) {
+    console.error("Failed to retrieve user info", err);
+    return res.status(500).json({ message: "Failed to retrieve user info" });
+  }
+});
+
+
+router.get("/getUserInfo/:id", async (req, res) => {
+  console.log("getUserInfo endpoint called");
+  // token = req.headers.authorization.split(" ")[1];
+  try {
+    // const userInfo = await getUserInfo(token);
+    // const userInfo = await User.findById(req.params.id);
+    // console.log(userInfo);
+
+    // const { userId } = req.body;
+    const userId = req.params.id;
+    console.log("User ID:", userId);
+    
+    // const user = await User.findById(userId);
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res
+      .status(200)
+      .json({ message: "User info retrieved", 
+        email: user.email,
+        name: user.name,
+        contactNumber: user.contactNumber,
+       });
   } catch (err) {
     console.error("Failed to retrieve user info", err);
     return res.status(500).json({ message: "Failed to retrieve user info" });
