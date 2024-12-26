@@ -87,7 +87,7 @@ router.post("/home-details", async (req, res) => {
       images,
     });
 
-    console.log(newHomeDetails); // Check if _id is available
+    // console.log(newHomeDetails); // Check if _id is available
 
     // Save the new home details to the database
     const savedHomeDetails = await newHomeDetails.save();

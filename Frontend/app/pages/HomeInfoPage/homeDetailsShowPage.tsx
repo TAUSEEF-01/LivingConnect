@@ -386,13 +386,13 @@ const HomeDetailsPage = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Availability</Text>
             <Text style={styles.text}>
-              From:{" "}
+              Post Date:{" "}
               {home?.availability?.from
                 ? new Date(home.availability.from).toLocaleDateString()
                 : "N/A"}
             </Text>
             <Text style={styles.text}>
-              To:{" "}
+              Available From:{" "}
               {home?.availability?.to
                 ? new Date(home.availability.to).toLocaleDateString()
                 : "N/A"}
