@@ -2,6 +2,8 @@
 import React from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { router } from "expo-router";
+import GoogleMapView from './GoogleMapView';
+
 // import styles from "../../styles";
 
 export default function DetailPage() {
@@ -9,6 +11,8 @@ export default function DetailPage() {
     <View style={localStyles.authContainer}>
       <View style={localStyles.topBar} />
       <Text style={localStyles.title}>Detail Page</Text>
+      <GoogleMapView/>
+
       <Button title="Go Back" onPress={() => router.replace('/(tabs)/mainPage')} />
     </View>
   );

@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.tauseef_01.Fast_Home_App"
+      "package": "com.tauseef_01.Fast_Home_App",
+      "googleMapsApiKey":"AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4"
     },
     "web": {
       "bundler": "metro",
