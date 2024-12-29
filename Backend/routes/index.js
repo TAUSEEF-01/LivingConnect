@@ -11,6 +11,9 @@ router.use("/profile", profileRoutes);
 const houseDetailsRoutes = require("./houseDetails");
 router.use("/houseDetails", houseDetailsRoutes);
 
+const messageRoutes = require("./message");
+router.use("/message", messageRoutes);
+
 router.get("/", async (req, res) => {
   // const token = req.headers.authorization?.split(" ")[1];
   // if (!token) {

@@ -1423,6 +1423,11 @@
 
 // 555555555555555555555555555555555555555555555555555555555555555555
 
+
+
+
+
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -1431,13 +1436,17 @@ const User = require("./models/userModelDB"); // Import the User model
 const Session = require("./models/sessionModelDB"); // Ensure correct import
 const Property = require("./models/propertyModelDB");
 const bodyParser = require("body-parser");
+
+
+// const passport = require("passport");
+// const LocalStrategy = require("passport-local").Strategy;
+
 // const AsyncStorage = require("@react-native-async-storage/async-storage");
 
 const jwt = require("jsonwebtoken");
 
 const { generateToken } = require("./utils/generateToken");
 const { validateToken } = require("./utils/validateToken");
-
 const { getUserInfo } = require("./utils/getUserInfo");
 
 // const { restrictToLoggedinUserOnly, checkAuth } = require("./middlewares/auth");
@@ -1469,6 +1478,9 @@ connectMongoDB("mongodb://localhost:27017/UserInfo");
 
 const routes = require("./routes");
 app.use(routes);
+
+
+
 
 // ############################################################
 

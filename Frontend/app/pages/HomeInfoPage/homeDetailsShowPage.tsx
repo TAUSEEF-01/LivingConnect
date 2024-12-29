@@ -163,6 +163,8 @@ import {
   ActivityIndicator,
   Alert,
   TouchableOpacity,
+  Linking, 
+  Platform
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
@@ -185,6 +187,17 @@ const HomeDetailsPage = () => {
 
   // useEffect(() => {
   //   async function fetchHomeDetails() {
+
+
+
+  const makeCall = (phoneNumber) => {
+    const formattedNumber =
+      Platform.OS === "android" ? `tel:${phoneNumber}` : `telprompt:${phoneNumber}`;
+  
+    Linking.openURL(formattedNumber).catch((err) => {
+      console.error("Error occurred while trying to make a call:", err);
+    });
+  };
 
 
   const fetchHomeDetails = async () => {
@@ -295,6 +308,11 @@ const HomeDetailsPage = () => {
       </View>
     );
   }
+
+
+
+
+  
 
   return (
     // <ScrollView style={styles.container}>
@@ -412,18 +430,27 @@ const HomeDetailsPage = () => {
             </Text> */}
 
 
-            {/* <Text style={styles.text}>
-              Contact Number: {home.contactNumber || "N/A"}
-            </Text> */}
+            <Text style={styles.text}>
+              Email: {home?.email || "N/A"}
+            </Text>
 
             <Text style={styles.text}>
               Contact Number: <Text style={styles.callText}>{home.contactNumber || "N/A"}</Text>
             </Text>
             <TouchableOpacity
                 style={styles.callButton}
-                onPress={()=> router.push("/screens/contact_us")}
+                // onPress={()=> router.push("/messages/CallerDialScreen")}
+                onPress={() => makeCall(home.contactNumber || "")}
             >
                 <Text style={styles.buttonText}>Call</Text>
+            </TouchableOpacity>
+
+
+            <TouchableOpacity
+                style={styles.callButton}
+                 onPress={() =>  router.push("/messages/ChatMessagesScreen")}
+            >
+                <Text style={styles.buttonText}>Message</Text>
             </TouchableOpacity>
             
           </View>
