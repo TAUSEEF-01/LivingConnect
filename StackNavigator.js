@@ -8,6 +8,7 @@ import HomeScreen from "./screens/HomeScreen";
 import FriendsScreen from "./screens/FriendsScreen";
 import ChatsScreen from "./screens/ChatsScreen";
 import ChatMessagesScreen from "./screens/ChatMessagesScreen";
+import CallerDialScreen from "./screens/CallerDialScreen";
 
 const StackNavigator = () => {
   const Stack = createNativeStackNavigator();
@@ -31,6 +32,9 @@ const StackNavigator = () => {
         <Stack.Screen name="Chats" component={ChatsScreen} />
 
         <Stack.Screen name="Messages" component={ChatMessagesScreen} />
+
+        <Stack.Screen name="CallerDialScreen" component={CallerDialScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -58,7 +58,7 @@
 //   const fetchMessages = async () => {
 //     try {
 //       const response = await fetch(
-//         `http://192.168.0.108:8000/messages/${userId}/${recepientId}`
+//         `http://192.168.0.109:8000/messages/${userId}/${recepientId}`
 //       );
 //       const data = await response.json();
 
@@ -80,7 +80,7 @@
 //     const fetchRecepientData = async () => {
 //       try {
 //         const response = await fetch(
-//           `http://192.168.0.108:8000/user/${recepientId}`
+//           `http://192.168.0.109:8000/user/${recepientId}`
 //         );
 
 //         const data = await response.json();
@@ -111,7 +111,7 @@
 //         formData.append("messageText", message);
 //       }
 
-//       const response = await fetch("http://192.168.0.108:8000/messages", {
+//       const response = await fetch("http://192.168.0.109:8000/messages", {
 //         method: "POST",
 //         body: formData,
 //       });
@@ -184,7 +184,7 @@
 
 //   const deleteMessages = async (messageIds) => {
 //     try {
-//       const response = await fetch("http://192.168.0.108:8000/deleteMessages", {
+//       const response = await fetch("http://192.168.0.109:8000/deleteMessages", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -550,7 +550,7 @@ const ChatMessagesScreen = () => {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        `http://192.168.0.108:8000/messages/${userId}/${recepientId}`
+        `http://192.168.0.109:8000/messages/${userId}/${recepientId}`
       );
       const data = await response.json();
 
@@ -572,7 +572,7 @@ const ChatMessagesScreen = () => {
     const fetchRecepientData = async () => {
       try {
         const response = await fetch(
-          `http://192.168.0.108:8000/user/${recepientId}`
+          `http://192.168.0.109:8000/user/${recepientId}`
         );
 
         const data = await response.json();
@@ -606,7 +606,7 @@ const ChatMessagesScreen = () => {
   //       formData.append("messageText", message);
   //     }
 
-  //     const response = await fetch("http://192.168.0.108:8000/messages", {
+  //     const response = await fetch("http://192.168.0.109:8000/messages", {
   //       method: "POST",
   //       body: formData,
   //     });
@@ -640,7 +640,7 @@ const ChatMessagesScreen = () => {
             formData.append("messageText", message);
           }
     
-          const response = await fetch("http://192.168.0.108:8000/messages", {
+          const response = await fetch("http://192.168.0.109:8000/messages", {
             method: "POST",
             body: formData,
           });
@@ -695,22 +695,48 @@ const ChatMessagesScreen = () => {
               )}
             </View>
           ),
-          headerRight: () =>
-            selectedMessages.length > 0 ? (
-              <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-                {/* <Ionicons name="md-arrow-redo-sharp" size={24} color="black" />
-                <Ionicons name="md-arrow-undo" size={24} color="black" /> */}
-                {/* <FontAwesome name="star" size={24} color="black" /> */}
-                <MaterialIcons
-                  onPress={() => deleteMessages(selectedMessages)}
-                  name="delete"
-                  size={24}
-                  color="black"
-                />
-              </View>
-            ) : null,
-        });
-      }, [recepientData, selectedMessages]);
+      //     headerRight: () =>
+      //       selectedMessages.length > 0 ? (
+      //         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+      //           {/* <Ionicons name="md-arrow-redo-sharp" size={24} color="black" />
+      //           <Ionicons name="md-arrow-undo" size={24} color="black" /> */}
+      //           {/* <FontAwesome name="star" size={24} color="black" /> */}
+      //           <MaterialIcons
+      //             onPress={() => deleteMessages(selectedMessages)}
+      //             name="delete"
+      //             size={24}
+      //             color="black"
+      //           />
+      //         </View>
+      //       ) : null,
+      //   });
+      // }, [recepientData, selectedMessages]);
+
+      headerRight: () => (
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          {selectedMessages.length > 0 ? (
+            <MaterialIcons
+              onPress={() => deleteMessages(selectedMessages)}
+              name="delete"
+              size={24}
+              color="black"
+            />
+          ) : (
+            <Ionicons
+              onPress={() =>
+                navigation.navigate("CallerDialScreen", {
+                  recepientNumber: recepientData?.phoneNumber,
+                })
+              }
+              name="call"
+              size={24}
+              color="black"
+            />
+          )}
+        </View>
+      ),
+    });
+  }, [recepientData, selectedMessages]);
 
   useLayoutEffect(() => {
     if (!recepientData) {
@@ -763,7 +789,7 @@ const ChatMessagesScreen = () => {
 
   const deleteMessages = async (messageIds) => {
     try {
-      const response = await fetch("http://192.168.0.108:8000/deleteMessages", {
+      const response = await fetch("http://192.168.0.109:8000/deleteMessages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -844,7 +870,7 @@ const ChatMessagesScreen = () => {
 //                 type: "image/jpeg", // Adjust this based on the file type
 //             });
 
-//             const response = await fetch("http://192.168.0.108:8000/messages", {
+//             const response = await fetch("http://192.168.0.109:8000/messages", {
 //                 method: "POST",
 //                 body: formData,
 //                 headers: {
