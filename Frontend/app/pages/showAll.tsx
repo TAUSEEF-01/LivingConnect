@@ -803,7 +803,9 @@ const AllHomesPage = () => {
               <TouchableOpacity style={styles.filterButtonPrimary}>
                 <Text style={styles.filterButtonText}>Show map</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.filterButtonSecondary}>
+              <TouchableOpacity style={styles.filterButtonSecondary}
+                onPress={() => router.push("/pages/FiltersPage/filterInfo")}
+              >
                 <Text style={styles.filterButtonText}>Show filters</Text>
               </TouchableOpacity>
             </View>
@@ -854,7 +856,7 @@ const AllHomesPage = () => {
                   )} 
 
                   <Text style={styles.cardPrice}>
-                    €{home.rent}
+                    Tk {home.rent}
                   </Text>
 
 
