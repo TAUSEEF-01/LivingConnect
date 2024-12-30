@@ -86,9 +86,6 @@
 // //   );
 // // }
 
-
-
-
 // // export default function SearchHomes() {
 // //     const [homes, setHomes] = useState([]);
 // //     const [filters, setFilters] = useState({
@@ -112,7 +109,7 @@
 // //     //   availableFrom: "",
 // //       availableTo: "",
 // //     });
-  
+
 // //     const fetchHomes = async () => {
 // //       try {
 // //         const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
@@ -123,11 +120,11 @@
 // //         console.error("Failed to fetch homes:", error);
 // //       }
 // //     };
-  
+
 // //     useEffect(() => {
 // //       fetchHomes(); // Fetch homes on load
 // //     }, []);
-  
+
 // //     return (
 // //       <View style={styles.container}>
 // //         {/* Filters */}
@@ -191,7 +188,7 @@
 // //             value={filters.availableTo}
 // //             onChangeText={(text) => setFilters({ ...filters, availableTo: text })}
 // //           />
-  
+
 // //           {/* Facility Toggles */}
 // //           {/* {["garage", "lift", "gasSupply", "generator", "internet", "cctv", "wifi"].map((facility) => (
 // //             <TouchableOpacity
@@ -211,7 +208,7 @@
 // //             <Text style={styles.buttonText}>Search</Text>
 // //           </TouchableOpacity>
 // //         </View>
-  
+
 // //         {/* List of Homes */}
 // //         <FlatList
 // //           data={homes}
@@ -229,8 +226,6 @@
 // //       </View>
 // //     );
 // //   }
-
-
 
 // import React, { useState, useEffect } from "react";
 // import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
@@ -298,7 +293,6 @@
 //           onChangeText={(text) => setFilters({ ...filters, rentMax: text })}
 //         />
 
-        
 //         <TextInput
 //           placeholder="Property Type"
 //           style={styles.input}
@@ -419,7 +413,6 @@
 //   },
 // });
 
-  
 // // const styles = StyleSheet.create({
 // //   container: {
 // //     flex: 1,
@@ -469,23 +462,21 @@
 // //   },
 // // });
 
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import axios from "axios";
 
 export default function SearchHomes() {
   const [homes, setHomes] = useState([]);
+
   const [filters, setFilters] = useState({
     city: "",
     area: "",
@@ -500,10 +491,36 @@ export default function SearchHomes() {
     availabilityTo: "",
   });
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState("Select Property Type");
+  const resetFilters = () => {
+    setFilters({
+      city: "",
+      area: "",
+      rentMin: "",
+      rentMax: "",
+      propertyType: "",
+      beds: "",
+      baths: "",
+      sizeMin: "",
+      sizeMax: "",
+      balcony: "",
+      availabilityTo: "",
+    });
+    setSelectedType("All Properties");
+    fetchHomes();
+    // handleTypeSelect("All Properties");
+    // console.log("Filters after reset:", filters);
+  };
 
-  const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState("All Properties");
+
+  const propertyTypes = [
+    "All Properties",
+    "Rent",
+    "Sale",
+    "Sublet",
+    "Over a Time period",
+  ];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -511,15 +528,21 @@ export default function SearchHomes() {
 
   const handleTypeSelect = (type) => {
     setSelectedType(type);
+    if (type === "All Properties") type = "";
     setFilters({ ...filters, propertyType: type });
     setIsOpen(false);
   };
 
   const fetchHomes = async () => {
     try {
-      const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
-        params: filters,
-      });
+      console.log("Filters:", filters);
+
+      const response = await axios.get(
+        "http://192.168.50.242:5000/houseDetails/searchHomes",
+        {
+          params: filters,
+        }
+      );
       setHomes(response.data);
     } catch (error) {
       console.error("Failed to fetch homes:", error);
@@ -534,40 +557,13 @@ export default function SearchHomes() {
     <View style={styles.container}>
       {/* Filters */}
       <View style={styles.filters}>
-        <TextInput
-          placeholder="City"
-          style={styles.input}
-          value={filters.city}
-          onChangeText={(text) => setFilters({ ...filters, city: text })}
-        />
-        <TextInput
-          placeholder="Area"
-          style={styles.input}
-          value={filters.area}
-          onChangeText={(text) => setFilters({ ...filters, area: text })}
-        />
-        <TextInput
-          placeholder="Min Rent"
-          style={styles.input}
-          keyboardType="numeric"
-          value={filters.rentMin}
-          onChangeText={(text) => setFilters({ ...filters, rentMin: text })}
-        />
-        <TextInput
-          placeholder="Max Rent"
-          style={styles.input}
-          keyboardType="numeric"
-          value={filters.rentMax}
-          onChangeText={(text) => setFilters({ ...filters, rentMax: text })}
-        />
-
         <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
           <View style={styles.dropdownContent}>
             <Text style={styles.dropdownText}>{selectedType}</Text>
             <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
           </View>
         </TouchableOpacity>
-        
+
         {isOpen && (
           <View style={styles.dropdownMenu}>
             {propertyTypes.map((type) => (
@@ -593,6 +589,62 @@ export default function SearchHomes() {
         )}
 
         <TextInput
+          placeholder="City"
+          placeholderTextColor="#666"
+          style={styles.input}
+          value={filters.city}
+          onChangeText={(text) => setFilters({ ...filters, city: text })}
+        />
+        <TextInput
+          placeholder="Area"
+          placeholderTextColor="#666"
+          style={styles.input}
+          value={filters.area}
+          onChangeText={(text) => setFilters({ ...filters, area: text })}
+        />
+
+        <View style={styles.inputRow}>
+          <View style={styles.inputWrapper}>
+            <TextInput
+              placeholder="Min Rent"
+              placeholderTextColor="#666"
+              style={styles.input}
+              keyboardType="numeric"
+              value={filters.rentMin}
+              onChangeText={(text) => setFilters({ ...filters, rentMin: text })}
+            />
+          </View>
+          <View style={styles.inputWrapper}>
+            <TextInput
+              placeholder="Max Rent"
+              placeholderTextColor="#666"
+              style={styles.input}
+              keyboardType="numeric"
+              value={filters.rentMax}
+              onChangeText={(text) => setFilters({ ...filters, rentMax: text })}
+            />
+          </View>
+        </View>
+
+        <View style={styles.detailsContainer}>
+          {["beds", "baths"].map((field, index) => (
+            <View key={field} style={styles.inputWrapper}>
+              <TextInput
+                style={styles.input}
+                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                placeholderTextColor="#666" // Makes placeholder text white
+                keyboardType="numeric"
+                value={filters[field]}
+                onChangeText={(text) =>
+                  setFilters({ ...filters, [field]: text })
+                }
+              />
+            </View>
+          ))}
+        </View>
+
+        {/* 
+        <TextInput
           placeholder="Beds"
           style={styles.input}
           keyboardType="numeric"
@@ -605,9 +657,20 @@ export default function SearchHomes() {
           keyboardType="numeric"
           value={filters.baths}
           onChangeText={(text) => setFilters({ ...filters, baths: text })}
-        />
-        <TextInput
+        /> */}
+
+        {/* <TextInput
+          placeholder="Balcony"
+          placeholderTextColor="#666"
+          style={styles.input}
+          keyboardType="numeric"
+          value={filters.balcony}
+          onChangeText={(text) => setFilters({ ...filters, balcony: text })}
+        /> */}
+
+        {/* <TextInput
           placeholder="Min Size (sq.m)"
+          placeholderTextColor="#666"
           style={styles.input}
           keyboardType="numeric"
           value={filters.sizeMin}
@@ -615,27 +678,85 @@ export default function SearchHomes() {
         />
         <TextInput
           placeholder="Max Size (sq.m)"
+          placeholderTextColor="#666"
           style={styles.input}
           keyboardType="numeric"
           value={filters.sizeMax}
           onChangeText={(text) => setFilters({ ...filters, sizeMax: text })}
-        />
-        <TextInput
-          placeholder="Balcony"
-          style={styles.input}
-          keyboardType="numeric"
-          value={filters.balcony}
-          onChangeText={(text) => setFilters({ ...filters, balcony: text })}
-        />
-        <TextInput
+        /> */}
+
+        <View style={styles.inputRow}>
+          <View style={styles.inputWrapper}>
+            <TextInput
+              placeholder="Min Size (sq.m)"
+              placeholderTextColor="#666"
+              style={styles.input}
+              keyboardType="numeric"
+              value={filters.sizeMin}
+              onChangeText={(text) => setFilters({ ...filters, sizeMin: text })}
+            />
+          </View>
+          <View style={styles.inputWrapper}>
+            <TextInput
+              placeholder="Max Size (sq.m)"
+              placeholderTextColor="#666"
+              style={styles.input}
+              keyboardType="numeric"
+              value={filters.sizeMax}
+              onChangeText={(text) => setFilters({ ...filters, sizeMax: text })}
+            />
+          </View>
+        </View>
+
+        {/* <TextInput
           placeholder="Availability To (YYYY-MM-DD)"
+          placeholderTextColor="#666"
           style={styles.input}
           value={filters.availabilityTo}
-          onChangeText={(text) => setFilters({ ...filters, availabilityTo: text })}
-        />
-        <TouchableOpacity style={styles.button} onPress={fetchHomes}>
+          onChangeText={(text) =>
+            setFilters({ ...filters, availabilityTo: text })
+          }
+        /> */}
+
+        {/* <TouchableOpacity style={styles.button} onPress={fetchHomes}>
           <Text style={styles.buttonText}>Search</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity style={styles.resetButton}
+          onPress={() => {
+            resetFilters();
+            fetchHomes();
+          }}
+         >
+          <Text style={styles.resetButtonText}>Reset</Text>
+        </TouchableOpacity> */}
+
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.searchButton} onPress={fetchHomes}>
+            <Text style={styles.buttonText}>Search</Text>
+          </TouchableOpacity>
+
+          {/* <TouchableOpacity
+            style={styles.resetButton}
+            onPress={() => {
+              resetFilters();
+              fetchHomes();
+            }}
+          >
+            <Text style={styles.resetButtonText}>Reset</Text>
+          </TouchableOpacity> */}
+
+          <TouchableOpacity
+            style={styles.resetButton}
+            onPress={() => {
+              resetFilters();
+              // handleTypeSelect("All Properties");
+              // fetchHomes();
+            }}
+          >
+            <Text style={styles.buttonText}>Reset</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* List of Homes */}
@@ -646,9 +767,15 @@ export default function SearchHomes() {
           <View style={styles.card}>
             <Image source={{ uri: item.images[0] }} style={styles.image} />
             <Text style={styles.title}>{item.PropertyType}</Text>
-            <Text>{item.location.city}, {item.location.area}</Text>
-            <Text>Rent: ${item.rent} / {item.rentPeriod}</Text>
-            <Text>{item.details.beds} Beds, {item.details.baths} Baths</Text>
+            <Text>
+              {item.location.city}, {item.location.area}
+            </Text>
+            <Text>
+              Rent: ${item.rent} / {item.rentPeriod}
+            </Text>
+            <Text>
+              {item.details.beds} Beds, {item.details.baths} Baths
+            </Text>
           </View>
         )}
       />
@@ -660,28 +787,65 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "black", //"#f9f9f9",
   },
   filters: {
     marginBottom: 20,
   },
+
+  detailsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap", // Wrap to the next line
+    justifyContent: "space-between", // Space between
+  },
+
+  // input: {
+  //   borderWidth: 1,
+  //   borderColor: "#ccc",
+  //   padding: 10,
+  //   marginVertical: 5,
+  //   borderRadius: 5,
+  // },
+
+  inputWrapper: {
+    width: "49.8%", // Ensures 2 columns per row
+  },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    marginVertical: 5,
-    borderRadius: 5,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    backgroundColor: "#2d3748",
+    color: "white",
+    fontSize: 16,
+    marginTop: 3,
   },
-  button: {
-    backgroundColor: "#007BFF",
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
+
+  inputRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    // marginTop: 10,
+    width: "100%",
   },
-  buttonText: {
-    color: "#fff",
+
+  inputText: {
+    fontSize: 15,
     fontWeight: "bold",
+    // marginTop: 15,
+    marginBottom: 10,
+    color: "white",
   },
+
+  // button: {
+  //   marginTop: 10,
+  //   backgroundColor: "#007BFF",
+  //   padding: 10,
+  //   borderRadius: 5,
+  //   alignItems: "center",
+  // },
+  // buttonText: {
+  //   color: "#fff",
+  //   fontWeight: "bold",
+  // },
   card: {
     backgroundColor: "#fff",
     padding: 10,
@@ -703,15 +867,58 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 5,
   },
+  // dropdown: {
+  //   padding: 10,
+  //   borderWidth: 1,
+  //   paddingVertical: 12,
+  //   paddingHorizontal: 16,
+  //   borderRadius: 5,
+  //   backgroundColor: "#f0f0f0",
+  //   marginVertical: 5,
+  // },
+  // dropdownContent: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   alignItems: "center",
+  // },
+  // dropdownText: {
+  //   fontSize: 16,
+  //   color: "#333",
+  // },
+  // dropdownIcon: {
+  //   fontSize: 18,
+  //   color: "#666",
+  // },
+  // dropdownMenu: {
+  //   backgroundColor: "#f0f0f0",
+  //   borderRadius: 5,
+  //   marginTop: 8,
+  //   overflow: "hidden",
+  // },
+  // dropdownItem: {
+  //   paddingVertical: 12,
+  //   paddingHorizontal: 16,
+  // },
+  // selectedItem: {
+  //   backgroundColor: "#e0e0e0",
+  // },
+  // dropdownItemText: {
+  //   fontSize: 16,
+  //   color: "#333",
+  // },
+  // selectedItemText: {
+  //   fontWeight: "bold",
+  // },
+
   dropdown: {
-    padding: 10,
     borderWidth: 1,
     paddingVertical: 12,
     paddingHorizontal: 16,
-    borderRadius: 5,
-    backgroundColor: "#f0f0f0",
-    marginVertical: 5,
+    borderRadius: 8,
+    backgroundColor: "#2d3748",
+    marginTop: 3,
   },
+
   dropdownContent: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -719,15 +926,15 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 16,
-    color: "#333",
+    color: "white",
   },
   dropdownIcon: {
-    fontSize: 18,
-    color: "#666",
+    fontSize: 16,
+    color: "#38bdf8", //"#666",
   },
   dropdownMenu: {
-    backgroundColor: "#f0f0f0",
-    borderRadius: 5,
+    backgroundColor: "#f0f0f0", // 1f2937
+    borderRadius: 8,
     marginTop: 8,
     overflow: "hidden",
   },
@@ -736,7 +943,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   selectedItem: {
-    backgroundColor: "#e0e0e0",
+    backgroundColor: "#38bdf8", // "#e0e0e0",
   },
   dropdownItemText: {
     fontSize: 16,
@@ -744,5 +951,44 @@ const styles = StyleSheet.create({
   },
   selectedItemText: {
     fontWeight: "bold",
+  },
+
+  // resetButton: {
+  //   backgroundColor: "red",
+  //   padding: 10,
+  //   marginTop: 10,
+  //   alignItems: "center",
+  //   borderRadius: 5,
+  // },
+  // resetButtonText: {
+  //   color: "white",
+  //   fontWeight: "bold",
+  // },
+
+  buttonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 5,
+  },
+  searchButton: {
+    backgroundColor: "blue",
+    padding: 10,
+    flex: 1,
+    alignItems: "center",
+    marginRight: 5,
+    borderRadius: 8,
+  },
+  resetButton: {
+    backgroundColor: "red",
+    padding: 10,
+    flex: 1,
+    alignItems: "center",
+    // marginLeft: 5,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
