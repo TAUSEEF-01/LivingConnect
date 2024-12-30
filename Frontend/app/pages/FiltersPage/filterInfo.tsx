@@ -473,8 +473,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
+import { useRouter } from "expo-router";
 
 export default function SearchHomes() {
+  const router = useRouter();
+
   const [homes, setHomes] = useState([]);
 
   const [filters, setFilters] = useState({
@@ -555,6 +558,7 @@ export default function SearchHomes() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.pageTitle}>Filter Page</Text>
       {/* Filters */}
       <View style={styles.filters}>
         <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
@@ -760,7 +764,7 @@ export default function SearchHomes() {
       </View>
 
       {/* List of Homes */}
-      <FlatList
+      {/* <FlatList
         data={homes}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
@@ -778,6 +782,41 @@ export default function SearchHomes() {
             </Text>
           </View>
         )}
+      /> */}
+
+      <FlatList
+        data={homes}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            key={item._id}
+            style={styles.card}
+            onPress={() =>
+              router.push({
+                pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                params: { homeId: item._id }, // Pass the home ID as a query parameter
+              })
+            } // Navigate to the details page
+          >
+            {item.images.length > 0 && (
+              <Image
+                source={{ uri: item.images[0] }} // Display the first image
+                style={styles.cardImage}
+              />
+            )}
+
+            <Text style={styles.cardPrice}>Tk {item.rent}</Text>
+
+            <Text style={styles.cardDetails}>
+              {item.details.beds} beds | {item.details.baths} baths |{" "}
+              {item.details.size} m²
+            </Text>
+
+            <Text style={styles.cardLocation}>
+              {item.location.city}, {item.location.area}
+            </Text>
+          </TouchableOpacity>
+        )}
       />
     </View>
   );
@@ -791,6 +830,13 @@ const styles = StyleSheet.create({
   },
   filters: {
     marginBottom: 20,
+  },
+  pageTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 7,
+    textAlign: "center",
+    color: "#66e0ff",
   },
 
   detailsContainer: {
@@ -846,17 +892,17 @@ const styles = StyleSheet.create({
   //   color: "#fff",
   //   fontWeight: "bold",
   // },
-  card: {
-    backgroundColor: "#fff",
-    padding: 10,
-    marginVertical: 5,
-    borderRadius: 5,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
-  },
+  // card: {
+  //   backgroundColor: "#fff",
+  //   padding: 10,
+  //   marginVertical: 5,
+  //   borderRadius: 5,
+  //   shadowColor: "#000",
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.1,
+  //   shadowRadius: 4,
+  //   elevation: 2,
+  // },
   image: {
     width: "100%",
     height: 200,
@@ -971,7 +1017,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   searchButton: {
-    backgroundColor: "blue",
+    backgroundColor: "#38bdf8",
     padding: 10,
     flex: 1,
     alignItems: "center",
@@ -991,4 +1037,78 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
   },
+
+  // card: {
+  //   // Add your card styles here
+  //   marginBottom: 10,
+  //   padding: 10,
+  //   backgroundColor: '#fff',
+  //   borderRadius: 8,
+  //   shadowColor: '#000',
+  //   shadowOpacity: 0.1,
+  //   shadowRadius: 10,
+  //   shadowOffset: { width: 0, height: 5 },
+  // },
+  card: {
+    backgroundColor: "#2d3748", // Light background for better contrast
+    padding: 12,
+    borderRadius: 15, // Rounded corners
+    marginBottom: 15,
+    width: "100%", // Makes the card not take full width
+    alignSelf: "center", // Center align for better appearance
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 8, // For Android shadow
+    overflow: "hidden", // Ensures smooth corners
+    borderWidth: 1,
+    //   borderColor: "#f1f1f1", // Light border for the card
+    transition: "all 0.3s ease", // Smooth transition for any interaction
+  },
+
+  cardImage: {
+    width: "100%",
+    height: 180, // Increased height for better visuals
+    borderRadius: 12,
+    marginBottom: 12,
+    resizeMode: "cover", // Makes sure the image fits the container
+  },
+  cardPrice: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff", // Darker color for better readability
+    marginBottom: 6,
+  },
+  cardDetails: {
+    fontSize: 16,
+    color: "white", // Lighter text for the details
+    marginBottom: 6,
+  },
+  cardLocation: {
+    fontSize: 14,
+    color: "#fff", // A little darker for location details
+    fontStyle: "italic", // Italic style for the location
+    fontWeight: "bold",
+  },
+  // cardImage: {
+  //   width: '100%',
+  //   height: 200,
+  //   borderRadius: 8,
+  // },
+  // cardPrice: {
+  //   fontSize: 18,
+  //   fontWeight: 'bold',
+  //   marginTop: 10,
+  // },
+  // cardDetails: {
+  //   fontSize: 14,
+  //   color: '#666',
+  //   marginTop: 5,
+  // },
+  // cardLocation: {
+  //   fontSize: 14,
+  //   color: '#666',
+  //   marginTop: 5,
+  // },
 });

@@ -1026,7 +1026,7 @@ const styles = StyleSheet.create({
   //   },
   card: {
     backgroundColor: "#2d3748", // Light background for better contrast
-    padding: 20,
+    padding: 12,
     borderRadius: 15, // Rounded corners
     marginBottom: 15,
     width: "100%", // Makes the card not take full width
@@ -1056,13 +1056,14 @@ const styles = StyleSheet.create({
   },
   cardDetails: {
     fontSize: 16,
-    color: "#white", // Lighter text for the details
+    color: "white", // Lighter text for the details
     marginBottom: 6,
   },
   cardLocation: {
     fontSize: 14,
     color: "#fff", // A little darker for location details
     fontStyle: "italic", // Italic style for the location
+    fontWeight: "bold",
   },
 
   sidePanel: {
