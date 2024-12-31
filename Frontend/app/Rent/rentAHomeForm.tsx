@@ -785,7 +785,7 @@ import axios from "axios";
 import { router } from "expo-router";
 
 const HomeDetailsForm = () => {
-  const pickImage = async () => {
+  const pickImage = async () => { // <-- tamzid
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -877,7 +877,8 @@ const HomeDetailsForm = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/houseDetails/home-details",
+        // "http://192.168.50.242:5000/houseDetails/home-details", //10.33.24.139
+        "http://10.33.24.139:5000/houseDetails/home-details", //10.33.24.139
         formData,
         {
           headers: {
@@ -1349,7 +1350,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // flexGrow: 1,
-    padding: 20,
+    padding: 10,
     backgroundColor: "black" // "#132639",
     // width: "100%",
     // marginVertical: 16,

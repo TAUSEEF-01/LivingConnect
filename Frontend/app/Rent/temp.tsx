@@ -671,7 +671,8 @@ const HomeDetailsForm = () => {
 
 
       const response = await axios.post(
-        "http://192.168.50.242:5000/houseDetails/home-details",
+        // "http://192.168.50.242:5000/houseDetails/home-details",
+        "http://10.33.24.139:5000/houseDetails/home-details",
         formData,
         {
           

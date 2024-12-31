@@ -110,7 +110,8 @@ import {
     const fetchMessages = async () => {
       try {
         const response = await fetch(
-          `http://192.168.0.109:8000/messages/${userId}/${recepientId}`
+          // `http://192.168.0.109:8000/messages/${userId}/${recepientId}`
+          `http://10.33.24.139:5000/messages/${userId}/${recepientId}`
         );
         const data = await response.json();
   

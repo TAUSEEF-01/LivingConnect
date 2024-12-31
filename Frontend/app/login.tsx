@@ -53,8 +53,8 @@ export default function LoginScreen() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("http://192.168.50.242:5000/auth/login", 
-      // const response = await fetch("http://59.153.103.24/32/auth/login", 
+      // const response = await fetch("http://192.168.50.242:5000/auth/login", 
+      const response = await fetch("http://10.33.24.139:5000/auth/login", 
       {
         method: "POST",
         headers: {

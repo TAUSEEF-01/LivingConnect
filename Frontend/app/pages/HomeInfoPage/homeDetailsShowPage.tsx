@@ -205,7 +205,8 @@ const HomeDetailsPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
+        // `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
+        `http://10.33.24.139:5000/houseDetails/get-homes-details/${homeId}`
       );
 
       // console.log("Fetched home details:", response.data);

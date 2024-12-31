@@ -1774,7 +1774,8 @@ export default function MainPage() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch("http://192.168.50.242:5000/properties");
+        // const response = await fetch("http://192.168.50.242:5000/properties");
+        const response = await fetch("http://10.33.24.139:5000/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);

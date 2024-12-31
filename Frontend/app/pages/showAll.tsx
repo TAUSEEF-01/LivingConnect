@@ -703,7 +703,8 @@ const AllHomesPage = () => {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        "http://10.33.24.139:5000/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {

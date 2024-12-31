@@ -208,8 +208,8 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
                 await axios.post(
-                  "http://192.168.50.242:5000/auth/logout",
                   // "http://192.168.50.242:5000/auth/logout",
+                  "http://10.33.24.139:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -262,7 +262,22 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
               {userName.charAt(0).toUpperCase()}
             </Text>
           </View>
-          <Text style={localStyles.profileName}>Profile</Text>
+          <Text style={localStyles.profileName}>  Profile</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={localStyles.messageButton}
+          onPress={() => router.push("/messages/ChatsScreen")}
+        >
+          <Text style={localStyles.buttonText}>Message History</Text>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity
+          style={localStyles.manageFavButton}
+          onPress={() => router.push("/screens/contact_us")}
+        >
+          <Text style={localStyles.buttonText}>Manage Favorite</Text>
         </TouchableOpacity>
 
         {/* <TouchableOpacity
@@ -388,6 +403,7 @@ const localStyles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
+  
   },
 
   profileName: {
@@ -521,14 +537,14 @@ const localStyles = StyleSheet.create({
 
   aboutButton: {
     padding: 12,
-    backgroundColor: "#8b97f0",
+    backgroundColor: "#38bdf8", //8b97f0
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
     bottom: "28%",
     alignSelf: "center",
-    width: "80%",
+    width: "90%",
     borderColor: "black", // Border color
     borderWidth: 2, // Border width
 
@@ -542,14 +558,59 @@ const localStyles = StyleSheet.create({
 
   contactButton: {
     padding: 12,
-    backgroundColor: "#8b97f0",
+    backgroundColor: "#38bdf8",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: "20%",
+    bottom: "21%",
     alignSelf: "center",
-    width: "80%",
+    width: "90%",
+    borderColor: "black", // Border color
+    borderWidth: 2, // Border width
+
+    // Shadow properties
+    shadowColor: "#000", // Shadow color
+    shadowOffset: { width: 0, height: 2 }, // Shadow position
+    shadowOpacity: 0.25, // Shadow transparency
+    shadowRadius: 3.84, // Shadow blur radius
+    elevation: 5, // For Android shadow support
+  },
+
+
+
+  messageButton: {
+    padding: 12,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: "82%",
+    alignSelf: "center",
+    width: "90%",
+    borderColor: "black", // Border color
+    borderWidth: 2, // Border width
+
+    // Shadow properties
+    shadowColor: "#000", // Shadow color
+    shadowOffset: { width: 0, height: 2 }, // Shadow position
+    shadowOpacity: 0.25, // Shadow transparency
+    shadowRadius: 3.84, // Shadow blur radius
+    elevation: 5, // For Android shadow support
+  },
+
+
+  manageFavButton: {
+    padding: 12,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: "75%",
+    alignSelf: "center",
+    width: "90%",
     borderColor: "black", // Border color
     borderWidth: 2, // Border width
 
@@ -563,14 +624,15 @@ const localStyles = StyleSheet.create({
 
   logoutButton: {
     padding: 12,
-    backgroundColor: "#ef4444",
+    backgroundColor: "red", //"#ef4444",
+    // backgroundColor: "#ef4444",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
     bottom: "8%",
     alignSelf: "center",
-    width: "80%",
+    width: "90%",
 
     borderColor: "black", // Border color
     borderWidth: 2, // Border width

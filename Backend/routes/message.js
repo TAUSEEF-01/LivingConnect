@@ -935,7 +935,7 @@ router.post("/messages", upload.single("imageFile"), async (req, res) => {
 
 
     .populate('senderId', 'name profilePic', 'userInfoCollections')
-.populate('recepientId', 'name profilePic', 'userInfoCollections');
+    .populate('recepientId', 'name profilePic', 'userInfoCollections');
 
 
     res.status(200).json(populatedMessage);
