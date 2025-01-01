@@ -166,4 +166,34 @@ router.get("/verify", async (req, res) => {
   }
 });
 
+
+// Route to get user details
+router.get("/adminCheck", async (req, res) => {
+
+  const token = req.headers.authorization?.split(" ")[1];
+  // console.log("Received Update Request with token:", token);
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId; // Assuming you extract the user ID from the token middleware
+
+    // console.log("User ID:", userId);
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ isAdmin: user.isAdmin });
+  } catch (error) {
+    console.error("Error fetching user details:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

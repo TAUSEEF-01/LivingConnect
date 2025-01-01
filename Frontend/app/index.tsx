@@ -45,8 +45,6 @@
 //   return null; // No UI is needed as this component only handles redirection
 // }
 
-
-
 //   // return (
 //   //   <View>
 //   //     <Button title="Login" onPress={() => console.log("Login pressed")} />
@@ -70,16 +68,6 @@
 //   //     <Text>Loading...</Text>
 //   //   </View>
 //   // );
-
-
-
-
-
-
-
-
-
-
 
 // import { useEffect } from "react";
 // import { router } from "expo-router";
@@ -107,21 +95,15 @@
 //   return null; // No UI as this is just a redirecting screen
 // }
 
-
-
-
-
 import { useEffect } from "react";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios"; // You can use axios or any other HTTP client
 
 export default function Index() {
-  useEffect(() => {   
-
+  useEffect(() => {
     const checkAuthentication = async () => {
       try {
-
         // await AsyncStorage.clear();
 
         const keys = await AsyncStorage.getAllKeys();
@@ -136,15 +118,16 @@ export default function Index() {
         if (token) {
           console.log("Token found in AsyncStorage");
           // Check the token validity using the verify endpoint
-          const response = await axios.get("http://192.168.50.242:5000/auth/verify", 
-          // const response = await axios.get("http://59.153.103.24/32/auth/verify",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Send token in the Authorization header
-              // Authorization: `Bearer ${lol}`, // Send token in the Authorization header
-            },
-          });
-
+          const response = await axios.get("http://192.168.50.242:5000/auth/verify",
+          // const response = await axios.get(
+          //   "http://10.33.24.139:5000/auth/verify",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Send token in the Authorization header
+                // Authorization: `Bearer ${lol}`, // Send token in the Authorization header
+              },
+            }
+          );
 
           if (response.status === 200) {
             // Token is valid, navigate to the main page

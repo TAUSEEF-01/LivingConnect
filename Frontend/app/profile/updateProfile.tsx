@@ -780,9 +780,6 @@ export default function Profile() {
     }
   };
 
-
-
-
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -802,6 +799,7 @@ export default function Profile() {
       setLoading(true);
       const response = await axios.get(
         "http://192.168.50.242:5000/profile/get-profile",
+        // "http://10.33.24.139:5000/profile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -821,9 +819,6 @@ export default function Profile() {
       // setLoading(false);
     }
   };
-
-
-  
 
   const handleSaveProfile = async () => {
     // Validation
@@ -846,7 +841,8 @@ export default function Profile() {
       const token = await AsyncStorage.getItem("userToken");
 
       const response = await axios.post(
-        "http://192.168.50.242:5000/profile/update-profile",
+        // "http://192.168.50.242:5000/profile/update-profile",
+        "http://10.33.24.139:5000/profile/update-profile",
         {
           // email: 'abc02@gmail.com',
           name: userName,

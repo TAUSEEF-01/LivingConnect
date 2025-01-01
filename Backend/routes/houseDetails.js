@@ -131,4 +131,138 @@ router.get("/get-all-Homes-details", async (req, res) => {
   }
 });
 
+
+
+// router.get("/searchHomes", async (req, res) => {
+//   try {
+//     const { city, area, rentMin, rentMax, propertyType } = req.query;
+
+//     // Construct search query
+//     const query = {};
+//     if (city) query["location.city"] = city;
+//     if (area) query["location.area"] = area;
+//     if (rentMin) query.rent = { ...query.rent, $gte: Number(rentMin) };
+//     if (rentMax) query.rent = { ...query.rent, $lte: Number(rentMax) };
+//     if (propertyType) query.PropertyType = propertyType;
+
+//     const homes = await HomeDetails.find(query);
+//     res.status(200).json(homes);
+//   } catch (error) {
+//     console.error("Error retrieving homes:", error);
+//     res.status(500).json({ message: "Failed to retrieve homes", error });
+//   }
+// });
+
+
+
+
+
+// router.get("/searchHomes", async (req, res) => {
+//   try {
+//     const {
+//       city,
+//       area,
+//       rentMin,
+//       rentMax,
+//       propertyType,
+//       beds,
+//       baths,
+//       balcony,
+//       // sizeMin,
+//       // sizeMax,
+//       // garage,
+//       // lift,
+//       // gasSupply,
+//       // generator,
+//       // internet,
+//       // cctv,
+//       // wifi,
+//       // availableFrom,
+//       availableTo,
+//     } = req.query;
+
+//     // Construct search query
+//     const query = {};
+
+//     // Location filters
+//     if (city) query["location.city"] = city;
+//     if (area) query["location.area"] = area;
+
+//     // Rent filters
+//     if (rentMin) query.rent = { ...query.rent, $gte: Number(rentMin) };
+//     if (rentMax) query.rent = { ...query.rent, $lte: Number(rentMax) };
+
+//     // Property type
+//     if (propertyType) query.PropertyType = propertyType;
+
+//     // Details filters
+//     if (beds) query["details.beds"] = Number(beds);
+//     if (baths) query["details.baths"] = Number(baths);
+//     if (balcony) query["details.balcony"] = Number(balcony);
+//     if (sizeMin) query["details.size"] = { ...query["details.size"], $gte: Number(sizeMin) };
+//     if (sizeMax) query["details.size"] = { ...query["details.size"], $lte: Number(sizeMax) };
+
+//     // Facility filters
+//     if (garage) query["facitlities.garage"] = garage === "true";
+//     if (lift) query["facitlities.lift"] = lift === "true";
+//     if (gasSupply) query["facitlities.gasSupply"] = gasSupply === "true";
+//     if (generator) query["facitlities.generator"] = generator === "true";
+//     if (internet) query["facitlities.internet"] = internet === "true";
+//     if (cctv) query["facitlities.cctv"] = cctv === "true";
+//     if (wifi) query["facitlities.wifi"] = wifi === "true";
+
+//     // Availability filters
+//     if (availableFrom) query["availability.from"] = { $gte: new Date(availableFrom) };
+//     if (availableTo) query["availability.to"] = { $lte: new Date(availableTo) };
+
+//     const homes = await HomeDetails.find(query);
+//     res.status(200).json(homes);
+//   } catch (error) {
+//     console.error("Error retrieving homes:", error);
+//     res.status(500).json({ message: "Failed to retrieve homes", error });
+//   }
+// });
+
+
+// Updated Search Endpoint
+router.get("/searchHomes", async (req, res) => {
+  try {
+    const {
+      city,
+      area,
+      rentMin,
+      rentMax,
+      propertyType,
+      beds,
+      baths,
+      sizeMin,
+      sizeMax,
+      balcony,
+      availabilityTo,
+    } = req.query;
+
+    // Construct search query
+    const query = {};
+    if (city) query["location.city"] = city;
+    if (area) query["location.area"] = area;
+    if (rentMin) query.rent = { ...query.rent, $gte: Number(rentMin) };
+    if (rentMax) query.rent = { ...query.rent, $lte: Number(rentMax) };
+    if (propertyType) query.PropertyType = propertyType;
+    if (beds) query["details.beds"] = Number(beds);
+    if (baths) query["details.baths"] = Number(baths);
+    if (sizeMin) query["details.size"] = { ...query["details.size"], $gte: Number(sizeMin) };
+    if (sizeMax) query["details.size"] = { ...query["details.size"], $lte: Number(sizeMax) };
+    if (balcony) query["details.balcony"] = Number(balcony);
+    if (availabilityTo) query["availability.to"] = { $lte: new Date(availabilityTo) };
+
+    const homes = await HomeDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    console.error("Error retrieving homes:", error);
+    res.status(500).json({ message: "Failed to retrieve homes", error });
+  }
+});
+
+
+
 module.exports = router;

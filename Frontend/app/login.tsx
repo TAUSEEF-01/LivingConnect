@@ -15,7 +15,7 @@ export default function LoginScreen() {
   // const handleLogin = async () => {
   //   setLoading(true);
   //   setError("");
-  
+
   //   try {
   //     const response = await fetch("http://192.168.50.242:5000/login", {
   //       method: "POST",
@@ -24,13 +24,13 @@ export default function LoginScreen() {
   //       },
   //       body: JSON.stringify({ email, password }),
   //     });
-  
+
   //     const data = await response.json();
-  
+
   //     if (response.ok) {
   //       // Save the token to AsyncStorage
   //       await AsyncStorage.setItem("userToken", data.token);
-  
+
   //       // Navigate to the main page
   //       console.log("Login successful:", data);
   //       // router.replace("/(tabs)/mainPage");
@@ -46,16 +46,13 @@ export default function LoginScreen() {
   //     setLoading(false);
   //   }
   // };
-  
-
 
   const handleLogin = async () => {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("http://192.168.50.242:5000/auth/login", 
-      // const response = await fetch("http://59.153.103.24/32/auth/login", 
-      {
+      const response = await fetch("http://192.168.50.242:5000/auth/login", {
+      // const response = await fetch("http://10.33.24.139:5000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,12 +65,12 @@ export default function LoginScreen() {
       if (response.ok) {
         // Login successful
         // console.log("Login successful:", data);
-        
+
         console.log("logged in!");
 
         const token = data.token;
         await AsyncStorage.setItem("userToken", token);
-        
+
         // console.log("Token saved to AsyncStorage:", token);
 
         // router.replace("/(tabs)/mainPage"); // Navigate to the main page
@@ -242,8 +239,8 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
   titleHome: {
-    color: 'Black',
-    fontWeight: 'bold',
+    color: "Black",
+    fontWeight: "bold",
     fontSize: 50,
     letterSpacing: 2,
   },
@@ -305,4 +302,3 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-

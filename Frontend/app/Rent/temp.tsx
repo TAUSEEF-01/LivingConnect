@@ -534,9 +534,9 @@ import {
   ScrollView,
   Switch,
   TouchableOpacity,
-  Platform, 
+  Platform,
   Alert,
-  Image
+  Image,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
@@ -544,13 +544,11 @@ import * as ImageManipulator from "expo-image-manipulator";
 import axios from "axios";
 import { router } from "expo-router";
 
-
 const HomeDetailsForm = () => {
-  
   const pickImage = async () => {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
-  
+
     if (!permissionResult.granted) {
       Alert.alert(
         "Permission required",
@@ -558,14 +556,14 @@ const HomeDetailsForm = () => {
       );
       return;
     }
-  
+
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       quality: 0.7,
       base64: true,
     });
-  
+
     if (!result.canceled) {
       // Compress and resize the image
       const manipResult = await ImageManipulator.manipulateAsync(
@@ -573,16 +571,14 @@ const HomeDetailsForm = () => {
         [{ resize: { width: 500 } }],
         { compress: 0.7, base64: true }
       );
-  
+
       // Use handleInputChange to update the images array
-      handleInputChange(
-        "images",
-        [...formData.images, `data:image/jpeg;base64,${manipResult.base64}`]
-      );
+      handleInputChange("images", [
+        ...formData.images,
+        `data:image/jpeg;base64,${manipResult.base64}`,
+      ]);
     }
   };
-  
-
 
   // Function to remove an image by index
   const removeImage = (indexToRemove) => {
@@ -592,7 +588,7 @@ const HomeDetailsForm = () => {
     }));
   };
 
-// image upload end
+  // image upload end
 
   const [formData, setFormData] = useState({
     // userId: "",
@@ -634,7 +630,6 @@ const HomeDetailsForm = () => {
   //   });
   // };
 
-
   // Dynamic input handler for nested keys
   const handleInputChange = (path, value) => {
     const keys = path.split(".");
@@ -658,23 +653,22 @@ const HomeDetailsForm = () => {
     console.log("Payload:", JSON.stringify(formData));
 
     const token = await AsyncStorage.getItem("userToken");
-    
+
     try {
       // const response1 = await fetch("http://192.168.50.242:5000/home-details", {
       //   method: "POST",
-      //   headers: { 
-      //     // "Content-Type": "application/json" 
+      //   headers: {
+      //     // "Content-Type": "application/json"
       //     Authorization: `Bearer ${token}`,
       //   },
       //   body: JSON.stringify(formData),
       // },
 
-
       const response = await axios.post(
         "http://192.168.50.242:5000/houseDetails/home-details",
+        // "http://10.33.24.139:5000/houseDetails/home-details",
         formData,
         {
-          
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -682,8 +676,7 @@ const HomeDetailsForm = () => {
         }
       );
 
-
-    // );
+      // );
       if (response.status === 200) {
         console.log("Form submitted successfully");
         router.replace("/pages/mainPage");
@@ -694,7 +687,6 @@ const HomeDetailsForm = () => {
       console.error("Error:", error);
     }
   };
-
 
   const [isOpen, setIsOpen] = useState(false);
   const [selectedType, setSelectedType] = useState("Select Property Types");
@@ -711,8 +703,6 @@ const HomeDetailsForm = () => {
     setIsOpen(false);
   };
 
-
-
   // calender handle function
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
@@ -721,10 +711,16 @@ const HomeDetailsForm = () => {
     const currentDate = selectedDate || new Date();
     if (type === "from") {
       setShowFromPicker(Platform.OS === "ios");
-      handleInputChange("availability.from", currentDate.toISOString().split("T")[0]);
+      handleInputChange(
+        "availability.from",
+        currentDate.toISOString().split("T")[0]
+      );
     } else {
       setShowToPicker(Platform.OS === "ios");
-      handleInputChange("availability.to", currentDate.toISOString().split("T")[0]);
+      handleInputChange(
+        "availability.to",
+        currentDate.toISOString().split("T")[0]
+      );
     }
   };
 
@@ -748,33 +744,33 @@ const HomeDetailsForm = () => {
       /> */}
       <Text style={styles.sectionTitle}>Property Type</Text>
       <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
-              <Text style={styles.dropdownText}>{selectedType}</Text>
-              <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
+        <Text style={styles.dropdownText}>{selectedType}</Text>
+        <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
+      </TouchableOpacity>
+      {isOpen && (
+        <View style={styles.dropdownMenu}>
+          {propertyTypes.map((type) => (
+            <TouchableOpacity
+              key={type}
+              style={[
+                styles.dropdownItem,
+                selectedType === type && styles.selectedItem,
+              ]}
+              onPress={() => handleTypeSelect(type)}
+            >
+              <Text
+                style={[
+                  styles.dropdownItemText,
+                  selectedType === type && styles.selectedItemText,
+                ]}
+              >
+                {/* {formData.PropertyType = type ? type : "rent"} */}
+                {type}
+              </Text>
             </TouchableOpacity>
-            {isOpen && (
-              <View style={styles.dropdownMenu}>
-                {propertyTypes.map((type) => (
-                  <TouchableOpacity
-                    key={type}
-                    style={[
-                      styles.dropdownItem,
-                      selectedType === type && styles.selectedItem,
-                    ]}
-                    onPress={() => handleTypeSelect(type)}
-                  >
-                    <Text
-                      style={[
-                        styles.dropdownItemText,
-                        selectedType === type && styles.selectedItemText,
-                      ]}
-                    >
-                      {/* {formData.PropertyType = type ? type : "rent"} */}
-                      {type}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            )}
+          ))}
+        </View>
+      )}
 
       {/* Home Details */}
       {/* <Text style={styles.sectionTitle}>Details</Text> */}
@@ -791,45 +787,47 @@ const HomeDetailsForm = () => {
         />
       ))} */}
 
-<Text style={styles.sectionTitle}>Details</Text>
-<View style={styles.detailsContainer}>
-  {["beds", "baths", "balcony", "floor"].map((field, index) => (
-    <View key={field} style={styles.inputWrapper}>
-      <TextInput
-        style={styles.input}
-        placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-        keyboardType="numeric"
-        value={formData.details[field].toString()}
-        onChangeText={(text) =>
-          handleInputChange(`details.${field}`, text.replace(/[^0-9]/g, ""))
-        }
-      />
-    </View>
-  ))}
-</View>
-
-
-
+      <Text style={styles.sectionTitle}>Details</Text>
+      <View style={styles.detailsContainer}>
+        {["beds", "baths", "balcony", "floor"].map((field, index) => (
+          <View key={field} style={styles.inputWrapper}>
+            <TextInput
+              style={styles.input}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              keyboardType="numeric"
+              value={formData.details[field].toString()}
+              onChangeText={(text) =>
+                handleInputChange(
+                  `details.${field}`,
+                  text.replace(/[^0-9]/g, "")
+                )
+              }
+            />
+          </View>
+        ))}
+      </View>
 
       <Text style={styles.sectionTitle}>Size (sq meters)</Text>
-                <TextInput
-                  style={styles.input}
-                  keyboardType="numeric" // Only show numeric keyboard
-                  placeholder="Size (sq meters)"
-                  // value={formData.details.size}
-                  // onChangeText={(value) =>
+      <TextInput
+        style={styles.input}
+        keyboardType="numeric" // Only show numeric keyboard
+        placeholder="Size (sq meters)"
+        // value={formData.details.size}
+        // onChangeText={(value) =>
 
-                  value={formData.details["size"].toString()} // Ensure value is a string
-                  onChangeText={(value) => {
-                  const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-                  handleInputChange('details.size', numericValue);}
+        value={formData.details["size"].toString()} // Ensure value is a string
+        onChangeText={
+          (value) => {
+            const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+            handleInputChange("details.size", numericValue);
+          }
 
-                    // handleInputChange("size", numericValue, "details")}
-                  }
-                />
+          // handleInputChange("size", numericValue, "details")}
+        }
+      />
 
-            {/* #################################### */}
-{/* 
+      {/* #################################### */}
+      {/* 
 
       <View style={styles.rowContainer}>
               <View style={styles.inputWrapper}>
@@ -889,8 +887,7 @@ const HomeDetailsForm = () => {
             </View>
  */}
 
-
-            {/* #################################### */}
+      {/* #################################### */}
 
       {/* <Text style={styles.sectionTitle}>Rent</Text>
 <TextInput
@@ -912,13 +909,13 @@ const HomeDetailsForm = () => {
         }}
       />
 
-{/* <Text style={styles.sectionTitle}>Rent Period</Text> */}
+      {/* <Text style={styles.sectionTitle}>Rent Period</Text> */}
       <RentPeriodRadio
-              formData={formData}
-              handleInputChange={handleInputChange}
-            />
-      
-            {/* Display Selected Value for Debugging
+        formData={formData}
+        handleInputChange={handleInputChange}
+      />
+
+      {/* Display Selected Value for Debugging
             <Text style={stylesRadio.debugText}>
               Selected Rent Period: {formData.rentPeriod || "None"}
             </Text> */}
@@ -975,39 +972,53 @@ const HomeDetailsForm = () => {
         onChangeText={(text) => handleInputChange("availability.to", text)}
       /> */}
 
-<View>
-      <Text style={stylesDate.sectionTitle}>Availability</Text>
+      <View>
+        <Text style={stylesDate.sectionTitle}>Availability</Text>
 
-      {/* From Date Picker */}
-      <TouchableOpacity onPress={() => setShowFromPicker(true)} style={stylesDate.dateInput}>
-        <Text style={stylesDate.dateText}>
-          {formData.availability.from || "From (Select Date)"}
-        </Text>
-      </TouchableOpacity>
-      {showFromPicker && (
-        <DateTimePicker
-          value={formData.availability.from ? new Date(formData.availability.from) : new Date()}
-          mode="date"
-          display="default"
-          onChange={(event, date) => onChangeDate(event, date, "from")}
-        />
-      )}
+        {/* From Date Picker */}
+        <TouchableOpacity
+          onPress={() => setShowFromPicker(true)}
+          style={stylesDate.dateInput}
+        >
+          <Text style={stylesDate.dateText}>
+            {formData.availability.from || "From (Select Date)"}
+          </Text>
+        </TouchableOpacity>
+        {showFromPicker && (
+          <DateTimePicker
+            value={
+              formData.availability.from
+                ? new Date(formData.availability.from)
+                : new Date()
+            }
+            mode="date"
+            display="default"
+            onChange={(event, date) => onChangeDate(event, date, "from")}
+          />
+        )}
 
-      {/* To Date Picker */}
-      <TouchableOpacity onPress={() => setShowToPicker(true)} style={stylesDate.dateInput}>
-        <Text style={stylesDate.dateText}>
-          {formData.availability.to || "To (Select Date)"}
-        </Text>
-      </TouchableOpacity>
-      {showToPicker && (
-        <DateTimePicker
-          value={formData.availability.to ? new Date(formData.availability.to) : new Date()}
-          mode="date"
-          display="default"
-          onChange={(event, date) => onChangeDate(event, date, "to")}
-        />
-      )}
-    </View>
+        {/* To Date Picker */}
+        <TouchableOpacity
+          onPress={() => setShowToPicker(true)}
+          style={stylesDate.dateInput}
+        >
+          <Text style={stylesDate.dateText}>
+            {formData.availability.to || "To (Select Date)"}
+          </Text>
+        </TouchableOpacity>
+        {showToPicker && (
+          <DateTimePicker
+            value={
+              formData.availability.to
+                ? new Date(formData.availability.to)
+                : new Date()
+            }
+            mode="date"
+            display="default"
+            onChange={(event, date) => onChangeDate(event, date, "to")}
+          />
+        )}
+      </View>
 
       {/* Images */}
       {/* <Text style={styles.sectionTitle}>Images</Text> */}
@@ -1033,8 +1044,7 @@ const HomeDetailsForm = () => {
         }
       /> */}
 
-
-<Text style={stylesImages.sectionTitle}>Images</Text>
+      <Text style={stylesImages.sectionTitle}>Images</Text>
 
       {/* Input Field for Image URLs */}
       {/* <TextInput
@@ -1049,8 +1059,7 @@ const HomeDetailsForm = () => {
         }
       /> */}
 
-
-{/* <TextInput
+      {/* <TextInput
   style={styles.input}
   placeholder="Image URLs (comma-separated)"
   value={formData.images.join(", ")}
@@ -1061,7 +1070,6 @@ const HomeDetailsForm = () => {
     }))
   }
 /> */}
-
 
       {/* Button to Add Images */}
       <TouchableOpacity style={stylesImages.addButton} onPress={pickImage}>
@@ -1078,8 +1086,6 @@ const HomeDetailsForm = () => {
           />
         ))}
       </View> */}
-      
-
 
       {/* <View style={stylesImages.imageContainer}>
   {formData.images.length > 0 ? (
@@ -1104,31 +1110,34 @@ const HomeDetailsForm = () => {
   )}
 </View> */}
 
+      {/* Display Selected Image Previews */}
+      <View style={stylesImages.imageContainer}>
+        {formData.images.length > 0 ? (
+          <ScrollView horizontal>
+            {formData.images.map((image, index) => (
+              <View key={index} style={stylesImages.imageWrapper}>
+                {/* Image Preview */}
+                <Image
+                  source={{ uri: image }}
+                  style={stylesImages.imagePreview}
+                />
 
-
-{/* Display Selected Image Previews */}
-<View style={stylesImages.imageContainer}>
-  {formData.images.length > 0 ? (
-    <ScrollView horizontal>
-      {formData.images.map((image, index) => (
-        <View key={index} style={stylesImages.imageWrapper}>
-          {/* Image Preview */}
-          <Image source={{ uri: image }} style={stylesImages.imagePreview} />
-
-          {/* Cancel Button */}
-          <TouchableOpacity
-            style={stylesImages.cancelButton}
-            onPress={() => removeImage(index)}
-          >
-            <Text style={stylesImages.cancelButtonText}>X</Text>
-          </TouchableOpacity>
-        </View>
-      ))}
-    </ScrollView>
-  ) : (
-    <Text style={stylesImages.placeholderText}>No images uploaded yet.</Text>
-  )}
-</View>
+                {/* Cancel Button */}
+                <TouchableOpacity
+                  style={stylesImages.cancelButton}
+                  onPress={() => removeImage(index)}
+                >
+                  <Text style={stylesImages.cancelButtonText}>X</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
+        ) : (
+          <Text style={stylesImages.placeholderText}>
+            No images uploaded yet.
+          </Text>
+        )}
+      </View>
 
       {/* <View>  */}
       <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
@@ -1139,8 +1148,6 @@ const HomeDetailsForm = () => {
     </ScrollView>
   );
 };
-
-
 
 // RentPeriodRadio Component
 const RentPeriodRadio = ({ formData, handleInputChange }) => {
@@ -1160,14 +1167,14 @@ const RentPeriodRadio = ({ formData, handleInputChange }) => {
               <View style={stylesRadio.radioSelected} />
             )}
           </View>
-          <Text style={stylesRadio.radioLabel}>{option.charAt(0).toUpperCase() + option.slice(1)}</Text>
+          <Text style={stylesRadio.radioLabel}>
+            {option.charAt(0).toUpperCase() + option.slice(1)}
+          </Text>
         </TouchableOpacity>
       ))}
     </View>
   );
 };
-
-
 
 const stylesRadio = StyleSheet.create({
   container: {
@@ -1220,8 +1227,6 @@ const stylesRadio = StyleSheet.create({
   },
 });
 
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -1232,7 +1237,7 @@ const styles = StyleSheet.create({
     // marginVertical: 16,
   },
   // title: { fontSize: 24, fontWeight: "bold", marginBottom: 16 },
-  title :{
+  title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
@@ -1240,7 +1245,6 @@ const styles = StyleSheet.create({
   },
   sectionTitle: { fontSize: 18, fontWeight: "bold", marginTop: 12 },
 
-  
   dropdown: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -1280,7 +1284,7 @@ const styles = StyleSheet.create({
   },
 
   detailsContainer: {
-    flexDirection: "row", 
+    flexDirection: "row",
     flexWrap: "wrap", // Wrap to the next line
     justifyContent: "space-between", // Space between inputs
     marginBottom: 12,
@@ -1298,7 +1302,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 
-
   // input: {
   //   borderWidth: 1,
   //   borderColor: "#ddd",
@@ -1306,8 +1309,6 @@ const styles = StyleSheet.create({
   //   borderRadius: 5,
   //   marginBottom: 10,
   // },
-
-
 
   // rowContainer: {
   //   flexDirection: "row", // Align items horizontally
@@ -1339,15 +1340,14 @@ const styles = StyleSheet.create({
   //   color: "#555",
   // },
 
-
   switchContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 10,
   },
-  switchLabel: { 
-    fontSize: 16 
+  switchLabel: {
+    fontSize: 16,
   },
   submitButton: {
     // marginTop: 20,
@@ -1365,9 +1365,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-
-
 
 const stylesDate = StyleSheet.create({
   sectionTitle: {
@@ -1390,12 +1387,7 @@ const stylesDate = StyleSheet.create({
   },
 });
 
-
-
 export default HomeDetailsForm;
-
-
-
 
 const stylesImages = StyleSheet.create({
   container: {
@@ -1451,8 +1443,6 @@ const stylesImages = StyleSheet.create({
     color: "gray",
     fontSize: 16,
   },
-
-
 
   cancelButton: {
     position: "absolute",

@@ -72,15 +72,6 @@
 
 // export default HomeDetailsPage;
 
-
-
-
-
-
-
-
-
-
 // // #########################################################################
 // import React, { useEffect, useState } from "react";
 // import { View, Text, StyleSheet, ScrollView, Image, ActivityIndicator, Alert } from "react-native";
@@ -197,14 +188,7 @@
 
 // export default HomeDetailsPage;
 
-
-
-
-
-
-
 // #########################################################################
-
 
 // import React, { useEffect, useState } from "react";
 // import {
@@ -361,15 +345,6 @@
 
 // export default HomeDetailsPage;
 
-
-
-
-
-
-
-
-
-
 // // 33333333333333333333333333333333333333333333333333333333333333333333333333333333333333
 
 // import React, { useEffect, useState } from "react";
@@ -427,15 +402,15 @@
 //       </Text>
 //       <ScrollView horizontal style={styles.imageContainer}>
 //         {home.images.map((image, index) => (
-//           <Image 
-//             key={index} 
-//             source={{ uri: image }} 
+//           <Image
+//             key={index}
+//             source={{ uri: image }}
 //             style={styles.image}
 //             resizeMode="cover"
 //           />
 //         ))}
 //       </ScrollView>
-      
+
 //       <View style={styles.locationContainer}>
 //         <Text style={styles.sectionTitle}>Location</Text>
 //         <Text style={styles.locationText}>
@@ -502,7 +477,6 @@
 
 // export default HomeDetailsPage;
 
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -526,6 +500,7 @@ const HomeDetailsPage = () => {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
         `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
+        // `http://10.33.24.139:5000/houseDetails/get-homes-details/${homeId}`
       );
       setHome(response.data);
     } catch (error) {
@@ -573,9 +548,7 @@ const HomeDetailsPage = () => {
             style={styles.image}
             resizeMode="cover"
           />
-        )) || (
-          <Text style={styles.errorText}>No images available</Text>
-        )}
+        )) || <Text style={styles.errorText}>No images available</Text>}
       </ScrollView>
 
       {/* Location Details */}

@@ -28,9 +28,9 @@
 // //   const navigation = useNavigation();
 // //   const [selectedImage, setSelectedImage] = useState("");
 // //   const route = useRoute();
-  
+
 // //   const { recepientId } = route.params;
-  
+
 // //   const [message, setMessage] = useState("");
 // //   const { userId, setUserId } = useContext(UserType);
 
@@ -64,8 +64,7 @@
 //   //   ,"😯","😦","😧","😮","😲","🥱","😴","🤤","😪","😵","😵‍💫"
 //   //   ,"🫥","🤐","🥴","🤢","🤮","🤧","😷","🤒","🤕","🤑","🤠"
 //   //   ,"😈","👿","👹","👺","🤡","💩","👻","💀","☠️","👽","👾"
-//   //   ,"🤖","🎃","😺","😸" ,"😹","😻","😼","😽","🙀","😿","😾"]; 
-    
+//   //   ,"🤖","🎃","😺","😸" ,"😹","😻","😼","😽","🙀","😿","😾"];
 
 // //     const renderEmojiSelector = () => {
 // //       return (
@@ -146,14 +145,13 @@
 
 // //     fetchRecepientData();
 // //   }, []);
-  
 
 // //   const handleSend = async (messageType, imageUri) => {
 // //         try {
 // //           const formData = new FormData();
 // //           formData.append("senderId", userId);
 // //           formData.append("recepientId", recepientId);
-    
+
 // //           //if the message type id image or a normal text
 // //           if (messageType === "image") {
 // //             formData.append("messageType", "image");
@@ -166,16 +164,16 @@
 // //             formData.append("messageType", "text");
 // //             formData.append("messageText", message);
 // //           }
-    
+
 // //           const response = await fetch("http://192.168.50.242:5000/messages", {
 // //             method: "POST",
 // //             body: formData,
 // //           });
-    
+
 // //           if (response.ok) {
 // //             setMessage("");
 // //             setSelectedImage("");
-    
+
 // //             fetchMessages();
 // //           }
 // //         } catch (error) {
@@ -183,7 +181,6 @@
 // //         }
 // //       };
 // //   console.log("messages", selectedMessages);
-
 
 // //   useLayoutEffect(() => {
 // //         navigation.setOptions({
@@ -196,7 +193,7 @@
 // //                 size={24}
 // //                 color="black"
 // //               />
-    
+
 // //               {selectedMessages.length > 0 ? (
 // //                 <View>
 // //                   <Text style={{ fontSize: 16, fontWeight: "500" }}>
@@ -214,7 +211,7 @@
 // //                     }}
 // //                     source={{ uri: recepientData?.image }}
 // //                   />
-    
+
 // //                   <Text style={{ marginLeft: 5, fontSize: 15, fontWeight: "bold" }}>
 // //                     {recepientData?.name}
 // //                   </Text>
@@ -256,7 +253,7 @@
 // //       });
 // //       return;
 // //     }
-  
+
 // //     navigation.setOptions({
 // //       headerTitle: "",
 // //       headerLeft: () => (
@@ -296,7 +293,6 @@
 // //       ),
 // //     });
 // //   }, [recepientData, selectedMessages]);
-  
 
 // //   const deleteMessages = async (messageIds) => {
 // //     try {
@@ -326,8 +322,6 @@
 // //     return new Date(time).toLocaleString("en-US", options);
 // //   };
 
-
-
 // //   const pickImage = async () => {
 // //     try {
 // //       const result = await ImagePicker.launchImageLibraryAsync({
@@ -336,7 +330,7 @@
 // //         aspect: [4, 3],
 // //         quality: 1,
 // //       });
-  
+
 // //       if (!result.canceled) { // The new API uses 'canceled'
 // //         console.log("Image selected:", result.assets[0].uri);
 // //         handleSend("image", result.assets[0].uri); // Updated to access 'assets' array
@@ -348,7 +342,6 @@
 // //     }
 // //   };
 
-  
 // //   const handleSelectMessage = (message) => {
 // //     //check if the message is already selected
 // //     const isSelected = selectedMessages.includes(message._id);
@@ -419,10 +412,9 @@
 // //             );
 // //           }
 
-
 // //           if (item.messageType === "image") {
 // //             const imageUrl = item.imageUrl; // Use the imageUrl from the message
-            
+
 // //             return (
 // //               <Pressable
 // //                 key={index}
@@ -541,37 +533,6 @@
 
 // // const styles = StyleSheet.create({});
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // import {
 // //   StyleSheet,
 // //   Text,
@@ -612,7 +573,7 @@
 // //     ,"😯","😦","😧","😮","😲","🥱","😴","🤤","😪","😵","😵‍💫"
 // //     ,"🫥","🤐","🥴","🤢","🤮","🤧","😷","🤒","🤕","🤑","🤠"
 // //     ,"😈","👿","👹","👺","🤡","💩","👻","💀","☠️","👽","👾"
-// //     ,"🤖","🎃","😺","😸" ,"😹","😻","😼","😽","🙀","😿","😾"]; 
+// //     ,"🤖","🎃","😺","😸" ,"😹","😻","😼","😽","🙀","😿","😾"];
 
 // //   useEffect(() => {
 // //     fetchMessages();
@@ -881,16 +842,6 @@
 // //   );
 // // };
 
-
-
-
-
-
-
-
-
-
-
 // // import {
 // //   StyleSheet,
 // //   Text,
@@ -907,8 +858,6 @@
 // // import { UserType } from "../UserContext";
 // // import { useNavigation, useRoute } from "@react-navigation/native";
 // // import * as ImagePicker from "expo-image-picker";
-
-
 
 // // const ChatMessagesScreen = () => {
 // //   const [showEmojiSelector, setShowEmojiSelector] = useState(false);
@@ -1124,10 +1073,6 @@
 // //   );
 // // };
 
-
-
-
-
 // // const styles = StyleSheet.create({
 // //   inputContainer: {
 // //     flexDirection: "row",
@@ -1166,25 +1111,6 @@
 
 // // export default ChatMessagesScreen;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // // import {
 // // //   StyleSheet,
 // // //   Text,
@@ -1201,7 +1127,6 @@
 // // // import { UserType } from "../UserContext";
 // // // import { useNavigation, useRoute } from "@react-navigation/native";
 // // // import * as ImagePicker from "expo-image-picker";
-
 
 // // // export default function ChatMessagesScreen() {
 
@@ -1373,23 +1298,12 @@
 // // //     });
 // // //   };
 
-
-
 // // //   return (
 // // //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
 // // //       <Text>Chat Messages Screen</Text>
 // // //     </View>
 // // //   );
 // // // }
-
-
-
-
-
-
-
-
-
 
 // // import { useRouter, useSearchParams } from 'expo-router';
 // // import React, { useEffect, useState } from 'react';
@@ -1479,19 +1393,6 @@
 
 // // export default MessagingScreen;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // import React, { useState, useEffect, useRef } from 'react';
 // // import {
 // //   View,
@@ -1515,7 +1416,7 @@
 // //   const [loading, setLoading] = useState(false);
 // //   const flatListRef = useRef(null);
 // //   const params = useLocalSearchParams();
-  
+
 // //   // Replace with your actual user ID and recipient ID
 // //   const currentUserId = "675c911919831c86093ed034";
 // //   const recipientId =  "675d5df58fe7ec7ad49d9fc3";// params?.recipientId;
@@ -1557,7 +1458,7 @@
 // //       };
 
 // //       const response = await axios.post('https://192.168.50.242:5000/message/messages', messageData);
-      
+
 // //       setMessages(prev => [...prev, response.data]);
 // //       setNewMessage('');
 // //       flatListRef.current?.scrollToEnd();
@@ -1591,7 +1492,7 @@
 // //         isCurrentUser ? styles.sentMessage : styles.receivedMessage
 // //       ]}>
 // //         {item.messageType === 'image' ? (
-// //           <Image 
+// //           <Image
 // //             source={{ uri: item.imageUrl }}
 // //             style={styles.messageImage}
 // //           />
@@ -1599,8 +1500,8 @@
 // //           <Text style={styles.messageText}>{item.message}</Text>
 // //         )}
 // //         <Text style={styles.timeStamp}>
-// //           {new Date(item.timeStamp).toLocaleTimeString([], { 
-// //             hour: '2-digit', 
+// //           {new Date(item.timeStamp).toLocaleTimeString([], {
+// //             hour: '2-digit',
 // //             minute: '2-digit'
 // //           })}
 // //         </Text>
@@ -1609,7 +1510,7 @@
 // //   };
 
 // //   return (
-// //     <KeyboardAvoidingView 
+// //     <KeyboardAvoidingView
 // //       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 // //       style={styles.container}
 // //     >
@@ -1626,7 +1527,7 @@
 // //         <TouchableOpacity onPress={pickImage} style={styles.imageButton}>
 // //           <Ionicons name="image" size={24} color="#007AFF" />
 // //         </TouchableOpacity>
-        
+
 // //         <TextInput
 // //           style={styles.input}
 // //           value={newMessage}
@@ -1634,8 +1535,8 @@
 // //           placeholder="Type a message..."
 // //           multiline
 // //         />
-        
-// //         <TouchableOpacity 
+
+// //         <TouchableOpacity
 // //           onPress={() => sendMessage('text')}
 // //           style={[
 // //             styles.sendButton,
@@ -1714,17 +1615,6 @@
 
 // // export default ChatMessagesScreen;
 
-
-
-
-
-
-
-
-
-
-
-
 // // // works ##############################################################
 
 // // import React, { useState, useEffect, useRef } from 'react';
@@ -1755,16 +1645,16 @@
 // //   const [loading, setLoading] = useState(false);
 // //   const flatListRef = useRef(null);
 // //   const params = useLocalSearchParams();
-  
+
 // //   const currentUserId = "675c911919831c86093ed034"; //params?.userId;
 // //   const recipientId = "675d5df58fe7ec7ad49d9fc3"; //params?.recipientId;
 
 // //   useEffect(() => {
 // //     fetchMessages();
-    
+
 // //     // Fetch messages every 5 seconds
 // //     const interval = setInterval(fetchMessages, 5000);
-    
+
 // //     return () => clearInterval(interval);
 // //   }, []);
 
@@ -1875,7 +1765,7 @@
 // //         isCurrentUser ? styles.sentMessage : styles.receivedMessage
 // //       ]}>
 // //         {item.messageType === 'image' ? (
-// //           <Image 
+// //           <Image
 // //             source={{ uri: item.imageUrl }}
 // //             style={styles.messageImage}
 // //             resizeMode="cover"
@@ -1889,8 +1779,8 @@
 // //           </Text>
 // //         )}
 // //         <Text style={styles.timeStamp}>
-// //           {new Date(item.timeStamp).toLocaleTimeString([], { 
-// //             hour: '2-digit', 
+// //           {new Date(item.timeStamp).toLocaleTimeString([], {
+// //             hour: '2-digit',
 // //             minute: '2-digit'
 // //           })}
 // //         </Text>
@@ -1899,7 +1789,7 @@
 // //   };
 
 // //   return (
-// //     <KeyboardAvoidingView 
+// //     <KeyboardAvoidingView
 // //       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 // //       style={styles.container}
 // //     >
@@ -1913,14 +1803,14 @@
 // //       />
 
 // //       <View style={styles.inputContainer}>
-// //         <TouchableOpacity 
-// //           onPress={pickImage} 
+// //         <TouchableOpacity
+// //           onPress={pickImage}
 // //           style={styles.imageButton}
 // //           disabled={loading}
 // //         >
 // //           <Ionicons name="image" size={24} color="#007AFF" />
 // //         </TouchableOpacity>
-        
+
 // //         <TextInput
 // //           style={styles.input}
 // //           value={newMessage}
@@ -1930,8 +1820,8 @@
 // //           maxLength={1000}
 // //           editable={!loading}
 // //         />
-        
-// //         <TouchableOpacity 
+
+// //         <TouchableOpacity
 // //           onPress={sendMessage}
 // //           style={[
 // //             styles.sendButton,
@@ -1939,10 +1829,10 @@
 // //           ]}
 // //           disabled={!newMessage.trim() || loading}
 // //         >
-// //           <Ionicons 
-// //             name="send" 
-// //             size={24} 
-// //             color={!newMessage.trim() || loading ? '#999' : '#007AFF'} 
+// //           <Ionicons
+// //             name="send"
+// //             size={24}
+// //             color={!newMessage.trim() || loading ? '#999' : '#007AFF'}
 // //           />
 // //         </TouchableOpacity>
 // //       </View>
@@ -2022,27 +1912,6 @@
 
 // // export default ChatMessagesScreen;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // // import React, { useState, useEffect, useRef } from 'react';
 // // import {
 // //   View,
@@ -2074,7 +1943,7 @@
 // //   const inputRef = useRef(null); // Ref for the input field
 
 // //   const params = useLocalSearchParams();
-  
+
 // //   const currentUserId = "675c911919831c86093ed034"; //params?.userId;
 // //   const recipientId = "675d5df58fe7ec7ad49d9fc3"; //params?.recipientId;
 
@@ -2189,7 +2058,7 @@
 // //     return (
 // //       <View style={[styles.messageBubble, isCurrentUser ? styles.sentMessage : styles.receivedMessage]}>
 // //         {item.messageType === 'image' ? (
-// //           <Image 
+// //           <Image
 // //             source={{ uri: item.imageUrl }}
 // //             style={styles.messageImage}
 // //             resizeMode="cover"
@@ -2200,8 +2069,8 @@
 // //           </Text>
 // //         )}
 // //         <Text style={styles.timeStamp}>
-// //           {new Date(item.timeStamp).toLocaleTimeString([], { 
-// //             hour: '2-digit', 
+// //           {new Date(item.timeStamp).toLocaleTimeString([], {
+// //             hour: '2-digit',
 // //             minute: '2-digit'
 // //           })}
 // //         </Text>
@@ -2210,7 +2079,7 @@
 // //   };
 
 // //   return (
-// //     <KeyboardAvoidingView 
+// //     <KeyboardAvoidingView
 // //       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 // //       style={styles.container}
 // //     >
@@ -2225,14 +2094,14 @@
 
 // //       {/* Input container */}
 // //       <View style={styles.inputContainer}>
-// //         <TouchableOpacity 
-// //           onPress={pickImage} 
+// //         <TouchableOpacity
+// //           onPress={pickImage}
 // //           style={styles.imageButton}
 // //           disabled={loading}
 // //         >
 // //           <Ionicons name="image" size={24} color="#007AFF" />
 // //         </TouchableOpacity>
-        
+
 // //         <TextInput
 // //           ref={inputRef}
 // //           style={styles.input}
@@ -2243,8 +2112,8 @@
 // //           maxLength={1000}
 // //           editable={!loading}
 // //         />
-        
-// //         <TouchableOpacity 
+
+// //         <TouchableOpacity
 // //           onPress={sendMessage}
 // //           style={[
 // //             styles.sendButton,
@@ -2252,10 +2121,10 @@
 // //           ]}
 // //           disabled={!newMessage.trim() || loading}
 // //         >
-// //           <Ionicons 
-// //             name="send" 
-// //             size={24} 
-// //             color={!newMessage.trim() || loading ? '#999' : '#007AFF'} 
+// //           <Ionicons
+// //             name="send"
+// //             size={24}
+// //             color={!newMessage.trim() || loading ? '#999' : '#007AFF'}
 // //           />
 // //         </TouchableOpacity>
 // //       </View>
@@ -2335,15 +2204,6 @@
 
 // // export default ChatMessagesScreen;
 
-
-
-
-
-
-
-
-
-
 // // import React, { useState, useEffect, useRef } from 'react';
 // // import {
 // //   View,
@@ -2385,12 +2245,12 @@
 // //       const response = await axios.get(
 // //         `${API_URL}/message/messages/${currentUserId}/${recipientId}`
 // //       );
-      
+
 // //       const transformedMessages = response.data.map(msg => ({
 // //         ...msg,
 // //         isCurrentUser: msg.senderId === currentUserId
 // //       }));
-      
+
 // //       setMessages(transformedMessages);
 // //     } catch (error) {
 // //       console.error('Error fetching messages:', error);
@@ -2405,7 +2265,7 @@
 
 // //   const pickImage = async () => {
 // //     if (loading) return;
-    
+
 // //     try {
 // //       const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
 // //       if (status !== 'granted') {
@@ -2478,7 +2338,7 @@
 // //       };
 
 // //       const response = await axios.post(`${API_URL}/message/messages`, messageData);
-      
+
 // //       const newMessageWithFlag = {
 // //         ...response.data,
 // //         isCurrentUser: true
@@ -2510,7 +2370,7 @@
 // //           item.messageType === 'image' && styles.imageBubble
 // //         ]}>
 // //           {item.messageType === 'image' ? (
-// //             <Image 
+// //             <Image
 // //               source={{ uri: item.imageUrl }}
 // //               style={styles.messageImage}
 // //               resizeMode="cover"
@@ -2527,8 +2387,8 @@
 // //             styles.timeStamp,
 // //             item.isCurrentUser ? styles.sentTimeStamp : styles.receivedTimeStamp
 // //           ]}>
-// //             {new Date(item.timeStamp).toLocaleTimeString([], { 
-// //               hour: '2-digit', 
+// //             {new Date(item.timeStamp).toLocaleTimeString([], {
+// //               hour: '2-digit',
 // //               minute: '2-digit'
 // //             })}
 // //           </Text>
@@ -2538,7 +2398,7 @@
 // //   };
 
 // //   return (
-// //     <KeyboardAvoidingView 
+// //     <KeyboardAvoidingView
 // //       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 // //       style={styles.container}
 // //     >
@@ -2557,14 +2417,14 @@
 // //       />
 
 // //       <View style={styles.inputContainer}>
-// //         <TouchableOpacity 
-// //           onPress={pickImage} 
+// //         <TouchableOpacity
+// //           onPress={pickImage}
 // //           style={styles.imageButton}
 // //           disabled={loading}
 // //         >
 // //           <Ionicons name="image" size={24} color="#007AFF" />
 // //         </TouchableOpacity>
-        
+
 // //         <TextInput
 // //           ref={inputRef}
 // //           style={styles.input}
@@ -2575,8 +2435,8 @@
 // //           maxLength={1000}
 // //           editable={!loading}
 // //         />
-        
-// //         <TouchableOpacity 
+
+// //         <TouchableOpacity
 // //           onPress={sendMessage}
 // //           style={[
 // //             styles.sendButton,
@@ -2584,10 +2444,10 @@
 // //           ]}
 // //           disabled={!newMessage.trim() || loading}
 // //         >
-// //           <Ionicons 
-// //             name="send" 
-// //             size={24} 
-// //             color={!newMessage.trim() || loading ? '#999' : '#007AFF'} 
+// //           <Ionicons
+// //             name="send"
+// //             size={24}
+// //             color={!newMessage.trim() || loading ? '#999' : '#007AFF'}
 // //           />
 // //         </TouchableOpacity>
 // //       </View>
@@ -2698,20 +2558,6 @@
 
 // // export default ChatMessagesScreen;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { useState, useEffect, useRef, useContext } from 'react';
 // import {
 //   View,
@@ -2739,10 +2585,10 @@
 //   const [showEmojiSelector, setShowEmojiSelector] = useState(false);
 //   const [selectedMessages, setSelectedMessages] = useState([]);
 //   const [recepientData, setRecepientData] = useState(null);
-  
+
 //   const scrollViewRef = useRef(null);
 //   const router = useRouter();
-  
+
 //   const currentUserId = "675c911919831c86093ed034";
 //   const recipientId = "675d5df58fe7ec7ad49d9fc3";
 
@@ -2767,12 +2613,12 @@
 //       const response = await axios.get(
 //         `${API_URL}/message/messages/${currentUserId}/${recipientId}`
 //       );
-      
+
 //       const transformedMessages = response.data.map(msg => ({
 //         ...msg,
 //         isCurrentUser: msg.senderId === currentUserId
 //       }));
-      
+
 //       setMessages(transformedMessages);
 //     } catch (error) {
 //       console.error('Error fetching messages:', error);
@@ -2787,7 +2633,7 @@
 
 //   const handleSend = async (messageType, imageUri) => {
 //     if (loading) return;
-    
+
 //     try {
 //       setLoading(true);
 //       const formData = new FormData();
@@ -2873,7 +2719,7 @@
 
 //   const renderMessage = (item, index) => {
 //     const isSelected = selectedMessages.includes(item._id);
-    
+
 //     if (item.messageType === 'image') {
 //       return (
 //         <Pressable
@@ -2923,7 +2769,7 @@
 //   };
 
 //   return (
-//     <KeyboardAvoidingView 
+//     <KeyboardAvoidingView
 //       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
 //       style={styles.container}
 //     >
@@ -3074,17 +2920,7 @@
 
 // export default ChatMessagesScreen;
 
-
-
-
-
-
-
-
-
-
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -3096,25 +2932,26 @@ import {
   StyleSheet,
   Image,
   Alert,
-} from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { Ionicons, Entypo } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
-import axios from 'axios';
+} from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { Ionicons, Entypo } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker";
+import axios from "axios";
 
 const API_URL = 'http://192.168.50.242:5000';
+// const API_URL = "http://10.33.24.139:5000";
 
 const ChatMessagesScreen = () => {
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [showEmojiSelector, setShowEmojiSelector] = useState(false);
   const [selectedMessages, setSelectedMessages] = useState([]);
   const [recepientData, setRecepientData] = useState(null);
-  
+
   const scrollViewRef = useRef(null);
   const router = useRouter();
-  
+
   // Use these IDs without $oid wrapper for requests
   const currentUserId = "675c911919831c86093ed034";
   const recipientId = "675d5df58fe7ec7ad49d9fc3";
@@ -3130,8 +2967,8 @@ const ChatMessagesScreen = () => {
       const response = await axios.get(
         `${API_URL}/message/messages/${currentUserId}/${recipientId}`
       );
-      
-      const transformedMessages = response.data.map(msg => ({
+
+      const transformedMessages = response.data.map((msg) => ({
         ...msg,
         // Handle MongoDB ObjectId format
         _id: msg._id?.$oid || msg._id,
@@ -3140,16 +2977,16 @@ const ChatMessagesScreen = () => {
         // Convert MongoDB timestamp
         timeStamp: msg.timeStamp?.$date || msg.timeStamp,
         // Add isCurrentUser flag
-        isCurrentUser: (msg.senderId?.$oid || msg.senderId) === currentUserId
+        isCurrentUser: (msg.senderId?.$oid || msg.senderId) === currentUserId,
       }));
-      
+
       setMessages(transformedMessages);
     } catch (error) {
-      console.error('Error fetching messages:', error);
+      console.error("Error fetching messages:", error);
       if (!messages.length) {
         Alert.alert(
-          'Connection Error',
-          'Unable to fetch messages. Please check your internet connection.'
+          "Connection Error",
+          "Unable to fetch messages. Please check your internet connection."
         );
       }
     }
@@ -3157,47 +2994,52 @@ const ChatMessagesScreen = () => {
 
   const handleSend = async (messageType, imageUri) => {
     if (loading) return;
-    if (messageType === 'text' && !message.trim()) return;
-    
+    if (messageType === "text" && !message.trim()) return;
+
     try {
       setLoading(true);
       const formData = new FormData();
-      formData.append('senderId', currentUserId);
-      formData.append('recepientId', recipientId);
-      formData.append('messageType', messageType);
+      formData.append("senderId", currentUserId);
+      formData.append("recepientId", recipientId);
+      formData.append("messageType", messageType);
 
-      if (messageType === 'image') {
-        formData.append('imageFile', {
+      if (messageType === "image") {
+        formData.append("imageFile", {
           uri: imageUri,
-          type: 'image/jpeg',
-          name: 'image.jpg',
+          type: "image/jpeg",
+          name: "image.jpg",
         });
       } else {
-        formData.append('message', message);
+        formData.append("message", message);
       }
 
-      const response = await axios.post(`${API_URL}/message/messages`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        `${API_URL}/message/messages`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       // Transform the new message to match our format
       const newMessageWithFlag = {
         ...response.data,
         _id: response.data._id?.$oid || response.data._id,
         senderId: response.data.senderId?.$oid || response.data.senderId,
-        recepientId: response.data.recepientId?.$oid || response.data.recepientId,
+        recepientId:
+          response.data.recepientId?.$oid || response.data.recepientId,
         timeStamp: response.data.timeStamp?.$date || response.data.timeStamp,
-        isCurrentUser: true
+        isCurrentUser: true,
       };
 
-      setMessages(prev => [...prev, newMessageWithFlag]);
-      setMessage('');
+      setMessages((prev) => [...prev, newMessageWithFlag]);
+      setMessage("");
       scrollToBottom();
     } catch (error) {
-      console.error('Error sending message:', error);
-      Alert.alert('Error', 'Failed to send message');
+      console.error("Error sending message:", error);
+      Alert.alert("Error", "Failed to send message");
     } finally {
       setLoading(false);
     }
@@ -3205,9 +3047,13 @@ const ChatMessagesScreen = () => {
 
   const pickImage = async () => {
     try {
-      const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        Alert.alert('Permission needed', 'Please grant permission to access your photos');
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert(
+          "Permission needed",
+          "Please grant permission to access your photos"
+        );
         return;
       }
 
@@ -3217,11 +3063,11 @@ const ChatMessagesScreen = () => {
       });
 
       if (!result.canceled && result.assets[0]) {
-        handleSend('image', result.assets[0].uri);
+        handleSend("image", result.assets[0].uri);
       }
     } catch (error) {
-      console.error('Error picking image:', error);
-      Alert.alert('Error', 'Failed to pick image');
+      console.error("Error picking image:", error);
+      Alert.alert("Error", "Failed to pick image");
     }
   };
 
@@ -3239,22 +3085,22 @@ const ChatMessagesScreen = () => {
   const handleSelectMessage = (message) => {
     const isSelected = selectedMessages.includes(message._id);
     if (isSelected) {
-      setSelectedMessages(prev => prev.filter(id => id !== message._id));
+      setSelectedMessages((prev) => prev.filter((id) => id !== message._id));
     } else {
-      setSelectedMessages(prev => [...prev, message._id]);
+      setSelectedMessages((prev) => [...prev, message._id]);
     }
   };
 
   const renderMessage = (item, index) => {
     const isSelected = selectedMessages.includes(item._id);
-    
-    if (item.messageType === 'image') {
+
+    if (item.messageType === "image") {
       return (
         <Pressable
           key={index}
           style={[
             styles.messageBubble,
-            item.isCurrentUser ? styles.sentMessage : styles.receivedMessage
+            item.isCurrentUser ? styles.sentMessage : styles.receivedMessage,
           ]}
         >
           <View>
@@ -3277,19 +3123,27 @@ const ChatMessagesScreen = () => {
         style={[
           styles.messageBubble,
           item.isCurrentUser ? styles.sentMessage : styles.receivedMessage,
-          isSelected && styles.selectedMessage
+          isSelected && styles.selectedMessage,
         ]}
       >
-        <Text style={[
-          styles.messageText,
-          item.isCurrentUser ? styles.sentMessageText : styles.receivedMessageText
-        ]}>
+        <Text
+          style={[
+            styles.messageText,
+            item.isCurrentUser
+              ? styles.sentMessageText
+              : styles.receivedMessageText,
+          ]}
+        >
           {item.message}
         </Text>
-        <Text style={[
-          styles.timeStamp,
-          item.isCurrentUser ? styles.sentTimeStamp : styles.receivedTimeStamp
-        ]}>
+        <Text
+          style={[
+            styles.timeStamp,
+            item.isCurrentUser
+              ? styles.sentTimeStamp
+              : styles.receivedTimeStamp,
+          ]}
+        >
           {formatTime(item.timeStamp)}
         </Text>
       </Pressable>
@@ -3297,8 +3151,8 @@ const ChatMessagesScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
     >
       <ScrollView
@@ -3337,8 +3191,11 @@ const ChatMessagesScreen = () => {
         />
 
         <Pressable
-          onPress={() => handleSend('text')}
-          style={[styles.sendButton, (!message.trim() || loading) && styles.disabledButton]}
+          onPress={() => handleSend("text")}
+          style={[
+            styles.sendButton,
+            (!message.trim() || loading) && styles.disabledButton,
+          ]}
           disabled={!message.trim() || loading}
         >
           <Text style={styles.sendButtonText}>Send</Text>
@@ -3351,7 +3208,7 @@ const ChatMessagesScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: "#F0F0F0",
   },
   scrollViewContent: {
     padding: 10,
@@ -3359,41 +3216,41 @@ const styles = StyleSheet.create({
   },
   messageBubble: {
     padding: 8,
-    maxWidth: '60%',
+    maxWidth: "60%",
     borderRadius: 7,
     margin: 10,
   },
   sentMessage: {
-    alignSelf: 'flex-end',
-    backgroundColor: '#DCF8C6',
+    alignSelf: "flex-end",
+    backgroundColor: "#DCF8C6",
   },
   receivedMessage: {
-    alignSelf: 'flex-start',
-    backgroundColor: 'white',
+    alignSelf: "flex-start",
+    backgroundColor: "white",
   },
   selectedMessage: {
-    backgroundColor: '#F0FFFF',
-    width: '100%',
+    backgroundColor: "#F0FFFF",
+    width: "100%",
   },
   messageText: {
     fontSize: 13,
   },
   sentMessageText: {
-    color: 'black',
+    color: "black",
   },
   receivedMessageText: {
-    color: 'black',
+    color: "black",
   },
   timeStamp: {
     fontSize: 9,
-    color: 'gray',
+    color: "gray",
     marginTop: 5,
   },
   sentTimeStamp: {
-    textAlign: 'right',
+    textAlign: "right",
   },
   receivedTimeStamp: {
-    textAlign: 'left',
+    textAlign: "left",
   },
   messageImage: {
     width: 200,
@@ -3401,20 +3258,20 @@ const styles = StyleSheet.create({
     borderRadius: 7,
   },
   imageTimeStamp: {
-    position: 'absolute',
+    position: "absolute",
     right: 10,
     bottom: 7,
-    color: 'white',
+    color: "white",
     fontSize: 9,
   },
   inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 10,
     borderTopWidth: 1,
-    borderTopColor: '#dddddd',
-    backgroundColor: 'white',
+    borderTopColor: "#dddddd",
+    backgroundColor: "white",
   },
   emojiIcon: {
     marginRight: 5,
@@ -3423,7 +3280,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 40,
     borderWidth: 1,
-    borderColor: '#dddddd',
+    borderColor: "#dddddd",
     borderRadius: 20,
     paddingHorizontal: 10,
     marginRight: 8,
@@ -3432,7 +3289,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   sendButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: "#007bff",
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 20,
@@ -3441,8 +3298,8 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   sendButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
 });
 

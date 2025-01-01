@@ -4,7 +4,6 @@
 // // // export default function PropertyList() {
 // // //   const [properties, setProperties] = useState([]);
 
-
 // // //   console.log(properties);
 
 // // //   useEffect(() => {
@@ -46,8 +45,6 @@
 // // //   );
 // // // }
 
-
-
 // // // const localStyles = StyleSheet.create({
 // // //     card: {
 // // //       backgroundColor: "#2d3748",
@@ -82,13 +79,6 @@
 // // //       color: "#aaa",
 // // //     },
 // // //   });
-  
-
-
-
-
-
-
 
 // // import { useEffect, useState } from 'react';
 // // import { View, Text, Image, StyleSheet } from 'react-native';
@@ -103,9 +93,9 @@
 // //       try {
 // //         const response = await fetch('http://192.168.50.242:5000/properties');
 // //         const data = await response.json();
-  
+
 // //         console.log('Fetched properties:', data);
-  
+
 // //         // Check if 'properties' exists and is an array
 // //         if (Array.isArray(data.properties)) {
 // //           setProperties(data.properties);
@@ -116,10 +106,9 @@
 // //         console.error('Error fetching properties:', error);
 // //       }
 // //     }
-  
+
 // //     fetchProperties();
 // //   }, []);
-  
 
 // //   return (
 // //     <View>
@@ -181,17 +170,6 @@
 // //     color: "#aaa",
 // //   },
 // // });
-
-
-
-
-
-
-
-
-
-
-
 
 // import { useEffect, useState } from 'react';
 // import { View, Text, Image, StyleSheet } from 'react-native';
@@ -283,12 +261,8 @@
 //   },
 // });
 
-
-
-
-
-import { useEffect, useState } from 'react';
-import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import { useEffect, useState } from "react";
+import { View, Text, Image, StyleSheet, ScrollView } from "react-native";
 
 export default function PropertyList() {
   const [properties, setProperties] = useState([]);
@@ -297,6 +271,7 @@ export default function PropertyList() {
     async function fetchProperties() {
       try {
         const response = await fetch('http://192.168.50.242:5000/properties');
+        // const response = await fetch("http://10.33.24.139:5000/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -304,10 +279,10 @@ export default function PropertyList() {
         if (Array.isArray(data.properties)) {
           setProperties(data.properties);
         } else {
-          console.error('Expected an array of properties');
+          console.error("Expected an array of properties");
         }
       } catch (error) {
-        console.error('Error fetching properties:', error);
+        console.error("Error fetching properties:", error);
       }
     }
 
@@ -324,9 +299,12 @@ export default function PropertyList() {
               source={{ uri: property.image }}
               style={localStyles.cardImage}
             />
-            <Text style={localStyles.cardPrice}>€{property.price.toLocaleString()}</Text>
+            <Text style={localStyles.cardPrice}>
+              €{property.price.toLocaleString()}
+            </Text>
             <Text style={localStyles.cardDetails}>
-              {property.details.beds} beds | {property.details.baths} baths | {property.details.size} m²
+              {property.details.beds} beds | {property.details.baths} baths |{" "}
+              {property.details.size} m²
             </Text>
             <Text style={localStyles.cardLocation}>
               {property.location.city}, {property.location.region}
@@ -375,53 +353,50 @@ export default function PropertyList() {
 //   },
 // });
 
-
-
 const localStyles = StyleSheet.create({
-    pageContainer: {
-        flex: 1,
-        backgroundColor: 'grey', // Set the background color of the entire page
-        padding: 10,
-      },
-    card: {
-      backgroundColor: "#2d3748", // Light background for better contrast
-      padding: 20,
-      borderRadius: 15, // Rounded corners
-      marginBottom: 20,
-      width: '90%', // Makes the card not take full width
-      alignSelf: 'center', // Center align for better appearance
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 4 },
-      shadowOpacity: 0.2,
-      shadowRadius: 10,
-      elevation: 8, // For Android shadow
-      overflow: 'hidden', // Ensures smooth corners
-      borderWidth: 1,
+  pageContainer: {
+    flex: 1,
+    backgroundColor: "grey", // Set the background color of the entire page
+    padding: 10,
+  },
+  card: {
+    backgroundColor: "#2d3748", // Light background for better contrast
+    padding: 20,
+    borderRadius: 15, // Rounded corners
+    marginBottom: 20,
+    width: "90%", // Makes the card not take full width
+    alignSelf: "center", // Center align for better appearance
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 8, // For Android shadow
+    overflow: "hidden", // Ensures smooth corners
+    borderWidth: 1,
     //   borderColor: "#f1f1f1", // Light border for the card
-      transition: "all 0.3s ease", // Smooth transition for any interaction
-    },
-    cardImage: {
-      width: '100%',
-      height: 180, // Increased height for better visuals
-      borderRadius: 12,
-      marginBottom: 12,
-      resizeMode: 'cover', // Makes sure the image fits the container
-    },
-    cardPrice: {
-      fontSize: 20,
-      fontWeight: "bold",
-      color: "#fff", // Darker color for better readability
-      marginBottom: 6,
-    },
-    cardDetails: {
-      fontSize: 16,
-      color: "#fff", // Lighter text for the details
-      marginBottom: 6,
-    },
-    cardLocation: {
-      fontSize: 14,
-      color: "#fff", // A little darker for location details
-      fontStyle: 'italic', // Italic style for the location
-    },
-  });
-  
+    transition: "all 0.3s ease", // Smooth transition for any interaction
+  },
+  cardImage: {
+    width: "100%",
+    height: 180, // Increased height for better visuals
+    borderRadius: 12,
+    marginBottom: 12,
+    resizeMode: "cover", // Makes sure the image fits the container
+  },
+  cardPrice: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff", // Darker color for better readability
+    marginBottom: 6,
+  },
+  cardDetails: {
+    fontSize: 16,
+    color: "#fff", // Lighter text for the details
+    marginBottom: 6,
+  },
+  cardLocation: {
+    fontSize: 14,
+    color: "#fff", // A little darker for location details
+    fontStyle: "italic", // Italic style for the location
+  },
+});

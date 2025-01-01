@@ -13,13 +13,12 @@ export default function SignUpScreen() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-
   // const handleSignUp = async () => {
   //   if (password !== confirmPassword) {
   //     setError("Passwords don't match");
   //     return;
   //   }
-  
+
   //   setLoading(true);
   //   setError("");
   //   try {
@@ -28,9 +27,9 @@ export default function SignUpScreen() {
   //       email,
   //       password,
   //     });
-  
+
   //     console.log("Full response:", response); // Add this for more detailed logging
-  
+
   //     if (response.status === 201) {
   //       router.replace("/login");
   //     } else {
@@ -41,10 +40,10 @@ export default function SignUpScreen() {
   //     console.error("Full error object:", error);
   //     console.error("Error response:", error.response);
   //     console.error("Error request:", error.request);
-      
+
   //     setError(
-  //       error.response?.data?.message || 
-  //       error.response?.data?.error || 
+  //       error.response?.data?.message ||
+  //       error.response?.data?.error ||
   //       "Sign up failed"
   //     );
   //   } finally {
@@ -58,21 +57,20 @@ export default function SignUpScreen() {
       return;
     }
 
-    
-
     setLoading(true);
     setError("");
     try {
-
       // console.log("here we go1");
 
       // Send registration data to the server
-      const response = await axios.post("http://192.168.50.242:5000/auth/register", 
-      // const response = await axios.post("http://59.153.103.24/32/auth/register", 
-      {
-        email,
-        password,
-      });
+      const response = await axios.post("http://192.168.50.242:5000/auth/register",
+      // const response = await axios.post(
+        // "http://10.33.24.139:5000/auth/register",
+        {
+          email,
+          password,
+        }
+      );
 
       // console.log("here we go2");
 
@@ -89,7 +87,6 @@ export default function SignUpScreen() {
     }
   };
 
-  
   // const testRegister = async () => {
   //   try {
   //     const userData = {
@@ -107,14 +104,12 @@ export default function SignUpScreen() {
   //     //     'Content-Type': 'application/json'
   //     //   }
   //     // });
-      
+
   //     console.log("API response:", response.data);
   //   } catch (error) {
   //     console.error("API error:", error.response ? error.response.data : error.message);
   //   }
   // };
-
-
 
   // const testRegister1 = async () => {
   //   try {
@@ -134,7 +129,6 @@ export default function SignUpScreen() {
   //     console.error("API error:", error.message);
   //   }
   // };
-  
 
   return (
     <View style={styles.container}>

@@ -1,0 +1,179 @@
+// import React, { useEffect, useState } from "react";
+// import {
+//   View,
+//   Text,
+//   StyleSheet,
+//   ScrollView,
+//   TouchableOpacity,
+//   Alert,
+//   ActivityIndicator,
+// } from "react-native";
+// import axios from "axios";
+
+// const AdminApprovalPage = () => {
+//   const [forms, setForms] = useState([]); // Store all user submissions
+//   const [loading, setLoading] = useState(true);
+
+//   // Fetch all unverified forms from the backend
+//   const fetchForms = async () => {
+//     try {
+//       const response = await axios.get(
+//         "http://192.168.50.242:5000/forms/unverified" // Replace with your API endpoint
+//       );
+//       setForms(response.data);
+//     } catch (error) {
+//       Alert.alert("Error", "Failed to fetch form details.");
+//       console.error(error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // Approve form
+//   const handleApprove = async (formId) => {
+//     try {
+//       await axios.patch(
+//         `http://192.168.50.242:5000/forms/approve/${formId}` // Replace with your API endpoint
+//       );
+//       Alert.alert("Success", "Form approved successfully.");
+//       setForms(forms.filter((form) => form.id !== formId)); // Remove approved form from the list
+//     } catch (error) {
+//       Alert.alert("Error", "Failed to approve form.");
+//       console.error(error);
+//     }
+//   };
+
+//   // Reject form
+//   const handleReject = async (formId) => {
+//     try {
+//       await axios.delete(
+//         `http://192.168.50.242:5000/forms/reject/${formId}` // Replace with your API endpoint
+//       );
+//       Alert.alert("Success", "Form rejected successfully.");
+//       setForms(forms.filter((form) => form.id !== formId)); // Remove rejected form from the list
+//     } catch (error) {
+//       Alert.alert("Error", "Failed to reject form.");
+//       console.error(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchForms();
+//   }, []);
+
+//   if (loading) {
+//     return (
+//       <View style={styles.loaderContainer}>
+//         <ActivityIndicator size="large" color="#007BFF" />
+//       </View>
+//     );
+//   }
+
+//   if (forms.length === 0) {
+//     return (
+//       <View style={styles.noDataContainer}>
+//         <Text style={styles.noDataText}>No forms to verify.</Text>
+//       </View>
+//     );
+//   }
+
+//   return (
+//     <ScrollView style={styles.container}>
+//       {forms.map((form) => (
+//         <View key={form.id} style={styles.card}>
+//           <Text style={styles.title}>{form.PropertyType}</Text>
+//           <Text style={styles.details}>Rent: {form.rent} ({form.rentPeriod})</Text>
+//           <Text style={styles.details}>
+//             Location: {form.location.city}, {form.location.area}
+//           </Text>
+//           <Text style={styles.details}>Beds: {form.details.beds}</Text>
+//           <Text style={styles.details}>Baths: {form.details.baths}</Text>
+
+//           <View style={styles.buttonContainer}>
+//             <TouchableOpacity
+//               style={styles.approveButton}
+//               onPress={() => handleApprove(form.id)}
+//             >
+//               <Text style={styles.buttonText}>Approve</Text>
+//             </TouchableOpacity>
+//             <TouchableOpacity
+//               style={styles.rejectButton}
+//               onPress={() => handleReject(form.id)}
+//             >
+//               <Text style={styles.buttonText}>Reject</Text>
+//             </TouchableOpacity>
+//           </View>
+//         </View>
+//       ))}
+//     </ScrollView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 16,
+//     backgroundColor: "#f9f9f9",
+//   },
+//   loaderContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   noDataContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   noDataText: {
+//     fontSize: 16,
+//     color: "#555",
+//   },
+//   card: {
+//     backgroundColor: "#fff",
+//     padding: 16,
+//     borderRadius: 8,
+//     marginBottom: 16,
+//     shadowColor: "#000",
+//     shadowOpacity: 0.1,
+//     shadowRadius: 4,
+//     shadowOffset: { width: 0, height: 2 },
+//     elevation: 3,
+//   },
+//   title: {
+//     fontSize: 18,
+//     fontWeight: "bold",
+//     marginBottom: 8,
+//   },
+//   details: {
+//     fontSize: 14,
+//     marginBottom: 4,
+//     color: "#555",
+//   },
+//   buttonContainer: {
+//     flexDirection: "row",
+//     justifyContent: "space-between",
+//     marginTop: 16,
+//   },
+//   approveButton: {
+//     backgroundColor: "#4CAF50",
+//     padding: 12,
+//     borderRadius: 8,
+//     flex: 1,
+//     marginRight: 8,
+//   },
+//   rejectButton: {
+//     backgroundColor: "#F44336",
+//     padding: 12,
+//     borderRadius: 8,
+//     flex: 1,
+//     marginLeft: 8,
+//   },
+//   buttonText: {
+//     textAlign: "center",
+//     color: "#fff",
+//     fontWeight: "bold",
+//   },
+// });
+
+// export default AdminApprovalPage;

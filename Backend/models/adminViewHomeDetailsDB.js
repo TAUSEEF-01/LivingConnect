@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const homeDetails = new mongoose.Schema({
+const adminViewHomeDetailsSchema = new mongoose.Schema({
   userId: { type: String, required: true },
   email: {
     type: String,
@@ -14,12 +14,10 @@ const homeDetails = new mongoose.Schema({
     default: null, // Default value set to null
   },
   // userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-
   PropertyType: {
     type: String, // rent or sale or sublet
     required: true,
   },
-
   details: {
     beds: { type: Number, required: true },
     baths: { type: Number, required: true },
@@ -27,17 +25,14 @@ const homeDetails = new mongoose.Schema({
     balcony: { type: Number, required: true },
     floor: { type: Number },
   },
-  
   memberRestriction: {
     type: String,
   },
-
   rent: { type: Number, required: true },
   rentPeriod: {
     type: String,
     required: true,
   },
-
   location: {
     city: { type: String, required: true },
     area: { type: String, required: true },
@@ -45,7 +40,6 @@ const homeDetails = new mongoose.Schema({
     road: { type: String },
     houseNumber: { type: String },
   },
-
   facitlities: {
     garage: { type: Boolean },
     lift: { type: Boolean },
@@ -59,17 +53,11 @@ const homeDetails = new mongoose.Schema({
     from: { type: Date, required: true },
     to: { type: Date, required: true },
   },
-
   images: {
     type: [String], // Array of strings for multiple images
     required: true,
   },
-
-  // success: {
-  //   type: Boolean,
-  //   default: false,
-  // }
 });
 
-const HomeDetails = mongoose.model("homeDetails", homeDetails);
-module.exports = HomeDetails;
+const adminViewHomeDetails = mongoose.model("adminViewHomeDetails", adminViewHomeDetailsSchema);
+module.exports = adminViewHomeDetails;

@@ -101,6 +101,10 @@ const UserDetailSchema = new mongoose.Schema(
       type: String,
       default: null, // Default value set to null
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

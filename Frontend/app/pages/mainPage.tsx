@@ -1757,7 +1757,7 @@ export default function MainPage() {
   };
 
   const handleRentAHomePress = async () => {
-  // const handleRentAHomePress = () => {
+    // const handleRentAHomePress = () => {
 
     router.push("/Rent/rentAHomeForm");
     // router.replace("/Rent/rentAHomeForm");
@@ -1775,6 +1775,7 @@ export default function MainPage() {
     async function fetchProperties() {
       try {
         const response = await fetch("http://192.168.50.242:5000/properties");
+        // const response = await fetch("http://10.33.24.139:5000/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -1953,7 +1954,7 @@ export default function MainPage() {
                 style={localStyles.filterButtonText}
                 onPress={() => {
                   handleRentAHomePress(),
-                  console.log("Rent a Home button pressed")
+                    console.log("Rent a Home button pressed");
                 }}
               >
                 Add Home
@@ -1970,7 +1971,7 @@ export default function MainPage() {
                 style={localStyles.filterButtonText}
                 onPress={() => {
                   handleProvideServicesPress(),
-                  console.log("Provide Services button pressed")
+                    console.log("Provide Services button pressed");
                 }}
               >
                 Add Service

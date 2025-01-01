@@ -163,8 +163,8 @@ import {
   ActivityIndicator,
   Alert,
   TouchableOpacity,
-  Linking, 
-  Platform
+  Linking,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
@@ -177,7 +177,6 @@ interface OwnerInfo {
   contactNumber: string;
 }
 
-
 const HomeDetailsPage = () => {
   const { homeId } = useLocalSearchParams(); // Get homeId from router params
   const [home, setHome] = useState(null);
@@ -188,24 +187,23 @@ const HomeDetailsPage = () => {
   // useEffect(() => {
   //   async function fetchHomeDetails() {
 
-
-
   const makeCall = (phoneNumber) => {
     const formattedNumber =
-      Platform.OS === "android" ? `tel:${phoneNumber}` : `telprompt:${phoneNumber}`;
-  
+      Platform.OS === "android"
+        ? `tel:${phoneNumber}`
+        : `telprompt:${phoneNumber}`;
+
     Linking.openURL(formattedNumber).catch((err) => {
       console.error("Error occurred while trying to make a call:", err);
     });
   };
 
-
   const fetchHomeDetails = async () => {
-
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
         `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
+        // `http://10.33.24.139:5000/houseDetails/get-homes-details/${homeId}`
       );
 
       // console.log("Fetched home details:", response.data);
@@ -219,17 +217,14 @@ const HomeDetailsPage = () => {
       setLoading(false);
     }
   };
-    // }
+  // }
 
   useEffect(() => {
     fetchHomeDetails();
     // fetchUserProfile();
-  // }, [homeId]);
-    }, []);
+    // }, [homeId]);
+  }, []);
 
-
-  
-  
   // // useEffect(() => {
   //   // async function fetchUserProfile() {
 
@@ -292,7 +287,6 @@ const HomeDetailsPage = () => {
   //   fetchUserProfile();
   // }, []);
 
-
   if (loading) {
     return (
       <View style={styles.loaderContainer}>
@@ -308,11 +302,6 @@ const HomeDetailsPage = () => {
       </View>
     );
   }
-
-
-
-
-  
 
   return (
     // <ScrollView style={styles.container}>
@@ -421,40 +410,35 @@ const HomeDetailsPage = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Owner</Text>
             {/* <Text style={styles.text}> */}
-              {/* {profile?.email || "N/A"} */}
-              {/* Email: {home.email || "N/A"} */}
+            {/* {profile?.email || "N/A"} */}
+            {/* Email: {home.email || "N/A"} */}
             {/* </Text> */}
 
             {/* <Text style={styles.text}>
               Email: {home.email || "N/A"}
             </Text> */}
 
+            <Text style={styles.text}>Email: {home?.email || "N/A"}</Text>
 
             <Text style={styles.text}>
-              Email: {home?.email || "N/A"}
-            </Text>
-
-            <Text style={styles.text}>
-              Contact Number: <Text style={styles.callText}>{home.contactNumber || "N/A"}</Text>
+              Contact Number:{" "}
+              <Text style={styles.callText}>{home.contactNumber || "N/A"}</Text>
             </Text>
             <TouchableOpacity
-                style={styles.callButton}
-                // onPress={()=> router.push("/messages/CallerDialScreen")}
-                onPress={() => makeCall(home.contactNumber || "")}
+              style={styles.callButton}
+              // onPress={()=> router.push("/messages/CallerDialScreen")}
+              onPress={() => makeCall(home.contactNumber || "")}
             >
-                <Text style={styles.buttonText}>Call</Text>
+              <Text style={styles.buttonText}>Call</Text>
             </TouchableOpacity>
-
 
             <TouchableOpacity
-                style={styles.callButton}
-                 onPress={() =>  router.push("/messages/ChatMessagesScreen")}
+              style={styles.callButton}
+              onPress={() => router.push("/messages/ChatMessagesScreen")}
             >
-                <Text style={styles.buttonText}>Message</Text>
+              <Text style={styles.buttonText}>Message</Text>
             </TouchableOpacity>
-            
           </View>
-
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -467,7 +451,7 @@ const styles = StyleSheet.create({
     // padding: 16,
     paddingVertical: 16,
     paddingHorizontal: 10,
-    backgroundColor: "black",
+    backgroundColor: "#1A1A1D",
   },
   loaderContainer: {
     flex: 1,
@@ -485,7 +469,7 @@ const styles = StyleSheet.create({
   rent: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#fa0269",
+    color: "#F0BB78",// "#fa0269",
     marginBottom: 16,
   },
   imageContainer: {

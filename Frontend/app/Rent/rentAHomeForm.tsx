@@ -757,12 +757,6 @@
 
 // export default HomeDetailsForm;
 
-
-
-
-
-
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import {
@@ -786,6 +780,7 @@ import { router } from "expo-router";
 
 const HomeDetailsForm = () => {
   const pickImage = async () => {
+    // <-- tamzid
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -877,7 +872,8 @@ const HomeDetailsForm = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/houseDetails/home-details",
+        "http://192.168.50.242:5000/houseDetails/home-details", //10.33.24.139
+        // "http://10.33.24.139:5000/houseDetails/home-details", //10.33.24.139
         formData,
         {
           headers: {
@@ -942,14 +938,14 @@ const HomeDetailsForm = () => {
       <Text style={styles.title}>Home Details Form</Text>
 
       <Text style={styles.sectionTitle}>Property Type</Text>
-      
+
       <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
         <View style={styles.dropdownContent}>
-          <Text style={styles.dropdownText}>{selectedType}  </Text>
+          <Text style={styles.dropdownText}>{selectedType} </Text>
           <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
         </View>
       </TouchableOpacity>
-      
+
       {isOpen && (
         <View style={styles.dropdownMenu}>
           {propertyTypes.map((type) => (
@@ -1029,7 +1025,7 @@ const HomeDetailsForm = () => {
         handleInputChange={handleInputChange}
       />
 
-      <Text style={styles.sectionTitle}>Member Restriction</Text>      
+      <Text style={styles.sectionTitle}>Member Restriction</Text>
       <MemberRestrictions
         formData={formData}
         handleInputChange={handleInputChange}
@@ -1064,7 +1060,6 @@ const HomeDetailsForm = () => {
           />
         </View>
       ))}
-
 
       <Text style={styles.sectionTitle}>Availability</Text>
       <View>
@@ -1187,7 +1182,6 @@ const RentPeriodRadio = ({ formData, handleInputChange }) => {
   );
 };
 
-
 // RentPeriodRadio Component
 const MemberRestrictions = ({ formData, handleInputChange }) => {
   const options = ["No Restriction", "Only Family", "Only Male", "Only Female"];
@@ -1270,14 +1264,12 @@ const MemberRestrictions = ({ formData, handleInputChange }) => {
 //   },
 // });
 
-
-
 const stylesRadio = StyleSheet.create({
   // container: {
   //   flex: 1,
   //   backgroundColor: "#fff",
   //   padding: 16,
-    
+
   //   // paddingHorizontal: 30
   // },
   // pageTitle: {
@@ -1297,7 +1289,7 @@ const stylesRadio = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
     backgroundColor: "#2d3748",
-    
+
     // marginBottom: 24,
     flexDirection: "row",
     flexWrap: "wrap", // Wrap to the next line
@@ -1306,7 +1298,6 @@ const stylesRadio = StyleSheet.create({
     borderColor: "#ccc",
   },
   radioContainer: {
-    
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 5,
@@ -1317,7 +1308,6 @@ const stylesRadio = StyleSheet.create({
     // marginRight: 15
   },
   radioCircle: {
-    
     height: 20,
     width: 20,
     borderRadius: 10,
@@ -1338,7 +1328,6 @@ const stylesRadio = StyleSheet.create({
     color: "white",
   },
   debugText: {
-    
     marginTop: 16,
     fontSize: 16,
     color: "#333",
@@ -1349,8 +1338,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // flexGrow: 1,
-    padding: 20,
-    backgroundColor: "black" // "#132639",
+    padding: 10,
+    backgroundColor: "black", // "#132639",
     // width: "100%",
     // marginVertical: 16,
   },
@@ -1362,9 +1351,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#66e0ff",
   },
-  sectionTitle: { 
-    fontSize: 20, 
-    fontWeight: "bold", 
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
     marginTop: 30,
     marginBottom: 6,
     paddingVertical: 4,
@@ -1372,15 +1361,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#66e0ff",
     // paddingVertical: 10,
     textAlign: "center",
-    borderRadius: 8
-   },
+    borderRadius: 8,
+  },
 
   // dropdown: {
   //   flexDirection: "row",
   //   justifyContent: "space-between",
   //   alignItems: "center",
-    // paddingVertical: 12,
-    // paddingHorizontal: 16,
+  // paddingVertical: 12,
+  // paddingHorizontal: 16,
   //   backgroundColor: "#2d3748",
   //   borderRadius: 8,
   // },
@@ -1406,7 +1395,7 @@ const styles = StyleSheet.create({
   dropdownIcon: {
     fontSize: 18,
     color: "#38bdf8", //"#666",
-    // marginLeft: 18,    
+    // marginLeft: 18,
   },
   dropdownMenu: {
     backgroundColor: "#f0f0f0", // 1f2937
@@ -1419,7 +1408,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   selectedItem: {
-    backgroundColor: "#38bdf8",// "#e0e0e0",
+    backgroundColor: "#38bdf8", // "#e0e0e0",
   },
   dropdownItemText: {
     fontSize: 16,
@@ -1434,8 +1423,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap", // Wrap to the next line
     justifyContent: "space-between", // Space between inputs
     // marginBottom: 12,
-    
-    
   },
   inputWrapper: {
     width: "49.5%", // Ensures 2 columns per row
@@ -1454,7 +1441,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#2d3748",
     color: "white",
     fontSize: 16,
-    marginTop:3
+    marginTop: 3,
   },
 
   // input: {
@@ -1481,7 +1468,6 @@ const styles = StyleSheet.create({
     // marginTop: 15,
     marginBottom: 10,
     color: "white",
-    
   },
   // inputBox: {
   //   borderWidth: 1,
@@ -1508,7 +1494,6 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     marginBottom: 5,
     borderColor: "black",
-    
   },
   // switch:{
   //   backgroundColor: "#2d3748",
@@ -1517,7 +1502,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "white",
     marginLeft: 15,
-    
   },
   submitButton: {
     // marginTop: 20,
@@ -1572,7 +1556,7 @@ const stylesImages = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "white"
+    color: "white",
   },
   input: {
     height: 40,
@@ -1584,11 +1568,11 @@ const stylesImages = StyleSheet.create({
   },
   addButton: {
     marginBottom: 15,
-     padding: 14,
-     backgroundColor: "#38bdf8",
-     borderRadius: 8,
-     alignItems: "center",
-     width: "100%",
+    padding: 14,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    alignItems: "center",
+    width: "100%",
     // backgroundColor: "#38bdf8",
     // padding: 12,
     // borderRadius: 4,
