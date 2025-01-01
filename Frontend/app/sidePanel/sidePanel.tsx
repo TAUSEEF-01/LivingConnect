@@ -148,13 +148,37 @@
 // export default SidePanel;
 
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { router } from "expo-router";
 import styles from "../../styles";
 
 const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const token = await AsyncStorage.getItem("userToken");
+
+        if (token) {
+          const response = await axios.get(
+            "http://192.168.50.242:5000/auth/adminCheck",
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          setIsAdmin(response.data?.isAdmin || false);
+        }
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+
+    fetchUserDetails();
+  }, []);
+
+
   const handleLogout = async () => {
     // Alert.alert(
     //   "Log Out",
@@ -208,8 +232,8 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
                 await axios.post(
-                  // "http://192.168.50.242:5000/auth/logout",
-                  "http://10.33.24.139:5000/auth/logout",
+                  "http://192.168.50.242:5000/auth/logout",
+                  // "http://10.33.24.139:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -262,7 +286,7 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
               {userName.charAt(0).toUpperCase()}
             </Text>
           </View>
-          <Text style={localStyles.profileName}>  Profile</Text>
+          <Text style={localStyles.profileName}> Profile</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -272,13 +296,23 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
           <Text style={localStyles.buttonText}>Message History</Text>
         </TouchableOpacity>
 
-
         <TouchableOpacity
           style={localStyles.manageFavButton}
           onPress={() => router.push("/screens/contact_us")}
         >
           <Text style={localStyles.buttonText}>Manage Favorite</Text>
         </TouchableOpacity>
+
+
+        {/* Conditionally Render Admin Button */}
+        {isAdmin && (
+          <TouchableOpacity
+            style={localStyles.adminButton}
+            onPress={() => router.push("/pages/Admin/adminPage")}
+          >
+            <Text style={localStyles.buttonText}>Admin Panel</Text>
+          </TouchableOpacity>
+        )}
 
         {/* <TouchableOpacity
           style={localStyles.rentAHome}
@@ -403,7 +437,6 @@ const localStyles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
-  
   },
 
   profileName: {
@@ -577,8 +610,6 @@ const localStyles = StyleSheet.create({
     elevation: 5, // For Android shadow support
   },
 
-
-
   messageButton: {
     padding: 12,
     backgroundColor: "#38bdf8",
@@ -600,7 +631,6 @@ const localStyles = StyleSheet.create({
     elevation: 5, // For Android shadow support
   },
 
-
   manageFavButton: {
     padding: 12,
     backgroundColor: "#38bdf8",
@@ -609,6 +639,27 @@ const localStyles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
     bottom: "75%",
+    alignSelf: "center",
+    width: "90%",
+    borderColor: "black", // Border color
+    borderWidth: 2, // Border width
+
+    // Shadow properties
+    shadowColor: "#000", // Shadow color
+    shadowOffset: { width: 0, height: 2 }, // Shadow position
+    shadowOpacity: 0.25, // Shadow transparency
+    shadowRadius: 3.84, // Shadow blur radius
+    elevation: 5, // For Android shadow support
+  },
+
+  adminButton:{
+    padding: 12,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: "68%",
     alignSelf: "center",
     width: "90%",
     borderColor: "black", // Border color

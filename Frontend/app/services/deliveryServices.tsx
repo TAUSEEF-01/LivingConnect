@@ -13,14 +13,6 @@
 
 // const styles = StyleSheet.create({})
 
-
-
-
-
-
-
-
-
 // import React, { useState, useEffect } from "react";
 // import {
 //   View,
@@ -100,9 +92,9 @@
 //     <ScrollView contentContainerStyle={styles.container}>
 //       <View style={styles.profileContainer}>
 //         {profile?.profileImage ? (
-//           <Image 
-//             source={{ uri: profile.profileImage }} 
-//             style={styles.profileImage} 
+//           <Image
+//             source={{ uri: profile.profileImage }}
+//             style={styles.profileImage}
 //             resizeMode="cover"
 //           />
 //         ) : (
@@ -184,18 +176,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -203,10 +183,10 @@ import {
   Image,
   StyleSheet,
   ActivityIndicator,
-  ScrollView
+  ScrollView,
 } from "react-native";
 import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface UserProfile {
   name: string;
@@ -226,20 +206,23 @@ export default function MyImage() {
   const fetchUserProfile = async () => {
     try {
       // Retrieve the token from AsyncStorage
-      const token = await AsyncStorage.getItem('userToken');
+      const token = await AsyncStorage.getItem("userToken");
 
       if (!token) {
-        throw new Error('No token found');
+        throw new Error("No token found");
       }
 
       setLoading(true);
-      // const response = await axios.get("http://192.168.50.242:5000/profile/get-profile", {
-        const response = await axios.get("http://10.33.24.139:5000/profile/get-profile", {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+      const response = await axios.get("http://192.168.50.242:5000/profile/get-profile", {
+      // const response = await axios.get(
+        // "http://10.33.24.139:5000/profile/get-profile",
+        // {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
 
       setProfile(response.data);
       setLoading(false);
@@ -270,9 +253,9 @@ export default function MyImage() {
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.profileContainer}>
         {profile?.profileImage ? (
-          <Image 
-            source={{ uri: profile.profileImage }} 
-            style={styles.profileImage} 
+          <Image
+            source={{ uri: profile.profileImage }}
+            style={styles.profileImage}
             resizeMode="cover"
           />
         ) : (
@@ -293,12 +276,6 @@ export default function MyImage() {
 }
 
 // ... styles remain the same as in previous example
-
-
-
-
-
-
 
 // import React, { useState, useEffect } from "react";
 // import {
@@ -335,7 +312,6 @@ export default function MyImage() {
 //       //   }
 //       // });
 
-
 //       // const response = await axios.get("http://192.168.50.242:5000/get-profile", {
 //       //   headers: {
 //       //     'Content-Type': 'application/json'
@@ -344,7 +320,6 @@ export default function MyImage() {
 //       //     email: "abc01@gmail.com" // Replace with dynamic email as needed
 //       //   }
 //       // });
-
 
 //       const response = await axios.get("http://192.168.50.242:5000/get-profile", {
 //         params: {
@@ -384,9 +359,9 @@ export default function MyImage() {
 //     <ScrollView contentContainerStyle={styles.container}>
 //       <View style={styles.profileContainer}>
 //         {profile?.profileImage ? (
-//           <Image 
-//             source={{ uri: profile.profileImage }} 
-//             style={styles.profileImage} 
+//           <Image
+//             source={{ uri: profile.profileImage }}
+//             style={styles.profileImage}
 //             resizeMode="cover"
 //           />
 //         ) : (

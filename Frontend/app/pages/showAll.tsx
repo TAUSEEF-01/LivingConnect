@@ -221,13 +221,6 @@
 // //   );
 // // };
 
-
-
-
-
-
-
-
 // export default function PropertyList() {
 //   const [properties, setProperties] = useState([]);
 
@@ -313,7 +306,6 @@
 //             />
 //           </View>
 //         </View>
-
 
 //         <View style={styles.container}>
 //           {/* Header */}
@@ -659,18 +651,6 @@
 
 // // export default MainPage;
 
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -703,8 +683,8 @@ const AllHomesPage = () => {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-        "http://10.33.24.139:5000/houseDetails/get-all-Homes-details"
+        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        // "http://10.33.24.139:5000/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -804,7 +784,8 @@ const AllHomesPage = () => {
               <TouchableOpacity style={styles.filterButtonPrimary}>
                 <Text style={styles.filterButtonText}>Show map</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.filterButtonSecondary}
+              <TouchableOpacity
+                style={styles.filterButtonSecondary}
                 onPress={() => router.push("/pages/FiltersPage/filterInfo")}
               >
                 <Text style={styles.filterButtonText}>Show filters</Text>
@@ -847,29 +828,26 @@ const AllHomesPage = () => {
                     />
                   ))} */}
 
-                  {home.images.length > 0 && (
-                    <Image
-                      source={{ uri: home.images[0] }} // Display the first image
-                      // style={localStyles.image}
+                {home.images.length > 0 && (
+                  <Image
+                    source={{ uri: home.images[0] }} // Display the first image
+                    // style={localStyles.image}
 
-                      style={styles.cardImage}
-                    />
-                  )} 
+                    style={styles.cardImage}
+                  />
+                )}
 
-                  <Text style={styles.cardPrice}>
-                    Tk {home.rent}
-                  </Text>
+                <Text style={styles.cardPrice}>Tk {home.rent}</Text>
 
+                <Text style={styles.cardDetails}>
+                  {home.details.beds} beds | {home.details.baths} baths |{" "}
+                  {home.details.size} m²
+                </Text>
 
-                  <Text style={styles.cardDetails}>
-                    {home.details.beds} beds | {home.details.baths}{" "}
-                    baths | {home.details.size} m²
-                  </Text>
-                  
-                  <Text style={styles.cardLocation}>
-                    {home.location.city}, {home.location.area}
-                  </Text>
-                  
+                <Text style={styles.cardLocation}>
+                  {home.location.city}, {home.location.area}
+                </Text>
+
                 {/* </ScrollView> */}
               </TouchableOpacity>
             ))}
