@@ -1944,38 +1944,35 @@ export default function MainPage() {
               </Text>
             </TouchableOpacity> */}
 
-            <TouchableOpacity style={localStyles.filterButton}>
+            <TouchableOpacity
+              style={localStyles.filterButton}
+              onPress={() => {
+                console.log("pressed before");
+                handleRentAHomePress();
+                console.log("Rent a Home button pressed");
+              }}
+            >
               {/* <Text style={localStyles.plusButton}>+</Text> */}
               <Ionicons
                 name="add-circle-outline"
                 style={localStyles.plusButton}
               />
-              <Text
-                style={localStyles.filterButtonText}
-                onPress={() => {
-                  handleRentAHomePress(),
-                    console.log("Rent a Home button pressed");
-                }}
-              >
-                Add Home
-              </Text>
+              <Text style={localStyles.filterButtonText}>Add Home</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={localStyles.filterButton}>
+            <TouchableOpacity
+              style={localStyles.filterButton}
+              onPress={() => {
+                handleProvideServicesPress(),
+                  console.log("Provide Services button pressed");
+              }}
+            >
               {/* <Text style={localStyles.plusButton}>+</Text> */}
               <Ionicons
                 name="add-circle-outline"
                 style={localStyles.plusButton}
               />
-              <Text
-                style={localStyles.filterButtonText}
-                onPress={() => {
-                  handleProvideServicesPress(),
-                    console.log("Provide Services button pressed");
-                }}
-              >
-                Add Service
-              </Text>
+              <Text style={localStyles.filterButtonText}>Add Service</Text>
             </TouchableOpacity>
 
             {/* <TouchableOpacity style={localStyles.filterButton}>
@@ -1988,7 +1985,11 @@ export default function MainPage() {
             style={localStyles.searchInput}
           />
           <View style={localStyles.filterActions}>
-            <TouchableOpacity style={localStyles.actionButton}>
+            <TouchableOpacity style={localStyles.actionButton}
+              onPress={() => {
+                router.push("/pages/temp");
+              }}
+            >
               <Text style={localStyles.actionButtonText}>Buy</Text>
             </TouchableOpacity>
             <TouchableOpacity style={localStyles.actionButton}>

@@ -469,7 +469,7 @@ const styles = StyleSheet.create({
   rent: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#F0BB78",// "#fa0269",
+    color: "#F0BB78", // "#fa0269",
     marginBottom: 16,
   },
   imageContainer: {

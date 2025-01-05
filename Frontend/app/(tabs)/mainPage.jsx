@@ -498,20 +498,20 @@
 //     backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent dark background
 //     justifyContent: "flex-start",
 //   },
-  // sidePanel: {
-    // position: "absolute",
-    // right: 0,
-    // top: 0,
-    // width: "60%",
-    // height: "100%",
-    // // marginTop: 30,
-    // backgroundColor: "#FFFFFF", // Make side panel color match StatusBar
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.8,
-    // shadowRadius: 2,
-    // elevation: 5,
-  // },
+// sidePanel: {
+// position: "absolute",
+// right: 0,
+// top: 0,
+// width: "60%",
+// height: "100%",
+// // marginTop: 30,
+// backgroundColor: "#FFFFFF", // Make side panel color match StatusBar
+// shadowColor: "#000",
+// shadowOffset: { width: 0, height: 2 },
+// shadowOpacity: 0.8,
+// shadowRadius: 2,
+// elevation: 5,
+// },
 //   buttonContainer: {
 //     flex: 1,
 //     marginBottom: 10,
@@ -528,15 +528,15 @@
 //     // marginBottom: 12,
 
 //     width: "60%", // Width is 80% of the parent container/screen
-    // height: "6%", // Height is 10% of the parent container/screen
-    // borderRadius: 25,
-    // marginBottom: 12,
+// height: "6%", // Height is 10% of the parent container/screen
+// borderRadius: 25,
+// marginBottom: 12,
 
-    // justifyContent: "center", // Centers the content vertically
-    // alignItems: "center", // Centers the content horizontally
-    // position: "absolute", // Absolute positioning for placement
-    // bottom: "42%", // 5% distance from the bottom of the screen
-    // alignSelf: "center", // Horizontally center the button
+// justifyContent: "center", // Centers the content vertically
+// alignItems: "center", // Centers the content horizontally
+// position: "absolute", // Absolute positioning for placement
+// bottom: "42%", // 5% distance from the bottom of the screen
+// alignSelf: "center", // Horizontally center the button
 //   },
 //   aboutButton: {
 //     backgroundColor: "#38bdf8",
@@ -549,14 +549,14 @@
 
 //     width: "60%", // Width is 80% of the parent container/screen
 //     height: "6%", // Height is 10% of the parent container/screen
-    // borderRadius: 25,
-    // marginBottom: 12,
+// borderRadius: 25,
+// marginBottom: 12,
 
-    // justifyContent: "center", // Centers the content vertically
-    // alignItems: "center", // Centers the content horizontally
-    // position: "absolute", // Absolute positioning for placement
-    // bottom: "50%", // 5% distance from the bottom of the screen
-    // alignSelf: "center", // Horizontally center the button
+// justifyContent: "center", // Centers the content vertically
+// alignItems: "center", // Centers the content horizontally
+// position: "absolute", // Absolute positioning for placement
+// bottom: "50%", // 5% distance from the bottom of the screen
+// alignSelf: "center", // Horizontally center the button
 //   },
 //   logoutButton: {
 //     backgroundColor: "#38bdf8",
@@ -587,9 +587,6 @@
 //     textAlign: "center",
 //   },
 // });
-
-
-
 
 import React, { useEffect, useState } from "react";
 import {
@@ -658,7 +655,7 @@ const SidePanel = ({ isVisible, onClose }) => {
       <View
         style={[
           localStyles.sidePanel,
-          { transform: [{ translateX: isVisible ? 0 : -300 }], },
+          { transform: [{ translateX: isVisible ? 0 : -300 }] },
         ]}
       >
         <TouchableOpacity
@@ -788,10 +785,8 @@ export default function MainPage() {
         </TouchableOpacity>
       </View> */}
 
-
-
       <View style={localStyles.header}>
-      <TouchableOpacity onPress={toggleSidePanel}>
+        <TouchableOpacity onPress={toggleSidePanel}>
           <View style={localStyles.menuIcon}></View>
         </TouchableOpacity>
         <Text style={localStyles.logo}>Living Connect</Text>
@@ -875,7 +870,9 @@ export default function MainPage() {
         <ScrollView horizontal style={localStyles.cardContainer}>
           <View style={localStyles.card}>
             <Image
-              source={{ uri: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" }}
+              source={{
+                uri: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              }}
               style={localStyles.cardImage}
             />
             <Text style={localStyles.cardPrice}>€185,000</Text>
@@ -888,7 +885,9 @@ export default function MainPage() {
           </View>
           <View style={localStyles.card}>
             <Image
-              source={{ uri: "https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" }}
+              source={{
+                uri: "https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              }}
               style={localStyles.cardImage}
             />
             <Text style={localStyles.cardPrice}>€130,000</Text>
@@ -1134,7 +1133,6 @@ const localStyles = StyleSheet.create({
     position: "absolute", // Absolute positioning for placement
     bottom: "42%", // 5% distance from the bottom of the screen
     alignSelf: "center", // Horizontally center the button
-    
   },
   aboutButton: {
     marginBottom: 16,
@@ -1158,15 +1156,15 @@ const localStyles = StyleSheet.create({
     borderRadius: 8,
 
     width: "90%",
-  justifyContent: "center", // Centers the content vertically
-        alignItems: "center", // Centers the content horizontally
-        position: "absolute", // Absolute positioning for placement
-        bottom: "5%", // 5% distance from the bottom of the screen
-        alignSelf: "center", // Horizontally center the button
-    
-        position: "absolute", // Position it absolutely
-        bottom: 50, // Distance from the bottom
-        alignSelf: "center", // Center horizontally
+    justifyContent: "center", // Centers the content vertically
+    alignItems: "center", // Centers the content horizontally
+    position: "absolute", // Absolute positioning for placement
+    bottom: "5%", // 5% distance from the bottom of the screen
+    alignSelf: "center", // Horizontally center the button
+
+    position: "absolute", // Position it absolutely
+    bottom: 50, // Distance from the bottom
+    alignSelf: "center", // Center horizontally
   },
 
   // logoutButton: {
@@ -1175,18 +1173,18 @@ const localStyles = StyleSheet.create({
   //       // paddingBottom: 6,
   //       // paddingLeft: 30,
   //       // paddingRight: 30,
-    
+
   //       width: "60%", // Width is 80% of the parent container/screen
   //       height: "6%", // Height is 10% of the parent container/screen
   //       borderRadius: 25,
   //       marginBottom: 12,
-    
+
   //       justifyContent: "center", // Centers the content vertically
   //       alignItems: "center", // Centers the content horizontally
   //       position: "absolute", // Absolute positioning for placement
   //       bottom: "5%", // 5% distance from the bottom of the screen
   //       alignSelf: "center", // Horizontally center the button
-    
+
   //       position: "absolute", // Position it absolutely
   //       bottom: 50, // Distance from the bottom
   //       alignSelf: "center", // Center horizontally

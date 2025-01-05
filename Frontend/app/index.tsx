@@ -118,9 +118,10 @@ export default function Index() {
         if (token) {
           console.log("Token found in AsyncStorage");
           // Check the token validity using the verify endpoint
-          const response = await axios.get("http://192.168.50.242:5000/auth/verify",
-          // const response = await axios.get(
-          //   "http://10.33.24.139:5000/auth/verify",
+          const response = await axios.get(
+            "http://192.168.50.242:5000/auth/verify",
+            // const response = await axios.get(
+            //   "http://10.33.24.139:5000/auth/verify",
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Send token in the Authorization header

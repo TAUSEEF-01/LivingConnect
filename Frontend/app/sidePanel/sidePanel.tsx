@@ -155,7 +155,6 @@ import { router } from "expo-router";
 import styles from "../../styles";
 
 const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
-
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -177,7 +176,6 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
 
     fetchUserDetails();
   }, []);
-
 
   const handleLogout = async () => {
     // Alert.alert(
@@ -302,7 +300,6 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
         >
           <Text style={localStyles.buttonText}>Manage Favorite</Text>
         </TouchableOpacity>
-
 
         {/* Conditionally Render Admin Button */}
         {isAdmin && (
@@ -652,7 +649,7 @@ const localStyles = StyleSheet.create({
     elevation: 5, // For Android shadow support
   },
 
-  adminButton:{
+  adminButton: {
     padding: 12,
     backgroundColor: "#38bdf8",
     borderRadius: 8,
