@@ -43,7 +43,6 @@
 //         onClose={() => setSidePanelVisible(false)}
 //       />
 
-
 //     <ScrollView style={localStyles.pageContainer}>
 //     {isSidePanelVisible && (
 //           <TouchableOpacity
@@ -110,7 +109,7 @@
 //           </View>
 
 //     </ScrollView>
-      
+
 //     </SafeAreaView>
 //   );
 // }
@@ -162,8 +161,6 @@
 //       fontStyle: 'italic', // Italic style for the location
 //     },
 
-
-
 //     menuIcon: {
 //         width: 35,
 //         height: 26, // Adjust to ensure the bars fit within this height
@@ -176,7 +173,7 @@
 //         borderWidth: 2,
 //         borderRadius: 6,
 //       },
-    
+
 //       bar: {
 //         width: "100%", // Make the bars span the full width of the menuIcon
 //         height: 3, // Thickness of the bars
@@ -184,12 +181,12 @@
 //         borderRadius: 2, // Rounded corners for the bars
 //         backgroundColor: "white", // Replace with your desired color
 //       },
-    
+
 //       banner: {
 //         backgroundColor: "#1e3a8a",
 //         position: "relative", // Ensure text and image stack properly
 //       },
-    
+
 //       bannerImageContainer: {
 //         width: "100%",
 //         height: 200, // Adjust the height as needed
@@ -200,7 +197,7 @@
 //         height: "100%",
 //         borderRadius: 8, // Optional for rounded corners
 //       },
-    
+
 //       overlay: {
 //         position: "absolute",
 //         top: 0,
@@ -211,19 +208,6 @@
 //         zIndex: 1, // Below the side panel
 //       },
 //   });
-  
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useState } from 'react';
 // import { View, Text, TextInput, ScrollView, Image, TouchableOpacity, StyleSheet } from 'react-native';
@@ -461,33 +445,39 @@
 
 // export default MainPage;
 
-
-
-import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
+import { Picker } from "@react-native-picker/picker";
 
 const MainPage = () => {
   const [filters, setFilters] = useState({
-    type: 'All',
-    bedroomsMin: '',
-    bedroomsMax: '',
-    bathroomsMin: '',
-    bathroomsMax: '',
-    priceMin: '',
-    priceMax: '',
+    type: "All",
+    bedroomsMin: "",
+    bedroomsMax: "",
+    bathroomsMin: "",
+    bathroomsMax: "",
+    priceMin: "",
+    priceMax: "",
   });
 
   const [results, setResults] = useState([]);
 
   const handleSearch = async () => {
-    console.log('Filters:', filters);
-    
+    console.log("Filters:", filters);
+
     // Replace with your API endpoint or database query logic
-    const response = await fetch('http://192.168.50.242:5000/', {
-      method: 'POST',
+    const response = await fetch("http://192.168.50.242:5000/", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(filters),
     });
@@ -498,13 +488,13 @@ const MainPage = () => {
 
   const handleResetFilters = () => {
     setFilters({
-      type: 'All',
-      bedroomsMin: '',
-      bedroomsMax: '',
-      bathroomsMin: '',
-      bathroomsMax: '',
-      priceMin: '',
-      priceMax: '',
+      type: "All",
+      bedroomsMin: "",
+      bedroomsMax: "",
+      bathroomsMin: "",
+      bathroomsMax: "",
+      priceMin: "",
+      priceMax: "",
     });
   };
 
@@ -512,7 +502,10 @@ const MainPage = () => {
     <View style={styles.container}>
       {/* Filters Section */}
       <View style={styles.filtersSection}>
-        <TouchableOpacity style={styles.resetButton} onPress={handleResetFilters}>
+        <TouchableOpacity
+          style={styles.resetButton}
+          onPress={handleResetFilters}
+        >
           <Text style={styles.resetButtonText}>Reset filters</Text>
         </TouchableOpacity>
 
@@ -522,7 +515,9 @@ const MainPage = () => {
           <Picker
             selectedValue={filters.type}
             style={styles.picker}
-            onValueChange={(itemValue) => setFilters({ ...filters, type: itemValue })}
+            onValueChange={(itemValue) =>
+              setFilters({ ...filters, type: itemValue })
+            }
           >
             <Picker.Item label="All" value="All" />
             <Picker.Item label="House" value="House" />
@@ -538,14 +533,18 @@ const MainPage = () => {
             placeholder="Min"
             keyboardType="numeric"
             value={filters.bedroomsMin}
-            onChangeText={(text) => setFilters({ ...filters, bedroomsMin: text })}
+            onChangeText={(text) =>
+              setFilters({ ...filters, bedroomsMin: text })
+            }
           />
           <TextInput
             style={styles.filterInput}
             placeholder="Max"
             keyboardType="numeric"
             value={filters.bedroomsMax}
-            onChangeText={(text) => setFilters({ ...filters, bedroomsMax: text })}
+            onChangeText={(text) =>
+              setFilters({ ...filters, bedroomsMax: text })
+            }
           />
         </View>
 
@@ -557,14 +556,18 @@ const MainPage = () => {
             placeholder="Min"
             keyboardType="numeric"
             value={filters.bathroomsMin}
-            onChangeText={(text) => setFilters({ ...filters, bathroomsMin: text })}
+            onChangeText={(text) =>
+              setFilters({ ...filters, bathroomsMin: text })
+            }
           />
           <TextInput
             style={styles.filterInput}
             placeholder="Max"
             keyboardType="numeric"
             value={filters.bathroomsMax}
-            onChangeText={(text) => setFilters({ ...filters, bathroomsMax: text })}
+            onChangeText={(text) =>
+              setFilters({ ...filters, bathroomsMax: text })
+            }
           />
         </View>
 
@@ -597,10 +600,7 @@ const MainPage = () => {
       <ScrollView style={styles.resultsSection}>
         {results.map((result, index) => (
           <View key={index} style={styles.card}>
-            <Image
-              source={{ uri: result.image }}
-              style={styles.cardImage}
-            />
+            <Image source={{ uri: result.image }} style={styles.cardImage} />
             <View style={styles.cardContent}>
               <Text style={styles.cardTitle}>{result.price}</Text>
               <Text style={styles.cardSubText}>{result.details}</Text>
@@ -617,83 +617,83 @@ const MainPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
   filtersSection: {
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#1f2937',
+    borderBottomColor: "#1f2937",
   },
   resetButton: {
-    alignSelf: 'flex-end',
+    alignSelf: "flex-end",
     marginBottom: 16,
   },
   resetButtonText: {
-    color: '#3b82f6',
+    color: "#3b82f6",
     fontSize: 14,
   },
   filterRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 12,
   },
   filterLabel: {
-    color: 'white',
+    color: "white",
     fontSize: 14,
     flex: 1,
   },
   picker: {
     flex: 1,
-    color: 'white',
+    color: "white",
   },
   filterInput: {
-    backgroundColor: '#1f2937',
-    color: 'white',
+    backgroundColor: "#1f2937",
+    color: "white",
     padding: 8,
     borderRadius: 4,
     marginHorizontal: 4,
     flex: 1,
   },
   searchButton: {
-    backgroundColor: '#3b82f6',
+    backgroundColor: "#3b82f6",
     padding: 12,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 16,
   },
   searchButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   resultsSection: {
     padding: 16,
   },
   card: {
-    backgroundColor: '#1f2937',
+    backgroundColor: "#1f2937",
     borderRadius: 8,
     marginBottom: 16,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   cardImage: {
     height: 160,
-    width: '100%',
+    width: "100%",
   },
   cardContent: {
     padding: 16,
   },
   cardTitle: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   cardSubText: {
-    color: '#9ca3af',
+    color: "#9ca3af",
     fontSize: 14,
     marginTop: 4,
   },
   cardFooter: {
-    color: '#6b7280',
+    color: "#6b7280",
     fontSize: 12,
     marginTop: 8,
   },
