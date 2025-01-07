@@ -231,7 +231,7 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
               if (token) {
                 await axios.post(
                   "http://192.168.50.242:5000/auth/logout",
-                  // "http://10.33.24.139:5000/auth/logout",
+                  // "http://192.168.50.242:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );

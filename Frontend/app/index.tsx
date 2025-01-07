@@ -121,7 +121,7 @@ export default function Index() {
           const response = await axios.get(
             "http://192.168.50.242:5000/auth/verify",
             // const response = await axios.get(
-            //   "http://10.33.24.139:5000/auth/verify",
+            //   "http://192.168.50.242:5000/auth/verify",
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Send token in the Authorization header

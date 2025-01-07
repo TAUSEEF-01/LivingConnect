@@ -49,14 +49,14 @@ const PaymentButton = () => {
     }
   };
 
-//   if (showWebView && paymentUrl) {
-//     return (
-//       <WebView
-//         source={{ uri: paymentUrl }}
-//         onNavigationStateChange={handleNavigationStateChange}
-//       />
-//     );
-//   }
+  //   if (showWebView && paymentUrl) {
+  //     return (
+  //       <WebView
+  //         source={{ uri: paymentUrl }}
+  //         onNavigationStateChange={handleNavigationStateChange}
+  //       />
+  //     );
+  //   }
 
   return (
     <TouchableOpacity

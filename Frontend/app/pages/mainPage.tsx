@@ -1775,7 +1775,7 @@ export default function MainPage() {
     async function fetchProperties() {
       try {
         const response = await fetch("http://192.168.50.242:5000/properties");
-        // const response = await fetch("http://10.33.24.139:5000/properties");
+        // const response = await fetch("http://192.168.50.242:5000/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -1985,14 +1985,20 @@ export default function MainPage() {
             style={localStyles.searchInput}
           />
           <View style={localStyles.filterActions}>
-            <TouchableOpacity style={localStyles.actionButton}
+            <TouchableOpacity
+              style={localStyles.actionButton}
               onPress={() => {
                 router.push("/pages/temp");
               }}
             >
               <Text style={localStyles.actionButtonText}>Buy</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={localStyles.actionButton}>
+            <TouchableOpacity
+              style={localStyles.actionButton}
+              onPress={() => {
+                router.push("/pages/Map/googleMapPage");
+              }}
+            >
               <Text style={localStyles.actionButtonText}>Rent</Text>
             </TouchableOpacity>
           </View>
