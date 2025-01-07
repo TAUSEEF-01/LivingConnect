@@ -757,10 +757,6 @@
 
 // export default AllHomesPage;
 
-
-
-
-
 // // // File: app/DetailPage.tsx
 // import React from "react";
 // import { View, Text, Button, StyleSheet } from "react-native";
@@ -780,7 +776,6 @@
 //     </View>
 //   );
 // }
-
 
 // const localStyles = StyleSheet.create({
 //   authContainer: {
@@ -805,17 +800,10 @@
 //   },
 // });
 
-
-
-
-
-
-
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text, Alert, Platform } from "react-native";
 // import { WebView } from "react-native-webview";
-import { WebView } from 'react-native-webview';
-
+import { WebView } from "react-native-webview";
 
 const PaymentButton = () => {
   const [showWebView, setShowWebView] = useState(false);

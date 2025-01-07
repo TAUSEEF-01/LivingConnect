@@ -2939,7 +2939,7 @@ import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
 
 const API_URL = "http://192.168.50.242:5000";
-// const API_URL = "http://10.33.24.139:5000";
+// const API_URL = "http://192.168.50.242:5000";
 
 const ChatMessagesScreen = () => {
   const [messages, setMessages] = useState([]);

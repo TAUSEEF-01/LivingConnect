@@ -1423,11 +1423,6 @@
 
 // 555555555555555555555555555555555555555555555555555555555555555555
 
-
-
-
-
-
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
@@ -1436,9 +1431,6 @@ const User = require("./models/userModelDB"); // Import the User model
 const Session = require("./models/sessionModelDB"); // Ensure correct import
 const Property = require("./models/propertyModelDB");
 const bodyParser = require("body-parser");
-
-
-
 
 // const passport = require("passport");
 // const LocalStrategy = require("passport-local").Strategy;
@@ -1481,70 +1473,69 @@ connectMongoDB("mongodb://localhost:27017/UserInfo");
 const routes = require("./routes");
 app.use(routes);
 
-const SSLCommerzPayment = require('sslcommerz-lts');
-require('dotenv').config(); // Load .env variables
+const SSLCommerzPayment = require("sslcommerz-lts");
+require("dotenv").config(); // Load .env variables
 
 const store_id = process.env.STORE_ID;
 const store_passwd = process.env.STORE_PASSWORD;
-const is_live = process.env.IS_LIVE === 'true'; // Convert string to boolean
+const is_live = process.env.IS_LIVE === "true"; // Convert string to boolean
 
-
-
-app.get('/init', (req, res) => {
+app.get("/init", (req, res) => {
   console.log("Initiating payment...");
-  
+
   const data = {
-      total_amount: 100,
-      currency: 'BDT',
-      tran_id: `REF${Date.now()}`,
-      success_url: 'http://192.168.50.242:5000/success',
-      fail_url: 'http://192.168.50.242:5000/fail',
-      cancel_url: 'http://192.168.50.242:5000/cancel',
-      ipn_url: 'http://192.168.50.242:5000/ipn',
-      shipping_method: 'Courier',
-      product_name: 'Computer',
-      product_category: 'Electronic',
-      product_profile: 'general',
-      cus_name: 'Customer Name',
-      cus_email: 'customer@example.com',
-      cus_add1: 'Dhaka',
-      cus_add2: 'Dhaka',
-      cus_city: 'Dhaka',
-      cus_state: 'Dhaka',
-      cus_postcode: '1000',
-      cus_country: 'Bangladesh',
-      cus_phone: '01711111111',
-      cus_fax: '01711111111',
-      ship_name: 'Customer Name',
-      ship_add1: 'Dhaka',
-      ship_add2: 'Dhaka',
-      ship_city: 'Dhaka',
-      ship_state: 'Dhaka',
-      ship_postcode: '1000',
-      ship_country: 'Bangladesh',
+    total_amount: 100,
+    currency: "BDT",
+    tran_id: `REF${Date.now()}`,
+    success_url: "http://192.168.50.242:5000/success",
+    fail_url: "http://192.168.50.242:5000/fail",
+    cancel_url: "http://192.168.50.242:5000/cancel",
+    ipn_url: "http://192.168.50.242:5000/ipn",
+    shipping_method: "Courier",
+    product_name: "Computer",
+    product_category: "Electronic",
+    product_profile: "general",
+    cus_name: "Customer Name",
+    cus_email: "customer@example.com",
+    cus_add1: "Dhaka",
+    cus_add2: "Dhaka",
+    cus_city: "Dhaka",
+    cus_state: "Dhaka",
+    cus_postcode: "1000",
+    cus_country: "Bangladesh",
+    cus_phone: "01711111111",
+    cus_fax: "01711111111",
+    ship_name: "Customer Name",
+    ship_add1: "Dhaka",
+    ship_add2: "Dhaka",
+    ship_city: "Dhaka",
+    ship_state: "Dhaka",
+    ship_postcode: "1000",
+    ship_country: "Bangladesh",
   };
 
   const sslcz = new SSLCommerzPayment(store_id, store_passwd, is_live);
   console.log({ store_id, store_passwd, is_live });
 
+  sslcz
+    .init(data)
+    .then((apiResponse) => {
+      const GatewayPageURL = apiResponse.GatewayPageURL;
 
-  sslcz.init(data)
-      .then(apiResponse => {
-          const GatewayPageURL = apiResponse.GatewayPageURL;
-
-          if (GatewayPageURL) {
-              res.status(200).json({ url: GatewayPageURL });
-              console.log('Redirecting to:', GatewayPageURL);
-          } else {
-              res.status(400).json({ message: 'Failed to connect to payment gateway' });
-          }
-      })
-      .catch(error => {
-          console.error('Error initializing payment:', error);
-          res.status(500).json({ message: 'Internal Server Error' });
-      });
+      if (GatewayPageURL) {
+        res.status(200).json({ url: GatewayPageURL });
+        console.log("Redirecting to:", GatewayPageURL);
+      } else {
+        res
+          .status(400)
+          .json({ message: "Failed to connect to payment gateway" });
+      }
+    })
+    .catch((error) => {
+      console.error("Error initializing payment:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    });
 });
-
 
 // ############################################################
 
