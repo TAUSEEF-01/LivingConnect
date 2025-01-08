@@ -804,12 +804,12 @@ const AllHomesPage = () => {
                 <Text style={styles.filterButtonText}>Show filters</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.filterRowSort}>
+            {/* <View style={styles.filterRowSort}>
               <Text style={styles.sortText}>Sort by</Text>
               <TouchableOpacity style={styles.sortButton}>
                 <Text style={styles.filterButtonText}>Newest listings</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
 
           <ScrollView style={styles.scrollContainer}>

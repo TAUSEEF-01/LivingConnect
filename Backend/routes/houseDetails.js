@@ -124,7 +124,10 @@ router.get("/get-homes-details/:id", async (req, res) => {
 // Endpoint to fetch all home details
 router.get("/get-all-Homes-details", async (req, res) => {
   try {
-    const homes = await HomeDetails.find({});
+    const query = { success: true };
+
+    const homes = await HomeDetails.find(query);
+    // const homes = await HomeDetails.find({});
     res.status(200).json(homes);
   } catch (error) {
     res.status(500).json({ message: "Error fetching home details", error });
@@ -242,7 +245,7 @@ router.get("/searchHomes", async (req, res) => {
     } = req.query;
 
     // Construct search query
-    const query = {};
+    const query = {success: true};
     if (city) query["location.city"] = city;
     if (area) query["location.area"] = area;
     if (rentMin) query.rent = { ...query.rent, $gte: Number(rentMin) };
@@ -260,6 +263,104 @@ router.get("/searchHomes", async (req, res) => {
   } catch (error) {
     console.error("Error retrieving homes:", error);
     res.status(500).json({ message: "Failed to retrieve homes", error });
+  }
+});
+
+
+
+// Fixed successFalse Search Endpoint
+router.get("/successFalse", async (req, res) => {
+  try {
+    // Construct search query
+    const query = { success: false };
+
+    const homes = await HomeDetails.find(query, { email: 1 });
+    console.log(homes);
+    res.status(200).json(homes);
+  } catch (error) {
+    console.error("Error retrieving homes:", error);
+    res.status(500).json({ message: "Failed to retrieve homes", error });
+  }
+});
+
+
+
+// Fixed successTrue Search Endpoint
+router.get("/successTrue", async (req, res) => {
+  try {
+    // Construct search query
+    const query = { success: true };
+
+    const homes = await HomeDetails.find(query, { email: 1 });
+    console.log(homes);
+    res.status(200).json(homes);
+  } catch (error) {
+    console.error("Error retrieving homes:", error);
+    res.status(500).json({ message: "Failed to retrieve homes", error });
+  }
+});
+
+
+// Endpoint to accept a home and set success to true
+router.patch("/accept/:id", async (req, res) => {
+  // console.log("Accept Home API called");
+
+  const { id } = req.params;
+
+  try {
+    // Find the home by ID and update success to true
+    const updatedHome = await HomeDetails.findByIdAndUpdate(
+      id,
+      { success: true },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedHome) {
+      return res.status(404).json({ message: "Home not found" });
+    }
+
+    res.status(200).json({
+      message: "Home accepted successfully",
+      home: updatedHome,
+    });
+  } catch (error) {
+    console.error("Error updating home success:", error);
+    res.status(500).json({
+      message: "Failed to accept the home",
+      error,
+    });
+  }
+});
+
+
+// Endpoint to accept a home and set success to true
+router.patch("/cancel/:id", async (req, res) => {
+  // console.log("Accept Home API called");
+
+  const { id } = req.params;
+
+  try {
+    // Find the home by ID and update success to true
+    const updatedHome = await HomeDetails.findByIdAndUpdate(
+      id,
+      { success: false },
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedHome) {
+      return res.status(404).json({ message: "Home not found" });
+    }
+
+    res.status(200).json({
+      message: "Home canceled successfully",
+      home: updatedHome,
+    });
+  } catch (error) {
+    console.error("Error updating home success:", error);
+    res.status(500).json({
+      message: "Failed to accept the home",
+      error,
+    });
   }
 });
 

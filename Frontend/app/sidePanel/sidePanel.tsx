@@ -203,7 +203,7 @@ const SidePanel = ({ isVisible, onClose }) => {
         {isAdmin && (
           <TouchableOpacity
             style={localStyles.adminButton}
-            onPress={() => router.push("/pages/Admin/adminPage")}
+            onPress={() => router.push("/Admin/adminPage")}
           >
             <Text style={localStyles.buttonText}>Admin Panel</Text>
           </TouchableOpacity>
@@ -263,7 +263,7 @@ const localStyles = StyleSheet.create({
     left: 0,
     height: "100%",
     width: 300,
-    backgroundColor: "#213555", //"#a9d9fc",
+    backgroundColor: "#021526", //"#a9d9fc",
     padding: 16,
     marginTop:33,
     zIndex: 2,
@@ -326,7 +326,7 @@ const localStyles = StyleSheet.create({
   },
   messageButton: {
     padding: 12,
-    backgroundColor: "#2563eb",
+    backgroundColor: "#6EACDA",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
@@ -342,7 +342,7 @@ const localStyles = StyleSheet.create({
   },
   manageFavButton: {
     padding: 12,
-    backgroundColor: "#2563eb",
+    backgroundColor: "#6EACDA",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
@@ -358,7 +358,7 @@ const localStyles = StyleSheet.create({
   },
   adminButton: {
     padding: 12,
-    backgroundColor: "#2563eb",
+    backgroundColor: "#6EACDA",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
@@ -374,7 +374,7 @@ const localStyles = StyleSheet.create({
   },
   contactButton: {
     padding: 12,
-    backgroundColor: "#2563eb",
+    backgroundColor: "#6EACDA",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
@@ -390,7 +390,7 @@ const localStyles = StyleSheet.create({
   },
   aboutButton: {
     padding: 12,
-    backgroundColor: "#2563eb",
+    backgroundColor: "#6EACDA",
     borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
