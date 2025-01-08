@@ -7,8 +7,8 @@ const PaymentButton = () => {
   const [paymentUrl, setPaymentUrl] = useState("");
 
   const API_URL = Platform.select({
-    ios: "http://192.168.50.242:3030",
-    android: "http://10.0.2.2:3030",
+    ios: "http://192.168.50.242:5000",
+    android: "http://192.168.50.242:5000",
   });
 
   const handlePayment = async () => {

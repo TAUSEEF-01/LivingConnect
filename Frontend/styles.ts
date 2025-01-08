@@ -5,6 +5,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
+  statusBarWrapper: {
+    marginBottom: 33, // Adjust the bottom margin as needed
+  },
   backgroundImage: {
     height: "100%",
     width: "100%",

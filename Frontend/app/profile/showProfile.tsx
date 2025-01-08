@@ -165,6 +165,7 @@ import {
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
+  StatusBar,
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -235,6 +236,8 @@ export default function MyImage() {
   return (
     // <ScrollView contentContainerStyle={styles.container}>
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#38bdf8" />
+      
       <Text style={styles.title}>Profile</Text>
       <View style={styles.profileContainer}>
         {/* Profile Image Section */}
@@ -290,7 +293,7 @@ const styles = StyleSheet.create({
     // width: "100%",
     //   justifyContent: "center",
     // paddingVertical: 20,
-    paddingTop: 40,
+    paddingTop: 45,
   },
 
   centered: {

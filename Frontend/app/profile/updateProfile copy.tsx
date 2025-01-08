@@ -735,8 +735,6 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StatusBar } from "react-native";
-
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState(null);
@@ -883,8 +881,6 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#38bdf8" />
-      
       <Text style={styles.title}>Update Profile</Text>
       <View style={styles.profileContainer}>
         <TouchableOpacity onPress={pickImage}>
@@ -897,7 +893,6 @@ export default function Profile() {
           )}
         </TouchableOpacity>
 
-        <Text style={styles.label}>Name</Text>
         <TextInput
           style={styles.input}
           value={userName}
@@ -907,8 +902,6 @@ export default function Profile() {
           placeholderTextColor="#FFFFFF" // Set placeholder color to white
         />
 
-        {/* <Text>Contact number</Text> */}
-        <Text style={styles.label}>Contact number</Text>
         <TextInput
           style={styles.input}
           value={contactNumber}
@@ -929,37 +922,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    paddingTop: 45,
+    paddingTop: 40,
     backgroundColor: "black",
   },
-  // profileContainer: {
-  //   // width: "90%",
-  //   // alignItems: "center",
-  //   // justifyContent: "center",
-  //   // backgroundColor: "#1f2937",
-  //   // borderRadius: 10,
-  //   // padding: 20,
-  //   // marginBottom: 20,
-  //   // shadowColor: "#000",
-  //   // shadowOffset: { width: 0, height: 2 },
-  //   // shadowOpacity: 0.1,
-  //   // shadowRadius: 4,
-  //   // elevation: 3,
-
-  //   width: "100%",
-  //   backgroundColor: "#1f2937",
-  //   borderRadius: 10,
-  //   padding: 20,
-  //   alignItems: "center",
-  //   marginBottom: 15,
-  //   shadowColor: "#000",
-  //   shadowOffset: { width: 0, height: 3 },
-  //   shadowOpacity: 0.1,
-  //   shadowRadius: 5,
-  //   elevation: 4,
-  // },
   profileContainer: {
-    width: "90%",
+    // width: "90%",
+    // alignItems: "center",
+    // justifyContent: "center",
+    // backgroundColor: "#1f2937",
+    // borderRadius: 10,
+    // padding: 20,
+    // marginBottom: 20,
+    // shadowColor: "#000",
+    // shadowOffset: { width: 0, height: 2 },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 4,
+    // elevation: 3,
+
+    width: "100%",
     backgroundColor: "#1f2937",
     borderRadius: 10,
     padding: 20,
@@ -1030,22 +1010,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  label: {
-    width: "90%",
-    fontSize: 16,
-    color: '#D8C4B6',
-    marginBottom: 8,
-    marginTop: 20,
-    fontWeight: "bold",
-    textAlign: "left" ,
-  },
   input: {
     borderWidth: 2,
     borderColor: "#ccc",
     borderRadius: 8,
     padding: 10,
     width: "90%",
-    // marginTop: 20,
+    marginTop: 20,
     fontSize: 16,
     backgroundColor: "#2d3748",
     color: "white",
