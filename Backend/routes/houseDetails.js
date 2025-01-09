@@ -263,6 +263,18 @@ router.get("/searchHomes", async (req, res) => {
   }
 });
 
-
+router.get('/userIdByEmail', async (req, res) => {
+  try {
+    const { email } = req.query;
+    const user = await User.findOne({ email });
+    if (user) {
+      res.status(200).json({ userId: user._id });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 module.exports = router;

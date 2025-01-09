@@ -105,7 +105,7 @@ router.get("/get-profile", async (req, res) => {
 
     // Find user by email and return profile details
     const user = await User.findOne({ email }).select(
-      "name contactNumber profileImage"
+      "_id name contactNumber profileImage"
     );
 
     if (!user) {
@@ -113,6 +113,7 @@ router.get("/get-profile", async (req, res) => {
     }
 
     res.status(200).json({
+      id: user._id,
       email: email,
       name: user.name,
       contactNumber: user.contactNumber,
