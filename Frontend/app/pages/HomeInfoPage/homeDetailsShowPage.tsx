@@ -171,6 +171,9 @@ import { router, useLocalSearchParams } from "expo-router";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
+const API_URL = "http://192.168.50.242:5000";
+
 interface OwnerInfo {
   email: string;
   name: string;
@@ -178,6 +181,7 @@ interface OwnerInfo {
 }
 
 const HomeDetailsPage = () => {
+  const [ownerId, setOwnerId] = useState<string | null>(null);
   const { homeId } = useLocalSearchParams(); // Get homeId from router params
   const [home, setHome] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -219,11 +223,59 @@ const HomeDetailsPage = () => {
   };
   // }
 
+
+
+  const fetchProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem("userToken"); // Correct key here
+      if (!token) throw new Error("User is not logged in");
+      
+      console.log("Retrieved token:", token);
+  
+      const response = await axios.get(`${API_URL}/profile/get-profile`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      console.log("Fetched Profile:", response.data);
+  
+      setProfile(response.data); // Ensure this includes the `id` field
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
+  
+
+  // Fetch owner ID based on email
+  const fetchOwnerId = async (email: string) => {
+    try {
+      const response = await axios.get(`${API_URL}/houseDetails/userIdByEmail`, {
+        params: { email },
+      });
+      setOwnerId(response.data.userId);
+    } catch (error) {
+      console.error("Error fetching owner ID:", error);
+    }
+  };
+
+
   useEffect(() => {
     fetchHomeDetails();
+    fetchProfile();
     // fetchUserProfile();
     // }, [homeId]);
   }, []);
+
+
+  useEffect(() => {
+    if (home?.email) {
+      console.log("Fetching owner ID for email:", home.email); // Debug email
+      fetchOwnerId(home.email);
+    }
+  }, [home]);
+  
+  useEffect(() => {
+    console.log("Fetched Owner ID:", ownerId); // Debug ownerId
+  }, [ownerId]);
 
   // // useEffect(() => {
   //   // async function fetchUserProfile() {
@@ -432,9 +484,30 @@ const HomeDetailsPage = () => {
               <Text style={styles.buttonText}>Call</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.callButton}
               onPress={() => router.push("/messages/ChatMessagesScreen")}
+            >
+              <Text style={styles.buttonText}>Message</Text>
+            </TouchableOpacity> */}
+
+
+            <TouchableOpacity
+              style={styles.callButton}
+              onPress={() => {
+                router.push({
+                  pathname: "/messages/ChatMessagesScreen",
+                  params: {
+                    currentUserId: profile?.id || "", // Assume profile contains logged-in user info
+                    // recipientId: home?.ownerId || "", // Assume home contains the owner's ID
+                    recipientId: ownerId || "", // Use fetched owner ID
+                    
+                  },
+                  
+                });
+                console.log("recipientId: ", ownerId);
+                    console.log("currentUserId: ", profile?.id);
+              }}
             >
               <Text style={styles.buttonText}>Message</Text>
             </TouchableOpacity>
