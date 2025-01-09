@@ -1637,6 +1637,7 @@ import {
   Alert,
   TextInput, // Ensure TextInput is imported
   Dimensions,
+  ActivityIndicator,
 } from "react-native";
 import { router, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -1644,6 +1645,8 @@ import axios from "axios";
 import styles from "../../styles";
 import SidePanel from "../sidePanel/sidePanel";
 import Ionicons from "@expo/vector-icons/Ionicons";
+
+
 
 // const SidePanel = ({ isVisible, onClose }) => {
 //   const handleLogout = async () => {
@@ -1770,6 +1773,7 @@ export default function MainPage() {
   };
 
   const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchProperties() {
@@ -1793,8 +1797,53 @@ export default function MainPage() {
     fetchProperties();
   }, []);
 
+
+
+
+  const [homes, setHomes] = useState([]);
+  const fetchAllHomeDetails = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+      );
+      setHomes(response.data);
+    } catch (error) {
+      Alert.alert("Error", "Failed to fetch all home details.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+      fetchAllHomeDetails();
+    }, []);
+
+
+  if (loading) {
+      return (
+        <View style={localStyles.loaderContainer}>
+          <ActivityIndicator size="large" color="#007BFF" />
+        </View>
+      );
+    }
+
   return (
+    
     <SafeAreaView style={{ flex: 1 }}>
+      {/* <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} /> */}
+
+
+      <View style={localStyles.statusBarWrapper}>
+        <StatusBar
+          barStyle="light-content" // Light content for white text/icons on a dark background
+          backgroundColor="#38bdf8" // Transparent background for the StatusBar
+          translucent={true} // Make it overlay the screen content
+        />
+      </View> 
+
+      {/* <StatusBar style="light" /> */}
+      {/* <View style={localStyles.topBar} /> */}
       {/* Sidebar */}
       <SidePanel
         isVisible={isSidePanelVisible}
@@ -1860,6 +1909,7 @@ export default function MainPage() {
           </TouchableOpacity>
         </View> */}
 
+        
         <View style={localStyles.navTabs}>
           <TouchableOpacity
             style={[
@@ -1988,7 +2038,7 @@ export default function MainPage() {
             <TouchableOpacity
               style={localStyles.actionButton}
               onPress={() => {
-                router.push("/pages/temp");
+                router.push("/payment/paymentPage");
               }}
             >
               <Text style={localStyles.actionButtonText}>Buy</Text>
@@ -2019,7 +2069,7 @@ export default function MainPage() {
           </TouchableOpacity>
 
           <ScrollView horizontal style={localStyles.cardContainer}>
-            {/* <Text>Property List</Text> */}
+            {/* <Text>Property List</Text>
             {Array.isArray(properties) && properties.length > 0 ? (
               properties.map((property) => (
                 <View key={property._id} style={localStyles.card}>
@@ -2041,7 +2091,45 @@ export default function MainPage() {
               ))
             ) : (
               <Text>No properties available.</Text>
-            )}
+            )} */}
+
+
+            {/* <ScrollView style={localStyles.container}> */}
+            {homes.map((home) => (
+              <TouchableOpacity
+                key={home._id}
+                style={localStyles.card}
+                onPress={() =>
+                  router.push({
+                    pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                    params: { homeId: home._id }, // Pass the home ID as a query parameter
+                  })
+                } // Navigate to the details page
+              >
+
+                {home.images.length > 0 && (
+                  <Image
+                    source={{ uri: home.images[0] }} // Display the first image
+                    // style={localStyles.image}
+
+                    style={localStyles.cardImage}
+                  />
+                )}
+
+                <Text style={localStyles.cardPrice}>Tk {home.rent}</Text>
+
+                <Text style={localStyles.cardDetails}>
+                  {home.details.beds} beds | {home.details.baths} baths |{" "}
+                  {home.details.size} m²
+                </Text>
+
+                <Text style={localStyles.cardLocation}>
+                  {home.location.city}, {home.location.area}
+                </Text>
+
+                {/* </ScrollView> */}
+              </TouchableOpacity>
+            ))}
 
             {/* <View style={localStyles.card}>
               <Image
@@ -2079,7 +2167,7 @@ export default function MainPage() {
             <Text style={localStyles.categories}>Apartment</Text>
           </TouchableOpacity>
           <ScrollView horizontal style={localStyles.cardContainer}>
-            {Array.isArray(properties) && properties.length > 0 ? (
+            {/* {Array.isArray(properties) && properties.length > 0 ? (
               properties.map((property) => (
                 <View key={property._id} style={localStyles.card}>
                   <Image
@@ -2100,7 +2188,45 @@ export default function MainPage() {
               ))
             ) : (
               <Text>No properties available.</Text>
-            )}
+            )} */}
+
+
+            {/* <ScrollView style={localStyles.container}> */}
+            {homes.map((home) => (
+              <TouchableOpacity
+                key={home._id}
+                style={localStyles.card}
+                onPress={() =>
+                  router.push({
+                    pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                    params: { homeId: home._id }, // Pass the home ID as a query parameter
+                  })
+                } // Navigate to the details page
+              >
+
+                {home.images.length > 0 && (
+                  <Image
+                    source={{ uri: home.images[0] }} // Display the first image
+                    // style={localStyles.image}
+
+                    style={localStyles.cardImage}
+                  />
+                )}
+
+                <Text style={localStyles.cardPrice}>Tk {home.rent}</Text>
+
+                <Text style={localStyles.cardDetails}>
+                  {home.details.beds} beds | {home.details.baths} baths |{" "}
+                  {home.details.size} m²
+                </Text>
+
+                <Text style={localStyles.cardLocation}>
+                  {home.location.city}, {home.location.area}
+                </Text>
+
+                {/* </ScrollView> */}
+              </TouchableOpacity>
+            ))}
           </ScrollView>
 
           <TouchableOpacity onPress={handleSubletPress}>
@@ -2108,7 +2234,7 @@ export default function MainPage() {
           </TouchableOpacity>
 
           <ScrollView horizontal style={localStyles.cardContainer}>
-            {Array.isArray(properties) && properties.length > 0 ? (
+            {/* {Array.isArray(properties) && properties.length > 0 ? (
               properties.map((property) => (
                 <View key={property._id} style={localStyles.card}>
                   <Image
@@ -2129,7 +2255,45 @@ export default function MainPage() {
               ))
             ) : (
               <Text>No properties available.</Text>
-            )}
+            )} */}
+
+            {/* <ScrollView style={localStyles.container}> */}
+            {homes.map((home) => (
+              <TouchableOpacity
+                key={home._id}
+                style={localStyles.card}
+                onPress={() =>
+                  router.push({
+                    pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                    params: { homeId: home._id }, // Pass the home ID as a query parameter
+                  })
+                } // Navigate to the details page
+              >
+
+                {home.images.length > 0 && (
+                  <Image
+                    source={{ uri: home.images[0] }} // Display the first image
+                    // style={localStyles.image}
+
+                    style={localStyles.cardImage}
+                  />
+                )}
+
+                <Text style={localStyles.cardPrice}>Tk {home.rent}</Text>
+
+                <Text style={localStyles.cardDetails}>
+                  {home.details.beds} beds | {home.details.baths} baths |{" "}
+                  {home.details.size} m²
+                </Text>
+
+                <Text style={localStyles.cardLocation}>
+                  {home.location.city}, {home.location.area}
+                </Text>
+
+                {/* </ScrollView> */}
+              </TouchableOpacity>
+            ))}
+            
           </ScrollView>
         </View>
       </ScrollView>
@@ -2141,6 +2305,17 @@ const localStyles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "black",
+  },
+  // topBar: {
+  //   height: 40, // Adjust the height of the top bar
+  //   backgroundColor: "#38bdf8", // Color for the top bar
+  //   width: "100%",
+  //   position: "absolute",
+  //   top: 0,
+  // },
+
+  statusBarWrapper: {
+    marginBottom: 33, // Adjust the bottom margin as needed
   },
 
   header: {
@@ -2422,5 +2597,30 @@ const localStyles = StyleSheet.create({
     bottom: "8%", // Fixed pixel value instead of percentage
     alignSelf: "center",
     width: "80%", // Optional: make button width consistent
+  },
+
+
+
+  mapButton: {
+    // backgroundColor: "grey",
+    backgroundColor: "#38bdf8",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    // paddingBottom: 12,
+    // paddingTop: 1,
+
+    borderRadius: 8,
+    // width: 115,
+    width: "100%",
+    marginBottom: 1,
+    marginTop: 10,
+  },
+
+
+
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

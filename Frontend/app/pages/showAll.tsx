@@ -663,6 +663,7 @@ import {
   Alert,
   SafeAreaView,
   TextInput,
+  StatusBar,
 } from "react-native";
 import axios from "axios";
 import { useRouter } from "expo-router";
@@ -716,6 +717,16 @@ const AllHomesPage = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+
+      <View style={localStyles.statusBarWrapper}>
+        <StatusBar
+          barStyle="light-content" // Light content for white text/icons on a dark background
+          backgroundColor="#38bdf8" // Transparent background for the StatusBar
+          translucent={true} // Make it overlay the screen content
+        />
+      </View>
+
+            
       {/* Sidebar */}
       <SidePanel
         isVisible={isSidePanelVisible}
@@ -781,7 +792,9 @@ const AllHomesPage = () => {
           {/* Filters and Sorting */}
           <View style={styles.filterContainer}>
             <View style={styles.filterRow}>
-              <TouchableOpacity style={styles.filterButtonPrimary}>
+              <TouchableOpacity style={styles.filterButtonPrimary}
+                onPress={() => router.push("/pages/Map/googleMapPage")}
+              >
                 <Text style={styles.filterButtonText}>Show map</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -791,12 +804,12 @@ const AllHomesPage = () => {
                 <Text style={styles.filterButtonText}>Show filters</Text>
               </TouchableOpacity>
             </View>
-            <View style={styles.filterRowSort}>
+            {/* <View style={styles.filterRowSort}>
               <Text style={styles.sortText}>Sort by</Text>
               <TouchableOpacity style={styles.sortButton}>
                 <Text style={styles.filterButtonText}>Newest listings</Text>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </View>
 
           <ScrollView style={styles.scrollContainer}>
@@ -1121,6 +1134,9 @@ const localStyles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#f9f9f9",
+  },
+  statusBarWrapper: {
+    marginBottom: 33, // Adjust the bottom margin as needed
   },
   loaderContainer: {
     flex: 1,

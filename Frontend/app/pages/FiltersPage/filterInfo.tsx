@@ -785,7 +785,7 @@ export default function SearchHomes() {
         )}
       /> */}
 
-      <FlatList
+      {/* <FlatList
         data={homes}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
@@ -818,7 +818,113 @@ export default function SearchHomes() {
             </Text>
           </TouchableOpacity>
         )}
-      />
+      /> */}
+
+{/* 
+<FlatList
+  data={homes}
+  keyExtractor={(item) => item._id}
+  numColumns={2} // Display two items in a row
+  columnWrapperStyle={localStyles.rowWrapper} // Optional: Add spacing between rows
+  renderItem={({ item }) => (
+    <TouchableOpacity
+      key={item._id}
+      style={localStyles.card}
+      onPress={() =>
+        router.push({
+          pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+          params: { homeId: item._id }, // Pass the home ID as a query parameter
+        })
+      } // Navigate to the details page
+    >
+      {item.images.length > 0 && (
+        <Image
+          source={{ uri: item.images[0] }} // Display the first image
+          style={localStyles.cardImage}
+        />
+      )}
+
+      <Text style={localStyles.cardPrice}>Tk {item.rent}</Text>
+
+      <Text style={localStyles.cardDetails}>
+        {item.details.beds} beds | {item.details.baths} baths |{" "}
+        {item.details.size} m²
+      </Text>
+
+      <Text style={localStyles.cardLocation}>
+        {item.location.city}, {item.location.area}
+      </Text>
+    </TouchableOpacity>
+  )}
+/> */}
+
+
+<FlatList
+  data={homes}
+  keyExtractor={(item) => item._id}
+  numColumns={2} // Display two items in a row
+  columnWrapperStyle={localStyles.rowWrapper} // Optional: Add spacing between rows
+  renderItem={({ item, index }) => {
+    // Determine if the current item is the last and the total number of items is odd
+    const isLastOddItem = homes.length % 2 !== 0 && index === homes.length - 1;
+
+    return (
+      <TouchableOpacity
+        key={item._id}
+        style={[
+          localStyles.card,
+          isLastOddItem && localStyles.lastOddCard, // Apply special styles for the last odd item
+        ]}
+        onPress={() =>
+          router.push({
+            pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+            params: { homeId: item._id }, // Pass the home ID as a query parameter
+          })
+        } // Navigate to the details page
+      >
+        {item.images.length > 0 && (
+          <Image
+            source={{ uri: item.images[0] }} // Display the first image
+            style={[
+              localStyles.cardImage,
+              isLastOddItem && localStyles.lastOddCardImage, // Style the last odd card image
+            ]}
+          />
+        )}
+
+        <Text
+          style={[
+            localStyles.cardPrice,
+            isLastOddItem && localStyles.lastOddCardPrice, // Style the last odd card price
+          ]}
+        >
+          Tk {item.rent}
+        </Text>
+
+        <Text
+          style={[
+            localStyles.cardDetails,
+            isLastOddItem && localStyles.lastOddCardDetails, // Style the last odd card details
+          ]}
+        >
+          {item.details.beds} beds | {item.details.baths} baths |{" "}
+          {item.details.size} m²
+        </Text>
+
+        <Text
+          style={[
+            localStyles.cardLocation,
+            isLastOddItem && localStyles.lastOddCardLocation, // Style the last odd card location
+          ]}
+        >
+          {item.location.city}, {item.location.area}
+        </Text>
+      </TouchableOpacity>
+    );
+  }}
+/>
+
+
     </View>
   );
 }
@@ -827,6 +933,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
+    paddingTop: 45,
     backgroundColor: "black", //"#f9f9f9",
   },
   filters: {
@@ -1112,4 +1219,225 @@ const styles = StyleSheet.create({
   //   color: '#666',
   //   marginTop: 5,
   // },
+});
+
+
+
+// const localStyles = StyleSheet.create({
+//   rowWrapper: {
+//     justifyContent: 'space-between', // Adjust spacing between items in a row
+//     marginBottom: 10, // Optional: Add spacing between rows
+//   },
+//   // card: {
+//     // flex: 1, // Take up equal space
+//     // margin: 5, // Add margin between cards
+//     // backgroundColor: '#fff', // Card background color
+//     // borderRadius: 10, // Rounded corners
+//     // overflow: 'hidden',
+//     // elevation: 3, // Shadow for Android
+//     // shadowColor: '#000', // Shadow for iOS
+//     // shadowOffset: { width: 0, height: 2 },
+//     // shadowOpacity: 0.25,
+//     // shadowRadius: 3.84,
+//   // },
+//   // cardImage: {
+//   //   width: '100%',
+//   //   height: 150,
+//   // },
+//   // cardPrice: {
+//   //   fontSize: 16,
+//   //   fontWeight: 'bold',
+//   //   padding: 5,
+//   // },
+//   // cardDetails: {
+//   //   fontSize: 14,
+//   //   color: '#555',
+//   //   padding: 5,
+//   // },
+//   // cardLocation: {
+//   //   fontSize: 14,
+//   //   color: '#777',
+//   //   padding: 5,
+//   // },
+
+  // cardContainer: {
+  //   flexDirection: "row",
+  //   // marginBottom: 16,
+  // },
+  // card: {
+  //   // backgroundColor: "#2d3748",
+  //   // padding: 16,
+  //   // borderRadius: 8,
+  //   // marginRight: 16,
+  //   // width: 200,
+
+  //   flex: 1, // Take up equal space
+  //   margin: 5, // Add margin between cards
+  //   backgroundColor: '#2d3748', // Card background color
+  //   borderRadius: 10, // Rounded corners
+  //   overflow: 'hidden',
+  //   elevation: 3, // Shadow for Android
+  //   shadowColor: '#000', // Shadow for iOS
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.25,
+  //   shadowRadius: 3.84,
+  // },
+  // cardImage: {
+  //   height: 100,
+  //   width: "100%",
+  //   borderRadius: 8,
+  //   marginBottom: 8,
+  // },
+  // cardPrice: {
+  //   paddingLeft: 8,
+  //   paddingTop: 5,
+  //   color: "white",
+  //   fontWeight: "bold",
+  //   marginBottom: 4,
+  // },
+  // cardDetails: {
+  //   paddingLeft: 8,
+  //   color: "white",
+  //   marginBottom: 4,
+  // },
+  // cardLocation: {
+  //   paddingLeft: 8,
+  //   paddingBottom: 8,
+  //   color: "gray",
+  // },
+
+
+  
+
+// });
+
+
+
+const localStyles = StyleSheet.create({
+  rowWrapper: {
+    justifyContent: 'space-between', // Adjust spacing between items in a row
+    marginBottom: 10, // Optional: Add spacing between rows
+  },
+  // card: {
+  //   flex: 1, // Take up equal space
+  //   margin: 5, // Add margin between cards
+  //   backgroundColor: '#2d3748', // Card background color
+  //   borderRadius: 10, // Rounded corners
+  //   overflow: 'hidden',
+  //   elevation: 3, // Shadow for Android
+  //   shadowColor: '#000', // Shadow for iOS
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.25,
+  //   shadowRadius: 3.84,
+  // },
+  lastOddCard: {
+    backgroundColor: "#2d3748",
+    padding: 12,
+    borderRadius: 15,
+    marginBottom: 15,
+    width: "100%",
+    alignSelf: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 8,
+    overflow: "hidden",
+    borderWidth: 1,
+    transition: "all 0.3s ease",
+  },
+  // cardImage: {
+  //   width: '100%',
+  //   height: 150,
+  // },
+  lastOddCardImage: {
+    height: 180,
+    borderRadius: 12,
+    marginBottom: 12,
+    resizeMode: 'cover',
+  },
+  // cardPrice: {
+  //   paddingLeft: 8,
+  //   paddingTop: 5,
+  //   fontSize: 16,
+  //   fontWeight: 'bold',
+  //   padding: 5,
+  // },
+  lastOddCardPrice: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 6,
+  },
+  // cardDetails: {
+  //   paddingLeft: 8,
+  //   fontSize: 14,
+  //   color: '#555',
+  //   padding: 5,
+  // },
+  lastOddCardDetails: {
+    fontSize: 16,
+    color: 'white',
+    marginBottom: 6,
+  },
+  // cardLocation: {
+  //   paddingLeft: 8,
+  //   fontSize: 14,
+  //   color: '#777',
+  //   padding: 5,
+  // },
+  lastOddCardLocation: {
+    fontSize: 14,
+    color: '#fff',
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+  },
+
+
+
+  cardContainer: {
+    flexDirection: "row",
+    // marginBottom: 16,
+  },
+  card: {
+    // backgroundColor: "#2d3748",
+    padding: 8,
+    // borderRadius: 8,
+    // marginRight: 16,
+    // width: 200,
+
+    flex: 1, // Take up equal space
+    margin: 5, // Add margin between cards
+    backgroundColor: '#2d3748', // Card background color
+    borderRadius: 10, // Rounded corners
+    overflow: 'hidden',
+    elevation: 3, // Shadow for Android
+    shadowColor: '#000', // Shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  cardImage: {
+    height: 100,
+    width: "100%",
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  cardPrice: {
+    // paddingLeft: 8,
+    // paddingTop: 5,
+    color: "white",
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  cardDetails: {
+    // paddingLeft: 8,
+    color: "white",
+    marginBottom: 4,
+  },
+  cardLocation: {
+    // paddingLeft: 8,
+    paddingBottom: 8,
+    color: "gray",
+  },
 });

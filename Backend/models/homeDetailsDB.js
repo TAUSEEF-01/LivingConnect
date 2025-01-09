@@ -64,11 +64,10 @@ const homeDetails = new mongoose.Schema({
     type: [String], // Array of strings for multiple images
     required: true,
   },
-
-  // success: {
-  //   type: Boolean,
-  //   default: false,
-  // }
+  success: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const HomeDetails = mongoose.model("homeDetails", homeDetails);

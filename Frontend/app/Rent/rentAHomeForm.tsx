@@ -1339,6 +1339,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // flexGrow: 1,
     padding: 10,
+    paddingTop: 45,
     backgroundColor: "black", // "#132639",
     // width: "100%",
     // marginVertical: 16,
