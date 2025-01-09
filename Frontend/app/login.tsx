@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   topBar: {
-    height: 40, // Adjust the height of the top bar
+    height: 33, // Adjust the height of the top bar
     backgroundColor: "#38bdf8", // Color for the top bar
     width: "100%",
     position: "absolute",
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     width: "100%",
     position: "absolute",
-    top: 40, // Push the lights image down below the top bar
+    top: 33 // Push the lights image down below the top bar
   },
   lightLeft: {
     height: 225,
