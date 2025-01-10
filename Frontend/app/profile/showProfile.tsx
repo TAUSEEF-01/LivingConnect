@@ -236,7 +236,7 @@ export default function MyImage() {
   return (
     // <ScrollView contentContainerStyle={styles.container}>
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#38bdf8" />
+      <StatusBar barStyle="light-content" backgroundColor="black" />
       
       <Text style={styles.title}>Profile</Text>
       <View style={styles.profileContainer}>
@@ -253,10 +253,11 @@ export default function MyImage() {
               <Text style={styles.placeholderText}>No Image</Text>
             </View>
           )}
-        </View>
+        {/* </View> */}
 
-        {/* Information Section */}
-        <View style={styles.infoBox}>
+        {/* Profile Details Section */}
+
+        {/* <View style={styles.infoBox}>  */}
           <View style={styles.profileDetails}>
             <Text style={styles.profileText}>
               <Text style={styles.infoLabel}>Name:</Text>{" "}
@@ -334,9 +335,9 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 180,
     height: 180,
-    borderRadius: 10,
+    borderRadius: 90,
     borderWidth: 3,
-    borderColor: "#38bdf8",
+    borderColor: "black",
   },
   imagePlaceholder: {
     width: 180,
@@ -368,6 +369,7 @@ const styles = StyleSheet.create({
   profileDetails: {
     alignItems: "flex-start",
     // alignItems: "center",
+    marginTop: 20,
   },
   profileText: {
     fontSize: 18,

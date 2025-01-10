@@ -15,7 +15,7 @@
 //   const [loading, setLoading] = useState(true);
 
 //   // Fetch all unverified forms from the backend
-//   const fetchSuccessFalse = async () => {
+//   const fetchSuccessTrue = async () => {
 //     try {
 //       const response = await axios.get(
 //         "http://192.168.50.242:5000/houseDetails/successFalse" // Replace with your API endpoint
@@ -58,7 +58,7 @@
 //   // };
 
 //   useEffect(() => {
-//     fetchSuccessFalse();
+//     fetchSuccessTrue();
 //   }, []);
 
 //   if (loading) {
@@ -167,14 +167,14 @@ import {
   ActivityIndicator,
 } from "react-native";
 import axios from "axios";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 
 const AdminApprovalPage = () => {
   const [forms, setForms] = useState([]); // Store all user submissions
   const [loading, setLoading] = useState(true);
 
   // Fetch all unverified forms from the backend
-  const fetchSuccessFalse = async () => {
+  const fetchSuccessTrue = async () => {
     try {
       const response = await axios.get(
         "http://192.168.50.242:5000/houseDetails/successTrue" // Replace with your API endpoint
@@ -188,9 +188,22 @@ const AdminApprovalPage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchSuccessFalse();
-  }, []);
+  // useEffect(() => {
+  //   fetchSuccessTrue();
+  // }, []);
+
+  // Replace useEffect with useFocusEffect
+    useFocusEffect(
+      React.useCallback(() => {
+        fetchSuccessTrue();
+        
+        // Optional: Clean up function if needed
+        return () => {
+          // Cleanup code here if necessary
+        };
+      }, []) // Empty dependency array since we want this to run on every focus
+    );
+
 
   if (loading) {
     return (
@@ -215,7 +228,7 @@ const AdminApprovalPage = () => {
           key={form._id}
           style={styles.card}
           onPress={() =>
-            router.replace({
+            router.push({
               pathname: "/Admin/approveCancel",
               params: { homeId: form._id }, // Pass the home ID as a query parameter
             })

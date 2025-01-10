@@ -1837,7 +1837,7 @@ export default function MainPage() {
       <View style={localStyles.statusBarWrapper}>
         <StatusBar
           barStyle="light-content" // Light content for white text/icons on a dark background
-          backgroundColor="#38bdf8" // Transparent background for the StatusBar
+          backgroundColor="black" // Transparent background for the StatusBar
           translucent={true} // Make it overlay the screen content
         />
       </View> 

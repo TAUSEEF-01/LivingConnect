@@ -84,13 +84,27 @@ const FormVerifyPage = () => {
 
 
 
+  // const handleAccept = async (id) => {
+  //   try {
+  //     const response = await axios.patch(
+  //       `http://192.168.50.242:5000/houseDetails/cancel/${id}`
+  //     );
+  //     Alert.alert("Successfully canceled", response.data.message);
+  //     // Optionally, update your UI to reflect the change
+  //   } catch (error) {
+  //     Alert.alert("Error", "Failed to accept the home.");
+  //     console.error(error);
+  //   }
+  // };
+
+
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
         `http://192.168.50.242:5000/houseDetails/cancel/${id}`
       );
       Alert.alert("Successfully canceled", response.data.message);
-      // Optionally, update your UI to reflect the change
+      router.replace("/Admin/adminApprovedRequest");
     } catch (error) {
       Alert.alert("Error", "Failed to accept the home.");
       console.error(error);
@@ -233,13 +247,18 @@ const FormVerifyPage = () => {
               <Text style={styles.buttonText}>Call</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.callButton}
               onPress={() => {
                 handleAccept(home._id); // Call the function to accept
                 router.replace("/Admin/adminApprovedRequest"); // Navigate to the page
               }}
               
+            > */}
+
+            <TouchableOpacity
+              style={styles.callButton}
+              onPress={() => handleAccept(home._id)}
             >
               <Text style={styles.buttonText}>Reject</Text>
             </TouchableOpacity>

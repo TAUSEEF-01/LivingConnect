@@ -883,7 +883,7 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#38bdf8" />
+      <StatusBar barStyle="light-content" backgroundColor="black" />
       
       <Text style={styles.title}>Update Profile</Text>
       <View style={styles.profileContainer}>
@@ -896,6 +896,7 @@ export default function Profile() {
             </View>
           )}
         </TouchableOpacity>
+        <Text style={styles.imageLabel}>Tap to select image</Text>
 
         <Text style={styles.label}>Name</Text>
         <TextInput
@@ -980,9 +981,9 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 180,
     height: 180,
-    borderRadius: 10,
+    borderRadius: 90,
     borderWidth: 3,
-    borderColor: "#38bdf8",
+    borderColor: "black",
 
     // width: 150,
     // height: 150,
@@ -1030,10 +1031,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  label: {
+  imageLabel: {
     width: "90%",
     fontSize: 16,
-    color: '#D8C4B6',
+    color: 'white',
+    marginBottom: 8,
+    marginTop: 10,
+    fontWeight: "bold",
+    textAlign: "center" ,
+  },
+  label: {
+    width: "90%",
+    fontSize: 18,
+    color: '#38bdf8', //'#D8C4B6',
     marginBottom: 8,
     marginTop: 20,
     fontWeight: "bold",
