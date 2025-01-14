@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert, StatusBar, FlatList } from 'react-native';
+import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert, StatusBar, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,40 +20,10 @@ export default function GoMapView() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [city, setCity] = useState('');
+  const [area, setArea] = useState('');
+  const [houseNumber, setHouseNumber] = useState('');
 
-  // useEffect(() => {
-  //   if (!searchQuery) {
-  //     setSuggestions([]); // Clear suggestions when the search query is empty
-  //     return;
-  //   }
-  
-  //   const fetchLocation = async () => {
-  //     const { status } = await Location.requestForegroundPermissionsAsync();
-  //     if (status !== 'granted') {
-  //       Alert.alert(
-  //         'Location Permission Required',
-  //         'Please enable location services to use all features.',
-  //         [{ text: 'OK', style: 'default' }]
-  //       );
-  //       return;
-  //     }
-  
-  //     const location = await Location.getCurrentPositionAsync({});
-  //     setMapRegion({
-  //       ...mapRegion,
-  //       latitude: location.coords.latitude,
-  //       longitude: location.coords.longitude,
-  //     });
-  //     setSelectedLocation({
-  //       latitude: location.coords.latitude,
-  //       longitude: location.coords.longitude,
-  //     });
-  //   };
-  
-  //   fetchLocation();
-  // }, [searchQuery]);
-
-  
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -79,9 +49,44 @@ export default function GoMapView() {
     })();
   }, []);
 
-  const handleMapPress = (event) => {
+  const handleMapPress = async (event) => {
     const { latitude, longitude } = event.nativeEvent.coordinate;
     setSelectedLocation({ latitude, longitude });
+
+    try {
+      const response = await axios.get(
+        `https://maps.gomaps.pro/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
+      );
+
+      console.log('GoMaps Response:', response.data); // For debugging
+
+      if (response.data.results && response.data.results.length > 0) {
+        const result = response.data.results[0];
+        const addressComponents = result.address_components;
+
+        // Assuming GoMaps API uses similar address component types
+        const cityComponent = addressComponents.find(
+          component => component.types.includes('city') || component.types.includes('locality')
+        );
+
+        const areaComponent = addressComponents.find(
+          component => component.types.includes('area') || component.types.includes('sublocality')
+        );
+
+        const streetComponent = addressComponents.find(
+          component => component.types.includes('street_address') || component.types.includes('route')
+        );
+
+        setCity(cityComponent ? cityComponent.long_name : result.formatted_address.split(',')[1]?.trim() || 'Not found');
+        setArea(areaComponent ? areaComponent.long_name : result.formatted_address.split(',')[0]?.trim() || 'Not found');
+        setHouseNumber(streetComponent ? streetComponent.long_name : 'Not found');
+      }
+    } catch (error) {
+      console.error('Error fetching location details:', error);
+      setCity('Error fetching location');
+      setArea('Error fetching location');
+      setHouseNumber('Error fetching location');
+    }
   };
 
   const handleSearch = async () => {
@@ -94,6 +99,12 @@ export default function GoMapView() {
         const { lat, lng } = geocode[0].geometry.location;
         setMapRegion({ ...mapRegion, latitude: lat, longitude: lng });
         setSelectedLocation({ latitude: lat, longitude: lng });
+
+        const addressComponents = geocode[0].address_components;
+        setCity(getAddressComponent(addressComponents, 'locality'));
+        setArea(getAddressComponent(addressComponents, 'sublocality') || getAddressComponent(addressComponents, 'neighborhood'));
+        setHouseNumber(getAddressComponent(addressComponents, 'street_number'));
+
         setSuggestions([]);
       } else {
         Alert.alert('Location Not Found', 'Please try a different search term.');
@@ -127,105 +138,133 @@ export default function GoMapView() {
       const { lat, lng } = response.data.result.geometry.location;
       setMapRegion({ ...mapRegion, latitude: lat, longitude: lng });
       setSelectedLocation({ latitude: lat, longitude: lng });
+
+      const addressComponents = response.data.result.address_components;
+      setCity(getAddressComponent(addressComponents, 'locality'));
+      setArea(getAddressComponent(addressComponents, 'sublocality') || getAddressComponent(addressComponents, 'neighborhood'));
+      setHouseNumber(getAddressComponent(addressComponents, 'street_number'));
+
       setSuggestions([]);
     } catch (error) {
       console.error('Error fetching place details:', error);
     }
   };
 
+  const getAddressComponent = (components, type) => {
+    const component = components.find(c => c.types.includes(type));
+    return component ? component.long_name : '';
+  };
+
   const { height, width } = Dimensions.get('window');
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light" />
-      
-      <View style={styles.searchContainer}>
-        <View style={styles.searchInputContainer}>
-          <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
-          <TextInput
-            style={styles.searchBar}
-            placeholder="Search location..."
-            placeholderTextColor="#666"
-            value={searchQuery}
-            onChangeText={(text) => {
-                setSearchQuery(text);
-                fetchSuggestions(text);
-            }}
-            // onChangeText={(text) => {
-            //   setSearchQuery(text);
-            //   if (text) {
-            //     fetchSuggestions(text);
-            //   } else {
-            //     setSuggestions([]); // Clear suggestions for empty or whitespace-only input
-            //   }
-            // }}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.keyboardAvoidingView}
+    >
+      <FlatList
+        data={[{ key: 'map' }]}
+        renderItem={() => (
+          <View style={styles.container}>
+            <StatusBar barStyle="light" />
             
-            onSubmitEditing={handleSearch}
-          />
-        </View>
-        <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-          <Text style={styles.searchButtonText}>Search</Text>
-        </TouchableOpacity>
-      </View>
+            <View style={styles.searchContainer}>
+              <View style={styles.searchInputContainer}>
+                <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
+                <TextInput
+                  style={styles.searchBar}
+                  placeholder="Search location..."
+                  placeholderTextColor="#666"
+                  value={searchQuery}
+                  onChangeText={(text) => {
+                    setSearchQuery(text);
+                    if (text.trim()) {  // Only fetch suggestions if text is not empty or just whitespace
+                      fetchSuggestions(text);
+                    } else {
+                      setSuggestions([]);
+                    }
+                  }}
+                  onSubmitEditing={handleSearch}
+                />
+              </View>
+              <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+                <Text style={styles.searchButtonText}>Search</Text>
+              </TouchableOpacity>
+            </View>
 
-      {suggestions.length > 0 && (
-        <FlatList
-          data={suggestions}
-          keyExtractor={(item) => item.place_id}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleSuggestionPress(item.place_id)}>
-              <Text style={styles.suggestionItem}>{item.description}</Text>
-            </TouchableOpacity>
-          )}
-          style={styles.suggestionsContainer}
-        />
-      )}
+            {suggestions.length > 0 && searchQuery.trim() !== '' && (
+              <FlatList
+                data={suggestions}
+                keyExtractor={(item) => item.place_id}
+                renderItem={({ item }) => (
+                  <TouchableOpacity onPress={() => handleSuggestionPress(item.place_id)}>
+                    <Text style={styles.suggestionItem}>{item.description}</Text>
+                  </TouchableOpacity>
+                )}
+                style={styles.suggestionsContainer}
+              />
+            )}
 
-      <View style={styles.mapContainer}>
-        <MapView
-          style={{ height: height * 0.6, width: width * 0.95 }}
-          showsUserLocation={true}
-          showsMyLocationButton={true}
-          showsCompass={true}
-          // rotateEnabled={true}
-          region={mapRegion}
-          onRegionChangeComplete={setMapRegion}
-          onPress={handleMapPress}
-        >
-          <Marker
-            coordinate={selectedLocation}
-            pinColor="#2563eb"
-          />
-        </MapView>
-      </View>
+            <View style={styles.mapContainer}>
+              <MapView
+                style={{ height: height * 0.6, width: width * 0.95 }}
+                showsUserLocation={true}
+                showsMyLocationButton={true}
+                showsCompass={true}
+                // rotateEnabled={true}
+                region={mapRegion}
+                onRegionChangeComplete={setMapRegion}
+                onPress={handleMapPress}
+              >
+                <Marker
+                  coordinate={selectedLocation}
+                  pinColor="#2563eb"
+                />
+              </MapView>
+            </View>
 
-      <View style={styles.locationInfoContainer}>
-        <Text style={styles.locationTitle}>Selected Location</Text>
-        <View style={styles.coordinatesContainer}>
-          <View style={styles.coordinateBox}>
-            <Text style={styles.coordinateLabel}>Latitude</Text>
-            <Text style={styles.coordinateValue}>
-              {selectedLocation.latitude.toFixed(6)}
-            </Text>
+            <View style={styles.locationInfoContainer}>
+              <Text style={styles.locationTitle}>Selected Location</Text>
+              <View style={styles.coordinatesContainer}>
+                <View style={styles.coordinateBox}>
+                  <Text style={styles.coordinateLabel}>Latitude</Text>
+                  <Text style={styles.coordinateValue}>
+                    {selectedLocation.latitude.toFixed(6)}
+                  </Text>
+                </View>
+                <View style={styles.coordinateBox}>
+                  <Text style={styles.coordinateLabel}>Longitude</Text>
+                  <Text style={styles.coordinateValue}>
+                    {selectedLocation.longitude.toFixed(6)}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.additionalInfoContainer}>
+                <Text style={styles.additionalInfoLabel}>City: {city}</Text>
+                <Text style={styles.additionalInfoLabel}>Area: {area}</Text>
+                <Text style={styles.additionalInfoLabel}>House Number: {houseNumber}</Text>
+              </View>
+            </View>
           </View>
-          <View style={styles.coordinateBox}>
-            <Text style={styles.coordinateLabel}>Longitude</Text>
-            <Text style={styles.coordinateValue}>
-              {selectedLocation.longitude.toFixed(6)}
-            </Text>
-          </View>
-        </View>
-      </View>
-    </View>
+        )}
+        keyExtractor={(item) => item.key}
+        contentContainerStyle={styles.scrollContainer}
+      />
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
-    // padding: 20,
-    // flex: 1,
-    // backgroundColor: '#f8fafc',
-
+    padding: 20,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -233,7 +272,6 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 16,
     paddingTop: 16,
     paddingBottom: 8,
     gap: 8,
@@ -287,7 +325,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: 8,
     position: 'absolute',
-    top: 80,
+    top: 120,
     width: '90%',
     zIndex: 1,
   },
@@ -328,7 +366,8 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   coordinateBox: {
-    flex: 1,
+    // flex: 1,
+    width: '50%',
     backgroundColor: '#f1f5f9',
     padding: 12,
     borderRadius: 8,
@@ -339,6 +378,14 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   coordinateValue: {
+    fontSize: 16,
+    color: '#0f172a',
+    fontWeight: '500',
+  },
+  additionalInfoContainer: {
+    marginTop: 12,
+  },
+  additionalInfoLabel: {
     fontSize: 16,
     color: '#0f172a',
     fontWeight: '500',

@@ -237,7 +237,7 @@ export default function MyImage() {
     // <ScrollView contentContainerStyle={styles.container}>
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="black" />
-      
+
       <Text style={styles.title}>Profile</Text>
       <View style={styles.profileContainer}>
         {/* Profile Image Section */}
@@ -253,11 +253,11 @@ export default function MyImage() {
               <Text style={styles.placeholderText}>No Image</Text>
             </View>
           )}
-        {/* </View> */}
+          {/* </View> */}
 
-        {/* Profile Details Section */}
+          {/* Profile Details Section */}
 
-        {/* <View style={styles.infoBox}>  */}
+          {/* <View style={styles.infoBox}>  */}
           <View style={styles.profileDetails}>
             <Text style={styles.profileText}>
               <Text style={styles.infoLabel}>Name:</Text>{" "}

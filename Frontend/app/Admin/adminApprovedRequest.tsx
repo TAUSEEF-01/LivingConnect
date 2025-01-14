@@ -79,7 +79,7 @@
 
 //   return (
 //     <ScrollView style={styles.container}>
-        
+
 //     </ScrollView>
 //   );
 // };
@@ -153,9 +153,6 @@
 
 // export default AdminApprovalPage;
 
-
-
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -193,17 +190,16 @@ const AdminApprovalPage = () => {
   // }, []);
 
   // Replace useEffect with useFocusEffect
-    useFocusEffect(
-      React.useCallback(() => {
-        fetchSuccessTrue();
-        
-        // Optional: Clean up function if needed
-        return () => {
-          // Cleanup code here if necessary
-        };
-      }, []) // Empty dependency array since we want this to run on every focus
-    );
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchSuccessTrue();
 
+      // Optional: Clean up function if needed
+      return () => {
+        // Cleanup code here if necessary
+      };
+    }, []) // Empty dependency array since we want this to run on every focus
+  );
 
   if (loading) {
     return (
@@ -239,7 +235,6 @@ const AdminApprovalPage = () => {
         </TouchableOpacity>
       ))}
     </ScrollView>
-
   );
 };
 

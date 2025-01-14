@@ -45,16 +45,20 @@ const ChatMessagesScreen = () => {
   useEffect(() => {
     const fetchRecipientData = async () => {
       try {
-        const response = await axios.get(`${API_URL}/messages/messages/users/${recipientId}`);
+        const response = await axios.get(
+          `${API_URL}/messages/messages/users/${recipientId}`
+        );
         setRecipientData(response.data);
       } catch (error) {
-        console.error("Error fetching recipient data:", error.response?.data || error.message);
+        console.error(
+          "Error fetching recipient data:",
+          error.response?.data || error.message
+        );
         Alert.alert("Error", "Failed to fetch recipient data");
       }
     };
     fetchRecipientData();
   }, [recipientId]);
-  
 
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
@@ -122,7 +126,6 @@ const ChatMessagesScreen = () => {
     }
   }, [selectedMessages]);
 
-  
   const scrollToBottom = () => {
     if (scrollViewRef.current) {
       scrollViewRef.current.scrollToEnd({ animated: true });
@@ -375,7 +378,7 @@ const ChatMessagesScreen = () => {
   //     console.error('Error details:', error.response?.data);
   //   }
   // };
-  
+
   const fetchMessages = async () => {
     try {
       const response = await axios.get(
@@ -614,7 +617,6 @@ const ChatMessagesScreen = () => {
     }
   };
 
-  
   const formatTime = (time) => {
     const options = { hour: "numeric", minute: "numeric" };
     return new Date(time).toLocaleString("en-US", options);
@@ -628,7 +630,6 @@ const ChatMessagesScreen = () => {
   //     setSelectedMessages(prev => [...prev, message._id]);
   //   }
   // };
-  
 
   const handleSelectMessage = (message) => {
     const isSelected = selectedMessages.includes(message._id);
@@ -797,9 +798,9 @@ const ChatMessagesScreen = () => {
 
   const renderItem = ({ item }) => (
     <View style={{ marginVertical: 10 }}>
-      <Text>{item.isCurrentUser ? 'You' : 'Other User'}</Text>
-      {item.messageType === 'text' && <Text>{item.message}</Text>}
-      {item.messageType === 'image' && item.base64Image && (
+      <Text>{item.isCurrentUser ? "You" : "Other User"}</Text>
+      {item.messageType === "text" && <Text>{item.message}</Text>}
+      {item.messageType === "image" && item.base64Image && (
         <Image
           source={{ uri: item.base64Image }}
           style={{ width: 200, height: 200 }}
@@ -807,7 +808,7 @@ const ChatMessagesScreen = () => {
       )}
     </View>
   );
-  
+
   const renderMessage = (item, index) => {
     const isSelected = selectedMessages.includes(item._id);
     const messageContainerStyle = [
@@ -826,21 +827,18 @@ const ChatMessagesScreen = () => {
         {item.messageType === "image" ? (
           <View>
             {item.imageUrl ? (
-
               <Image
-              
                 // source={{ uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" }}
                 source={{ uri: item.imageUrl }}
                 style={styles.messageImage}
                 resizeMode="cover"
-                onLoad={() => {console.log(item.base64Image)} }
+                // onLoad={() => {console.log(item.base64Image)} }
                 onError={(e) =>
                   console.error("Image loading error:", e.nativeEvent.error)
                 }
               />
             ) : (
               <View
-              
                 style={[
                   styles.messageImage,
                   {
@@ -890,7 +888,6 @@ const ChatMessagesScreen = () => {
         )}
       </Pressable>
     );
-    
   };
 
   return (
@@ -994,8 +991,6 @@ const ChatMessagesScreen = () => {
       {showEmojiSelector && renderEmojiSelector()}
     </KeyboardAvoidingView>
   );
-
-
 };
 
 const styles = StyleSheet.create({
@@ -1006,7 +1001,6 @@ const styles = StyleSheet.create({
   scrollViewContent: {
     padding: 10,
     flexGrow: 1,
-    
   },
   messageBubble: {
     padding: 8,
@@ -1066,7 +1060,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#dddddd",
     backgroundColor: "white",
-    
   },
   emojiIcon: {
     marginRight: 5,
@@ -1103,19 +1096,16 @@ const styles = StyleSheet.create({
     borderBottomColor: "#ddd",
     justifyContent: "center",
     marginTop: 33,
-    
   },
   headerContent: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: 15,
-    
   },
   headerText: {
     fontSize: 16,
     fontWeight: "bold",
-    
   },
   recipientImage: {
     width: 40,
@@ -1126,7 +1116,6 @@ const styles = StyleSheet.create({
   recipientName: {
     fontSize: 16,
     fontWeight: "bold",
-    
   },
   messageImage: {
     width: 200,

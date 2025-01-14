@@ -737,7 +737,6 @@ import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "react-native";
 
-
 export default function Profile() {
   const [profileImage, setProfileImage] = useState(null);
   const [userName, setUserName] = useState("");
@@ -884,7 +883,7 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="black" />
-      
+
       <Text style={styles.title}>Update Profile</Text>
       <View style={styles.profileContainer}>
         <TouchableOpacity onPress={pickImage}>
@@ -1034,20 +1033,20 @@ const styles = StyleSheet.create({
   imageLabel: {
     width: "90%",
     fontSize: 16,
-    color: 'white',
+    color: "white",
     marginBottom: 8,
     marginTop: 10,
     fontWeight: "bold",
-    textAlign: "center" ,
+    textAlign: "center",
   },
   label: {
     width: "90%",
     fontSize: 18,
-    color: '#38bdf8', //'#D8C4B6',
+    color: "#38bdf8", //'#D8C4B6',
     marginBottom: 8,
     marginTop: 20,
     fontWeight: "bold",
-    textAlign: "left" ,
+    textAlign: "left",
   },
   input: {
     borderWidth: 2,

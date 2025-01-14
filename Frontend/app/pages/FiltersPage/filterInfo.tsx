@@ -820,7 +820,7 @@ export default function SearchHomes() {
         )}
       /> */}
 
-{/* 
+      {/* 
 <FlatList
   data={homes}
   keyExtractor={(item) => item._id}
@@ -858,73 +858,71 @@ export default function SearchHomes() {
   )}
 /> */}
 
+      <FlatList
+        data={homes}
+        keyExtractor={(item) => item._id}
+        numColumns={2} // Display two items in a row
+        columnWrapperStyle={localStyles.rowWrapper} // Optional: Add spacing between rows
+        renderItem={({ item, index }) => {
+          // Determine if the current item is the last and the total number of items is odd
+          const isLastOddItem =
+            homes.length % 2 !== 0 && index === homes.length - 1;
 
-<FlatList
-  data={homes}
-  keyExtractor={(item) => item._id}
-  numColumns={2} // Display two items in a row
-  columnWrapperStyle={localStyles.rowWrapper} // Optional: Add spacing between rows
-  renderItem={({ item, index }) => {
-    // Determine if the current item is the last and the total number of items is odd
-    const isLastOddItem = homes.length % 2 !== 0 && index === homes.length - 1;
+          return (
+            <TouchableOpacity
+              key={item._id}
+              style={[
+                localStyles.card,
+                isLastOddItem && localStyles.lastOddCard, // Apply special styles for the last odd item
+              ]}
+              onPress={() =>
+                router.push({
+                  pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                  params: { homeId: item._id }, // Pass the home ID as a query parameter
+                })
+              } // Navigate to the details page
+            >
+              {item.images.length > 0 && (
+                <Image
+                  source={{ uri: item.images[0] }} // Display the first image
+                  style={[
+                    localStyles.cardImage,
+                    isLastOddItem && localStyles.lastOddCardImage, // Style the last odd card image
+                  ]}
+                />
+              )}
 
-    return (
-      <TouchableOpacity
-        key={item._id}
-        style={[
-          localStyles.card,
-          isLastOddItem && localStyles.lastOddCard, // Apply special styles for the last odd item
-        ]}
-        onPress={() =>
-          router.push({
-            pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
-            params: { homeId: item._id }, // Pass the home ID as a query parameter
-          })
-        } // Navigate to the details page
-      >
-        {item.images.length > 0 && (
-          <Image
-            source={{ uri: item.images[0] }} // Display the first image
-            style={[
-              localStyles.cardImage,
-              isLastOddItem && localStyles.lastOddCardImage, // Style the last odd card image
-            ]}
-          />
-        )}
+              <Text
+                style={[
+                  localStyles.cardPrice,
+                  isLastOddItem && localStyles.lastOddCardPrice, // Style the last odd card price
+                ]}
+              >
+                Tk {item.rent}
+              </Text>
 
-        <Text
-          style={[
-            localStyles.cardPrice,
-            isLastOddItem && localStyles.lastOddCardPrice, // Style the last odd card price
-          ]}
-        >
-          Tk {item.rent}
-        </Text>
+              <Text
+                style={[
+                  localStyles.cardDetails,
+                  isLastOddItem && localStyles.lastOddCardDetails, // Style the last odd card details
+                ]}
+              >
+                {item.details.beds} beds | {item.details.baths} baths |{" "}
+                {item.details.size} m²
+              </Text>
 
-        <Text
-          style={[
-            localStyles.cardDetails,
-            isLastOddItem && localStyles.lastOddCardDetails, // Style the last odd card details
-          ]}
-        >
-          {item.details.beds} beds | {item.details.baths} baths |{" "}
-          {item.details.size} m²
-        </Text>
-
-        <Text
-          style={[
-            localStyles.cardLocation,
-            isLastOddItem && localStyles.lastOddCardLocation, // Style the last odd card location
-          ]}
-        >
-          {item.location.city}, {item.location.area}
-        </Text>
-      </TouchableOpacity>
-    );
-  }}
-/>
-
-
+              <Text
+                style={[
+                  localStyles.cardLocation,
+                  isLastOddItem && localStyles.lastOddCardLocation, // Style the last odd card location
+                ]}
+              >
+                {item.location.city}, {item.location.area}
+              </Text>
+            </TouchableOpacity>
+          );
+        }}
+      />
     </View>
   );
 }
@@ -1221,8 +1219,6 @@ const styles = StyleSheet.create({
   // },
 });
 
-
-
 // const localStyles = StyleSheet.create({
 //   rowWrapper: {
 //     justifyContent: 'space-between', // Adjust spacing between items in a row
@@ -1260,62 +1256,57 @@ const styles = StyleSheet.create({
 //   //   padding: 5,
 //   // },
 
-  // cardContainer: {
-  //   flexDirection: "row",
-  //   // marginBottom: 16,
-  // },
-  // card: {
-  //   // backgroundColor: "#2d3748",
-  //   // padding: 16,
-  //   // borderRadius: 8,
-  //   // marginRight: 16,
-  //   // width: 200,
+// cardContainer: {
+//   flexDirection: "row",
+//   // marginBottom: 16,
+// },
+// card: {
+//   // backgroundColor: "#2d3748",
+//   // padding: 16,
+//   // borderRadius: 8,
+//   // marginRight: 16,
+//   // width: 200,
 
-  //   flex: 1, // Take up equal space
-  //   margin: 5, // Add margin between cards
-  //   backgroundColor: '#2d3748', // Card background color
-  //   borderRadius: 10, // Rounded corners
-  //   overflow: 'hidden',
-  //   elevation: 3, // Shadow for Android
-  //   shadowColor: '#000', // Shadow for iOS
-  //   shadowOffset: { width: 0, height: 2 },
-  //   shadowOpacity: 0.25,
-  //   shadowRadius: 3.84,
-  // },
-  // cardImage: {
-  //   height: 100,
-  //   width: "100%",
-  //   borderRadius: 8,
-  //   marginBottom: 8,
-  // },
-  // cardPrice: {
-  //   paddingLeft: 8,
-  //   paddingTop: 5,
-  //   color: "white",
-  //   fontWeight: "bold",
-  //   marginBottom: 4,
-  // },
-  // cardDetails: {
-  //   paddingLeft: 8,
-  //   color: "white",
-  //   marginBottom: 4,
-  // },
-  // cardLocation: {
-  //   paddingLeft: 8,
-  //   paddingBottom: 8,
-  //   color: "gray",
-  // },
-
-
-  
+//   flex: 1, // Take up equal space
+//   margin: 5, // Add margin between cards
+//   backgroundColor: '#2d3748', // Card background color
+//   borderRadius: 10, // Rounded corners
+//   overflow: 'hidden',
+//   elevation: 3, // Shadow for Android
+//   shadowColor: '#000', // Shadow for iOS
+//   shadowOffset: { width: 0, height: 2 },
+//   shadowOpacity: 0.25,
+//   shadowRadius: 3.84,
+// },
+// cardImage: {
+//   height: 100,
+//   width: "100%",
+//   borderRadius: 8,
+//   marginBottom: 8,
+// },
+// cardPrice: {
+//   paddingLeft: 8,
+//   paddingTop: 5,
+//   color: "white",
+//   fontWeight: "bold",
+//   marginBottom: 4,
+// },
+// cardDetails: {
+//   paddingLeft: 8,
+//   color: "white",
+//   marginBottom: 4,
+// },
+// cardLocation: {
+//   paddingLeft: 8,
+//   paddingBottom: 8,
+//   color: "gray",
+// },
 
 // });
 
-
-
 const localStyles = StyleSheet.create({
   rowWrapper: {
-    justifyContent: 'space-between', // Adjust spacing between items in a row
+    justifyContent: "space-between", // Adjust spacing between items in a row
     marginBottom: 10, // Optional: Add spacing between rows
   },
   // card: {
@@ -1354,7 +1345,7 @@ const localStyles = StyleSheet.create({
     height: 180,
     borderRadius: 12,
     marginBottom: 12,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   // cardPrice: {
   //   paddingLeft: 8,
@@ -1365,8 +1356,8 @@ const localStyles = StyleSheet.create({
   // },
   lastOddCardPrice: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 6,
   },
   // cardDetails: {
@@ -1377,7 +1368,7 @@ const localStyles = StyleSheet.create({
   // },
   lastOddCardDetails: {
     fontSize: 16,
-    color: 'white',
+    color: "white",
     marginBottom: 6,
   },
   // cardLocation: {
@@ -1388,12 +1379,10 @@ const localStyles = StyleSheet.create({
   // },
   lastOddCardLocation: {
     fontSize: 14,
-    color: '#fff',
-    fontStyle: 'italic',
-    fontWeight: 'bold',
+    color: "#fff",
+    fontStyle: "italic",
+    fontWeight: "bold",
   },
-
-
 
   cardContainer: {
     flexDirection: "row",
@@ -1408,11 +1397,11 @@ const localStyles = StyleSheet.create({
 
     flex: 1, // Take up equal space
     margin: 5, // Add margin between cards
-    backgroundColor: '#2d3748', // Card background color
+    backgroundColor: "#2d3748", // Card background color
     borderRadius: 10, // Rounded corners
-    overflow: 'hidden',
+    overflow: "hidden",
     elevation: 3, // Shadow for Android
-    shadowColor: '#000', // Shadow for iOS
+    shadowColor: "#000", // Shadow for iOS
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
