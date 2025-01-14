@@ -794,7 +794,7 @@ const AllHomesPage = () => {
           <View style={styles.filterContainer}>
             <View style={styles.filterRow}>
               <TouchableOpacity style={styles.filterButtonPrimary}
-                onPress={() => router.push("/pages/Map/googleMapPage")}
+                onPress={() => router.push("/pages/Map/GoogleMapView")}
               >
                 <Text style={styles.filterButtonText}>Show map</Text>
               </TouchableOpacity>

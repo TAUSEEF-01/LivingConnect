@@ -222,9 +222,14 @@ export default function GoMapView() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    // padding: 20,
+    // flex: 1,
+    // backgroundColor: '#f8fafc',
+
     flex: 1,
-    backgroundColor: '#f8fafc',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   searchContainer: {
     flexDirection: 'row',
