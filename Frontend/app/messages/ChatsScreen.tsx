@@ -171,7 +171,7 @@ const ChatScreen = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log("Fetched Profile:", response.data);
+      // console.log("Fetched Profile:", response.data);
 
       setProfile(response.data); // Ensure this includes the `id` field
       setCurrentUser(response.data);

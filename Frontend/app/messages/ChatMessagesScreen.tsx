@@ -375,6 +375,7 @@ const ChatMessagesScreen = () => {
   //     console.error('Error details:', error.response?.data);
   //   }
   // };
+  
   const fetchMessages = async () => {
     try {
       const response = await axios.get(
@@ -383,10 +384,10 @@ const ChatMessagesScreen = () => {
       const transformedMessages = response.data.map((msg) => ({
         ...msg,
         isCurrentUser: msg.senderId === currentUserId,
-        base64Image: msg.base64Image
-          ? msg.base64Image.startsWith("data:image")
-            ? msg.base64Image
-            : `data:image/jpeg;base64,${msg.base64Image}`
+        base64Image: msg.imageUrl
+          ? msg.imageUrl.startsWith("data:image")
+            ? msg.imageUrl
+            : `data:image/jpeg;base64,${msg.imageUrl}`
           : null,
       }));
       // console.log('Transformed Messages:', transformedMessages);
@@ -675,6 +676,7 @@ const ChatMessagesScreen = () => {
   //     </View>
   //   );
   // };
+
   const handleMessagePress = (message) => {
     if (isSelectionMode) {
       handleSelectMessage(message);
@@ -823,17 +825,22 @@ const ChatMessagesScreen = () => {
       >
         {item.messageType === "image" ? (
           <View>
-            {item.base64Image ? (
+            {item.imageUrl ? (
+
               <Image
-                source={{ uri: item.base64Image }}
+              
+                // source={{ uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" }}
+                source={{ uri: item.imageUrl }}
                 style={styles.messageImage}
                 resizeMode="cover"
+                onLoad={() => {console.log(item.base64Image)} }
                 onError={(e) =>
                   console.error("Image loading error:", e.nativeEvent.error)
                 }
               />
             ) : (
               <View
+              
                 style={[
                   styles.messageImage,
                   {
