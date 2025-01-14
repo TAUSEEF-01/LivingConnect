@@ -98,7 +98,7 @@ const UserDetailSchema = new mongoose.Schema(
       default: null, // Default value set to null
     },
     profileImage: {
-      type: String,
+           type: String,
       default: null, // Default value set to null
     },
     isAdmin: {

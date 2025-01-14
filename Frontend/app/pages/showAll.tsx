@@ -771,9 +771,10 @@ const AllHomesPage = () => {
 
           <View style={styles.bannerImageContainer}>
             <Image
-              source={{
-                uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              }} // Replace with actual image URL
+                source={require("../../assets/images/showAll_page_image.jpg")}
+              // source={{
+              //   // uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              // }} // Replace with actual image URL
               style={styles.bannerImage}
             />
           </View>

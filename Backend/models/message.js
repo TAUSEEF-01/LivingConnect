@@ -37,12 +37,12 @@ const User = require('./userModelDB');  // Adjust the path accordingly
 const messageSchema = new mongoose.Schema({
   senderId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "userInfoCollections",
     required: true
   },
   recepientId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "userInfoCollections",
     required: true
   },
   messageType: {

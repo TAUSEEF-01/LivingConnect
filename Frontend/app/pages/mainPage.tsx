@@ -1888,9 +1888,11 @@ export default function MainPage() {
 
           <View style={localStyles.bannerImageContainer}>
             <Image
-              source={{
-                uri: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-              }} // Replace with actual image URL
+
+              source={require("../../assets/images/mainpage_image.jpg")}
+              // source={{
+              //   uri: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              // }} // Replace with actual image URL
               style={localStyles.bannerImage}
             />
           </View>
