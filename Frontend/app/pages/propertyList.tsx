@@ -9,7 +9,7 @@
 // // //   useEffect(() => {
 // // //     async function fetchProperties() {
 // // //       try {
-// // //         const response = await fetch('http://192.168.50.242:5000/properties');
+// // //         const response = await fetch('https://livingconnect-backend.vercel.app/properties');
 // // //         const data = await response.json();
 
 // // //         console.log(data);
@@ -91,7 +91,7 @@
 // //   useEffect(() => {
 // //     async function fetchProperties() {
 // //       try {
-// //         const response = await fetch('http://192.168.50.242:5000/properties');
+// //         const response = await fetch('https://livingconnect-backend.vercel.app/properties');
 // //         const data = await response.json();
 
 // //         console.log('Fetched properties:', data);
@@ -180,7 +180,7 @@
 //   useEffect(() => {
 //     async function fetchProperties() {
 //       try {
-//         const response = await fetch('http://192.168.50.242:5000/properties');
+//         const response = await fetch('https://livingconnect-backend.vercel.app/properties');
 //         const data = await response.json();
 
 //         console.log('Fetched properties:', data);
@@ -270,8 +270,10 @@ export default function PropertyList() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch("http://192.168.50.242:5000/properties");
-        // const response = await fetch("http://192.168.50.242:5000/properties");
+        const response = await fetch(
+          "https://livingconnect-backend.vercel.app/properties"
+        );
+        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);

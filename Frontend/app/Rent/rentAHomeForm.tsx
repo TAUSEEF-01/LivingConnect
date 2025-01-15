@@ -46,7 +46,7 @@
 // //     };
 
 // //     try {
-// //       const response = await fetch('http://192.168.50.242:5000/updateHomeDetails', {
+// //       const response = await fetch('https://livingconnect-backend.vercel.app/updateHomeDetails', {
 // //         method: 'POST',
 // //         headers: {
 // //           'Content-Type': 'application/json',
@@ -375,7 +375,7 @@
 //       console.log("Payload:", JSON.stringify(payload));
 
 //       // Make API call using fetch
-//       const response = await fetch("http://192.168.50.242:5000/home-details", {
+//       const response = await fetch("https://livingconnect-backend.vercel.app/home-details", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -872,8 +872,8 @@ const HomeDetailsForm = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/houseDetails/home-details", //192.168.50.242
-        // "http://192.168.50.242:5000/houseDetails/home-details", //192.168.50.242
+        "https://livingconnect-backend.vercel.app/houseDetails/home-details", //192.168.192.42
+        // "https://livingconnect-backend.vercel.app/houseDetails/home-details", //192.168.192.42
         formData,
         {
           headers: {

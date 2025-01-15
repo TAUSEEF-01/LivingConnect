@@ -75,8 +75,10 @@ export default function CommunityCenter() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch("http://192.168.50.242:5000/properties");
-        // const response = await fetch("http://192.168.50.242:5000/properties");
+        const response = await fetch(
+          "https://livingconnect-backend.vercel.app/properties"
+        );
+        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -98,8 +100,8 @@ export default function CommunityCenter() {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -123,143 +125,143 @@ export default function CommunityCenter() {
 
   const dummyCommunityCenters = [
     {
-      _id: 'w1',
-      name: 'Royal Wedding Hall',
-      images: ['https://images.unsplash.com/photo-1519167758481-83f550bb49b3'],
+      _id: "w1",
+      name: "Royal Wedding Hall",
+      images: ["https://images.unsplash.com/photo-1519167758481-83f550bb49b3"],
       price: 50000,
       details: {
-        capacity: '500',
-        parking: '100 cars',
-        size: '10000'
+        capacity: "500",
+        parking: "100 cars",
+        size: "10000",
       },
       location: {
-        city: 'Dhaka',
-        area: 'Dhanmondi'
-      }
+        city: "Dhaka",
+        area: "Dhanmondi",
+      },
     },
     {
-      _id: 'w2',
-      name: 'Grand Celebration Center',
-      images: ['https://images.unsplash.com/photo-1469371670807-013ccf25f16a'],
+      _id: "w2",
+      name: "Grand Celebration Center",
+      images: ["https://images.unsplash.com/photo-1469371670807-013ccf25f16a"],
       price: 45000,
       details: {
-        capacity: '400',
-        parking: '80 cars',
-        size: '8000'
+        capacity: "400",
+        parking: "80 cars",
+        size: "8000",
       },
       location: {
-        city: 'Dhaka',
-        area: 'Gulshan'
-      }
+        city: "Dhaka",
+        area: "Gulshan",
+      },
     },
     {
-        _id: 'w3',
-        name: 'Elegant Event Hall',
-        images: ['https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0'],
-        price: 55000,
-        details: {
-          capacity: '500',
-          parking: '100 cars',
-          size: '10000'
-        },
-        location: {
-          city: 'Dhaka',
-          area: 'Banani'
-        }
+      _id: "w3",
+      name: "Elegant Event Hall",
+      images: ["https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"],
+      price: 55000,
+      details: {
+        capacity: "500",
+        parking: "100 cars",
+        size: "10000",
+      },
+      location: {
+        city: "Dhaka",
+        area: "Banani",
+      },
     },
   ];
 
   const dummyHomeServices = [
     {
-      _id: 's1',
-      name: 'Professional Cleaning Service',
-      images: ['https://images.unsplash.com/photo-1581578731548-c64695cc6952'],
+      _id: "s1",
+      name: "Professional Cleaning Service",
+      images: ["https://images.unsplash.com/photo-1581578731548-c64695cc6952"],
       price: 1500,
       details: {
-        duration: '3 hours',
-        rating: '4.8',
-        experience: '5 years'
+        duration: "3 hours",
+        rating: "4.8",
+        experience: "5 years",
       },
       location: {
-        city: 'Dhaka',
-        area: 'Dhanmondi'
-      }
+        city: "Dhaka",
+        area: "Dhanmondi",
+      },
     },
     {
-      _id: 's2',
-      name: 'Expert Home Repair',
-      images: ['https://images.unsplash.com/photo-1621905252507-b35492cc74b4'],
+      _id: "s2",
+      name: "Expert Home Repair",
+      images: ["https://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
       price: 2000,
       details: {
-        duration: 'Variable',
-        rating: '4.9',
-        experience: '8 years'
+        duration: "Variable",
+        rating: "4.9",
+        experience: "8 years",
       },
       location: {
-        city: 'Dhaka',
-        area: 'Gulshan'
-      }
+        city: "Dhaka",
+        area: "Gulshan",
+      },
     },
     {
-      _id: 's3',
-      name: 'Professional Home Shifting',
-      images: ['https://images.unsplash.com/photo-1600585152220-90363fe7e115'],
+      _id: "s3",
+      name: "Professional Home Shifting",
+      images: ["https://images.unsplash.com/photo-1600585152220-90363fe7e115"],
       price: 5000,
       details: {
-        duration: 'Full day',
-        rating: '4.7',
-        experience: '6 years'
+        duration: "Full day",
+        rating: "4.7",
+        experience: "6 years",
       },
       location: {
-        city: 'Dhaka',
-        area: 'Mirpur'
-      }
+        city: "Dhaka",
+        area: "Mirpur",
+      },
     },
     {
-        _id: 's4',
-        name: 'Professional Cleaning Service',
-        images: ['https://images.unsplash.com/photo-1581578731548-c64695cc6952'],
-        price: 1500,
-        details: {
-          duration: '3 hours',
-          rating: '4.8',
-          experience: '5 years'
-        },
-        location: {
-          city: 'Dhaka',
-          area: 'Dhanmondi'
-        }
+      _id: "s4",
+      name: "Professional Cleaning Service",
+      images: ["https://images.unsplash.com/photo-1581578731548-c64695cc6952"],
+      price: 1500,
+      details: {
+        duration: "3 hours",
+        rating: "4.8",
+        experience: "5 years",
       },
-      {
-        _id: 's5',
-        name: 'Expert Home Repair',
-        images: ['https://images.unsplash.com/photo-1621905252507-b35492cc74b4'],
-        price: 2000,
-        details: {
-          duration: 'Variable',
-          rating: '4.9',
-          experience: '8 years'
-        },
-        location: {
-          city: 'Dhaka',
-          area: 'Gulshan'
-        }
+      location: {
+        city: "Dhaka",
+        area: "Dhanmondi",
       },
-      {
-        _id: 's6',
-        name: 'Professional Home Shifting',
-        images: ['https://images.unsplash.com/photo-1600585152220-90363fe7e115'],
-        price: 5000,
-        details: {
-          duration: 'Full day',
-          rating: '4.7',
-          experience: '6 years'
-        },
-        location: {
-          city: 'Dhaka',
-          area: 'Mirpur'
-        }
-      }
+    },
+    {
+      _id: "s5",
+      name: "Expert Home Repair",
+      images: ["https://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
+      price: 2000,
+      details: {
+        duration: "Variable",
+        rating: "4.9",
+        experience: "8 years",
+      },
+      location: {
+        city: "Dhaka",
+        area: "Gulshan",
+      },
+    },
+    {
+      _id: "s6",
+      name: "Professional Home Shifting",
+      images: ["https://images.unsplash.com/photo-1600585152220-90363fe7e115"],
+      price: 5000,
+      details: {
+        duration: "Full day",
+        rating: "4.7",
+        experience: "6 years",
+      },
+      location: {
+        city: "Dhaka",
+        area: "Mirpur",
+      },
+    },
   ];
 
   return (
@@ -395,43 +397,45 @@ export default function CommunityCenter() {
           <View>
             <View style={localStyles.filter}>
               {/* <View style={localStyles.filterOptions}> */}
-                <TouchableOpacity
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={() => {
+                  router.push("/CommunityCenter/CommunityCenterForm");
+                }}
+                activeOpacity={0.7}
+              >
+                <Ionicons
+                  name="add-circle-outline"
+                  size={24}
+                  color="white"
+                  style={{ marginRight: 8 }}
+                />
+                <Text
                   style={{
-                    backgroundColor: "#38bdf8",
-                    paddingHorizontal: 16,
-                    paddingVertical: 12,
-                    borderRadius: 12,
-                    width: "98%",
-                    marginVertical: 8,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    shadowColor: "#38bdf8",
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: 0.3,
-                    shadowRadius: 5,
-                    elevation: 6,
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    textAlign: "center",
                   }}
-                  onPress={()=> {router.push("/CommunityCenter/CommunityCenterForm");}}
-                  activeOpacity={0.7}
                 >
-                  <Ionicons
-                    name="add-circle-outline"
-                    size={24}
-                    color="white"
-                    style={{ marginRight: 8 }}
-                  />
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 16,
-                      fontWeight: "600",
-                      textAlign: "center",
-                    }}
-                  >
-                    Add Community Center
-                  </Text>
-                </TouchableOpacity>
+                  Add Community Center
+                </Text>
+              </TouchableOpacity>
               {/* </View> */}
             </View>
 
@@ -471,8 +475,8 @@ export default function CommunityCenter() {
                     <Text style={localStyles.cardName}>{center.name}</Text>
                     <Text style={localStyles.cardPrice}>Tk {center.price}</Text>
                     <Text style={localStyles.cardDetails}>
-                      Capacity: {center.details.capacity} people | Parking: {center.details.parking} |{" "}
-                      {center.details.size} sqft
+                      Capacity: {center.details.capacity} people | Parking:{" "}
+                      {center.details.parking} | {center.details.size} sqft
                     </Text>
                     <Text style={localStyles.cardLocation}>
                       {center.location.city}, {center.location.area}
@@ -507,8 +511,8 @@ export default function CommunityCenter() {
                     <Text style={localStyles.cardName}>{center.name}</Text>
                     <Text style={localStyles.cardPrice}>Tk {center.price}</Text>
                     <Text style={localStyles.cardDetails}>
-                      Capacity: {center.details.capacity} people | Parking: {center.details.parking} |{" "}
-                      {center.details.size} sqft
+                      Capacity: {center.details.capacity} people | Parking:{" "}
+                      {center.details.parking} | {center.details.size} sqft
                     </Text>
                     <Text style={localStyles.cardLocation}>
                       {center.location.city}, {center.location.area}
@@ -543,8 +547,8 @@ export default function CommunityCenter() {
                     <Text style={localStyles.cardName}>{center.name}</Text>
                     <Text style={localStyles.cardPrice}>Tk {center.price}</Text>
                     <Text style={localStyles.cardDetails}>
-                      Capacity: {center.details.capacity} people | Parking: {center.details.parking} |{" "}
-                      {center.details.size} sqft
+                      Capacity: {center.details.capacity} people | Parking:{" "}
+                      {center.details.parking} | {center.details.size} sqft
                     </Text>
                     <Text style={localStyles.cardLocation}>
                       {center.location.city}, {center.location.area}
@@ -565,43 +569,43 @@ export default function CommunityCenter() {
           <View>
             <View style={localStyles.filter}>
               {/* <View style={localStyles.filterOptions}> */}
-                <TouchableOpacity
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={handleRentAHomePress}
+                activeOpacity={0.7}
+              >
+                <Ionicons
+                  name="add-circle-outline"
+                  size={24}
+                  color="white"
+                  style={{ marginRight: 8 }}
+                />
+                <Text
                   style={{
-                    backgroundColor: "#38bdf8",
-                    paddingHorizontal: 16,
-                    paddingVertical: 12,
-                    borderRadius: 12,
-                    width: "98%",
-                    marginVertical: 8,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    shadowColor: "#38bdf8",
-                    shadowOffset: { width: 0, height: 4 },
-                    shadowOpacity: 0.3,
-                    shadowRadius: 5,
-                    elevation: 6,
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    textAlign: "center",
                   }}
-                  onPress={handleRentAHomePress}
-                  activeOpacity={0.7}
                 >
-                  <Ionicons
-                    name="add-circle-outline"
-                    size={24}
-                    color="white"
-                    style={{ marginRight: 8 }}
-                  />
-                  <Text
-                    style={{
-                      color: "white",
-                      fontSize: 16,
-                      fontWeight: "600",
-                      textAlign: "center",
-                    }}
-                  >
-                    Add Services
-                  </Text>
-                </TouchableOpacity>
+                  Add Services
+                </Text>
+              </TouchableOpacity>
               {/* </View>/ */}
             </View>
 
@@ -621,109 +625,118 @@ export default function CommunityCenter() {
                 </Text>
               </TouchableOpacity>
               <ScrollView horizontal style={localStyles.cardContainer}>
-                {dummyHomeServices.filter(service => service.name.includes('Cleaning')).map((service) => (
-                  <TouchableOpacity
-                    key={service._id}
-                    style={localStyles.card}
-                    onPress={() =>
-                      router.push({
-                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
-                        params: { homeId: service._id },
-                      })
-                    }
-                  >
-                    {service.images.length > 0 && (
-                      <Image
-                        source={{ uri: service.images[0] }}
-                        style={localStyles.cardImage}
-                      />
-                    )}
-                    <Text style={localStyles.cardName}>{service.name}</Text>
-                    <Text style={localStyles.cardPrice}>Tk {service.price}/visit</Text>
-                    <Text style={localStyles.cardDetails}>
-                      Duration: {service.details.duration} | Rating: {service.details.rating} |{" "}
-                      Experience: {service.details.experience}
-                    </Text>
-                    <Text style={localStyles.cardLocation}>
-                      {service.location.city}, {service.location.area}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                {dummyHomeServices
+                  .filter((service) => service.name.includes("Cleaning"))
+                  .map((service) => (
+                    <TouchableOpacity
+                      key={service._id}
+                      style={localStyles.card}
+                      onPress={() =>
+                        router.push({
+                          pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                          params: { homeId: service._id },
+                        })
+                      }
+                    >
+                      {service.images.length > 0 && (
+                        <Image
+                          source={{ uri: service.images[0] }}
+                          style={localStyles.cardImage}
+                        />
+                      )}
+                      <Text style={localStyles.cardName}>{service.name}</Text>
+                      <Text style={localStyles.cardPrice}>
+                        Tk {service.price}/visit
+                      </Text>
+                      <Text style={localStyles.cardDetails}>
+                        Duration: {service.details.duration} | Rating:{" "}
+                        {service.details.rating} | Experience:{" "}
+                        {service.details.experience}
+                      </Text>
+                      <Text style={localStyles.cardLocation}>
+                        {service.location.city}, {service.location.area}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
               </ScrollView>
 
               <TouchableOpacity onPress={handleApartmentPress}>
-                <Text style={localStyles.categories}>
-                  Home Repair Services
-                </Text>
+                <Text style={localStyles.categories}>Home Repair Services</Text>
               </TouchableOpacity>
               <ScrollView horizontal style={localStyles.cardContainer}>
-                {dummyHomeServices.filter(service => service.name.includes('Repair')).map((service) => (
-                  <TouchableOpacity
-                    key={service._id}
-                    style={localStyles.card}
-                    onPress={() =>
-                      router.push({
-                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
-                        params: { homeId: service._id },
-                      })
-                    }
-                  >
-                    {service.images.length > 0 && (
-                      <Image
-                        source={{ uri: service.images[0] }}
-                        style={localStyles.cardImage}
-                      />
-                    )}
-                    <Text style={localStyles.cardName}>{service.name}</Text>
-                    <Text style={localStyles.cardPrice}>Tk {service.price}/visit</Text>
-                    <Text style={localStyles.cardDetails}>
-                      Duration: {service.details.duration} | Rating: {service.details.rating} |{" "}
-                      Experience: {service.details.experience}
-                    </Text>
-                    <Text style={localStyles.cardLocation}>
-                      {service.location.city}, {service.location.area}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                {dummyHomeServices
+                  .filter((service) => service.name.includes("Repair"))
+                  .map((service) => (
+                    <TouchableOpacity
+                      key={service._id}
+                      style={localStyles.card}
+                      onPress={() =>
+                        router.push({
+                          pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                          params: { homeId: service._id },
+                        })
+                      }
+                    >
+                      {service.images.length > 0 && (
+                        <Image
+                          source={{ uri: service.images[0] }}
+                          style={localStyles.cardImage}
+                        />
+                      )}
+                      <Text style={localStyles.cardName}>{service.name}</Text>
+                      <Text style={localStyles.cardPrice}>
+                        Tk {service.price}/visit
+                      </Text>
+                      <Text style={localStyles.cardDetails}>
+                        Duration: {service.details.duration} | Rating:{" "}
+                        {service.details.rating} | Experience:{" "}
+                        {service.details.experience}
+                      </Text>
+                      <Text style={localStyles.cardLocation}>
+                        {service.location.city}, {service.location.area}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
               </ScrollView>
-
 
               <TouchableOpacity onPress={handleApartmentPress}>
-                <Text style={localStyles.categories}>
-                  Home Shift Services
-                </Text>
+                <Text style={localStyles.categories}>Home Shift Services</Text>
               </TouchableOpacity>
               <ScrollView horizontal style={localStyles.cardContainer}>
-                {dummyHomeServices.filter(service => service.name.includes('Shifting')).map((service) => (
-                  <TouchableOpacity
-                    key={service._id}
-                    style={localStyles.card}
-                    onPress={() =>
-                      router.push({
-                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
-                        params: { homeId: service._id },
-                      })
-                    }
-                  >
-                    {service.images.length > 0 && (
-                      <Image
-                        source={{ uri: service.images[0] }}
-                        style={localStyles.cardImage}
-                      />
-                    )}
-                    <Text style={localStyles.cardName}>{service.name}</Text>
-                    <Text style={localStyles.cardPrice}>Tk {service.price}/visit</Text>
-                    <Text style={localStyles.cardDetails}>
-                      Duration: {service.details.duration} | Rating: {service.details.rating} |{" "}
-                      Experience: {service.details.experience}
-                    </Text>
-                    <Text style={localStyles.cardLocation}>
-                      {service.location.city}, {service.location.area}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                {dummyHomeServices
+                  .filter((service) => service.name.includes("Shifting"))
+                  .map((service) => (
+                    <TouchableOpacity
+                      key={service._id}
+                      style={localStyles.card}
+                      onPress={() =>
+                        router.push({
+                          pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                          params: { homeId: service._id },
+                        })
+                      }
+                    >
+                      {service.images.length > 0 && (
+                        <Image
+                          source={{ uri: service.images[0] }}
+                          style={localStyles.cardImage}
+                        />
+                      )}
+                      <Text style={localStyles.cardName}>{service.name}</Text>
+                      <Text style={localStyles.cardPrice}>
+                        Tk {service.price}/visit
+                      </Text>
+                      <Text style={localStyles.cardDetails}>
+                        Duration: {service.details.duration} | Rating:{" "}
+                        {service.details.rating} | Experience:{" "}
+                        {service.details.experience}
+                      </Text>
+                      <Text style={localStyles.cardLocation}>
+                        {service.location.city}, {service.location.area}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
               </ScrollView>
-
 
               {/* <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>
@@ -1259,9 +1272,9 @@ const localStyles = StyleSheet.create({
     color: "gray",
   },
   cardName: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 4,
   },
 

@@ -61,34 +61,34 @@ const CommunityCenterForm = () => {
   };
 
   const [formData, setFormData] = useState({
-    centerType: '',
+    centerType: "",
     details: {
-      capacity: '',
-      halls: '',
-      size: '',
-      parking: '',
+      capacity: "",
+      halls: "",
+      size: "",
+      parking: "",
       kitchenArea: false,
       diningArea: false,
-      stageArea: false
+      stageArea: false,
     },
     restrictions: {
       noiseRestriction: false,
-      timeRestriction: '',
+      timeRestriction: "",
       foodRestriction: false,
-      decorationRestriction: false
+      decorationRestriction: false,
     },
     price: {
-      basePrice: '',
-      fullDayPrice: '',
-      halfDayPrice: '',
-      perHourPrice: ''
+      basePrice: "",
+      fullDayPrice: "",
+      halfDayPrice: "",
+      perHourPrice: "",
     },
     location: {
-      city: '',
-      area: '',
-      sector: '',
-      road: '',
-      buildingNumber: ''
+      city: "",
+      area: "",
+      sector: "",
+      road: "",
+      buildingNumber: "",
     },
     facilities: {
       airConditioned: false,
@@ -99,19 +99,24 @@ const CommunityCenterForm = () => {
       decoration: false,
       catering: false,
       staging: false,
-      security: false
+      security: false,
     },
     availability: {
       regularHours: {
-        open: '',
-        close: ''
+        open: "",
+        close: "",
       },
-      bookedDates: []
+      bookedDates: [],
     },
-    images: []
+    images: [],
   });
 
-  const centerTypes = ["Wedding Hall", "Birthday Center", "Conference Hall", "Multi-purpose"];
+  const centerTypes = [
+    "Wedding Hall",
+    "Birthday Center",
+    "Conference Hall",
+    "Multi-purpose",
+  ];
 
   const handleInputChange = (path, value) => {
     const keys = path.split(".");
@@ -136,7 +141,7 @@ const CommunityCenterForm = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/communityDetails/add-community-center",
+        "https://livingconnect-backend.vercel.app/communityDetails/add-community-center",
         formData,
         {
           headers: {
@@ -205,9 +210,9 @@ const CommunityCenterForm = () => {
             key={type}
             style={[
               styles.typeButton,
-              formData.centerType === type && styles.selectedType
+              formData.centerType === type && styles.selectedType,
             ]}
-            onPress={() => handleInputChange('centerType', type)}
+            onPress={() => handleInputChange("centerType", type)}
           >
             <Text style={styles.typeText}>{type}</Text>
           </TouchableOpacity>
@@ -221,48 +226,54 @@ const CommunityCenterForm = () => {
           placeholder="Capacity (people)"
           keyboardType="numeric"
           value={formData.details.capacity}
-          onChangeText={(value) => handleInputChange('details.capacity', value)}
+          onChangeText={(value) => handleInputChange("details.capacity", value)}
         />
         <TextInput
           style={styles.input}
           placeholder="Number of Halls"
           keyboardType="numeric"
           value={formData.details.halls}
-          onChangeText={(value) => handleInputChange('details.halls', value)}
+          onChangeText={(value) => handleInputChange("details.halls", value)}
         />
         <TextInput
           style={styles.input}
           placeholder="Size (sq meters)"
           keyboardType="numeric"
           value={formData.details.size}
-          onChangeText={(value) => handleInputChange('details.size', value)}
+          onChangeText={(value) => handleInputChange("details.size", value)}
         />
         <TextInput
           style={styles.input}
           placeholder="Parking"
           keyboardType="numeric"
           value={formData.details.parking}
-          onChangeText={(value) => handleInputChange('details.parking', value)}
+          onChangeText={(value) => handleInputChange("details.parking", value)}
         />
         <View style={styles.switchContainer}>
           <Text style={styles.switchLabel}>Kitchen Area</Text>
           <Switch
             value={formData.details.kitchenArea}
-            onValueChange={(value) => handleInputChange('details.kitchenArea', value)}
+            onValueChange={(value) =>
+              handleInputChange("details.kitchenArea", value)
+            }
           />
         </View>
         <View style={styles.switchContainer}>
           <Text style={styles.switchLabel}>Dining Area</Text>
           <Switch
             value={formData.details.diningArea}
-            onValueChange={(value) => handleInputChange('details.diningArea', value)}
+            onValueChange={(value) =>
+              handleInputChange("details.diningArea", value)
+            }
           />
         </View>
         <View style={styles.switchContainer}>
           <Text style={styles.switchLabel}>Stage Area</Text>
           <Switch
             value={formData.details.stageArea}
-            onValueChange={(value) => handleInputChange('details.stageArea', value)}
+            onValueChange={(value) =>
+              handleInputChange("details.stageArea", value)
+            }
           />
         </View>
       </View>
@@ -274,28 +285,34 @@ const CommunityCenterForm = () => {
           placeholder="Base Price"
           keyboardType="numeric"
           value={formData.price.basePrice}
-          onChangeText={(value) => handleInputChange('price.basePrice', value)}
+          onChangeText={(value) => handleInputChange("price.basePrice", value)}
         />
         <TextInput
           style={styles.input}
           placeholder="Full Day Price"
           keyboardType="numeric"
           value={formData.price.fullDayPrice}
-          onChangeText={(value) => handleInputChange('price.fullDayPrice', value)}
+          onChangeText={(value) =>
+            handleInputChange("price.fullDayPrice", value)
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="Half Day Price"
           keyboardType="numeric"
           value={formData.price.halfDayPrice}
-          onChangeText={(value) => handleInputChange('price.halfDayPrice', value)}
+          onChangeText={(value) =>
+            handleInputChange("price.halfDayPrice", value)
+          }
         />
         <TextInput
           style={styles.input}
           placeholder="Per Hour Price"
           keyboardType="numeric"
           value={formData.price.perHourPrice}
-          onChangeText={(value) => handleInputChange('price.perHourPrice', value)}
+          onChangeText={(value) =>
+            handleInputChange("price.perHourPrice", value)
+          }
         />
       </View>
 
@@ -307,7 +324,7 @@ const CommunityCenterForm = () => {
           </Text>
           <Switch
             value={formData.facilities[facility]}
-            onValueChange={(value) => 
+            onValueChange={(value) =>
               handleInputChange(`facilities.${facility}`, value)
             }
           />
@@ -433,23 +450,23 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   typeContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 10,
-    padding: 10
+    padding: 10,
   },
   typeButton: {
     padding: 10,
     borderRadius: 8,
-    backgroundColor: '#2d3748',
-    width: '48%'
+    backgroundColor: "#2d3748",
+    width: "48%",
   },
   selectedType: {
-    backgroundColor: '#38bdf8'
+    backgroundColor: "#38bdf8",
   },
   typeText: {
-    color: 'white',
-    textAlign: 'center'
+    color: "white",
+    textAlign: "center",
   },
   detailsContainer: {
     flexDirection: "row",
