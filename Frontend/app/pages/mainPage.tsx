@@ -1733,7 +1733,7 @@ export default function MainPage() {
   const [activeTab, setActiveTab] = useState("Home"); // Default active tab
 
   const handleTabPress = (tabName) => {
-    setActiveTab(tabName); // Set the active tab
+    setActiveTab(tabName); // Set the active tab   
   };
 
   const handleShowAllPress = async () => {
