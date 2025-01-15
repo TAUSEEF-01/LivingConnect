@@ -1,3 +1,6 @@
+// api --->  AlzaSyVkIhayqyPR0tMPEuqf6wfD8Nn9Im9UIEj
+
+
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert, StatusBar, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
