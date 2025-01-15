@@ -8,15 +8,18 @@ const PaymentButton = () => {
   const [paymentUrl, setPaymentUrl] = useState("");
 
   const API_URL = Platform.select({
-    ios: "http://192.168.50.242:5000",
+    ios: "https://livingconnect-backend.vercel.app",
     android: "http://10.0.2.2:5000",
   });
 
   const handlePayment = async () => {
     try {
-      const response = await fetch("http://192.168.50.242:5000/init", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://livingconnect-backend.vercel.app/init",
+        {
+          method: "GET",
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

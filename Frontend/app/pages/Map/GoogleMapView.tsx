@@ -1,4 +1,5 @@
 // api --->  AlzaSyVkIhayqyPR0tMPEuqf6wfD8Nn9Im9UIEj
+// api2 --> AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB
 
 
 import React, { useState, useEffect } from 'react';
@@ -95,7 +96,7 @@ export default function GoMapView() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://maps.gomaps.pro/maps/api/geocode/json?address=${searchQuery}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
+        `https://maps.gomaps.pro/maps/api/geocode/json?address=${searchQuery}&key=AlzaSyVkIhayqyPR0tMPEuqf6wfD8Nn9Im9UIEj`
       );
       const geocode = response.data.results;
       if (geocode.length > 0) {

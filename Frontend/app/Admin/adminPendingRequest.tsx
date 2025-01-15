@@ -18,7 +18,7 @@
 // // // //   const fetchSuccessFalse = async () => {
 // // // //     try {
 // // // //       const response = await axios.get(
-// // // //         "http://192.168.50.242:5000/houseDetails/successFalse" // Replace with your API endpoint
+// // // //         "https://livingconnect-backend.vercel.app/houseDetails/successFalse" // Replace with your API endpoint
 // // // //       );
 // // // //       setForms(response.data);
 // // // //     } catch (error) {
@@ -33,7 +33,7 @@
 // // // //   // const handleApprove = async (formId) => {
 // // // //   //   try {
 // // // //   //     await axios.patch(
-// // // //   //       `http://192.168.50.242:5000/forms/approve/${formId}` // Replace with your API endpoint
+// // // //   //       `https://livingconnect-backend.vercel.app/forms/approve/${formId}` // Replace with your API endpoint
 // // // //   //     );
 // // // //   //     Alert.alert("Success", "Form approved successfully.");
 // // // //   //     setForms(forms.filter((form) => form.id !== formId)); // Remove approved form from the list
@@ -47,7 +47,7 @@
 // // // //   // const handleReject = async (formId) => {
 // // // //   //   try {
 // // // //   //     await axios.delete(
-// // // //   //       `http://192.168.50.242:5000/forms/reject/${formId}` // Replace with your API endpoint
+// // // //   //       `https://livingconnect-backend.vercel.app/forms/reject/${formId}` // Replace with your API endpoint
 // // // //   //     );
 // // // //   //     Alert.alert("Success", "Form rejected successfully.");
 // // // //   //     setForms(forms.filter((form) => form.id !== formId)); // Remove rejected form from the list
@@ -174,7 +174,7 @@
 // // //   const fetchSuccessFalse = async () => {
 // // //     try {
 // // //       const response = await axios.get(
-// // //         "http://192.168.50.242:5000/houseDetails/successFalse" // Replace with your API endpoint
+// // //         "https://livingconnect-backend.vercel.app/houseDetails/successFalse" // Replace with your API endpoint
 // // //       );
 // // //       setForms(response.data);
 // // //     } catch (error) {
@@ -293,7 +293,7 @@
 //   const fetchSuccessFalse = async () => {
 //     try {
 //       const response = await axios.get(
-//         "http://192.168.50.242:5000/houseDetails/successFalse"
+//         "https://livingconnect-backend.vercel.app/houseDetails/successFalse"
 //       );
 //       setForms(response.data); // Only success: false forms are returned
 //     } catch (error) {
@@ -411,7 +411,7 @@ const AdminPendingRequestPage = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/successFalse"
+        "https://livingconnect-backend.vercel.app/houseDetails/successFalse"
       );
       setForms(response.data);
     } catch (error) {

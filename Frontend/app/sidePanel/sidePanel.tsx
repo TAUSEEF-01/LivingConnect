@@ -43,7 +43,7 @@ const SidePanel = ({ isVisible, onClose }) => {
 
       setLoading(true);
       const response = await axios.get(
-        "http://192.168.50.242:5000/profile/get-profile",
+        "https://livingconnect-backend.vercel.app/profile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -69,7 +69,7 @@ const SidePanel = ({ isVisible, onClose }) => {
 
       if (token) {
         const response = await axios.get(
-          "http://192.168.50.242:5000/auth/adminCheck",
+          "https://livingconnect-backend.vercel.app/auth/adminCheck",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setIsAdmin(response.data?.isAdmin || false);
@@ -96,7 +96,7 @@ const SidePanel = ({ isVisible, onClose }) => {
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
                 await axios.post(
-                  "http://192.168.50.242:5000/auth/logout",
+                  "https://livingconnect-backend.vercel.app/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );

@@ -1489,10 +1489,10 @@ app.get("/init", (req, res) => {
     total_amount: 100,
     currency: "BDT",
     tran_id: `REF${Date.now()}`,
-    success_url: "http://192.168.50.242:5000/success",
-    fail_url: "http://192.168.50.242:5000/fail",
-    cancel_url: "http://192.168.50.242:5000/cancel",
-    ipn_url: "http://192.168.50.242:5000/ipn",
+    success_url: "https://livingconnect-backend.vercel.app/success",
+    fail_url: "https://livingconnect-backend.vercel.app/fail",
+    cancel_url: "https://livingconnect-backend.vercel.app/cancel",
+    ipn_url: "https://livingconnect-backend.vercel.app/ipn",
     shipping_method: "Courier",
     product_name: "Computer",
     product_category: "Electronic",
@@ -1582,6 +1582,10 @@ app.post("/propertiesInsert", async (req, res) => {
     console.error("Error saving property:", err);
     return res.status(500).json({ message: "Failed to add property" });
   }
+});
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ message: "Server is running" });
 });
 
 app.listen(PORT, "0.0.0.0", () => {

@@ -18,7 +18,7 @@
 //   useEffect(() => {
 //     async function fetchProperties() {
 //       try {
-//         const response = await fetch('http://192.168.50.242:5000/properties');
+//         const response = await fetch('https://livingconnect-backend.vercel.app/properties');
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -474,7 +474,7 @@ const MainPage = () => {
     console.log("Filters:", filters);
 
     // Replace with your API endpoint or database query logic
-    const response = await fetch("http://192.168.50.242:5000/", {
+    const response = await fetch("https://livingconnect-backend.vercel.app/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
