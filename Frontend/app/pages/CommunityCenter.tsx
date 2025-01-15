@@ -121,6 +121,147 @@ export default function CommunityCenter() {
     );
   }
 
+  const dummyCommunityCenters = [
+    {
+      _id: 'w1',
+      name: 'Royal Wedding Hall',
+      images: ['https://images.unsplash.com/photo-1519167758481-83f550bb49b3'],
+      price: 50000,
+      details: {
+        capacity: '500',
+        parking: '100 cars',
+        size: '10000'
+      },
+      location: {
+        city: 'Dhaka',
+        area: 'Dhanmondi'
+      }
+    },
+    {
+      _id: 'w2',
+      name: 'Grand Celebration Center',
+      images: ['https://images.unsplash.com/photo-1469371670807-013ccf25f16a'],
+      price: 45000,
+      details: {
+        capacity: '400',
+        parking: '80 cars',
+        size: '8000'
+      },
+      location: {
+        city: 'Dhaka',
+        area: 'Gulshan'
+      }
+    },
+    {
+        _id: 'w3',
+        name: 'Elegant Event Hall',
+        images: ['https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0'],
+        price: 55000,
+        details: {
+          capacity: '500',
+          parking: '100 cars',
+          size: '10000'
+        },
+        location: {
+          city: 'Dhaka',
+          area: 'Banani'
+        }
+    },
+  ];
+
+  const dummyHomeServices = [
+    {
+      _id: 's1',
+      name: 'Professional Cleaning Service',
+      images: ['https://images.unsplash.com/photo-1581578731548-c64695cc6952'],
+      price: 1500,
+      details: {
+        duration: '3 hours',
+        rating: '4.8',
+        experience: '5 years'
+      },
+      location: {
+        city: 'Dhaka',
+        area: 'Dhanmondi'
+      }
+    },
+    {
+      _id: 's2',
+      name: 'Expert Home Repair',
+      images: ['https://images.unsplash.com/photo-1621905252507-b35492cc74b4'],
+      price: 2000,
+      details: {
+        duration: 'Variable',
+        rating: '4.9',
+        experience: '8 years'
+      },
+      location: {
+        city: 'Dhaka',
+        area: 'Gulshan'
+      }
+    },
+    {
+      _id: 's3',
+      name: 'Professional Home Shifting',
+      images: ['https://images.unsplash.com/photo-1600585152220-90363fe7e115'],
+      price: 5000,
+      details: {
+        duration: 'Full day',
+        rating: '4.7',
+        experience: '6 years'
+      },
+      location: {
+        city: 'Dhaka',
+        area: 'Mirpur'
+      }
+    },
+    {
+        _id: 's4',
+        name: 'Professional Cleaning Service',
+        images: ['https://images.unsplash.com/photo-1581578731548-c64695cc6952'],
+        price: 1500,
+        details: {
+          duration: '3 hours',
+          rating: '4.8',
+          experience: '5 years'
+        },
+        location: {
+          city: 'Dhaka',
+          area: 'Dhanmondi'
+        }
+      },
+      {
+        _id: 's5',
+        name: 'Expert Home Repair',
+        images: ['https://images.unsplash.com/photo-1621905252507-b35492cc74b4'],
+        price: 2000,
+        details: {
+          duration: 'Variable',
+          rating: '4.9',
+          experience: '8 years'
+        },
+        location: {
+          city: 'Dhaka',
+          area: 'Gulshan'
+        }
+      },
+      {
+        _id: 's6',
+        name: 'Professional Home Shifting',
+        images: ['https://images.unsplash.com/photo-1600585152220-90363fe7e115'],
+        price: 5000,
+        details: {
+          duration: 'Full day',
+          rating: '4.7',
+          experience: '6 years'
+        },
+        location: {
+          city: 'Dhaka',
+          area: 'Mirpur'
+        }
+      }
+  ];
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       {/* <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} /> */}
@@ -243,159 +384,612 @@ export default function CommunityCenter() {
           </TouchableOpacity>
         </View>
 
-        {/* Filter */}
-        <View style={localStyles.filter}>
-          <View style={localStyles.filterOptions}>
-            <TouchableOpacity
-              style={localStyles.filterButton}
-              onPress={() => {
-                console.log("pressed before");
-                handleRentAHomePress();
-                console.log("Rent a Home button pressed");
-              }}
-            >
-              {/* <Text style={localStyles.plusButton}>+</Text> */}
-              <Ionicons
-                name="add-circle-outline"
-                style={localStyles.plusButton}
-              />
-              <Text style={localStyles.filterButtonText}>Add Home</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={localStyles.filterButton}
-              onPress={() => {
-                handleProvideServicesPress(),
-                  console.log("Provide Services button pressed");
-              }}
-            >
-              {/* <Text style={localStyles.plusButton}>+</Text> */}
-              <Ionicons
-                name="add-circle-outline"
-                style={localStyles.plusButton}
-              />
-              <Text style={localStyles.filterButtonText}>Add Service</Text>
-            </TouchableOpacity>
-
-            {/* <TouchableOpacity style={localStyles.filterButton}>
-              <Text style={localStyles.filterButtonText}>Hotel</Text>
-            </TouchableOpacity> */}
-          </View>
-          <TextInput
-            placeholder="Where would you like to live?"
-            placeholderTextColor="#ccc"
-            style={localStyles.searchInput}
-          />
-          <View style={localStyles.filterActions}>
-            <TouchableOpacity
-              style={localStyles.actionButton}
-              onPress={() => {
-                router.push("/payment/paymentPage");
-              }}
-            >
-              <Text style={localStyles.actionButtonText}>Buy</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={localStyles.actionButton}
-              onPress={() => {
-                router.push("/pages/Map/googleMapPage");
-              }}
-            >
-              <Text style={localStyles.actionButtonText}>Rent</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
         {activeTab === "Community Center" ? (
-          <View style={localStyles.imageContainer}>
-            <Image
-              source={require("../../assets/images/mainpage_image.jpg")} // Community Center image path
-              style={localStyles.communityCenterImage}
-            />
+          //   <View style={localStyles.imageContainer}>
+          //     <Image
+          //       source={require("../../assets/images/mainpage_image.jpg")} // Community Center image path
+          //       style={localStyles.communityCenterImage}
+          //     />
+          //   </View>
+
+          <View>
+            <View style={localStyles.filter}>
+              {/* <View style={localStyles.filterOptions}> */}
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#38bdf8",
+                    paddingHorizontal: 16,
+                    paddingVertical: 12,
+                    borderRadius: 12,
+                    width: "98%",
+                    marginVertical: 8,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    shadowColor: "#38bdf8",
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 5,
+                    elevation: 6,
+                  }}
+                  onPress={()=> {router.push("/CommunityCenter/CommunityCenterForm");}}
+                  activeOpacity={0.7}
+                >
+                  <Ionicons
+                    name="add-circle-outline"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: 8 }}
+                  />
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    Add Community Center
+                  </Text>
+                </TouchableOpacity>
+              {/* </View> */}
+            </View>
+
+            {/* Latest Listings Section */}
+            <View style={localStyles.latestListings}>
+              <Text style={localStyles.latestListingsHeader}>
+                Available Community Centers
+              </Text>
+              <TouchableOpacity onPress={handleShowAllPress}>
+                <Text style={localStyles.showAll}>Show all</Text>
+              </TouchableOpacity>
+
+              {/* Home Categories */}
+              <TouchableOpacity onPress={handleHomePress}>
+                <Text style={localStyles.categories}>
+                  Wedding Community Center
+                </Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {dummyCommunityCenters.map((center) => (
+                  <TouchableOpacity
+                    key={center._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: center._id },
+                      })
+                    }
+                  >
+                    {center.images.length > 0 && (
+                      <Image
+                        source={{ uri: center.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardName}>{center.name}</Text>
+                    <Text style={localStyles.cardPrice}>Tk {center.price}</Text>
+                    <Text style={localStyles.cardDetails}>
+                      Capacity: {center.details.capacity} people | Parking: {center.details.parking} |{" "}
+                      {center.details.size} sqft
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {center.location.city}, {center.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+
+              <TouchableOpacity onPress={handleApartmentPress}>
+                <Text style={localStyles.categories}>
+                  Birthday Community Center
+                </Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {dummyCommunityCenters.map((center) => (
+                  <TouchableOpacity
+                    key={center._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: center._id },
+                      })
+                    }
+                  >
+                    {center.images.length > 0 && (
+                      <Image
+                        source={{ uri: center.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardName}>{center.name}</Text>
+                    <Text style={localStyles.cardPrice}>Tk {center.price}</Text>
+                    <Text style={localStyles.cardDetails}>
+                      Capacity: {center.details.capacity} people | Parking: {center.details.parking} |{" "}
+                      {center.details.size} sqft
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {center.location.city}, {center.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+
+              <TouchableOpacity onPress={handleApartmentPress}>
+                <Text style={localStyles.categories}>
+                  Any Event Community Center
+                </Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {dummyCommunityCenters.map((center) => (
+                  <TouchableOpacity
+                    key={center._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: center._id },
+                      })
+                    }
+                  >
+                    {center.images.length > 0 && (
+                      <Image
+                        source={{ uri: center.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardName}>{center.name}</Text>
+                    <Text style={localStyles.cardPrice}>Tk {center.price}</Text>
+                    <Text style={localStyles.cardDetails}>
+                      Capacity: {center.details.capacity} people | Parking: {center.details.parking} |{" "}
+                      {center.details.size} sqft
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {center.location.city}, {center.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
           </View>
         ) : activeTab === "Services" ? (
-          <View style={localStyles.imageContainer}>
-            <Image
-              source={require("../../assets/images/showAll_page_image.jpg")} // Services image path
-              style={localStyles.communityCenterImage}
-            />
+          //   <View style={localStyles.imageContainer}>
+          //     <Image
+          //       source={require("../../assets/images/showAll_page_image.jpg")} // Services image path
+          //       style={localStyles.communityCenterImage}
+          //     />
+          //   </View>
+
+          <View>
+            <View style={localStyles.filter}>
+              {/* <View style={localStyles.filterOptions}> */}
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#38bdf8",
+                    paddingHorizontal: 16,
+                    paddingVertical: 12,
+                    borderRadius: 12,
+                    width: "98%",
+                    marginVertical: 8,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    shadowColor: "#38bdf8",
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 5,
+                    elevation: 6,
+                  }}
+                  onPress={handleRentAHomePress}
+                  activeOpacity={0.7}
+                >
+                  <Ionicons
+                    name="add-circle-outline"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: 8 }}
+                  />
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    Add Services
+                  </Text>
+                </TouchableOpacity>
+              {/* </View>/ */}
+            </View>
+
+            {/* Latest Listings Section */}
+            <View style={localStyles.latestListings}>
+              <Text style={localStyles.latestListingsHeader}>
+                Available Services
+              </Text>
+              <TouchableOpacity onPress={handleShowAllPress}>
+                <Text style={localStyles.showAll}>Show all</Text>
+              </TouchableOpacity>
+
+              {/* Home Categories */}
+              <TouchableOpacity onPress={handleHomePress}>
+                <Text style={localStyles.categories}>
+                  Home Cleaning Services
+                </Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {dummyHomeServices.filter(service => service.name.includes('Cleaning')).map((service) => (
+                  <TouchableOpacity
+                    key={service._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: service._id },
+                      })
+                    }
+                  >
+                    {service.images.length > 0 && (
+                      <Image
+                        source={{ uri: service.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardName}>{service.name}</Text>
+                    <Text style={localStyles.cardPrice}>Tk {service.price}/visit</Text>
+                    <Text style={localStyles.cardDetails}>
+                      Duration: {service.details.duration} | Rating: {service.details.rating} |{" "}
+                      Experience: {service.details.experience}
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {service.location.city}, {service.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+
+              <TouchableOpacity onPress={handleApartmentPress}>
+                <Text style={localStyles.categories}>
+                  Home Repair Services
+                </Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {dummyHomeServices.filter(service => service.name.includes('Repair')).map((service) => (
+                  <TouchableOpacity
+                    key={service._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: service._id },
+                      })
+                    }
+                  >
+                    {service.images.length > 0 && (
+                      <Image
+                        source={{ uri: service.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardName}>{service.name}</Text>
+                    <Text style={localStyles.cardPrice}>Tk {service.price}/visit</Text>
+                    <Text style={localStyles.cardDetails}>
+                      Duration: {service.details.duration} | Rating: {service.details.rating} |{" "}
+                      Experience: {service.details.experience}
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {service.location.city}, {service.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+
+
+              <TouchableOpacity onPress={handleApartmentPress}>
+                <Text style={localStyles.categories}>
+                  Home Shift Services
+                </Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {dummyHomeServices.filter(service => service.name.includes('Shifting')).map((service) => (
+                  <TouchableOpacity
+                    key={service._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: service._id },
+                      })
+                    }
+                  >
+                    {service.images.length > 0 && (
+                      <Image
+                        source={{ uri: service.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardName}>{service.name}</Text>
+                    <Text style={localStyles.cardPrice}>Tk {service.price}/visit</Text>
+                    <Text style={localStyles.cardDetails}>
+                      Duration: {service.details.duration} | Rating: {service.details.rating} |{" "}
+                      Experience: {service.details.experience}
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {service.location.city}, {service.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+
+
+              {/* <TouchableOpacity onPress={handleApartmentPress}>
+                <Text style={localStyles.categories}>
+                  Home Color Services
+                </Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {dummyHomeServices.filter(service => service.name.includes('Color')).map((service) => (
+                  <TouchableOpacity
+                    key={service._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: service._id },
+                      })
+                    }
+                  >
+                    {service.images.length > 0 && (
+                      <Image
+                        source={{ uri: service.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardName}>{service.name}</Text>
+                    <Text style={localStyles.cardPrice}>Tk {service.price}/visit</Text>
+                    <Text style={localStyles.cardDetails}>
+                      Duration: {service.details.duration} | Rating: {service.details.rating} |{" "}
+                      Experience: {service.details.experience}
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {service.location.city}, {service.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView> */}
+            </View>
           </View>
         ) : activeTab === "Home" ? (
-          <View style={localStyles.latestListings}>
-            <Text style={localStyles.latestListingsHeader}>
-              Home For Rent or Sale
-            </Text>
-            <TouchableOpacity onPress={handleShowAllPress}>
-              <Text style={localStyles.showAll}>Show all</Text>
-            </TouchableOpacity>
-
-            {/* Home Categories */}
-            <TouchableOpacity onPress={handleHomePress}>
-              <Text style={localStyles.categories}>Home</Text>
-            </TouchableOpacity>
-            <ScrollView horizontal style={localStyles.cardContainer}>
-              {homes.map((home) => (
+          <View>
+            {/* Filter Section */}
+            <View style={localStyles.filter}>
+              <View style={localStyles.filterOptions}>
                 <TouchableOpacity
-                  key={home._id}
-                  style={localStyles.card}
-                  onPress={() =>
-                    router.push({
-                      pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
-                      params: { homeId: home._id }, // Pass the home ID as a query parameter
-                    })
-                  } // Navigate to the details page
+                  style={{
+                    backgroundColor: "#38bdf8",
+                    paddingHorizontal: 16,
+                    paddingVertical: 12,
+                    borderRadius: 12,
+                    width: "98%",
+                    marginVertical: 8,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    shadowColor: "#38bdf8",
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 5,
+                    elevation: 6,
+                  }}
+                  onPress={handleRentAHomePress}
+                  activeOpacity={0.7}
                 >
-                  {home.images.length > 0 && (
-                    <Image
-                      source={{ uri: home.images[0] }} // Display the first image
-                      style={localStyles.cardImage}
-                    />
-                  )}
-                  <Text style={localStyles.cardPrice}>Tk {home.rent}</Text>
-                  <Text style={localStyles.cardDetails}>
-                    {home.details.beds} beds | {home.details.baths} baths |{" "}
-                    {home.details.size} m²
-                  </Text>
-                  <Text style={localStyles.cardLocation}>
-                    {home.location.city}, {home.location.area}
+                  <Ionicons
+                    name="add-circle-outline"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: 8 }}
+                  />
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    Add Home
                   </Text>
                 </TouchableOpacity>
-              ))}
-            </ScrollView>
-
-            {/* Similar sections for "Apartment" and "Sublet" */}
-            <TouchableOpacity onPress={handleApartmentPress}>
-              <Text style={localStyles.categories}>Apartment</Text>
-            </TouchableOpacity>
-            <ScrollView horizontal style={localStyles.cardContainer}>
-              {homes.map((home) => (
-                <TouchableOpacity
-                  key={home._id}
-                  style={localStyles.card}
-                  onPress={() =>
-                    router.push({
-                      pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
-                      params: { homeId: home._id },
-                    })
-                  }
+                {/* <TouchableOpacity
+                  style={localStyles.filterButton}
+                  onPress={handleRentAHomePress}
                 >
-                  {home.images.length > 0 && (
-                    <Image
-                      source={{ uri: home.images[0] }}
-                      style={localStyles.cardImage}
-                    />
-                  )}
-                  <Text style={localStyles.cardPrice}>Tk {home.rent}</Text>
-                  <Text style={localStyles.cardDetails}>
-                    {home.details.beds} beds | {home.details.baths} baths |{" "}
-                    {home.details.size} m²
-                  </Text>
-                  <Text style={localStyles.cardLocation}>
-                    {home.location.city}, {home.location.area}
-                  </Text>
+                  <Ionicons
+                    name="add-circle-outline"
+                    style={localStyles.plusButton}
+                  />
+                  <Text style={localStyles.filterButtonText}>Add Home</Text>
                 </TouchableOpacity>
-              ))}
-            </ScrollView>
+
+                <TouchableOpacity
+                  style={localStyles.filterButton}
+                  onPress={handleProvideServicesPress}
+                >
+                  <Ionicons
+                    name="add-circle-outline"
+                    style={localStyles.plusButton}
+                  />
+                  <Text style={localStyles.filterButtonText}>Add Service</Text>
+                </TouchableOpacity> */}
+              </View>
+
+              <TextInput
+                placeholder="Where would you like to live?"
+                placeholderTextColor="#ccc"
+                style={localStyles.searchInput}
+              />
+              <View style={localStyles.filterActions}>
+                <TouchableOpacity
+                  style={localStyles.actionButton}
+                  onPress={() => router.push("/payment/paymentPage")}
+                >
+                  <Text style={localStyles.actionButtonText}>Buy</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={localStyles.actionButton}
+                  onPress={() => router.push("/pages/Map/googleMapPage")}
+                >
+                  <Text style={localStyles.actionButtonText}>Rent</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Latest Listings Section */}
+            <View style={localStyles.latestListings}>
+              <Text style={localStyles.latestListingsHeader}>
+                Home For Rent or Sale
+              </Text>
+              <TouchableOpacity onPress={handleShowAllPress}>
+                <Text style={localStyles.showAll}>Show all</Text>
+              </TouchableOpacity>
+
+              {/* Home Categories */}
+              <TouchableOpacity onPress={handleHomePress}>
+                <Text style={localStyles.categories}>Home</Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {homes.map((home) => (
+                  <TouchableOpacity
+                    key={home._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: home._id },
+                      })
+                    }
+                  >
+                    {home.images.length > 0 && (
+                      <Image
+                        source={{ uri: home.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardPrice}>Tk {home.rent}</Text>
+                    <Text style={localStyles.cardDetails}>
+                      {home.details.beds} beds | {home.details.baths} baths |{" "}
+                      {home.details.size} m²
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {home.location.city}, {home.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+
+              {/* Similar sections for "Apartment" and "Sublet" */}
+              <TouchableOpacity onPress={handleApartmentPress}>
+                <Text style={localStyles.categories}>Apartment</Text>
+              </TouchableOpacity>
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {homes.map((home) => (
+                  <TouchableOpacity
+                    key={home._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: home._id },
+                      })
+                    }
+                  >
+                    {home.images.length > 0 && (
+                      <Image
+                        source={{ uri: home.images[0] }}
+                        style={localStyles.cardImage}
+                      />
+                    )}
+                    <Text style={localStyles.cardPrice}>Tk {home.rent}</Text>
+                    <Text style={localStyles.cardDetails}>
+                      {home.details.beds} beds | {home.details.baths} baths |{" "}
+                      {home.details.size} m²
+                    </Text>
+                    <Text style={localStyles.cardLocation}>
+                      {home.location.city}, {home.location.area}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+
+              <TouchableOpacity onPress={handleSubletPress}>
+                <Text style={localStyles.categories}>Sublet</Text>
+              </TouchableOpacity>
+
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {/* {Array.isArray(properties) && properties.length > 0 ? (
+                            properties.map((property) => (
+                              <View key={property._id} style={localStyles.card}>
+                                <Image
+                                  source={{ uri: property.image }}
+                                  style={localStyles.cardImage}
+                                />
+                                <Text style={localStyles.cardPrice}>
+                                  €{property.price.toLocaleString()}
+                                </Text>
+                                <Text style={localStyles.cardDetails}>
+                                  {property.details.beds} beds | {property.details.baths}{" "}
+                                  baths | {property.details.size} m²
+                                </Text>
+                                <Text style={localStyles.cardLocation}>
+                                  {property.location.city}, {property.location.region}
+                                </Text>
+                              </View>
+                            ))
+                          ) : (
+                            <Text>No properties available.</Text>
+                          )} */}
+
+                {/* <ScrollView style={localStyles.container}> */}
+                {homes.map((home) => (
+                  <TouchableOpacity
+                    key={home._id}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
+                        params: { homeId: home._id }, // Pass the home ID as a query parameter
+                      })
+                    } // Navigate to the details page
+                  >
+                    {home.images.length > 0 && (
+                      <Image
+                        source={{ uri: home.images[0] }} // Display the first image
+                        // style={localStyles.image}
+
+                        style={localStyles.cardImage}
+                      />
+                    )}
+
+                    <Text style={localStyles.cardPrice}>Tk {home.rent}</Text>
+
+                    <Text style={localStyles.cardDetails}>
+                      {home.details.beds} beds | {home.details.baths} baths |{" "}
+                      {home.details.size} m²
+                    </Text>
+
+                    <Text style={localStyles.cardLocation}>
+                      {home.location.city}, {home.location.area}
+                    </Text>
+
+                    {/* </ScrollView> */}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
+            </View>
           </View>
         ) : null}
       </ScrollView>
@@ -523,7 +1117,7 @@ const localStyles = StyleSheet.create({
   },
   filter: {
     paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingTop: 12,
     backgroundColor: "black",
   },
   filterOptions: {
@@ -550,6 +1144,20 @@ const localStyles = StyleSheet.create({
     borderRadius: 8,
     // width: 115,
     width: "49%",
+    marginBottom: 1,
+    marginTop: 1,
+  },
+  communityCenterButton: {
+    // backgroundColor: "grey",
+    backgroundColor: "#38bdf8",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    // paddingBottom: 12,
+    // paddingTop: 1,
+
+    borderRadius: 8,
+    // width: 115,
+    width: "98%",
     marginBottom: 1,
     marginTop: 1,
   },
@@ -630,7 +1238,7 @@ const localStyles = StyleSheet.create({
     padding: 16,
     borderRadius: 8,
     marginRight: 16,
-    width: 200,
+    width: 250,
   },
   cardImage: {
     height: 100,
@@ -649,6 +1257,12 @@ const localStyles = StyleSheet.create({
   },
   cardLocation: {
     color: "gray",
+  },
+  cardName: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 4,
   },
 
   sidePanel: {
