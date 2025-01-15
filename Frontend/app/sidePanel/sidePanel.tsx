@@ -1,10 +1,18 @@
-import { Alert, StyleSheet, Text, TouchableOpacity, View, Image, ActivityIndicator, StatusBar } from "react-native";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  ActivityIndicator,
+  StatusBar,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { router } from "expo-router";
 import styles from "../../styles";
-
 
 interface UserProfile {
   email: string;
@@ -12,7 +20,6 @@ interface UserProfile {
   contactNumber: string;
   profileImage: string | null;
 }
-
 
 const SidePanel = ({ isVisible, onClose }) => {
   const [isAdmin, setIsAdmin] = useState(false);
@@ -124,9 +131,8 @@ const SidePanel = ({ isVisible, onClose }) => {
 
   return (
     <>
-    {/* <StatusBar barStyle="light-content" backgroundColor="#38bdf8" /> */}
+      {/* <StatusBar barStyle="light-content" backgroundColor="#38bdf8" /> */}
 
-    
       {/* Overlay */}
       {isVisible && (
         <TouchableOpacity
@@ -163,7 +169,6 @@ const SidePanel = ({ isVisible, onClose }) => {
               <Text style={localStyles.placeholderText}>No Image</Text>
             </View>
           )} */}
-
 
           {profile?.profileImage ? (
             <Image
@@ -265,7 +270,7 @@ const localStyles = StyleSheet.create({
     width: 300,
     backgroundColor: "#021526", //"#a9d9fc",
     padding: 16,
-    marginTop:33,
+    marginTop: 33,
     zIndex: 2,
     border: "1px solid #ccc",
     transform: [{ translateX: -300 }],
@@ -423,5 +428,3 @@ const localStyles = StyleSheet.create({
 });
 
 export default SidePanel;
-
-

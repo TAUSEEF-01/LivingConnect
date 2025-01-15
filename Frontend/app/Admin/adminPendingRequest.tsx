@@ -79,7 +79,7 @@
 
 // // // //   return (
 // // // //     <ScrollView style={styles.container}>
-        
+
 // // // //     </ScrollView>
 // // // //   );
 // // // // };
@@ -152,9 +152,6 @@
 // // // // });
 
 // // // // export default AdminPendingRequestPage;
-
-
-
 
 // // // import React, { useEffect, useState } from "react";
 // // // import {
@@ -275,8 +272,6 @@
 
 // // // export default AdminPendingRequestPage;
 
-
-
 // import React, { useEffect, useState } from "react";
 // import {
 //   View,
@@ -395,11 +390,16 @@
 
 // export default AdminPendingRequestPage;
 
-
-
-
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import axios from "axios";
 import { router, useFocusEffect } from "expo-router";
 
@@ -426,7 +426,7 @@ const AdminPendingRequestPage = () => {
   useFocusEffect(
     React.useCallback(() => {
       fetchSuccessFalse();
-      
+
       // Optional: Clean up function if needed
       return () => {
         // Cleanup code here if necessary

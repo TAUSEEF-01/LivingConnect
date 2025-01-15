@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     width: "100%",
     position: "absolute",
-    top: 33 // Push the lights image down below the top bar
+    top: 33, // Push the lights image down below the top bar
   },
   lightLeft: {
     height: 225,

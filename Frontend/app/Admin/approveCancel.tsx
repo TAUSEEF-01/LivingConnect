@@ -29,7 +29,6 @@ const FormVerifyPage = () => {
 
   const [profile, setProfile] = useState<OwnerInfo | null>(null);
 
-
   const makeCall = (phoneNumber) => {
     const formattedNumber =
       Platform.OS === "android"
@@ -49,7 +48,7 @@ const FormVerifyPage = () => {
         // `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
       );
 
-    //   console.log("Fetched home details:", response.data);
+      //   console.log("Fetched home details:", response.data);
       // console.log("fnc1");
       setHome(response.data);
       // fetchUserProfile();
@@ -64,7 +63,6 @@ const FormVerifyPage = () => {
   useEffect(() => {
     fetchHomeDetails();
   }, []);
-
 
   if (loading) {
     return (
@@ -82,8 +80,6 @@ const FormVerifyPage = () => {
     );
   }
 
-
-
   // const handleAccept = async (id) => {
   //   try {
   //     const response = await axios.patch(
@@ -97,7 +93,6 @@ const FormVerifyPage = () => {
   //   }
   // };
 
-
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
@@ -110,7 +105,6 @@ const FormVerifyPage = () => {
       console.error(error);
     }
   };
-  
 
   return (
     // <ScrollView style={styles.container}>
@@ -236,7 +230,9 @@ const FormVerifyPage = () => {
 
             <Text style={styles.text}>
               Success:{" "}
-              <Text style={styles.callText}>{home.success ? "True" : "False"}</Text>
+              <Text style={styles.callText}>
+                {home.success ? "True" : "False"}
+              </Text>
             </Text>
 
             <TouchableOpacity

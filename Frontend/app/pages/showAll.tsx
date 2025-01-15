@@ -717,7 +717,6 @@ const AllHomesPage = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-
       <View style={localStyles.statusBarWrapper}>
         <StatusBar
           barStyle="light-content" // Light content for white text/icons on a dark background
@@ -726,7 +725,6 @@ const AllHomesPage = () => {
         />
       </View>
 
-            
       {/* Sidebar */}
       <SidePanel
         isVisible={isSidePanelVisible}
@@ -771,7 +769,7 @@ const AllHomesPage = () => {
 
           <View style={styles.bannerImageContainer}>
             <Image
-                source={require("../../assets/images/showAll_page_image.jpg")}
+              source={require("../../assets/images/showAll_page_image.jpg")}
               // source={{
               //   // uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               // }} // Replace with actual image URL
@@ -793,7 +791,8 @@ const AllHomesPage = () => {
           {/* Filters and Sorting */}
           <View style={styles.filterContainer}>
             <View style={styles.filterRow}>
-              <TouchableOpacity style={styles.filterButtonPrimary}
+              <TouchableOpacity
+                style={styles.filterButtonPrimary}
                 onPress={() => router.push("/pages/Map/GoogleMapView")}
               >
                 <Text style={styles.filterButtonText}>Show map</Text>

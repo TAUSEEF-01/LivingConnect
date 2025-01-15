@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { View, TouchableOpacity, Text, Alert, Platform } from "react-native";
 // import { WebView } from "react-native-webview";

@@ -1646,8 +1646,6 @@ import styles from "../../styles";
 import SidePanel from "../sidePanel/sidePanel";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-
-
 // const SidePanel = ({ isVisible, onClose }) => {
 //   const handleLogout = async () => {
 //     Alert.alert(
@@ -1797,9 +1795,6 @@ export default function MainPage() {
     fetchProperties();
   }, []);
 
-
-
-
   const [homes, setHomes] = useState([]);
   const fetchAllHomeDetails = async () => {
     try {
@@ -1816,23 +1811,20 @@ export default function MainPage() {
   };
 
   useEffect(() => {
-      fetchAllHomeDetails();
-    }, []);
-
+    fetchAllHomeDetails();
+  }, []);
 
   if (loading) {
-      return (
-        <View style={localStyles.loaderContainer}>
-          <ActivityIndicator size="large" color="#007BFF" />
-        </View>
-      );
-    }
+    return (
+      <View style={localStyles.loaderContainer}>
+        <ActivityIndicator size="large" color="#007BFF" />
+      </View>
+    );
+  }
 
   return (
-    
     <SafeAreaView style={{ flex: 1 }}>
       {/* <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} /> */}
-
 
       <View style={localStyles.statusBarWrapper}>
         <StatusBar
@@ -1840,7 +1832,7 @@ export default function MainPage() {
           backgroundColor="black" // Transparent background for the StatusBar
           translucent={true} // Make it overlay the screen content
         />
-      </View> 
+      </View>
 
       {/* <StatusBar style="light" /> */}
       {/* <View style={localStyles.topBar} /> */}
@@ -1888,7 +1880,6 @@ export default function MainPage() {
 
           <View style={localStyles.bannerImageContainer}>
             <Image
-
               source={require("../../assets/images/mainpage_image.jpg")}
               // source={{
               //   uri: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -1911,7 +1902,6 @@ export default function MainPage() {
           </TouchableOpacity>
         </View> */}
 
-        
         <View style={localStyles.navTabs}>
           <TouchableOpacity
             style={[
@@ -2095,7 +2085,6 @@ export default function MainPage() {
               <Text>No properties available.</Text>
             )} */}
 
-
             {/* <ScrollView style={localStyles.container}> */}
             {homes.map((home) => (
               <TouchableOpacity
@@ -2108,7 +2097,6 @@ export default function MainPage() {
                   })
                 } // Navigate to the details page
               >
-
                 {home.images.length > 0 && (
                   <Image
                     source={{ uri: home.images[0] }} // Display the first image
@@ -2192,7 +2180,6 @@ export default function MainPage() {
               <Text>No properties available.</Text>
             )} */}
 
-
             {/* <ScrollView style={localStyles.container}> */}
             {homes.map((home) => (
               <TouchableOpacity
@@ -2205,7 +2192,6 @@ export default function MainPage() {
                   })
                 } // Navigate to the details page
               >
-
                 {home.images.length > 0 && (
                   <Image
                     source={{ uri: home.images[0] }} // Display the first image
@@ -2271,7 +2257,6 @@ export default function MainPage() {
                   })
                 } // Navigate to the details page
               >
-
                 {home.images.length > 0 && (
                   <Image
                     source={{ uri: home.images[0] }} // Display the first image
@@ -2295,7 +2280,6 @@ export default function MainPage() {
                 {/* </ScrollView> */}
               </TouchableOpacity>
             ))}
-            
           </ScrollView>
         </View>
       </ScrollView>
@@ -2601,8 +2585,6 @@ const localStyles = StyleSheet.create({
     width: "80%", // Optional: make button width consistent
   },
 
-
-
   mapButton: {
     // backgroundColor: "grey",
     backgroundColor: "#38bdf8",
@@ -2617,8 +2599,6 @@ const localStyles = StyleSheet.create({
     marginBottom: 1,
     marginTop: 10,
   },
-
-
 
   loaderContainer: {
     flex: 1,

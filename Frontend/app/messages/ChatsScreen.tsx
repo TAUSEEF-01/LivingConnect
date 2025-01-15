@@ -235,7 +235,7 @@ const ChatScreen = () => {
   //             profileImage: user.profileImage || null,
   //             lastMessage: chat.message || "No messages yet.",
   //           };
-            
+
   //         } catch (error) {
   //           console.error("Error fetching recipient data:", error);
   //           return null; // Skip this chat
@@ -259,28 +259,29 @@ const ChatScreen = () => {
       const response = await axios.get(
         `${API_URL}/messages/messagehistory/conversations/${profile?.id}`
       );
-  
+
       // Enrich chats with user details
       const enrichedChats = await Promise.all(
         response.data.map(async (chat) => {
           try {
             const userId =
               chat.senderId === profile?.id ? chat.recepientId : chat.senderId;
-            
 
             if (!userId) {
               console.warn("User ID is undefined for chat:", chat);
               return null; // Skip this chat if userId is undefined
             }
-  
+
             const userResponse = await axios.get(
               `${API_URL}/messages/messages/users/${userId}`
             );
             const user = userResponse.data;
-  
+
             return {
-              
-              _id: chat.senderId === profile?.id ? chat.recepientId : chat.senderId,
+              _id:
+                chat.senderId === profile?.id
+                  ? chat.recepientId
+                  : chat.senderId,
               name: user?.name || "Unnamed User",
               profileImage: user?.profileImage || null,
               lastMessage: chat.message || "No messages yet.",
@@ -292,10 +293,10 @@ const ChatScreen = () => {
           }
         })
       );
-  
+
       // Filter out any null chats caused by errors
       const validChats = enrichedChats.filter((chat) => chat !== null);
-  
+
       setChats(validChats);
     } catch (error) {
       console.error("Error fetching chat history:", error.message);
@@ -304,7 +305,6 @@ const ChatScreen = () => {
       setLoading(false);
     }
   };
-  
 
   // const fetchChats = async () => {
   //   setLoading(true);
@@ -312,7 +312,7 @@ const ChatScreen = () => {
   //     const response = await axios.get(
   //       `${API_URL}/messages/messagehistory/conversations/${profile?.id}`
   //     );
-  
+
   //     const enrichedChats = response.data.map((chat) => ({
   //       _id: chat.otherUser?._id || "Unknown User",
   //       name: chat.otherUser?.name || "Unnamed User",
@@ -320,7 +320,7 @@ const ChatScreen = () => {
   //       lastMessage: chat.lastMessage || "No messages yet.",
   //       timeStamp: chat.timeStamp,
   //     }));
-  
+
   //     setChats(enrichedChats);
   //   } catch (error) {
   //     console.error("Error fetching chat history:", error.message);
@@ -329,9 +329,7 @@ const ChatScreen = () => {
   //     setLoading(false);
   //   }
   // };
-  
-  
-  
+
   // Navigate to the ChatMessagesScreen
   // const navigateToChat = (chat) => {
   //   router.push({
@@ -349,9 +347,9 @@ const ChatScreen = () => {
       params: {
         currentUserId: profile?.id,
         recipientId: chat._id,
-      // recipientId: chat._id,
-      // currentUserId: currentUser?._id,
-      // currentUserId, recipientId
+        // recipientId: chat._id,
+        // currentUserId: currentUser?._id,
+        // currentUserId, recipientId
       },
     });
   };
@@ -426,7 +424,7 @@ const ChatScreen = () => {
   // );
   return (
     <View style={styles.container}>
-    <Text style={styles.header}>Messages</Text>
+      <Text style={styles.header}>Messages</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#007bff" />
       ) : (
@@ -449,7 +447,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#f0f0f0",
     padding: 10,
-    marginTop:33
+    marginTop: 33,
   },
   header: {
     fontSize: 20,

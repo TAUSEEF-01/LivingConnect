@@ -29,7 +29,6 @@
 
 //   const [profile, setProfile] = useState<OwnerInfo | null>(null);
 
-
 //   const makeCall = (phoneNumber) => {
 //     const formattedNumber =
 //       Platform.OS === "android"
@@ -65,7 +64,6 @@
 //     fetchHomeDetails();
 //   }, []);
 
-
 //   if (loading) {
 //     return (
 //       <View style={styles.loaderContainer}>
@@ -82,8 +80,6 @@
 //     );
 //   }
 
-
-
 //   const handleAccept = async (id) => {
 //     try {
 //       const response = await axios.patch(
@@ -96,7 +92,6 @@
 //       console.error(error);
 //     }
 //   };
-  
 
 //   return (
 //     // <ScrollView style={styles.container}>
@@ -239,7 +234,7 @@
 //                 handleAccept(home._id); // Call the function to accept
 //                 router.replace("/Admin/adminPendingRequest"); // Navigate to the page
 //               }}
-              
+
 //             >
 //               <Text style={styles.buttonText}>Accept</Text>
 //             </TouchableOpacity>
@@ -363,9 +358,6 @@
 // });
 
 // export default FormVerifyPage;
-
-
-
 
 import React, { useEffect, useState } from "react";
 import {
