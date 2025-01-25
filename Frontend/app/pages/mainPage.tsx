@@ -5284,6 +5284,28 @@ export default function CommunityCenter() {
     fetchAllHomeDetails();
   }, []);
 
+
+
+  const [communityCenter, setCommunityCenter] = useState([]);
+  const fetchAllCommunityCenterDetails = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.168.50.242:5000/communityDetails/get-all-CommunityCenter-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+      );
+      setCommunityCenter(response.data);
+    } catch (error) {
+      Alert.alert("Error", "Failed to fetch all home details.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllCommunityCenterDetails();
+  }, []);
+
+
   if (loading) {
     return (
       <View style={localStyles.loaderContainer}>
@@ -5623,7 +5645,7 @@ export default function CommunityCenter() {
                   Wedding Community Center
                 </Text>
               </TouchableOpacity>
-              <ScrollView horizontal style={localStyles.cardContainer}>
+              {/* <ScrollView horizontal style={localStyles.cardContainer}>
                 {dummyCommunityCenters.map((center) => (
                   <TouchableOpacity
                     key={center._id}
@@ -5652,14 +5674,61 @@ export default function CommunityCenter() {
                     </Text>
                   </TouchableOpacity>
                 ))}
-              </ScrollView>
+              </ScrollView> */}
+
+          {/* <ScrollView style={styles.scrollContainer}> */}
+          <ScrollView horizontal style={localStyles.cardContainer}>
+            {/* <ScrollView style={localStyles.container}> */}
+            {communityCenter.map((home) => (
+              <TouchableOpacity
+                key={home._id}
+                // style={styles.card}
+                style={localStyles.card}
+                onPress={() =>
+                  router.push({
+                    pathname: "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
+                    params: { communityId: home._id }, // Pass the home ID as a query parameter
+                  })
+                }
+              >
+
+                {home.images.length > 0 && (
+                  <Image
+                    source={{ uri: home.images[0] }} // Display the first image
+                    // style={styles.cardImage}
+                    style={localStyles.cardImage}
+                  />
+                )}
+
+                {/* <Text style={styles.cardPrice}> */}
+                <Text style={localStyles.cardPrice}>
+                  Base Price: {home.price.basePrice} Tk
+                </Text>
+
+                {/* <Text style={styles.cardDetails}> */}
+                <Text style={localStyles.cardDetails}>
+                Capacity: {home.details.capacity} people
+                {" | "}Parking:{" "} {home.details.parking} Cars
+                {" | "}Halls: {home.details.halls}
+                {" | "}{home.details.size} m²
+                </Text>
+
+                {/* <Text style={styles.cardLocation}> */}
+                <Text style={localStyles.cardLocation}>
+                  {home.location.city}, {home.location.area}
+                </Text>
+
+                {/* </ScrollView> */}
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
 
               <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>
                   Birthday Community Center
                 </Text>
               </TouchableOpacity>
-              <ScrollView horizontal style={localStyles.cardContainer}>
+              {/* <ScrollView horizontal style={localStyles.cardContainer}>
                 {dummyCommunityCenters.map((center) => (
                   <TouchableOpacity
                     key={center._id}
@@ -5688,14 +5757,62 @@ export default function CommunityCenter() {
                     </Text>
                   </TouchableOpacity>
                 ))}
-              </ScrollView>
+              </ScrollView> */}
+
+
+          {/* <ScrollView style={styles.scrollContainer}> */}
+          <ScrollView horizontal style={localStyles.cardContainer}>
+            {/* <ScrollView style={localStyles.container}> */}
+            {communityCenter.map((home) => (
+              <TouchableOpacity
+                key={home._id}
+                // style={styles.card}
+                style={localStyles.card}
+                onPress={() =>
+                  router.push({
+                    pathname: "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
+                    params: { communityId: home._id }, // Pass the home ID as a query parameter
+                  })
+                }
+              >
+
+                {home.images.length > 0 && (
+                  <Image
+                    source={{ uri: home.images[0] }} // Display the first image
+                    // style={styles.cardImage}
+                    style={localStyles.cardImage}
+                  />
+                )}
+
+                {/* <Text style={styles.cardPrice}> */}
+                <Text style={localStyles.cardPrice}>
+                  Base Price: {home.price.basePrice} Tk
+                </Text>
+
+                {/* <Text style={styles.cardDetails}> */}
+                <Text style={localStyles.cardDetails}>
+                Capacity: {home.details.capacity} people
+                {" | "}Parking:{" "} {home.details.parking} Cars
+                {" | "}Halls: {home.details.halls}
+                {" | "}{home.details.size} m²
+                </Text>
+
+                {/* <Text style={styles.cardLocation}> */}
+                <Text style={localStyles.cardLocation}>
+                  {home.location.city}, {home.location.area}
+                </Text>
+
+                {/* </ScrollView> */}
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
 
               <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>
                   Multi Event Community Center
                 </Text>
               </TouchableOpacity>
-              <ScrollView horizontal style={localStyles.cardContainer}>
+              {/* <ScrollView horizontal style={localStyles.cardContainer}>
                 {dummyCommunityCenters.map((center) => (
                   <TouchableOpacity
                     key={center._id}
@@ -5724,7 +5841,55 @@ export default function CommunityCenter() {
                     </Text>
                   </TouchableOpacity>
                 ))}
-              </ScrollView>
+              </ScrollView> */}
+
+          {/* <ScrollView style={styles.scrollContainer}> */}
+          <ScrollView horizontal style={localStyles.cardContainer}>
+            {/* <ScrollView style={localStyles.container}> */}
+            {communityCenter.map((home) => (
+              <TouchableOpacity
+                key={home._id}
+                // style={styles.card}
+                style={localStyles.card}
+                onPress={() =>
+                  router.push({
+                    pathname: "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
+                    params: { communityId: home._id }, // Pass the home ID as a query parameter
+                  })
+                }
+              >
+
+                {home.images.length > 0 && (
+                  <Image
+                    source={{ uri: home.images[0] }} // Display the first image
+                    // style={styles.cardImage}
+                    style={localStyles.cardImage}
+                  />
+                )}
+
+                {/* <Text style={styles.cardPrice}> */}
+                <Text style={localStyles.cardPrice}>
+                  Base Price: {home.price.basePrice} Tk
+                </Text>
+
+                {/* <Text style={styles.cardDetails}> */}
+                <Text style={localStyles.cardDetails}>
+                Capacity: {home.details.capacity} people
+                {" | "}Parking:{" "} {home.details.parking} Cars
+                {" | "}Halls: {home.details.halls}
+                {" | "}{home.details.size} m²
+                </Text>
+
+                {/* <Text style={styles.cardLocation}> */}
+                <Text style={localStyles.cardLocation}>
+                  {home.location.city}, {home.location.area}
+                </Text>
+
+                {/* </ScrollView> */}
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+          
             </View>
           </View>
         ) : activeTab === "Services" ? (
