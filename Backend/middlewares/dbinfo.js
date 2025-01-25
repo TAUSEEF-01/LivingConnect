@@ -21,7 +21,7 @@
       "road": "Michigan Avenue",
       "houseNumber": "C-21"
     },
-    "facitlities": {
+    "facilities": {
       "garage": false,
       "lift": true,
       "gasSupply": true,
@@ -63,7 +63,7 @@
       "road": "23rd Street",
       "houseNumber": "A-12"
     },
-    "facitlities": {
+    "facilities": {
       "garage": true,
       "lift": true,
       "gasSupply": true,

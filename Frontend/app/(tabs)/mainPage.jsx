@@ -812,7 +812,7 @@ export default function MainPage() {
         <View style={localStyles.bannerImageContainer}>
           <Image
             source={{
-              uri: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              uri: "http://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             }} // Replace with actual image URL
             style={localStyles.bannerImage}
           />
@@ -871,7 +871,7 @@ export default function MainPage() {
           <View style={localStyles.card}>
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                uri: "http://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               }}
               style={localStyles.cardImage}
             />
@@ -886,7 +886,7 @@ export default function MainPage() {
           <View style={localStyles.card}>
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                uri: "http://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               }}
               style={localStyles.cardImage}
             />

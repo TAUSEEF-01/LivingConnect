@@ -14,6 +14,10 @@ router.use("/houseDetails", houseDetailsRoutes);
 const messageRoutes = require("./message");
 router.use("/messages", messageRoutes);
 
+
+const communityDetails = require("./communityDetails");
+router.use("/communityDetails", communityDetails);
+
 router.get("/", async (req, res) => {
   // const token = req.headers.authorization?.split(" ")[1];
   // if (!token) {

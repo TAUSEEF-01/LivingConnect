@@ -163,14 +163,14 @@
 //           <View style={styles.section}>
 //             <Text style={styles.sectionTitle}>Facilities</Text>
 //             {/* <Text style={styles.text}>
-//           {Object.entries(home?.facitlities || {})
+//           {Object.entries(home?.facilities || {})
 //             .filter(([_, value]) => value)
 //             .map(([key]) => key.replace(/([A-Z])/g, " $1"))
 //             .join("\n") || "None"}
 //         </Text> */}
 
 //             <Text style={styles.text}>
-//               {Object.entries(home?.facitlities || {})
+//               {Object.entries(home?.facilities || {})
 //                 .map(
 //                   ([key, value]) =>
 //                     `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`
@@ -406,6 +406,7 @@ const FormVerifyPage = () => {
       const response = await axios.get(
         `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
       );
+      console.log("Fetched home details:", response.data);
       setHome(response.data);
     } catch (error) {
       Alert.alert("Error", "Failed to fetch home details.");
@@ -516,7 +517,7 @@ const FormVerifyPage = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Facilities</Text>
             <Text style={styles.text}>
-              {Object.entries(home?.facitlities || {})
+              {Object.entries(home?.facilities || {})
                 .map(
                   ([key, value]) =>
                     `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`

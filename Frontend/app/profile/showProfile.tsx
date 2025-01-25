@@ -80,7 +80,7 @@
 //       <Text style={styles.title}>User Profile</Text>
 //       <View style={styles.card}>
 //         <Image
-//           source={{ uri: userInfo.profileImage || "https://via.placeholder.com/150" }} // Fallback to default image
+//           source={{ uri: userInfo.profileImage || "http://via.placeholder.com/150" }} // Fallback to default image
 //           style={styles.image}
 //         />
 //         <View style={styles.details}>
@@ -281,6 +281,17 @@ export default function MyImage() {
         }}
       >
         <Text style={styles.buttonText}>Update Profile</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.updateButton}
+        onPress={() => {
+          // router.push("/profile/updateProfile");
+          // router.push(`/Rent/editHomeDetails?id=${homeId}`);//67646960c5f2d543cfbf208d
+          router.push(`/Rent/editHomeDetails?id=67646960c5f2d543cfbf208d`);
+        }}
+      >
+        <Text style={styles.buttonText}>Edit My Property Details</Text>
       </TouchableOpacity>
     </View>
   );
@@ -704,7 +715,7 @@ const styles = StyleSheet.create({
 //     <View style={styles.bannerImageContainer}>
 //       <Image
 //         source={{
-//           uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//           uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 //         }}
 //         style={styles.bannerImage}
 //       />

@@ -923,7 +923,7 @@ export default function Profile() {
       </TouchableOpacity>
     </View>
   );
-}
+} //router.push(`/Rent/editHomeDetails?id=${homeId}`);
 
 const styles = StyleSheet.create({
   container: {

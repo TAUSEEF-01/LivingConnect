@@ -9,14 +9,29 @@ const adminPage = () => {
             style={localStyles.pendingButton}
             onPress={() => router.push("/Admin/adminPendingRequest")}
         >
-            <Text style={localStyles.buttonText}>Pending requests</Text>
+            <Text style={localStyles.buttonText}>Pending requests Home</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
             style={localStyles.approvedButton}
             onPress={() => router.push("/Admin/adminApprovedRequest")}
         >
-            <Text style={localStyles.buttonText}>Approved requests</Text>
+            <Text style={localStyles.buttonText}>Approved requests Home</Text>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity
+            style={localStyles.pendingCommunityButton}
+            onPress={() => router.push("/Admin/adminPendingRequestCommunityCenter")}
+        >
+            <Text style={localStyles.buttonText}>Pending requests Community Center</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+            style={localStyles.approvedCommunityButton}
+            onPress={() => router.push("/Admin/adminApprovedRequestCommunityCenter")}
+        >
+            <Text style={localStyles.buttonText}>Approved requests Community Center</Text>
         </TouchableOpacity>
         
     </SafeAreaView>
@@ -55,6 +70,40 @@ const localStyles = StyleSheet.create({
       elevation: 5,
     },
     approvedButton: {
+      padding: 15,
+      backgroundColor: "#1e3a8a",
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+      borderColor: "black",
+      borderWidth: 1,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+      marginBottom: 20,
+    },
+    pendingCommunityButton:{
+      padding: 15,
+      // paddingVertical: 15,
+      // paddingHorizontal: 8,
+      backgroundColor: "#1e3a8a",
+      borderRadius: 10,
+      justifyContent: "center",
+      alignItems: "center",
+      marginBottom: 20,
+      width: "100%",
+      borderColor: "black",
+      borderWidth: 1,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    approvedCommunityButton:{
       padding: 15,
       backgroundColor: "#1e3a8a",
       borderRadius: 10,

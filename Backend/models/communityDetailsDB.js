@@ -19,6 +19,11 @@ const communityDetails = new mongoose.Schema({
     required: true,
   },
 
+  name: {
+    type: String,
+    required: true, // name of the center
+  },
+
   details: {
     capacity: { type: Number, required: true }, // number of people
     halls: { type: Number, required: true }, // number of halls
@@ -29,12 +34,12 @@ const communityDetails = new mongoose.Schema({
     stageArea: { type: Boolean }
   },
   
-  restrictions: {
-    noiseRestriction: { type: Boolean },
-    timeRestriction: { type: String },
-    foodRestriction: { type: Boolean },
-    decorationRestriction: { type: Boolean }
-  },
+  // restrictions: {
+  //   noiseRestriction: { type: Boolean },
+  //   timeRestriction: { type: String },
+  //   foodRestriction: { type: Boolean },
+  //   decorationRestriction: { type: Boolean }
+  // },
 
   price: {
     basePrice: { type: Number, required: true },
@@ -64,14 +69,8 @@ const communityDetails = new mongoose.Schema({
   },
 
   availability: {
-    regularHours: {
-      open: { type: String },
-      close: { type: String }
-    },
-    bookedDates: [{
-      date: { type: Date },
-      timeSlot: { type: String }
-    }]
+    from: { type: Date, required: true },
+    to: { type: Date, required: true },
   },
 
   images: {

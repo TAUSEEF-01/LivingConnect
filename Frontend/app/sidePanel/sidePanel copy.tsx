@@ -768,7 +768,7 @@ const [isSidePanelVisible, setSidePanelVisible] = useState(false);
           <View style={styles.bannerImageContainer}>
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               }} // Replace with actual image URL
               style={styles.bannerImage}
             />

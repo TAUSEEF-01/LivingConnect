@@ -209,8 +209,9 @@ const HomeDetailsPage = () => {
         // `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
       );
 
-      // console.log("Fetched home details:", response.data);
+      console.log("Fetched home details:", response.data);
       // console.log("fnc1");
+      // console.log("Response data:", response.data);
       setHome(response.data);
       // fetchUserProfile();
     } catch (error) {
@@ -233,7 +234,7 @@ const HomeDetailsPage = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log("Fetched Profile:", response.data);
+      // console.log("Fetched Profile:", response.data);
 
       setProfile(response.data); // Ensure this includes the `id` field
     } catch (error) {
@@ -422,14 +423,14 @@ const HomeDetailsPage = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Facilities</Text>
             {/* <Text style={styles.text}>
-          {Object.entries(home?.facitlities || {})
+          {Object.entries(home?.facilities || {})
             .filter(([_, value]) => value)
             .map(([key]) => key.replace(/([A-Z])/g, " $1"))
             .join("\n") || "None"}
         </Text> */}
 
             <Text style={styles.text}>
-              {Object.entries(home?.facitlities || {})
+              {Object.entries(home?.facilities || {})
                 .map(
                   ([key, value]) =>
                     `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`

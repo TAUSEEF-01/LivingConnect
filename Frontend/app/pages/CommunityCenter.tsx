@@ -127,7 +127,7 @@ export default function CommunityCenter() {
     {
       _id: "w1",
       name: "Royal Wedding Hall",
-      images: ["https://images.unsplash.com/photo-1519167758481-83f550bb49b3"],
+      images: ["http://images.unsplash.com/photo-1519167758481-83f550bb49b3"],
       price: 50000,
       details: {
         capacity: "500",
@@ -142,7 +142,7 @@ export default function CommunityCenter() {
     {
       _id: "w2",
       name: "Grand Celebration Center",
-      images: ["https://images.unsplash.com/photo-1469371670807-013ccf25f16a"],
+      images: ["http://images.unsplash.com/photo-1469371670807-013ccf25f16a"],
       price: 45000,
       details: {
         capacity: "400",
@@ -157,7 +157,7 @@ export default function CommunityCenter() {
     {
       _id: "w3",
       name: "Elegant Event Hall",
-      images: ["https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"],
+      images: ["http://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"],
       price: 55000,
       details: {
         capacity: "500",
@@ -175,7 +175,7 @@ export default function CommunityCenter() {
     {
       _id: "s1",
       name: "Professional Cleaning Service",
-      images: ["https://images.unsplash.com/photo-1581578731548-c64695cc6952"],
+      images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
       price: 1500,
       details: {
         duration: "3 hours",
@@ -190,7 +190,7 @@ export default function CommunityCenter() {
     {
       _id: "s2",
       name: "Expert Home Repair",
-      images: ["https://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
+      images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
       price: 2000,
       details: {
         duration: "Variable",
@@ -205,7 +205,7 @@ export default function CommunityCenter() {
     {
       _id: "s3",
       name: "Professional Home Shifting",
-      images: ["https://images.unsplash.com/photo-1600585152220-90363fe7e115"],
+      images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
       price: 5000,
       details: {
         duration: "Full day",
@@ -220,7 +220,7 @@ export default function CommunityCenter() {
     {
       _id: "s4",
       name: "Professional Cleaning Service",
-      images: ["https://images.unsplash.com/photo-1581578731548-c64695cc6952"],
+      images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
       price: 1500,
       details: {
         duration: "3 hours",
@@ -235,7 +235,7 @@ export default function CommunityCenter() {
     {
       _id: "s5",
       name: "Expert Home Repair",
-      images: ["https://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
+      images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
       price: 2000,
       details: {
         duration: "Variable",
@@ -250,7 +250,7 @@ export default function CommunityCenter() {
     {
       _id: "s6",
       name: "Professional Home Shifting",
-      images: ["https://images.unsplash.com/photo-1600585152220-90363fe7e115"],
+      images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
       price: 5000,
       details: {
         duration: "Full day",
@@ -324,7 +324,7 @@ export default function CommunityCenter() {
             <Image
               source={require("../../assets/images/mainpage_image.jpg")}
               // source={{
-              //   uri: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              //   uri: "http://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               // }} // Replace with actual image URL
               style={localStyles.bannerImage}
             />

@@ -71,12 +71,12 @@ const CommunityCenterForm = () => {
       diningArea: false,
       stageArea: false,
     },
-    restrictions: {
-      noiseRestriction: false,
-      timeRestriction: "",
-      foodRestriction: false,
-      decorationRestriction: false,
-    },
+    // restrictions: {
+    //   noiseRestriction: false,
+    //   timeRestriction: "",
+    //   foodRestriction: false,
+    //   decorationRestriction: false,
+    // },
     price: {
       basePrice: "",
       fullDayPrice: "",
@@ -90,6 +90,7 @@ const CommunityCenterForm = () => {
       road: "",
       buildingNumber: "",
     },
+    name: "",
     facilities: {
       airConditioned: false,
       generator: false,
@@ -101,13 +102,14 @@ const CommunityCenterForm = () => {
       staging: false,
       security: false,
     },
-    availability: {
-      regularHours: {
-        open: "",
-        close: "",
-      },
-      bookedDates: [],
-    },
+    // availability: {
+    //   regularHours: {
+    //     open: "",
+    //     close: "",
+    //   },
+    //   bookedDates: [],
+    // },
+    availability: { from: "", to: "" },
     images: [],
   });
 
@@ -164,20 +166,20 @@ const CommunityCenterForm = () => {
     }
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState("Select Property Types");
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [selectedType, setSelectedType] = useState("Select Property Types");
 
-  const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
+  // const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleDropdown = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
-  const handleTypeSelect = (type) => {
-    setSelectedType(type);
-    formData.PropertyType = type;
-    setIsOpen(false);
-  };
+  // const handleTypeSelect = (type) => {
+  //   setSelectedType(type);
+  //   formData.PropertyType = type;
+  //   setIsOpen(false);
+  // };
 
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
@@ -219,102 +221,116 @@ const CommunityCenterForm = () => {
         ))}
       </View>
 
+      <Text style={styles.sectionTitle}>Community Center Name</Text>
+      <TextInput
+        style={styles.input}
+        placeholder={"Enter Community Center Name"}
+        placeholderTextColor="#666"
+        value={formData.name}
+        onChangeText={(text) => handleInputChange("name", text)}
+      />
+
       <Text style={styles.sectionTitle}>Details</Text>
-      <View style={styles.detailsContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Capacity (people)"
-          keyboardType="numeric"
-          value={formData.details.capacity}
-          onChangeText={(value) => handleInputChange("details.capacity", value)}
+
+      <TextInput
+        style={styles.input}
+        placeholder="Capacity (people)"
+        keyboardType="numeric"
+        placeholderTextColor="#666"
+        value={formData.details.capacity}
+        onChangeText={(value) => handleInputChange("details.capacity", value)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Number of Halls"
+        keyboardType="numeric"
+        placeholderTextColor="#666"
+        value={formData.details.halls}
+        onChangeText={(value) => handleInputChange("details.halls", value)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Size (sq meters)"
+        keyboardType="numeric"
+        placeholderTextColor="#666"
+        value={formData.details.size}
+        onChangeText={(value) => handleInputChange("details.size", value)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Parking"
+        keyboardType="numeric"
+        placeholderTextColor="#666"
+        value={formData.details.parking}
+        onChangeText={(value) => handleInputChange("details.parking", value)}
+      />
+
+      {/* <View style={styles.detailsContainer}> */}
+      <View style={styles.switchContainer}>
+        <Text style={styles.switchLabel}>Kitchen Area</Text>
+        <Switch
+          value={formData.details.kitchenArea}
+          onValueChange={(value) =>
+            handleInputChange("details.kitchenArea", value)
+          }
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Number of Halls"
-          keyboardType="numeric"
-          value={formData.details.halls}
-          onChangeText={(value) => handleInputChange("details.halls", value)}
+      </View>
+      {/* </View> */}
+      <View style={styles.switchContainer}>
+        <Text style={styles.switchLabel}>Dining Area</Text>
+        <Switch
+          value={formData.details.diningArea}
+          onValueChange={(value) =>
+            handleInputChange("details.diningArea", value)
+          }
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Size (sq meters)"
-          keyboardType="numeric"
-          value={formData.details.size}
-          onChangeText={(value) => handleInputChange("details.size", value)}
+      </View>
+
+      <View style={styles.switchContainer}>
+        <Text style={styles.switchLabel}>Stage Area</Text>
+        <Switch
+          value={formData.details.stageArea}
+          onValueChange={(value) =>
+            handleInputChange("details.stageArea", value)
+          }
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Parking"
-          keyboardType="numeric"
-          value={formData.details.parking}
-          onChangeText={(value) => handleInputChange("details.parking", value)}
-        />
-        <View style={styles.switchContainer}>
-          <Text style={styles.switchLabel}>Kitchen Area</Text>
-          <Switch
-            value={formData.details.kitchenArea}
-            onValueChange={(value) =>
-              handleInputChange("details.kitchenArea", value)
-            }
-          />
-        </View>
-        <View style={styles.switchContainer}>
-          <Text style={styles.switchLabel}>Dining Area</Text>
-          <Switch
-            value={formData.details.diningArea}
-            onValueChange={(value) =>
-              handleInputChange("details.diningArea", value)
-            }
-          />
-        </View>
-        <View style={styles.switchContainer}>
-          <Text style={styles.switchLabel}>Stage Area</Text>
-          <Switch
-            value={formData.details.stageArea}
-            onValueChange={(value) =>
-              handleInputChange("details.stageArea", value)
-            }
-          />
-        </View>
       </View>
 
       <Text style={styles.sectionTitle}>Pricing</Text>
-      <View style={styles.priceContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Base Price"
-          keyboardType="numeric"
-          value={formData.price.basePrice}
-          onChangeText={(value) => handleInputChange("price.basePrice", value)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Full Day Price"
-          keyboardType="numeric"
-          value={formData.price.fullDayPrice}
-          onChangeText={(value) =>
-            handleInputChange("price.fullDayPrice", value)
-          }
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Half Day Price"
-          keyboardType="numeric"
-          value={formData.price.halfDayPrice}
-          onChangeText={(value) =>
-            handleInputChange("price.halfDayPrice", value)
-          }
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Per Hour Price"
-          keyboardType="numeric"
-          value={formData.price.perHourPrice}
-          onChangeText={(value) =>
-            handleInputChange("price.perHourPrice", value)
-          }
-        />
-      </View>
+      {/* <View style={styles.priceContainer}> */}
+      <TextInput
+        style={styles.input}
+        placeholder="Base Price"
+        keyboardType="numeric"
+        placeholderTextColor="#666"
+        value={formData.price.basePrice}
+        onChangeText={(value) => handleInputChange("price.basePrice", value)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Full Day Price"
+        keyboardType="numeric"
+        placeholderTextColor="#666"
+        value={formData.price.fullDayPrice}
+        onChangeText={(value) => handleInputChange("price.fullDayPrice", value)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Half Day Price"
+        keyboardType="numeric"
+        placeholderTextColor="#666"
+        value={formData.price.halfDayPrice}
+        onChangeText={(value) => handleInputChange("price.halfDayPrice", value)}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Per Hour Price"
+        keyboardType="numeric"
+        placeholderTextColor="#666"
+        value={formData.price.perHourPrice}
+        onChangeText={(value) => handleInputChange("price.perHourPrice", value)}
+      />
+      {/* </View> */}
 
       <Text style={styles.sectionTitle}>Facilities</Text>
       {Object.keys(formData.facilities).map((facility) => (
@@ -418,9 +434,11 @@ const CommunityCenterForm = () => {
         )}
       </View>
 
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
+      <View style={styles.submitButtonView}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -452,8 +470,9 @@ const styles = StyleSheet.create({
   typeContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 10,
-    padding: 10,
+    justifyContent: "space-between",
+    gap: 8,
+    marginTop: 8,
   },
   typeButton: {
     padding: 10,
@@ -490,16 +509,20 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#2d3748",
-    paddingHorizontal: 8,
+    // paddingHorizontal: 8,
     borderRadius: 8,
-    paddingVertical: 2,
-    marginBottom: 5,
+    // paddingVertical: 2,
+    marginTop: 5,
+    // marginBottom: 5,
     borderColor: "black",
   },
   switchLabel: {
     fontSize: 16,
     color: "white",
     marginLeft: 15,
+  },
+  submitButtonView: {
+    marginBottom: 40,
   },
   submitButton: {
     marginBottom: 40,

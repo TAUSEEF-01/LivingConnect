@@ -57,7 +57,7 @@ router.get("/messagehistory/conversations/:userId", async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ error: "Invalid userId" });
   }
-  
+
   console.log("Fetching messages for userId:", userId);
 
   try {
@@ -93,17 +93,27 @@ router.get("/messagehistory/conversations/:userId", async (req, res) => {
     ]);
 
     // Collect all unique user IDs for sender and recipient
-    const userIds = [...new Set(recentMessages.flatMap(message => [message.senderId, message.recipientId]))];
+    const userIds = [
+      ...new Set(
+        recentMessages.flatMap((message) => [
+          message.senderId,
+          message.recipientId,
+        ])
+      ),
+    ];
 
     // Fetch user details for all involved users in one go
-    const users = await User.find({ _id: { $in: userIds } }, "name profileImage").lean();
+    const users = await User.find(
+      { _id: { $in: userIds } },
+      "name profileImage"
+    ).lean();
     const userMap = users.reduce((acc, user) => {
       acc[user._id] = user;
       return acc;
     }, {});
 
     // Enrich messages with sender and recipient details
-    const enrichedMessages = recentMessages.map(message => ({
+    const enrichedMessages = recentMessages.map((message) => ({
       ...message,
       sender: userMap[message.senderId],
       recipient: userMap[message.recipientId],
@@ -123,7 +133,7 @@ router.get("/messagehistory/conversations/:userId", async (req, res) => {
 //   if (!mongoose.Types.ObjectId.isValid(userId)) {
 //     return res.status(400).json({ error: "Invalid userId" });
 //   }
-  
+
 //   console.log("Fetching messages for userId:", userId);
 
 //   try {
@@ -147,7 +157,7 @@ router.get("/messagehistory/conversations/:userId", async (req, res) => {
 //                 { $lt: ["$senderId", "$recipientId"] },
 //                 { sender: "$recipientId", recipient: "$senderId" },
 //                 { sender: "$senderId", recipient: "$recipientId" },
-                
+
 //               ],
 //             },
 //           },
@@ -163,7 +173,7 @@ router.get("/messagehistory/conversations/:userId", async (req, res) => {
 //       recentMessages.map(async (message) => {
 //         const sender = await User.findById(message.senderId, "name profileImage").lean();
 //         const recipient = await User.findById(message.recipientId, "name profileImage").lean();
-    
+
 //         return {
 //           ...message,
 //           sender,
@@ -171,14 +181,13 @@ router.get("/messagehistory/conversations/:userId", async (req, res) => {
 //         };
 //       })
 //     );
-    
+
 //     res.status(200).json(enrichedMessages);
 //   } catch (error) {
 //     console.error("Error fetching recent messages:", error);
 //     res.status(500).json({ error: "Error retrieving recent messages" });
 //   }
 // });
-
 
 // router.get("/messagehistory/conversations/:userId", async (req, res) => {
 //   const userId = req.params.userId;
@@ -253,9 +262,6 @@ router.get("/messagehistory/conversations/:userId", async (req, res) => {
 //     res.status(500).json({ error: "Error retrieving recent messages" });
 //   }
 // });
-
-
-
 
 // Debug middleware
 router.use((req, res, next) => {
@@ -552,7 +558,7 @@ router.get("/messages/users/:id", async (req, res) => {
     // res.json(user); // Return the user object
     res.json({
       name: user.name || "Unknown User",
-      profileImage: user.profileImage || "https://via.placeholder.com/50",
+      profileImage: user.profileImage || "http://via.placeholder.com/50",
     });
   } catch (error) {
     console.error("Error fetching user:", error);
@@ -560,11 +566,7 @@ router.get("/messages/users/:id", async (req, res) => {
   }
 });
 
-
 // Fetch user conversations
-
-
-
 
 // router.get("/conversations/:userId", async (req, res) => {
 //   try {

@@ -8,21 +8,21 @@
 //     name: 'John Doe',
 //     lastMessage: 'Hey, how are you?',
 //     time: '10:45 AM',
-//     photo: 'https://via.placeholder.com/50',
+//     photo: 'http://via.placeholder.com/50',
 //   },
 //   {
 //     id: '2',
 //     name: 'Jane Smith',
 //     lastMessage: 'Lets catch up later.',
 //     time: '09:30 AM',
-//     photo: 'https://via.placeholder.com/50',
+//     photo: 'http://via.placeholder.com/50',
 //   },
 //   {
 //     id: '3',
 //     name: 'Alice Johnson',
 //     lastMessage: 'See you tomorrow!',
 //     time: 'Yesterday',
-//     photo: 'https://via.placeholder.com/50',
+//     photo: 'http://via.placeholder.com/50',
 //   },
 // ];
 
@@ -362,7 +362,7 @@ const ChatScreen = () => {
   //   >
   //     <Image
   //       source={{
-  //         uri: item.profileImage || "https://via.placeholder.com/40",
+  //         uri: item.profileImage || "http://via.placeholder.com/40",
   //       }}
   //       style={styles.profileImage}
   //     />
@@ -382,7 +382,7 @@ const ChatScreen = () => {
     >
       <Image
         source={{
-          uri: item.profileImage || "https://via.placeholder.com/40",
+          uri: item.profileImage || "http://via.placeholder.com/40",
         }}
         style={styles.profileImage}
       />

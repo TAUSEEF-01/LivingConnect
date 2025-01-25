@@ -40,7 +40,7 @@ const adminViewHomeDetailsSchema = new mongoose.Schema({
     road: { type: String },
     houseNumber: { type: String },
   },
-  facitlities: {
+  facilities: {
     garage: { type: Boolean },
     lift: { type: Boolean },
     gasSupply: { type: Boolean },
@@ -59,5 +59,8 @@ const adminViewHomeDetailsSchema = new mongoose.Schema({
   },
 });
 
-const adminViewHomeDetails = mongoose.model("adminViewHomeDetails", adminViewHomeDetailsSchema);
+const adminViewHomeDetails = mongoose.model(
+  "adminViewHomeDetails",
+  adminViewHomeDetailsSchema
+);
 module.exports = adminViewHomeDetails;

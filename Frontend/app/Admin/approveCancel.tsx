@@ -176,14 +176,14 @@ const FormVerifyPage = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Facilities</Text>
             {/* <Text style={styles.text}>
-          {Object.entries(home?.facitlities || {})
+          {Object.entries(home?.facilities || {})
             .filter(([_, value]) => value)
             .map(([key]) => key.replace(/([A-Z])/g, " $1"))
             .join("\n") || "None"}
         </Text> */}
 
             <Text style={styles.text}>
-              {Object.entries(home?.facitlities || {})
+              {Object.entries(home?.facilities || {})
                 .map(
                   ([key, value]) =>
                     `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`

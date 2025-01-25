@@ -63,7 +63,7 @@ router.post("/home-details", async (req, res) => {
       rent,
       rentPeriod,
       location,
-      facitlities,
+      facilities,
       availability,
       images,
     } = req.body;
@@ -82,12 +82,12 @@ router.post("/home-details", async (req, res) => {
       rent,
       rentPeriod,
       location,
-      facitlities,
+      facilities,
       availability,
       images,
     });
 
-    // console.log(newHomeDetails); // Check if _id is available
+    console.log(newHomeDetails); // Check if _id is available
 
     // Save the new home details to the database
     const savedHomeDetails = await newHomeDetails.save();
@@ -110,11 +110,14 @@ router.post("/home-details", async (req, res) => {
 // Endpoint to fetch a single home by ID
 router.get("/get-homes-details/:id", async (req, res) => {
   try {
+    console.log("Get Homes Details api called");
+    console.log(req.params.id);
     const home = await HomeDetails.findById(req.params.id);
     // const home = await HomeDetails.findById("67641db8d20432a2fb09230c");
     if (!home) {
       return res.status(404).json({ message: "Home not found" });
     }
+    console.log(home);
     res.status(200).json(home);
   } catch (error) {
     res.status(500).json({ message: "Error fetching home details", error });
@@ -133,8 +136,6 @@ router.get("/get-all-Homes-details", async (req, res) => {
     res.status(500).json({ message: "Error fetching home details", error });
   }
 });
-
-
 
 // router.get("/searchHomes", async (req, res) => {
 //   try {
@@ -155,10 +156,6 @@ router.get("/get-all-Homes-details", async (req, res) => {
 //     res.status(500).json({ message: "Failed to retrieve homes", error });
 //   }
 // });
-
-
-
-
 
 // router.get("/searchHomes", async (req, res) => {
 //   try {
@@ -206,13 +203,13 @@ router.get("/get-all-Homes-details", async (req, res) => {
 //     if (sizeMax) query["details.size"] = { ...query["details.size"], $lte: Number(sizeMax) };
 
 //     // Facility filters
-//     if (garage) query["facitlities.garage"] = garage === "true";
-//     if (lift) query["facitlities.lift"] = lift === "true";
-//     if (gasSupply) query["facitlities.gasSupply"] = gasSupply === "true";
-//     if (generator) query["facitlities.generator"] = generator === "true";
-//     if (internet) query["facitlities.internet"] = internet === "true";
-//     if (cctv) query["facitlities.cctv"] = cctv === "true";
-//     if (wifi) query["facitlities.wifi"] = wifi === "true";
+//     if (garage) query["facilities.garage"] = garage === "true";
+//     if (lift) query["facilities.lift"] = lift === "true";
+//     if (gasSupply) query["facilities.gasSupply"] = gasSupply === "true";
+//     if (generator) query["facilities.generator"] = generator === "true";
+//     if (internet) query["facilities.internet"] = internet === "true";
+//     if (cctv) query["facilities.cctv"] = cctv === "true";
+//     if (wifi) query["facilities.wifi"] = wifi === "true";
 
 //     // Availability filters
 //     if (availableFrom) query["availability.from"] = { $gte: new Date(availableFrom) };
@@ -225,7 +222,6 @@ router.get("/get-all-Homes-details", async (req, res) => {
 //     res.status(500).json({ message: "Failed to retrieve homes", error });
 //   }
 // });
-
 
 // Updated Search Endpoint
 router.get("/searchHomes", async (req, res) => {
@@ -245,7 +241,7 @@ router.get("/searchHomes", async (req, res) => {
     } = req.query;
 
     // Construct search query
-    const query = {success: true};
+    const query = { success: true };
     if (city) query["location.city"] = city;
     if (area) query["location.area"] = area;
     if (rentMin) query.rent = { ...query.rent, $gte: Number(rentMin) };
@@ -253,10 +249,19 @@ router.get("/searchHomes", async (req, res) => {
     if (propertyType) query.PropertyType = propertyType;
     if (beds) query["details.beds"] = Number(beds);
     if (baths) query["details.baths"] = Number(baths);
-    if (sizeMin) query["details.size"] = { ...query["details.size"], $gte: Number(sizeMin) };
-    if (sizeMax) query["details.size"] = { ...query["details.size"], $lte: Number(sizeMax) };
+    if (sizeMin)
+      query["details.size"] = {
+        ...query["details.size"],
+        $gte: Number(sizeMin),
+      };
+    if (sizeMax)
+      query["details.size"] = {
+        ...query["details.size"],
+        $lte: Number(sizeMax),
+      };
     if (balcony) query["details.balcony"] = Number(balcony);
-    if (availabilityTo) query["availability.to"] = { $lte: new Date(availabilityTo) };
+    if (availabilityTo)
+      query["availability.to"] = { $lte: new Date(availabilityTo) };
 
     const homes = await HomeDetails.find(query);
     res.status(200).json(homes);
@@ -265,8 +270,6 @@ router.get("/searchHomes", async (req, res) => {
     res.status(500).json({ message: "Failed to retrieve homes", error });
   }
 });
-
-
 
 // Fixed successFalse Search Endpoint
 router.get("/successFalse", async (req, res) => {
@@ -283,8 +286,6 @@ router.get("/successFalse", async (req, res) => {
   }
 });
 
-
-
 // Fixed successTrue Search Endpoint
 router.get("/successTrue", async (req, res) => {
   try {
@@ -299,7 +300,6 @@ router.get("/successTrue", async (req, res) => {
     res.status(500).json({ message: "Failed to retrieve homes", error });
   }
 });
-
 
 // Endpoint to accept a home and set success to true
 router.patch("/accept/:id", async (req, res) => {
@@ -332,7 +332,6 @@ router.patch("/accept/:id", async (req, res) => {
   }
 });
 
-
 // Endpoint to accept a home and set success to true
 router.patch("/cancel/:id", async (req, res) => {
   // console.log("Accept Home API called");
@@ -364,21 +363,18 @@ router.patch("/cancel/:id", async (req, res) => {
   }
 });
 
-
-router.get('/userIdByEmail', async (req, res) => {
+router.get("/userIdByEmail", async (req, res) => {
   try {
     const { email } = req.query;
     const user = await User.findOne({ email });
     if (user) {
       res.status(200).json({ userId: user._id });
     } else {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
-
-
 
 module.exports = router;

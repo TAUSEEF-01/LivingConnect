@@ -1362,7 +1362,7 @@
 //       rent,
 //       rentPeriod,
 //       location,
-//       facitlities,
+//       facilities,
 //       availability,
 //       images
 //     } = req.body;
@@ -1378,7 +1378,7 @@
 //       rent,
 //       rentPeriod,
 //       location,
-//       facitlities,
+//       facilities,
 //       availability,
 //       images
 //     });
@@ -1468,9 +1468,7 @@ app.set("views", "./views"); // Specify the directory for your view templates
 
 const { connectMongoDB } = require("./connection");
 // connectMongoDB("mongodb://localhost:27017/UserInfo");
-connectMongoDB(
-  "mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/UserInfo?retryWrites=true&w=majority&appName=Cluster0"
-);
+connectMongoDB("mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/UserInfo?retryWrites=true&w=majority&appName=Cluster0");
 
 const routes = require("./routes");
 app.use(routes);
@@ -1585,6 +1583,7 @@ app.post("/propertiesInsert", async (req, res) => {
 });
 
 app.get("/health", (req, res) => {
+  console.log("Server is running");
   res.status(200).json({ message: "Server is running" });
 });
 

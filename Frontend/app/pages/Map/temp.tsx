@@ -1,4 +1,3 @@
-
 // // // // // import React, { useState, useEffect } from 'react';
 // // // // // import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 // // // // // import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -162,9 +161,6 @@
 // // // // //     color: '#1e293b',
 // // // // //   },
 // // // // // });
-
-
-
 
 // // // // // import React, { useState, useEffect } from 'react';
 // // // // // import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
@@ -336,7 +332,6 @@
 // // // // //   },
 // // // // // });
 
-
 // // // // import React, { useState, useEffect } from 'react';
 // // // // import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert } from 'react-native';
 // // // // import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -476,8 +471,6 @@
 // // // //   },
 // // // // });
 
-
-
 // // // import React, { useState, useEffect } from 'react';
 // // // import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert, StatusBar } from 'react-native';
 // // // import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -491,12 +484,12 @@
 // // //     latitudeDelta: 0.0922,
 // // //     longitudeDelta: 0.0421,
 // // //   });
-  
+
 // // //   const [selectedLocation, setSelectedLocation] = useState({
 // // //     latitude: 37.7749,
 // // //     longitude: -122.4194,
 // // //   });
-  
+
 // // //   const [searchQuery, setSearchQuery] = useState('');
 
 // // //   useEffect(() => {
@@ -537,7 +530,7 @@
 // // //   return (
 // // //     <View style={styles.container}>
 // // //       <StatusBar barStyle="dark-content" />
-      
+
 // // //       <View style={styles.searchContainer}>
 // // //         <View style={styles.searchInputContainer}>
 // // //           <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
@@ -691,11 +684,6 @@
 // // //   },
 // // // });
 
-
-
-
-
-
 // // // import React, { useState, useEffect } from 'react';
 // // // import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert, StatusBar, FlatList } from 'react-native';
 // // // import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -767,7 +755,7 @@
 
 // // //   const fetchSuggestions = async (query) => {
 // // //     try {
-// // //       const response = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`);
+// // //       const response = await axios.get(`http://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`);
 // // //       setSuggestions(response.data.predictions);
 // // //     } catch (error) {
 // // //       console.error('Error fetching suggestions:', error);
@@ -776,7 +764,7 @@
 
 // // //   const handleSuggestionPress = async (placeId) => {
 // // //     try {
-// // //       const response = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`);
+// // //       const response = await axios.get(`http://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`);
 // // //       const { lat, lng } = response.data.result.geometry.location;
 // // //       setMapRegion({ ...mapRegion, latitude: lat, longitude: lng });
 // // //       setSelectedLocation({ latitude: lat, longitude: lng });
@@ -791,7 +779,7 @@
 // // //   return (
 // // //     <View style={styles.container}>
 // // //       <StatusBar barStyle="dark-content" />
-      
+
 // // //       <View style={styles.searchContainer}>
 // // //         <View style={styles.searchInputContainer}>
 // // //           <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
@@ -865,7 +853,6 @@
 // // //   );
 // // // }
 
-
 // // import React, { useState, useEffect } from 'react';
 // // import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert, StatusBar, FlatList } from 'react-native';
 // // import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -937,25 +924,24 @@
 
 // //   // const fetchSuggestions = async (query) => {
 // //   //   try {
-// //   //     const response = await axios.get(`https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`);
+// //   //     const response = await axios.get(`http://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`);
 // //   //     setSuggestions(response.data.predictions);
 // //   //   } catch (error) {
 // //   //     console.error('Error fetching suggestions:', error);
 // //   //   }
 // //   // };
 
-
 // //   const fetchSuggestions = async (query) => {
 // //     if (!query) {
 // //       setSuggestions([]);
 // //       return;
 // //     }
-  
+
 // //     try {
 // //       const response = await axios.get(
-// //         `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`
+// //         `http://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`
 // //       );
-  
+
 // //       if (response.data.status === 'OK') {
 // //         setSuggestions(response.data.predictions);
 // //       } else {
@@ -965,11 +951,10 @@
 // //       console.error('Error fetching suggestions:', error);
 // //     }
 // //   };
-  
 
 // //   // const handleSuggestionPress = async (placeId) => {
 // //   //   try {
-// //   //     const response = await axios.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`);
+// //   //     const response = await axios.get(`http://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`);
 // //   //     const { lat, lng } = response.data.result.geometry.location;
 // //   //     setMapRegion({ ...mapRegion, latitude: lat, longitude: lng });
 // //   //     setSelectedLocation({ latitude: lat, longitude: lng });
@@ -979,13 +964,12 @@
 // //   //   }
 // //   // };
 
-
 // //   const handleSuggestionPress = async (placeId) => {
 // //     try {
 // //       const response = await axios.get(
-// //         `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`
+// //         `http://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4`
 // //       );
-  
+
 // //       if (response.data.status === 'OK') {
 // //         const { lat, lng } = response.data.result.geometry.location;
 // //         setMapRegion({ ...mapRegion, latitude: lat, longitude: lng });
@@ -998,14 +982,13 @@
 // //       console.error('Error fetching place details:', error);
 // //     }
 // //   };
-  
 
 // //   const { height, width } = Dimensions.get('window');
 
 // //   return (
 // //     <View style={styles.container}>
 // //       <StatusBar barStyle="dark-content" />
-      
+
 // //       <View style={styles.searchContainer}>
 // //         <View style={styles.searchInputContainer}>
 // //           <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
@@ -1090,7 +1073,6 @@
 // //     </View>
 // //   );
 // // }
-
 
 // // const styles = StyleSheet.create({
 // //   container: {
@@ -1206,14 +1188,6 @@
 // //   },
 // // });
 
-
-
-
-
-
-
-
-
 // import React, { useState, useEffect } from 'react';
 // import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert, StatusBar, FlatList } from 'react-native';
 // import MapView, { Marker } from 'react-native-maps';
@@ -1242,7 +1216,7 @@
 //       setSuggestions([]); // Clear suggestions when the search query is empty
 //       return;
 //     }
-  
+
 //     const fetchLocation = async () => {
 //       const { status } = await Location.requestForegroundPermissionsAsync();
 //       if (status !== 'granted') {
@@ -1253,7 +1227,7 @@
 //         );
 //         return;
 //       }
-  
+
 //       const location = await Location.getCurrentPositionAsync({});
 //       setMapRegion({
 //         ...mapRegion,
@@ -1265,11 +1239,10 @@
 //         longitude: location.coords.longitude,
 //       });
 //     };
-  
+
 //     fetchLocation();
 //   }, [searchQuery]);
 
-  
 //   // useEffect(() => {
 //   //   (async () => {
 //   //     const { status } = await Location.requestForegroundPermissionsAsync();
@@ -1303,7 +1276,7 @@
 //   const handleSearch = async () => {
 //     try {
 //       const response = await axios.get(
-//         `https://maps.gomaps.pro/maps/api/geocode/json?address=${searchQuery}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
+//         `http://maps.gomaps.pro/maps/api/geocode/json?address=${searchQuery}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
 //       );
 //       const geocode = response.data.results;
 //       if (geocode.length > 0) {
@@ -1324,10 +1297,10 @@
 //       setSuggestions([]);
 //       return;
 //     }
-  
+
 //     try {
 //       const response = await axios.get(
-//         `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${query}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
+//         `http://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${query}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
 //       );
 //       setSuggestions(response.data.predictions);
 //     } catch (error) {
@@ -1338,7 +1311,7 @@
 //   const handleSuggestionPress = async (placeId) => {
 //     try {
 //       const response = await axios.get(
-//         `https://maps.gomaps.pro/maps/api/place/details/json?placeid=${placeId}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
+//         `http://maps.gomaps.pro/maps/api/place/details/json?placeid=${placeId}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
 //       );
 //       const { lat, lng } = response.data.result.geometry.location;
 //       setMapRegion({ ...mapRegion, latitude: lat, longitude: lng });
@@ -1354,7 +1327,7 @@
 //   return (
 //     <View style={styles.container}>
 //       <StatusBar barStyle="light" />
-      
+
 //       <View style={styles.searchContainer}>
 //         <View style={styles.searchInputContainer}>
 //           <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
@@ -1375,7 +1348,7 @@
 //             //     setSuggestions([]); // Clear suggestions for empty or whitespace-only input
 //             //   }
 //             // }}
-            
+
 //             onSubmitEditing={handleSearch}
 //           />
 //         </View>
@@ -1556,20 +1529,24 @@
 //   },
 // });
 
-
-
-
-
-
-
-
-
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Dimensions, TextInput, Text, TouchableOpacity, Alert, StatusBar, FlatList, KeyboardAvoidingView, Platform } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import * as Location from 'expo-location';
-import { Ionicons } from '@expo/vector-icons';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  Alert,
+  StatusBar,
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import * as Location from "expo-location";
+import { Ionicons } from "@expo/vector-icons";
+import axios from "axios";
 
 export default function GoMapView() {
   const [mapRegion, setMapRegion] = useState({
@@ -1584,17 +1561,17 @@ export default function GoMapView() {
     longitude: -122.4194,
   });
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
+      if (status !== "granted") {
         Alert.alert(
-          'Location Permission Required',
-          'Please enable location services to use all features.',
-          [{ text: 'OK', style: 'default' }]
+          "Location Permission Required",
+          "Please enable location services to use all features.",
+          [{ text: "OK", style: "default" }]
         );
         return;
       }
@@ -1620,7 +1597,7 @@ export default function GoMapView() {
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `https://maps.gomaps.pro/maps/api/geocode/json?address=${searchQuery}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
+        `http://maps.gomaps.pro/maps/api/geocode/json?address=${searchQuery}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
       );
       const geocode = response.data.results;
       if (geocode.length > 0) {
@@ -1629,10 +1606,13 @@ export default function GoMapView() {
         setSelectedLocation({ latitude: lat, longitude: lng });
         setSuggestions([]);
       } else {
-        Alert.alert('Location Not Found', 'Please try a different search term.');
+        Alert.alert(
+          "Location Not Found",
+          "Please try a different search term."
+        );
       }
     } catch (error) {
-      Alert.alert('Error', 'Unable to search location. Please try again.');
+      Alert.alert("Error", "Unable to search location. Please try again.");
     }
   };
 
@@ -1641,47 +1621,52 @@ export default function GoMapView() {
       setSuggestions([]);
       return;
     }
-  
+
     try {
       const response = await axios.get(
-        `https://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${query}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
+        `http://maps.gomaps.pro/maps/api/place/autocomplete/json?input=${query}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
       );
       setSuggestions(response.data.predictions);
     } catch (error) {
-      console.error('Error fetching suggestions:', error);
+      console.error("Error fetching suggestions:", error);
     }
   };
 
   const handleSuggestionPress = async (placeId) => {
     try {
       const response = await axios.get(
-        `https://maps.gomaps.pro/maps/api/place/details/json?placeid=${placeId}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
+        `http://maps.gomaps.pro/maps/api/place/details/json?placeid=${placeId}&key=AlzaSydwd28czR0irb_qR2Zo8qzMXl1TSR6JXPB`
       );
       const { lat, lng } = response.data.result.geometry.location;
       setMapRegion({ ...mapRegion, latitude: lat, longitude: lng });
       setSelectedLocation({ latitude: lat, longitude: lng });
       setSuggestions([]);
     } catch (error) {
-      console.error('Error fetching place details:', error);
+      console.error("Error fetching place details:", error);
     }
   };
 
-  const { height, width } = Dimensions.get('window');
+  const { height, width } = Dimensions.get("window");
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.keyboardAvoidingView}
     >
       <FlatList
-        data={[{ key: 'map' }]}
+        data={[{ key: "map" }]}
         renderItem={() => (
           <View style={styles.container}>
             <StatusBar barStyle="light" />
-            
+
             <View style={styles.searchContainer}>
               <View style={styles.searchInputContainer}>
-                <Ionicons name="search" size={20} color="#666" style={styles.searchIcon} />
+                <Ionicons
+                  name="search"
+                  size={20}
+                  color="#666"
+                  style={styles.searchIcon}
+                />
                 <TextInput
                   style={styles.searchBar}
                   placeholder="Search location..."
@@ -1689,7 +1674,8 @@ export default function GoMapView() {
                   value={searchQuery}
                   onChangeText={(text) => {
                     setSearchQuery(text);
-                    if (text.trim()) {  // Only fetch suggestions if text is not empty or just whitespace
+                    if (text.trim()) {
+                      // Only fetch suggestions if text is not empty or just whitespace
                       fetchSuggestions(text);
                     } else {
                       setSuggestions([]);
@@ -1698,18 +1684,25 @@ export default function GoMapView() {
                   onSubmitEditing={handleSearch}
                 />
               </View>
-              <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
+              <TouchableOpacity
+                style={styles.searchButton}
+                onPress={handleSearch}
+              >
                 <Text style={styles.searchButtonText}>Search</Text>
               </TouchableOpacity>
             </View>
 
-            {suggestions.length > 0 && searchQuery.trim() !== '' && (
+            {suggestions.length > 0 && searchQuery.trim() !== "" && (
               <FlatList
                 data={suggestions}
                 keyExtractor={(item) => item.place_id}
                 renderItem={({ item }) => (
-                  <TouchableOpacity onPress={() => handleSuggestionPress(item.place_id)}>
-                    <Text style={styles.suggestionItem}>{item.description}</Text>
+                  <TouchableOpacity
+                    onPress={() => handleSuggestionPress(item.place_id)}
+                  >
+                    <Text style={styles.suggestionItem}>
+                      {item.description}
+                    </Text>
                   </TouchableOpacity>
                 )}
                 style={styles.suggestionsContainer}
@@ -1727,10 +1720,7 @@ export default function GoMapView() {
                 onRegionChangeComplete={setMapRegion}
                 onPress={handleMapPress}
               >
-                <Marker
-                  coordinate={selectedLocation}
-                  pinColor="#2563eb"
-                />
+                <Marker coordinate={selectedLocation} pinColor="#2563eb" />
               </MapView>
             </View>
 
@@ -1766,8 +1756,8 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   container: {
     padding: 20,
@@ -1777,18 +1767,18 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   searchContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingTop: 16,
     paddingBottom: 8,
     gap: 8,
   },
   searchInputContainer: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -1801,49 +1791,49 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     fontSize: 16,
-    color: '#1f2937',
+    color: "#1f2937",
   },
   searchButton: {
-    backgroundColor: '#2563eb',
+    backgroundColor: "#2563eb",
     paddingHorizontal: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 12,
-    shadowColor: '#2563eb',
+    shadowColor: "#2563eb",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 3,
   },
   searchButtonText: {
-    color: 'white',
+    color: "white",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   suggestionsContainer: {
     maxHeight: 200,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
     marginHorizontal: 16,
     marginTop: 8,
-    position: 'absolute',
+    position: "absolute",
     top: 120,
-    width: '90%',
+    width: "90%",
     zIndex: 1,
   },
   suggestionItem: {
     padding: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: "#e2e8f0",
   },
   mapContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginVertical: 16,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -1853,9 +1843,9 @@ const styles = StyleSheet.create({
   locationInfoContainer: {
     margin: 16,
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -1863,28 +1853,28 @@ const styles = StyleSheet.create({
   },
   locationTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#1f2937',
+    fontWeight: "600",
+    color: "#1f2937",
     marginBottom: 12,
   },
   coordinatesContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
   },
   coordinateBox: {
     flex: 1,
-    backgroundColor: '#f1f5f9',
+    backgroundColor: "#f1f5f9",
     padding: 12,
     borderRadius: 8,
   },
   coordinateLabel: {
     fontSize: 14,
-    color: '#64748b',
+    color: "#64748b",
     marginBottom: 4,
   },
   coordinateValue: {
     fontSize: 16,
-    color: '#0f172a',
-    fontWeight: '500',
+    color: "#0f172a",
+    fontWeight: "500",
   },
 });

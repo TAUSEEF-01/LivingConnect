@@ -1,0 +1,13 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "15454025-078b-4dbd-990f-90543f91dca0"
+      }
+    },
+    "android": {
+      "package": "com.tauseef_01.livingconnect"
+    }
+  },
+  "entryPoint": "./App.js"
+}

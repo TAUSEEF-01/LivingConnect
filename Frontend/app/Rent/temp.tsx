@@ -22,7 +22,7 @@
 //       road: '',
 //       houseNumber: '',
 //     },
-//     facitlities: {
+//     facilities: {
 //       garage: false,
 //       lift: false,
 //       gasSupply: false,
@@ -172,7 +172,7 @@
 //       road: '',
 //       houseNumber: '',
 //     },
-//     facitlities: {
+//     facilities: {
 //       garage: false,
 //       lift: false,
 //       gasSupply: false,
@@ -211,13 +211,13 @@
 //         'location.sector',
 //         'location.road',
 //         'location.houseNumber',
-//         'facitlities.garage',
-//         'facitlities.lift',
-//         'facitlities.gasSupply',
-//         'facitlities.generator',
-//         'facitlities.internet',
-//         'facitlities.cctv',
-//         'facitlities.wifi',
+//         'facilities.garage',
+//         'facilities.lift',
+//         'facilities.gasSupply',
+//         'facilities.generator',
+//         'facilities.internet',
+//         'facilities.cctv',
+//         'facilities.wifi',
 //         'availability.from',
 //         'availability.to',
 //         'images',
@@ -382,8 +382,8 @@
 //             <TextInput
 //               style={styles.facilitiesInput}
 //               placeholder="Garage"
-//               value={formData.facitlities.garage.toString()}
-//               onChangeText={(text) => handleInputChange('facitlities.garage', text === 'true')}
+//               value={formData.facilities.garage.toString()}
+//               onChangeText={(text) => handleInputChange('facilities.garage', text === 'true')}
 //             />
 //           </View>
 //           <View style={styles.facilitiesCheckbox}>
@@ -391,8 +391,8 @@
 //             <TextInput
 //               style={styles.facilitiesInput}
 //               placeholder="Lift"
-//               value={formData.facitlities.lift.toString()}
-//               onChangeText={(text) => handleInputChange('facitlities.lift', text === 'true')}
+//               value={formData.facilities.lift.toString()}
+//               onChangeText={(text) => handleInputChange('facilities.lift', text === 'true')}
 //             />
 //           </View>
 //         </View>
@@ -402,8 +402,8 @@
 //             <TextInput
 //               style={styles.facilitiesInput}
 //               placeholder="Gas Supply"
-//               value={formData.facitlities.gasSupply.toString()}
-//               onChangeText={(text) => handleInputChange('facitlities.gasSupply', text === 'true')}
+//               value={formData.facilities.gasSupply.toString()}
+//               onChangeText={(text) => handleInputChange('facilities.gasSupply', text === 'true')}
 //             />
 //           </View>
 //           <View style={styles.facilitiesCheckbox}>
@@ -411,8 +411,8 @@
 //             <TextInput
 //               style={styles.facilitiesInput}
 //               placeholder="Generator"
-//               value={formData.facitlities.generator.toString()}
-//               onChangeText={(text) => handleInputChange('facitlities.generator', text === 'true')}
+//               value={formData.facilities.generator.toString()}
+//               onChangeText={(text) => handleInputChange('facilities.generator', text === 'true')}
 //             />
 //           </View>
 //         </View>
@@ -422,8 +422,8 @@
 //             <TextInput
 //               style={styles.facilitiesInput}
 //               placeholder="Internet"
-//               value={formData.facitlities.internet.toString()}
-//               onChangeText={(text) => handleInputChange('facitlities.internet', text === 'true')}
+//               value={formData.facilities.internet.toString()}
+//               onChangeText={(text) => handleInputChange('facilities.internet', text === 'true')}
 //             />
 //           </View>
 //           <View style={styles.facilitiesCheckbox}>
@@ -431,8 +431,8 @@
 //             <TextInput
 //               style={styles.facilitiesInput}
 //               placeholder="CCTV"
-//               value={formData.facitlities.cctv.toString()}
-//               onChangeText={(text) => handleInputChange('facitlities.cctv', text === 'true')}
+//               value={formData.facilities.cctv.toString()}
+//               onChangeText={(text) => handleInputChange('facilities.cctv', text === 'true')}
 //             />
 //           </View>
 //         </View>
@@ -442,8 +442,8 @@
 //             <TextInput
 //               style={styles.facilitiesInput}
 //               placeholder="WiFi"
-//               value={formData.facitlities.wifi.toString()}
-//               onChangeText={(text) => handleInputChange('facitlities.wifi', text === 'true')}
+//               value={formData.facilities.wifi.toString()}
+//               onChangeText={(text) => handleInputChange('facilities.wifi', text === 'true')}
 //             />
 //           </View>
 //         </View>

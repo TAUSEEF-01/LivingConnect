@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "0f721295-63f4-4725-b0f7-66f08db48e4c"
+      }
+    },
+    "android": {
+      "package": "com.tauseef_01.backend"
+    }
+  }
+}
