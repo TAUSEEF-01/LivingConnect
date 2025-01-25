@@ -167,7 +167,7 @@
 // //               const token = await AsyncStorage.getItem("userToken");
 // //               if (token) {
 // //                 await axios.post(
-// //                   "http://192.168.50.242:5000/logout",
+// //                   "https://livingconnect-backend.vercel.app/logout",
 // //                   {},
 // //                   { headers: { Authorization: `Bearer ${token}` } }
 // //                 );
@@ -235,7 +235,7 @@
 //   useEffect(() => {
 //     async function fetchProperties() {
 //       try {
-//         const response = await fetch("http://192.168.50.242:5000/properties");
+//         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -684,7 +684,7 @@ const AllHomesPage = () => {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/communityDetails/get-all-CommunityCenter-details"
+        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -709,7 +709,9 @@ const AllHomesPage = () => {
   if (homes.length === 0) {
     return (
       <View style={localStyles.noDataContainer}>
-        <Text style={localStyles.noDataText}>No Community Center available.</Text>
+        <Text style={localStyles.noDataText}>
+          No Community Center available.
+        </Text>
       </View>
     );
   }
@@ -788,12 +790,13 @@ const AllHomesPage = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.filterButtonSecondary}
-                onPress={() => router.push("/pages/FiltersPage/filterInfoCommunityCenter")}
+                onPress={() =>
+                  router.push("/pages/FiltersPage/filterInfoCommunityCenter")
+                }
               >
                 <Text style={styles.filterButtonText}>Show filters</Text>
               </TouchableOpacity>
             </View>
-
           </View>
 
           <ScrollView style={styles.scrollContainer}>
@@ -804,12 +807,12 @@ const AllHomesPage = () => {
                 style={styles.card}
                 onPress={() =>
                   router.push({
-                    pathname: "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
+                    pathname:
+                      "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
                     params: { communityId: home._id }, // Pass the home ID as a query parameter
                   })
                 }
               >
-
                 {home.images.length > 0 && (
                   <Image
                     source={{ uri: home.images[0] }} // Display the first image
@@ -817,14 +820,16 @@ const AllHomesPage = () => {
                   />
                 )}
 
-                <Text style={styles.cardPrice}>Base Price: {home.price.basePrice} Tk
+                <Text style={styles.cardPrice}>
+                  Base Price: {home.price.basePrice} Tk
                 </Text>
 
                 <Text style={styles.cardDetails}>
-                Capacity: {home.details.capacity} people
-                {" | "}Parking:{" "} {home.details.parking} Cars
-                {" | "}Halls: {home.details.halls}
-                {" | "}{home.details.size} m²
+                  Capacity: {home.details.capacity} people
+                  {" | "}Parking: {home.details.parking} Cars
+                  {" | "}Halls: {home.details.halls}
+                  {" | "}
+                  {home.details.size} m²
                 </Text>
 
                 <Text style={styles.cardLocation}>

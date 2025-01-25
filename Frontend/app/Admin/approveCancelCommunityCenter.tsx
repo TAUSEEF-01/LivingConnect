@@ -16,16 +16,16 @@ import axios from "axios";
 import { router, useLocalSearchParams } from "expo-router";
 
 const CommunityApprovedDetailsPage = ({ route }) => {
-  const { communityId } = useLocalSearchParams();// route.params; // Receive community ID from navigation
+  const { communityId } = useLocalSearchParams(); // route.params; // Receive community ID from navigation
 
-    const [community, setCommunity] = useState(null);
+  const [community, setCommunity] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const fetchCommunityDetails = async () => {
     try {
-        console.log(communityId);
+      console.log(communityId);
       const response = await axios.get(
-        `http://192.168.50.242:5000/communityDetails/get-communityCenter-details/${communityId}`
+        `https://livingconnect-backend.vercel.app/communityDetails/get-communityCenter-details/${communityId}`
       );
       console.log("Community details response:", response.data);
       setCommunity(response.data);
@@ -37,21 +37,21 @@ const CommunityApprovedDetailsPage = ({ route }) => {
     }
   };
 
-    const makeCall = (phoneNumber) => {
-        const formattedNumber =
-        Platform.OS === "android"
-            ? `tel:${phoneNumber}`
-            : `telprompt:${phoneNumber}`;
+  const makeCall = (phoneNumber) => {
+    const formattedNumber =
+      Platform.OS === "android"
+        ? `tel:${phoneNumber}`
+        : `telprompt:${phoneNumber}`;
 
-        Linking.openURL(formattedNumber).catch((err) => {
-        console.error("Error occurred while trying to make a call:", err);
-        });
-    };
+    Linking.openURL(formattedNumber).catch((err) => {
+      console.error("Error occurred while trying to make a call:", err);
+    });
+  };
 
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
-        `http://192.168.50.242:5000/communityDetails/cancel/${id}`
+        `https://livingconnect-backend.vercel.app/communityDetails/cancel/${id}`
       );
       Alert.alert("Success", response.data.message);
       router.replace("/Admin/adminApprovedRequestCommunityCenter");
@@ -84,33 +84,30 @@ const CommunityApprovedDetailsPage = ({ route }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-
         <Text style={styles.title}>
-        {community.centerType ? community.centerType.toUpperCase() : "N/A"}
+          {community.centerType ? community.centerType.toUpperCase() : "N/A"}
         </Text>
 
         {community.images?.length ? (
-        <ScrollView horizontal style={styles.imageContainer}>
+          <ScrollView horizontal style={styles.imageContainer}>
             {community.images.map((image, index) => (
-            <Image
+              <Image
                 key={index}
                 source={{ uri: image }}
                 style={styles.image}
                 resizeMode="cover"
-            />
+              />
             ))}
-        </ScrollView>
-        
+          </ScrollView>
         ) : (
-        <Text style={styles.errorText}>No images available</Text>
+          <Text style={styles.errorText}>No images available</Text>
         )}
 
         <View>
-            <Text style={styles.imageText}>
-                Images ({community?.images?.length || 0})
-            </Text>
+          <Text style={styles.imageText}>
+            Images ({community?.images?.length || 0})
+          </Text>
         </View>
-        
 
         {/* Basic Details */}
         <View style={styles.section}>
@@ -181,7 +178,8 @@ const CommunityApprovedDetailsPage = ({ route }) => {
           <Text style={styles.sectionTitle}>Availability</Text>
           <Text style={styles.text}>
             From:{" "}
-            {new Date(community.availability.from).toLocaleDateString() || "N/A"}
+            {new Date(community.availability.from).toLocaleDateString() ||
+              "N/A"}
           </Text>
           <Text style={styles.text}>
             To:{" "}
@@ -189,36 +187,37 @@ const CommunityApprovedDetailsPage = ({ route }) => {
           </Text>
         </View>
 
-
         <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Owner</Text>
-            <Text style={styles.text}>Email: {community?.email || "N/A"}</Text>
-            <Text style={styles.text}>
-                Contact Number:{" "}
-                <Text style={styles.callText}>{community.contactNumber || "N/A"}</Text>
+          <Text style={styles.sectionTitle}>Owner</Text>
+          <Text style={styles.text}>Email: {community?.email || "N/A"}</Text>
+          <Text style={styles.text}>
+            Contact Number:{" "}
+            <Text style={styles.callText}>
+              {community.contactNumber || "N/A"}
             </Text>
-            <Text style={styles.text}>
-                Success:{" "}
-                <Text style={styles.callText}>
-                {community.success ? "True" : "False"}
-                </Text>
+          </Text>
+          <Text style={styles.text}>
+            Success:{" "}
+            <Text style={styles.callText}>
+              {community.success ? "True" : "False"}
             </Text>
+          </Text>
         </View>
 
         <View>
-            <TouchableOpacity
+          <TouchableOpacity
             style={styles.callButton}
             onPress={() => makeCall(community.contactNumber || "")}
-            >
+          >
             <Text style={styles.buttonText}>Call</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
 
-            <TouchableOpacity
+          <TouchableOpacity
             style={styles.callButton}
             onPress={() => handleAccept(community._id)}
-            >
+          >
             <Text style={styles.buttonText}>Reject</Text>
-            </TouchableOpacity>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -231,7 +230,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#1A1A1D",
     paddingHorizontal: 12,
     paddingVertical: 16,
-    
   },
   loaderContainer: {
     flex: 1,

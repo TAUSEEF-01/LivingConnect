@@ -319,7 +319,7 @@
 // // // //         return;
 // // // //       }
 
-// // // //       const response = await axios.get("http://192.168.50.242:5000/verify", {
+// // // //       const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
 // // // //         headers: { Authorization: `Bearer ${token}` },
 // // // //       });
 
@@ -582,7 +582,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "http://192.168.50.242:5000/logout",
+// // // //                   "https://livingconnect-backend.vercel.app/logout",
 // // // //                   {},
 // // // //                   {
 // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -867,7 +867,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "http://192.168.50.242:5000/logout",
+// // // //                   "https://livingconnect-backend.vercel.app/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1560,7 +1560,7 @@
 // // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // // //               if (token) {
 // // // // //                 await axios.post(
-// // // // //                   "http://192.168.50.242:5000/logout",
+// // // // //                   "https://livingconnect-backend.vercel.app/logout",
 // // // // //                   {},
 // // // // //                   {
 // // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -1664,7 +1664,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "http://192.168.50.242:5000/logout",
+// // // //                   "https://livingconnect-backend.vercel.app/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1776,8 +1776,8 @@
 // // //   useEffect(() => {
 // // //     async function fetchProperties() {
 // // //       try {
-// // //         const response = await fetch("http://192.168.50.242:5000/properties");
-// // //         // const response = await fetch("http://192.168.50.242:5000/properties");
+// // //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// // //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
 // // //         const data = await response.json();
 
 // // //         // console.log('Fetched properties:', data);
@@ -1799,8 +1799,8 @@
 // // //   const fetchAllHomeDetails = async () => {
 // // //     try {
 // // //       const response = await axios.get(
-// // //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-// // //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// // //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// // //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
 // // //       );
 // // //       setHomes(response.data);
 // // //     } catch (error) {
@@ -2683,8 +2683,8 @@
 // //   useEffect(() => {
 // //     async function fetchProperties() {
 // //       try {
-// //         const response = await fetch("http://192.168.50.242:5000/properties");
-// //         // const response = await fetch("http://192.168.50.242:5000/properties");
+// //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
 // //         const data = await response.json();
 
 // //         // console.log('Fetched properties:', data);
@@ -2706,8 +2706,8 @@
 // //   const fetchAllHomeDetails = async () => {
 // //     try {
 // //       const response = await axios.get(
-// //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-// //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
 // //       );
 // //       setHomes(response.data);
 // //     } catch (error) {
@@ -3880,9 +3880,9 @@
 //     async function fetchProperties() {
 //       try {
 //         const response = await fetch(
-//           "http://192.168.50.242:5000/properties"
+//           "https://livingconnect-backend.vercel.app/properties"
 //         );
-//         // const response = await fetch("http://192.168.50.242:5000/properties");
+//         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -3904,8 +3904,8 @@
 //   const fetchAllHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-//         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+//         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+//         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
 //       );
 //       setHomes(response.data);
 //     } catch (error) {
@@ -5246,8 +5246,10 @@ export default function CommunityCenter() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch("http://192.168.50.242:5000/properties");
-        // const response = await fetch("http://192.168.50.242:5000/properties");
+        const response = await fetch(
+          "https://livingconnect-backend.vercel.app/properties"
+        );
+        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -5269,8 +5271,8 @@ export default function CommunityCenter() {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -5284,14 +5286,12 @@ export default function CommunityCenter() {
     fetchAllHomeDetails();
   }, []);
 
-
-
   const [communityCenter, setCommunityCenter] = useState([]);
   const fetchAllCommunityCenterDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/communityDetails/get-all-CommunityCenter-details"
-        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details"
+        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setCommunityCenter(response.data);
     } catch (error) {
@@ -5304,7 +5304,6 @@ export default function CommunityCenter() {
   useEffect(() => {
     fetchAllCommunityCenterDetails();
   }, []);
-
 
   if (loading) {
     return (
@@ -5676,52 +5675,53 @@ export default function CommunityCenter() {
                 ))}
               </ScrollView> */}
 
-          {/* <ScrollView style={styles.scrollContainer}> */}
-          <ScrollView horizontal style={localStyles.cardContainer}>
-            {/* <ScrollView style={localStyles.container}> */}
-            {communityCenter.map((home) => (
-              <TouchableOpacity
-                key={home._id}
-                // style={styles.card}
-                style={localStyles.card}
-                onPress={() =>
-                  router.push({
-                    pathname: "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
-                    params: { communityId: home._id }, // Pass the home ID as a query parameter
-                  })
-                }
-              >
+              {/* <ScrollView style={styles.scrollContainer}> */}
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {/* <ScrollView style={localStyles.container}> */}
+                {communityCenter.map((home) => (
+                  <TouchableOpacity
+                    key={home._id}
+                    // style={styles.card}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname:
+                          "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
+                        params: { communityId: home._id }, // Pass the home ID as a query parameter
+                      })
+                    }
+                  >
+                    {home.images.length > 0 && (
+                      <Image
+                        source={{ uri: home.images[0] }} // Display the first image
+                        // style={styles.cardImage}
+                        style={localStyles.cardImage}
+                      />
+                    )}
 
-                {home.images.length > 0 && (
-                  <Image
-                    source={{ uri: home.images[0] }} // Display the first image
-                    // style={styles.cardImage}
-                    style={localStyles.cardImage}
-                  />
-                )}
+                    {/* <Text style={styles.cardPrice}> */}
+                    <Text style={localStyles.cardPrice}>
+                      Base Price: {home.price.basePrice} Tk
+                    </Text>
 
-                {/* <Text style={styles.cardPrice}> */}
-                <Text style={localStyles.cardPrice}>
-                  Base Price: {home.price.basePrice} Tk
-                </Text>
+                    {/* <Text style={styles.cardDetails}> */}
+                    <Text style={localStyles.cardDetails}>
+                      Capacity: {home.details.capacity} people
+                      {" | "}Parking: {home.details.parking} Cars
+                      {" | "}Halls: {home.details.halls}
+                      {" | "}
+                      {home.details.size} m²
+                    </Text>
 
-                {/* <Text style={styles.cardDetails}> */}
-                <Text style={localStyles.cardDetails}>
-                Capacity: {home.details.capacity} people
-                {" | "}Parking:{" "} {home.details.parking} Cars
-                {" | "}Halls: {home.details.halls}
-                {" | "}{home.details.size} m²
-                </Text>
+                    {/* <Text style={styles.cardLocation}> */}
+                    <Text style={localStyles.cardLocation}>
+                      {home.location.city}, {home.location.area}
+                    </Text>
 
-                {/* <Text style={styles.cardLocation}> */}
-                <Text style={localStyles.cardLocation}>
-                  {home.location.city}, {home.location.area}
-                </Text>
-
-                {/* </ScrollView> */}
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+                    {/* </ScrollView> */}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
 
               <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>
@@ -5759,53 +5759,53 @@ export default function CommunityCenter() {
                 ))}
               </ScrollView> */}
 
+              {/* <ScrollView style={styles.scrollContainer}> */}
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {/* <ScrollView style={localStyles.container}> */}
+                {communityCenter.map((home) => (
+                  <TouchableOpacity
+                    key={home._id}
+                    // style={styles.card}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname:
+                          "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
+                        params: { communityId: home._id }, // Pass the home ID as a query parameter
+                      })
+                    }
+                  >
+                    {home.images.length > 0 && (
+                      <Image
+                        source={{ uri: home.images[0] }} // Display the first image
+                        // style={styles.cardImage}
+                        style={localStyles.cardImage}
+                      />
+                    )}
 
-          {/* <ScrollView style={styles.scrollContainer}> */}
-          <ScrollView horizontal style={localStyles.cardContainer}>
-            {/* <ScrollView style={localStyles.container}> */}
-            {communityCenter.map((home) => (
-              <TouchableOpacity
-                key={home._id}
-                // style={styles.card}
-                style={localStyles.card}
-                onPress={() =>
-                  router.push({
-                    pathname: "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
-                    params: { communityId: home._id }, // Pass the home ID as a query parameter
-                  })
-                }
-              >
+                    {/* <Text style={styles.cardPrice}> */}
+                    <Text style={localStyles.cardPrice}>
+                      Base Price: {home.price.basePrice} Tk
+                    </Text>
 
-                {home.images.length > 0 && (
-                  <Image
-                    source={{ uri: home.images[0] }} // Display the first image
-                    // style={styles.cardImage}
-                    style={localStyles.cardImage}
-                  />
-                )}
+                    {/* <Text style={styles.cardDetails}> */}
+                    <Text style={localStyles.cardDetails}>
+                      Capacity: {home.details.capacity} people
+                      {" | "}Parking: {home.details.parking} Cars
+                      {" | "}Halls: {home.details.halls}
+                      {" | "}
+                      {home.details.size} m²
+                    </Text>
 
-                {/* <Text style={styles.cardPrice}> */}
-                <Text style={localStyles.cardPrice}>
-                  Base Price: {home.price.basePrice} Tk
-                </Text>
+                    {/* <Text style={styles.cardLocation}> */}
+                    <Text style={localStyles.cardLocation}>
+                      {home.location.city}, {home.location.area}
+                    </Text>
 
-                {/* <Text style={styles.cardDetails}> */}
-                <Text style={localStyles.cardDetails}>
-                Capacity: {home.details.capacity} people
-                {" | "}Parking:{" "} {home.details.parking} Cars
-                {" | "}Halls: {home.details.halls}
-                {" | "}{home.details.size} m²
-                </Text>
-
-                {/* <Text style={styles.cardLocation}> */}
-                <Text style={localStyles.cardLocation}>
-                  {home.location.city}, {home.location.area}
-                </Text>
-
-                {/* </ScrollView> */}
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+                    {/* </ScrollView> */}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
 
               <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>
@@ -5843,53 +5843,53 @@ export default function CommunityCenter() {
                 ))}
               </ScrollView> */}
 
-          {/* <ScrollView style={styles.scrollContainer}> */}
-          <ScrollView horizontal style={localStyles.cardContainer}>
-            {/* <ScrollView style={localStyles.container}> */}
-            {communityCenter.map((home) => (
-              <TouchableOpacity
-                key={home._id}
-                // style={styles.card}
-                style={localStyles.card}
-                onPress={() =>
-                  router.push({
-                    pathname: "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
-                    params: { communityId: home._id }, // Pass the home ID as a query parameter
-                  })
-                }
-              >
+              {/* <ScrollView style={styles.scrollContainer}> */}
+              <ScrollView horizontal style={localStyles.cardContainer}>
+                {/* <ScrollView style={localStyles.container}> */}
+                {communityCenter.map((home) => (
+                  <TouchableOpacity
+                    key={home._id}
+                    // style={styles.card}
+                    style={localStyles.card}
+                    onPress={() =>
+                      router.push({
+                        pathname:
+                          "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
+                        params: { communityId: home._id }, // Pass the home ID as a query parameter
+                      })
+                    }
+                  >
+                    {home.images.length > 0 && (
+                      <Image
+                        source={{ uri: home.images[0] }} // Display the first image
+                        // style={styles.cardImage}
+                        style={localStyles.cardImage}
+                      />
+                    )}
 
-                {home.images.length > 0 && (
-                  <Image
-                    source={{ uri: home.images[0] }} // Display the first image
-                    // style={styles.cardImage}
-                    style={localStyles.cardImage}
-                  />
-                )}
+                    {/* <Text style={styles.cardPrice}> */}
+                    <Text style={localStyles.cardPrice}>
+                      Base Price: {home.price.basePrice} Tk
+                    </Text>
 
-                {/* <Text style={styles.cardPrice}> */}
-                <Text style={localStyles.cardPrice}>
-                  Base Price: {home.price.basePrice} Tk
-                </Text>
+                    {/* <Text style={styles.cardDetails}> */}
+                    <Text style={localStyles.cardDetails}>
+                      Capacity: {home.details.capacity} people
+                      {" | "}Parking: {home.details.parking} Cars
+                      {" | "}Halls: {home.details.halls}
+                      {" | "}
+                      {home.details.size} m²
+                    </Text>
 
-                {/* <Text style={styles.cardDetails}> */}
-                <Text style={localStyles.cardDetails}>
-                Capacity: {home.details.capacity} people
-                {" | "}Parking:{" "} {home.details.parking} Cars
-                {" | "}Halls: {home.details.halls}
-                {" | "}{home.details.size} m²
-                </Text>
+                    {/* <Text style={styles.cardLocation}> */}
+                    <Text style={localStyles.cardLocation}>
+                      {home.location.city}, {home.location.area}
+                    </Text>
 
-                {/* <Text style={styles.cardLocation}> */}
-                <Text style={localStyles.cardLocation}>
-                  {home.location.city}, {home.location.area}
-                </Text>
-
-                {/* </ScrollView> */}
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-          
+                    {/* </ScrollView> */}
+                  </TouchableOpacity>
+                ))}
+              </ScrollView>
             </View>
           </View>
         ) : activeTab === "Services" ? (

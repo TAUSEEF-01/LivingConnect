@@ -75,8 +75,10 @@ export default function CommunityCenter() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch("http://192.168.50.242:5000/properties");
-        // const response = await fetch("http://192.168.50.242:5000/properties");
+        const response = await fetch(
+          "https://livingconnect-backend.vercel.app/properties"
+        );
+        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -98,8 +100,8 @@ export default function CommunityCenter() {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
