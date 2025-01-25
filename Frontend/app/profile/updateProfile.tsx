@@ -19,7 +19,7 @@
 //         // }
 
 //         // Fetch user data
-//         const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
+//         const response = await axios.get("http://192.168.50.242:5000/verify", {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 
@@ -61,7 +61,7 @@
 //               const token = await AsyncStorage.getItem("userToken");
 //               if (token) {
 //                 await axios.post(
-//                   "https://livingconnect-backend.vercel.app/logout",
+//                   "http://192.168.50.242:5000/logout",
 //                   {},
 //                   {
 //                     headers: { Authorization: `Bearer ${token}` },
@@ -113,7 +113,7 @@
 //       try {
 //         const token = await AsyncStorage.getItem("userToken");
 
-//         const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
+//         const response = await axios.get("http://192.168.50.242:5000/verify", {
 //           headers: { Authorization: `Bearer ${token}` },
 //         });
 
@@ -133,7 +133,7 @@
 //     try {
 //       const token = await AsyncStorage.getItem("userToken");
 //       await axios.post(
-//         "https://livingconnect-backend.vercel.app/update-profile",
+//         "http://192.168.50.242:5000/update-profile",
 //         { name: userName, contact: contactNumber, profileImage },
 //         { headers: { Authorization: `Bearer ${token}` } }
 //       );
@@ -170,7 +170,7 @@
 //               const token = await AsyncStorage.getItem("userToken");
 //               if (token) {
 //                 await axios.post(
-//                   "https://livingconnect-backend.vercel.app/logout",
+//                   "http://192.168.50.242:5000/logout",
 //                   {},
 //                   { headers: { Authorization: `Bearer ${token}` } }
 //                 );
@@ -489,7 +489,7 @@
 //     }
 
 //     try {
-//       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", {
+//       const response = await axios.post("http://192.168.50.242:5000/update-profile", {
 //         email: "user@example.com", // Replace with the actual user email
 //         name: userName,
 //         profileImage,
@@ -671,7 +671,7 @@ import {
 
 //   //   console.log('FormData contents:', formData);
 
-//   //   const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", formData, {
+//   //   const response = await axios.post("http://192.168.50.242:5000/update-profile", formData, {
 //   //     headers: {
 //   //       'Content-Type': 'multipart/form-data'
 //   //     },
@@ -799,8 +799,8 @@ export default function Profile() {
 
       setLoading(true);
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/profile/get-profile",
-        // "https://livingconnect-backend.vercel.app/profile/get-profile",
+        "http://192.168.50.242:5000/profile/get-profile",
+        // "http://192.168.50.242:5000/profile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -842,8 +842,8 @@ export default function Profile() {
       const token = await AsyncStorage.getItem("userToken");
 
       const response = await axios.post(
-        // "https://livingconnect-backend.vercel.app/profile/update-profile",
-        "https://livingconnect-backend.vercel.app/profile/update-profile",
+        // "http://192.168.50.242:5000/profile/update-profile",
+        "http://192.168.50.242:5000/profile/update-profile",
         {
           // email: 'abc02@gmail.com',
           name: userName,
@@ -855,7 +855,7 @@ export default function Profile() {
             Authorization: `Bearer ${token}`,
           },
           // timeout: 10000
-          timeout: 1000,
+          // timeout: 1000,
         }
       );
 
@@ -864,7 +864,7 @@ export default function Profile() {
         router.push("/pages/mainPage");
       } else {
         Alert.alert("Error", "Failed to update profile.");
-        // router.push("/pages/mainPage");
+        router.push("/pages/mainPage");
       }
     } catch (error) {
       console.error("Detailed Error:", JSON.stringify(error, null, 2));
@@ -1091,7 +1091,7 @@ const styles = StyleSheet.create({
 //     }
 
 //     try {
-//       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", {
+//       const response = await axios.post("http://192.168.50.242:5000/update-profile", {
 //         email: "abc01@gmail.com", // Replace with the actual user email
 //         name: userName,
 //         contactNumber,
@@ -1148,7 +1148,7 @@ const styles = StyleSheet.create({
 
 //       console.log('mark 3');
 
-//       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", formData, {
+//       const response = await axios.post("http://192.168.50.242:5000/update-profile", formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data'
 //         }
@@ -1211,7 +1211,7 @@ const styles = StyleSheet.create({
 //       // console.log(formData);
 
 //       // Detailed error logging
-//       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", formData, {
+//       const response = await axios.post("http://192.168.50.242:5000/update-profile", formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data'
 //         },
@@ -1274,7 +1274,7 @@ const styles = StyleSheet.create({
 //         name: 'profile.jpg'
 //       });
 
-//       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", formData, {
+//       const response = await axios.post("http://192.168.50.242:5000/update-profile", formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data'
 //         }

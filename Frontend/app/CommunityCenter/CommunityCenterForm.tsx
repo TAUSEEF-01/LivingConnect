@@ -143,7 +143,7 @@ const CommunityCenterForm = () => {
 
     try {
       const response = await axios.post(
-        "https://livingconnect-backend.vercel.app/communityDetails/add-community-center",
+        "http://192.168.50.242:5000/communityDetails/add-community-center",
         formData,
         {
           headers: {
@@ -155,7 +155,9 @@ const CommunityCenterForm = () => {
 
       if (response.status === 200) {
         console.log("Form submitted successfully");
-        Alert.alert("Form submitted successfully");
+        Alert.alert(
+          "Form submitted successfully. The admins will review your request."
+        );
         router.replace("/pages/mainPage");
       } else {
         console.error("Submission failed");

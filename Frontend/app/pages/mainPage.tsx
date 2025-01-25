@@ -319,7 +319,7 @@
 // // // //         return;
 // // // //       }
 
-// // // //       const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
+// // // //       const response = await axios.get("http://192.168.50.242:5000/verify", {
 // // // //         headers: { Authorization: `Bearer ${token}` },
 // // // //       });
 
@@ -582,7 +582,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   {
 // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -867,7 +867,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1560,7 +1560,7 @@
 // // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // // //               if (token) {
 // // // // //                 await axios.post(
-// // // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // // //                   "http://192.168.50.242:5000/logout",
 // // // // //                   {},
 // // // // //                   {
 // // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -1664,7 +1664,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1776,8 +1776,8 @@
 // // //   useEffect(() => {
 // // //     async function fetchProperties() {
 // // //       try {
-// // //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
-// // //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// // //         const response = await fetch("http://192.168.50.242:5000/properties");
+// // //         // const response = await fetch("http://192.168.50.242:5000/properties");
 // // //         const data = await response.json();
 
 // // //         // console.log('Fetched properties:', data);
@@ -1799,8 +1799,8 @@
 // // //   const fetchAllHomeDetails = async () => {
 // // //     try {
 // // //       const response = await axios.get(
-// // //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-// // //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// // //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// // //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 // // //       );
 // // //       setHomes(response.data);
 // // //     } catch (error) {
@@ -2683,8 +2683,8 @@
 // //   useEffect(() => {
 // //     async function fetchProperties() {
 // //       try {
-// //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
-// //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// //         const response = await fetch("http://192.168.50.242:5000/properties");
+// //         // const response = await fetch("http://192.168.50.242:5000/properties");
 // //         const data = await response.json();
 
 // //         // console.log('Fetched properties:', data);
@@ -2706,8 +2706,8 @@
 // //   const fetchAllHomeDetails = async () => {
 // //     try {
 // //       const response = await axios.get(
-// //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-// //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 // //       );
 // //       setHomes(response.data);
 // //     } catch (error) {
@@ -3880,9 +3880,9 @@
 //     async function fetchProperties() {
 //       try {
 //         const response = await fetch(
-//           "https://livingconnect-backend.vercel.app/properties"
+//           "http://192.168.50.242:5000/properties"
 //         );
-//         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+//         // const response = await fetch("http://192.168.50.242:5000/properties");
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -3904,8 +3904,8 @@
 //   const fetchAllHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-//         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+//         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+//         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 //       );
 //       setHomes(response.data);
 //     } catch (error) {
@@ -5180,7 +5180,7 @@ import {
   Dimensions,
   ActivityIndicator,
 } from "react-native";
-import { router, useRouter } from "expo-router";
+import { router, useFocusEffect, useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import styles from "../../styles";
@@ -5246,10 +5246,8 @@ export default function CommunityCenter() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch(
-          "https://livingconnect-backend.vercel.app/properties"
-        );
-        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+        const response = await fetch("http://192.168.50.242:5000/properties");
+        // const response = await fetch("http://192.168.50.242:5000/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -5271,8 +5269,8 @@ export default function CommunityCenter() {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -5282,16 +5280,16 @@ export default function CommunityCenter() {
     }
   };
 
-  useEffect(() => {
-    fetchAllHomeDetails();
-  }, []);
+  // useEffect(() => {
+  //   fetchAllHomeDetails();
+  // }, []);
 
   const [communityCenter, setCommunityCenter] = useState([]);
   const fetchAllCommunityCenterDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details"
-        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "http://192.168.50.242:5000/communityDetails/get-all-CommunityCenter-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
       );
       setCommunityCenter(response.data);
     } catch (error) {
@@ -5301,9 +5299,17 @@ export default function CommunityCenter() {
     }
   };
 
-  useEffect(() => {
-    fetchAllCommunityCenterDetails();
-  }, []);
+  // useEffect(() => {
+  //   fetchAllCommunityCenterDetails();
+  // }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchAllCommunityCenterDetails();
+      fetchAllHomeDetails();
+      return () => {};
+    }, []) // Empty dependency array since we want this to run on every focus
+  );
 
   if (loading) {
     return (
@@ -5313,53 +5319,53 @@ export default function CommunityCenter() {
     );
   }
 
-  const dummyCommunityCenters = [
-    {
-      _id: "w1",
-      name: "Royal Wedding Hall",
-      images: ["http://images.unsplash.com/photo-1519167758481-83f550bb49b3"],
-      price: 50000,
-      details: {
-        capacity: "500",
-        parking: "100 cars",
-        size: "10000",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Dhanmondi",
-      },
-    },
-    {
-      _id: "w2",
-      name: "Grand Celebration Center",
-      images: ["http://images.unsplash.com/photo-1469371670807-013ccf25f16a"],
-      price: 45000,
-      details: {
-        capacity: "400",
-        parking: "80 cars",
-        size: "8000",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Gulshan",
-      },
-    },
-    {
-      _id: "w3",
-      name: "Elegant Event Hall",
-      images: ["http://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"],
-      price: 55000,
-      details: {
-        capacity: "500",
-        parking: "100 cars",
-        size: "10000",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Banani",
-      },
-    },
-  ];
+  // const dummyCommunityCenters = [
+  //   {
+  //     _id: "w1",
+  //     name: "Royal Wedding Hall",
+  //     images: ["http://images.unsplash.com/photo-1519167758481-83f550bb49b3"],
+  //     price: 50000,
+  //     details: {
+  //       capacity: "500",
+  //       parking: "100 cars",
+  //       size: "10000",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Dhanmondi",
+  //     },
+  //   },
+  //   {
+  //     _id: "w2",
+  //     name: "Grand Celebration Center",
+  //     images: ["http://images.unsplash.com/photo-1469371670807-013ccf25f16a"],
+  //     price: 45000,
+  //     details: {
+  //       capacity: "400",
+  //       parking: "80 cars",
+  //       size: "8000",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Gulshan",
+  //     },
+  //   },
+  //   {
+  //     _id: "w3",
+  //     name: "Elegant Event Hall",
+  //     images: ["http://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"],
+  //     price: 55000,
+  //     details: {
+  //       capacity: "500",
+  //       parking: "100 cars",
+  //       size: "10000",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Banani",
+  //     },
+  //   },
+  // ];
 
   const dummyHomeServices = [
     {

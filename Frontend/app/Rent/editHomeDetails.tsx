@@ -58,7 +58,7 @@ const EditHomeDetails = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${id}`
+          `http://192.168.50.242:5000/houseDetails/get-homes-details/${id}`
         );
 
         if (response.data) {
@@ -125,7 +125,7 @@ const EditHomeDetails = () => {
       console.log("Updating home with ID:", id);
       console.log("Update data:", updateData);
 
-      const url = `https://livingconnect-backend.vercel.app/houseDetails/update-home/${id}`;
+      const url = `http://192.168.50.242:5000/houseDetails/update-home/${id}`;
       console.log("Request URL:", url);
 
       const response = await axios({

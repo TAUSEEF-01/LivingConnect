@@ -39,7 +39,7 @@ const CommunityApprovedDetailsPage = ({ route }) => {
       console.log("Retrieved token:", token);
 
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/profile/get-profile`,
+        `http://192.168.50.242:5000/profile/get-profile`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -55,7 +55,7 @@ const CommunityApprovedDetailsPage = ({ route }) => {
   const fetchOwnerId = async (email: string) => {
     try {
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/houseDetails/userIdByEmail`,
+        `http://192.168.50.242:5000/houseDetails/userIdByEmail`,
         {
           params: { email },
         }
@@ -70,7 +70,7 @@ const CommunityApprovedDetailsPage = ({ route }) => {
     try {
       console.log(communityId);
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/communityDetails/get-communityCenter-details/${communityId}`
+        `http://192.168.50.242:5000/communityDetails/get-communityCenter-details/${communityId}`
       );
       console.log("Community details response:", response.data);
       setCommunity(response.data);

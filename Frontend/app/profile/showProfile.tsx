@@ -18,7 +18,7 @@
 //     //       setLoading(true);
 
 //     //       // Make a request to the backend with the token in the Authorization header
-//     //       const response = await axios.get("https://livingconnect-backend.vercel.app/get-profile", {
+//     //       const response = await axios.get("http://192.168.50.242:5000/get-profile", {
 //     //         headers: {
 //     //           Authorization: `Bearer ${token}`,
 //     //         },
@@ -198,8 +198,8 @@ export default function MyImage() {
 
       setLoading(true);
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/profile/get-profile",
-        // "https://livingconnect-backend.vercel.app/profile/get-profile",
+        "http://192.168.50.242:5000/profile/get-profile",
+        // "http://192.168.50.242:5000/profile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -286,9 +286,9 @@ export default function MyImage() {
       <TouchableOpacity
         style={styles.updateButton}
         onPress={() => {
-          // router.push("/profile/updateProfile");
+          router.push("/pages/UserProperties/showUserAllProperties");
           // router.push(`/Rent/editHomeDetails?id=${homeId}`);//67646960c5f2d543cfbf208d
-          router.push(`/Rent/editHomeDetails?id=67646960c5f2d543cfbf208d`);
+          // router.push(`/Rent/editHomeDetails?id=67646960c5f2d543cfbf208d`);
         }}
       >
         <Text style={styles.buttonText}>Edit My Property Details</Text>
@@ -640,7 +640,7 @@ const styles = StyleSheet.create({
 
 //       setLoading(true);
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/get-profile",
+//         "http://192.168.50.242:5000/get-profile",
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
