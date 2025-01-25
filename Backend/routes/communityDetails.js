@@ -12,111 +12,6 @@ const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
 const { getUserInfo } = require("../utils/getUserInfo");
 
-// router.post("/updateHomeDetails", async (req, res) => {
-//   console.log("Update Home Details api called");
-//   const { userId, images, type, rent, details, location } = req.body;
-
-//   try {
-//     const updatedHomeDetails = await HomeDetails.findOneAndUpdate(
-//       { userId }, // Assuming you're updating by userId, you could use a different approach
-//       { images, type, rent, details, location },
-//       { new: true, upsert: true } // Upsert: Create if not exists, otherwise update
-//     );
-
-//     if (updatedHomeDetails) {
-//       res.status(200).json({
-//         message: "Home details updated successfully!",
-//         data: updatedHomeDetails,
-//       });
-//     } else {
-//       res.status(400).json({ message: "Failed to update home details" });
-//     }
-//   } catch (error) {
-//     console.error("Error updating home details:", error);
-//     res.status(500).json({ message: "Internal server error" });
-//   }
-// });
-
-
-
-// Create new home details
-
-
-// router.post("/add-community-center", async (req, res) => {
-//   console.log("Add Community Center api called");
-
-//   const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
-
-//   console.log("Token:", token);
-
-//   if (!token) {
-//     return res.status(401).json({ message: "Unauthorized: No token provided" });
-//   }
-
-//   try {
-//     const userInfo = await getUserInfo(token);
-//     const userId = userInfo.userId;
-//     const email = userInfo.email;
-//     const contactNumber = userInfo.contactNumber;
-//     const profileImage = userInfo.profileImage;
-
-//     const {
-//       // userId,
-//       PropertyType,
-//       details,
-//       memberRestriction,
-//       rent,
-//       rentPeriod,
-//       location,
-//       facilities,
-//       availability,
-//       images,
-//     } = req.body;
-
-//     console.log(req.body); // Add this line to see the incoming data
-
-//     // Create a new home details document
-//     const newHomeDetails = new HomeDetails({
-//       userId,
-//       email,
-//       contactNumber,
-//       profileImage,
-//       PropertyType,
-//       details,
-//       memberRestriction,
-//       rent,
-//       rentPeriod,
-//       location,
-//       facilities,
-//       availability,
-//       images,
-//     });
-
-//     console.log(newHomeDetails); // Check if _id is available
-
-//     // Save the new home details to the database
-//     const savedHomeDetails = await newHomeDetails.save();
-
-//     console.log("Saved Home Details!");
-
-//     res.status(200).json({
-//       message: "Home details added successfully",
-//       homeDetails: savedHomeDetails,
-//     });
-//   } catch (error) {
-//     console.error("Error adding home details:", error);
-//     res.status(500).json({
-//       message: "Error adding home details",
-//       error: error.message,
-//     });
-//   }
-// });
-
-
-
-
-
-
 
 // POST endpoint to add community details
 router.post("/add-community-center", async (req, res) => {
@@ -202,5 +97,122 @@ router.post("/add-community-center", async (req, res) => {
     res.status(500).json({ message: "Failed to save community details." });
   }
 });
+
+
+
+// Fixed successFalse Search Endpoint
+router.get("/successFalse", async (req, res) => {
+    try {
+      // Construct search query
+      const query = { success: false };
+  
+      const communityCenter = await CommunityDetails.find(query, { email: 1 });
+      console.log(communityCenter);
+      res.status(200).json(communityCenter);
+    } catch (error) {
+      console.error("Error retrieving Community Centers:", error);
+      res.status(500).json({ message: "Failed to retrieve Community Centers", error });
+    }
+});
+
+
+// Fixed successFalse Search Endpoint
+router.get("/successTrue", async (req, res) => {
+    try {
+      // Construct search query
+      const query = { success: true };
+  
+      const communityCenter = await CommunityDetails.find(query, { email: 1 });
+      console.log(communityCenter);
+      res.status(200).json(communityCenter);
+    } catch (error) {
+      console.error("Error retrieving Community Centers:", error);
+      res.status(500).json({ message: "Failed to retrieve Community Centers", error });
+    }
+});
+
+
+router.get("/get-communityCenter-details/:id", async (req, res) => {
+    try {
+      console.log("Get Community Center Details api called");
+      console.log(req.params.id);
+      const communityCenter = await CommunityDetails.findById(req.params.id);
+      // const Community Center = await Community CenterDetails.findById("67641db8d20432a2fb09230c");
+      if (!communityCenter) {
+        return res.status(404).json({ message: "Community Center not found" });
+      }
+      console.log(communityCenter);
+      res.status(200).json(communityCenter);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching Community Center details", error });
+    }
+});
+
+
+// Endpoint to accept a Community Center and set success to true
+router.patch("/accept/:id", async (req, res) => {
+    // console.log("Accept Community Center API called");
+  
+    const { id } = req.params;
+
+    try {
+        // Find the Community Center by ID and update success to true
+        const updatedHome = await CommunityDetails.findByIdAndUpdate(
+        id,
+            { success: true },
+            { new: true } // Return the updated document
+        );
+
+        if (!updatedHome) {
+        return res.status(404).json({ message: "Community Center not found" });
+        }
+
+        res.status(200).json({
+        message: "Community Center accepted successfully",
+        home: updatedHome,
+        });
+    } catch (error) {
+        console.error("Error updating Community Center success:", error);
+        res.status(500).json({
+        message: "Failed to accept the Community Center",
+        error,
+        });
+    }
+});
+
+
+
+
+// Endpoint to accept a Community Center and set success to true
+router.patch("/cancel/:id", async (req, res) => {
+    // console.log("Accept Community Center API called");
+  
+    const { id } = req.params;
+  
+    try {
+      // Find the Community Center by ID and update success to true
+      const updatedHome = await CommunityDetails.findByIdAndUpdate(
+        id,
+        { success: false },
+        { new: true } // Return the updated document
+      );
+  
+      if (!updatedHome) {
+        return res.status(404).json({ message: "Community Center not found" });
+      }
+  
+      res.status(200).json({
+        message: "Community Center canceled successfully",
+        home: updatedHome,
+      });
+    } catch (error) {
+      console.error("Error updating Community Center success:", error);
+      res.status(500).json({
+        message: "Failed to accept the Community Center",
+        error,
+      });
+    }
+  });
+
 
 module.exports = router;

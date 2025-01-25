@@ -63,16 +63,6 @@ const communityDetails = new mongoose.Schema({
     security: { type: Boolean }
   },
 
-  // availability: {
-  //   regularHours: {
-  //     open: { type: String },
-  //     close: { type: String }
-  //   },
-  //   bookedDates: [{
-  //     date: { type: Date },
-  //     timeSlot: { type: String }
-  //   }]
-  // },
   availability: {
     from: { type: Date, required: true },
     to: { type: Date, required: true },

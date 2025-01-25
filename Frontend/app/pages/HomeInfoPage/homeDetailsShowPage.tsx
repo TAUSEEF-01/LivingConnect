@@ -153,6 +153,9 @@
 
 // export default HomeDetailsPage;
 
+
+
+
 import React, { useEffect, useState } from "react";
 import {
   View,

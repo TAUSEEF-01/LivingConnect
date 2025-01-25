@@ -9,14 +9,29 @@ const adminPage = () => {
             style={localStyles.pendingButton}
             onPress={() => router.push("/Admin/adminPendingRequest")}
         >
-            <Text style={localStyles.buttonText}>Pending requests</Text>
+            <Text style={localStyles.buttonText}>Pending requests Home</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
             style={localStyles.approvedButton}
             onPress={() => router.push("/Admin/adminApprovedRequest")}
         >
-            <Text style={localStyles.buttonText}>Approved requests</Text>
+            <Text style={localStyles.buttonText}>Approved requests Home</Text>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity
+            style={localStyles.pendingButton}
+            onPress={() => router.push("/Admin/adminPendingRequestCommunityCenter")}
+        >
+            <Text style={localStyles.buttonText}>Pending requests Community Center</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+            style={localStyles.approvedButton}
+            onPress={() => router.push("/Admin/adminApprovedRequestCommunityCenter")}
+        >
+            <Text style={localStyles.buttonText}>Approved requests Community Center</Text>
         </TouchableOpacity>
         
     </SafeAreaView>
