@@ -18,7 +18,7 @@
 //   const fetchSuccessTrue = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/successFalse" // Replace with your API endpoint
+//         "http://192.168.50.242:5000/houseDetails/successFalse" // Replace with your API endpoint
 //       );
 //       setForms(response.data);
 //     } catch (error) {
@@ -33,7 +33,7 @@
 //   // const handleApprove = async (formId) => {
 //   //   try {
 //   //     await axios.patch(
-//   //       `https://livingconnect-backend.vercel.app/forms/approve/${formId}` // Replace with your API endpoint
+//   //       `http://192.168.50.242:5000/forms/approve/${formId}` // Replace with your API endpoint
 //   //     );
 //   //     Alert.alert("Success", "Form approved successfully.");
 //   //     setForms(forms.filter((form) => form.id !== formId)); // Remove approved form from the list
@@ -47,7 +47,7 @@
 //   // const handleReject = async (formId) => {
 //   //   try {
 //   //     await axios.delete(
-//   //       `https://livingconnect-backend.vercel.app/forms/reject/${formId}` // Replace with your API endpoint
+//   //       `http://192.168.50.242:5000/forms/reject/${formId}` // Replace with your API endpoint
 //   //     );
 //   //     Alert.alert("Success", "Form rejected successfully.");
 //   //     setForms(forms.filter((form) => form.id !== formId)); // Remove rejected form from the list
@@ -174,7 +174,7 @@ const AdminApprovalPage = () => {
   const fetchSuccessTrue = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/houseDetails/successTrue" // Replace with your API endpoint
+        "http://192.168.50.242:5000/houseDetails/successTrue" // Replace with your API endpoint
       );
       setForms(response.data);
     } catch (error) {

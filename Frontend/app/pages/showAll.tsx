@@ -36,7 +36,7 @@
 // //         {/* Card 1 */}
 // //         <View className="bg-gray-800 rounded-lg overflow-hidden mb-4">
 // //           <Image
-// //             source={{ uri: 'https://via.placeholder.com/300x150' }}
+// //             source={{ uri: 'http://via.placeholder.com/300x150' }}
 // //             className="h-40 w-full"
 // //           />
 // //           <View className="p-4">
@@ -50,7 +50,7 @@
 // //         {/* Card 2 */}
 // //         <View className="bg-gray-800 rounded-lg overflow-hidden mb-4">
 // //           <Image
-// //             source={{ uri: 'https://via.placeholder.com/300x150' }}
+// //             source={{ uri: 'http://via.placeholder.com/300x150' }}
 // //             className="h-40 w-full"
 // //           />
 // //           <View className="p-4">
@@ -167,7 +167,7 @@
 // //               const token = await AsyncStorage.getItem("userToken");
 // //               if (token) {
 // //                 await axios.post(
-// //                   "https://livingconnect-backend.vercel.app/logout",
+// //                   "http://192.168.50.242:5000/logout",
 // //                   {},
 // //                   { headers: { Authorization: `Bearer ${token}` } }
 // //                 );
@@ -235,7 +235,7 @@
 //   useEffect(() => {
 //     async function fetchProperties() {
 //       try {
-//         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+//         const response = await fetch("http://192.168.50.242:5000/properties");
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -300,7 +300,7 @@
 //           <View style={styles.bannerImageContainer}>
 //             <Image
 //               source={{
-//                 uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//                 uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 //               }} // Replace with actual image URL
 //               style={styles.bannerImage}
 //             />
@@ -338,7 +338,7 @@
 //           <ScrollView style={styles.scrollContainer}>
 //             {/* <View style={styles.card}>
 //           <Image
-//             source={{ uri: 'https://via.placeholder.com/300x150' }}
+//             source={{ uri: 'http://via.placeholder.com/300x150' }}
 //             style={styles.cardImage}
 //           />
 //           <View style={styles.cardContent}>
@@ -351,7 +351,7 @@
 
 //           <View style={styles.card}>
 //             <Image
-//               source={{ uri: 'https://via.placeholder.com/300x150' }}
+//               source={{ uri: 'http://via.placeholder.com/300x150' }}
 //               style={styles.cardImage}
 //             />
 //             <View style={styles.cardContent}>
@@ -684,8 +684,8 @@ const AllHomesPage = () => {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -771,7 +771,7 @@ const AllHomesPage = () => {
             <Image
               source={require("../../assets/images/showAll_page_image.jpg")}
               // source={{
-              //   // uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              //   // uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               // }} // Replace with actual image URL
               style={styles.bannerImage}
             />

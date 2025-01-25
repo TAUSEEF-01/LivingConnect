@@ -46,7 +46,7 @@
 // //     };
 
 // //     try {
-// //       const response = await fetch('https://livingconnect-backend.vercel.app/updateHomeDetails', {
+// //       const response = await fetch('http://192.168.50.242:5000/updateHomeDetails', {
 // //         method: 'POST',
 // //         headers: {
 // //           'Content-Type': 'application/json',
@@ -162,7 +162,7 @@
 //     };
 
 //     try {
-//       const response = await fetch('https://your-backend-url.com/api/updateHomeDetails', {
+//       const response = await fetch('http://your-backend-url.com/api/updateHomeDetails', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -375,7 +375,7 @@
 //       console.log("Payload:", JSON.stringify(payload));
 
 //       // Make API call using fetch
-//       const response = await fetch("https://livingconnect-backend.vercel.app/home-details", {
+//       const response = await fetch("http://192.168.50.242:5000/home-details", {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -872,8 +872,8 @@ const HomeDetailsForm = () => {
 
     try {
       const response = await axios.post(
-        "https://livingconnect-backend.vercel.app/houseDetails/home-details", //192.168.192.42
-        // "https://livingconnect-backend.vercel.app/houseDetails/home-details", //192.168.192.42
+        "http://192.168.50.242:5000/houseDetails/home-details", //192.168.192.42
+        // "http://192.168.50.242:5000/houseDetails/home-details", //192.168.192.42
         formData,
         {
           headers: {
@@ -885,8 +885,11 @@ const HomeDetailsForm = () => {
 
       // );
       if (response.status === 200) {
+        console.log(formData);
         console.log("Form submitted successfully");
-        Alert.alert("Form submitted successfully");
+        Alert.alert(
+          "Form submitted successfully. The admins will review your request."
+        );
         router.replace("/pages/mainPage");
       } else {
         console.error("Submission failed");
@@ -1143,12 +1146,12 @@ const HomeDetailsForm = () => {
         )}
       </View>
 
-      {/* <View>  */}
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
-      {/* </View> */}
+      <View style={styles.submitButtonView}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -1496,13 +1499,16 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderColor: "black",
   },
-  // switch:{
-  //   backgroundColor: "#2d3748",
-  // },
+  switch: {
+    backgroundColor: "#2d3748",
+  },
   switchLabel: {
     fontSize: 16,
     color: "white",
     marginLeft: 15,
+  },
+  submitButtonView: {
+    marginBottom: 40,
   },
   submitButton: {
     // marginTop: 20,

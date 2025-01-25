@@ -18,7 +18,7 @@
 // // //   const fetchAllHomeDetails = async () => {
 // // //     try {
 // // //       const response = await axios.get(
-// // //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// // //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 // // //       );
 // // //       setHomes(response.data);
 // // //       console.log(response.data); // Log data for debugging
@@ -80,7 +80,7 @@
 // // //           {/* Facilities */}
 // // //           <Text style={styles.details}>
 // // //             Facilities:{" "}
-// // //             {Object.entries(home.facitlities || {})
+// // //             {Object.entries(home.facilities || {})
 // // //               .filter(([_, value]) => value)
 // // //               .map(([key]) => key)
 // // //               .join(", ") || "None"}
@@ -122,7 +122,7 @@
 // //   const fetchAllHomeDetails = async () => {
 // //     try {
 // //       const response = await axios.get(
-// //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 // //       );
 // //       setHomes(response.data);
 // //     } catch (error) {
@@ -275,7 +275,7 @@
 //   const fetchAllHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+//         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 //       );
 //       setHomes(response.data);
 //     } catch (error) {
@@ -352,7 +352,7 @@
 //           <View style={styles.bannerImageContainer}>
 //             <Image
 //               source={{
-//                 uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//                 uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 //               }} // Replace with actual image URL
 //               style={styles.bannerImage}
 //             />
@@ -810,18 +810,15 @@ const PaymentButton = () => {
   const [paymentUrl, setPaymentUrl] = useState("");
 
   const API_URL = Platform.select({
-    ios: "https://livingconnect-backend.vercel.app",
+    ios: "http://192.168.50.242:5000",
     android: "http://10.0.2.2:5000",
   });
 
   const handlePayment = async () => {
     try {
-      const response = await fetch(
-        "https://livingconnect-backend.vercel.app/init",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch("http://192.168.50.242:5000/init", {
+        method: "GET",
+      });
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

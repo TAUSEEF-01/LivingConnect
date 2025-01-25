@@ -71,12 +71,12 @@ const CommunityCenterForm = () => {
       diningArea: false,
       stageArea: false,
     },
-    restrictions: {
-      noiseRestriction: false,
-      timeRestriction: "",
-      foodRestriction: false,
-      decorationRestriction: false,
-    },
+    // restrictions: {
+    //   noiseRestriction: false,
+    //   timeRestriction: "",
+    //   foodRestriction: false,
+    //   decorationRestriction: false,
+    // },
     price: {
       basePrice: "",
       fullDayPrice: "",
@@ -101,13 +101,14 @@ const CommunityCenterForm = () => {
       staging: false,
       security: false,
     },
-    availability: {
-      regularHours: {
-        open: "",
-        close: "",
-      },
-      bookedDates: [],
-    },
+    // availability: {
+    //   regularHours: {
+    //     open: "",
+    //     close: "",
+    //   },
+    //   bookedDates: [],
+    // },
+    availability: { from: "", to: "" },
     images: [],
   });
 
@@ -141,7 +142,7 @@ const CommunityCenterForm = () => {
 
     try {
       const response = await axios.post(
-        "https://livingconnect-backend.vercel.app/communityDetails/add-community-center",
+        "http://192.168.50.242:5000/communityDetails/add-community-center",
         formData,
         {
           headers: {
@@ -164,20 +165,20 @@ const CommunityCenterForm = () => {
     }
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState("Select Property Types");
+  // const [isOpen, setIsOpen] = useState(false);
+  // const [selectedType, setSelectedType] = useState("Select Property Types");
 
-  const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
+  // const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  // const toggleDropdown = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
-  const handleTypeSelect = (type) => {
-    setSelectedType(type);
-    formData.PropertyType = type;
-    setIsOpen(false);
-  };
+  // const handleTypeSelect = (type) => {
+  //   setSelectedType(type);
+  //   formData.PropertyType = type;
+  //   setIsOpen(false);
+  // };
 
   const [showFromPicker, setShowFromPicker] = useState(false);
   const [showToPicker, setShowToPicker] = useState(false);
@@ -279,7 +280,7 @@ const CommunityCenterForm = () => {
       </View>
 
       <Text style={styles.sectionTitle}>Pricing</Text>
-      <View style={styles.priceContainer}>
+      {/* <View style={styles.priceContainer}> */}
         <TextInput
           style={styles.input}
           placeholder="Base Price"
@@ -314,7 +315,7 @@ const CommunityCenterForm = () => {
             handleInputChange("price.perHourPrice", value)
           }
         />
-      </View>
+      {/* </View> */}
 
       <Text style={styles.sectionTitle}>Facilities</Text>
       {Object.keys(formData.facilities).map((facility) => (
@@ -418,9 +419,11 @@ const CommunityCenterForm = () => {
         )}
       </View>
 
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
+      <View style={styles.submitButtonView}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -500,6 +503,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "white",
     marginLeft: 15,
+  },
+  submitButtonView: {
+    marginBottom: 40,
   },
   submitButton: {
     marginBottom: 40,

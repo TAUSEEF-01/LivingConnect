@@ -77,7 +77,7 @@
 //         return;
 //       }
 
-//       const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
+//       const response = await axios.get("http://192.168.50.242:5000/verify", {
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 
@@ -340,7 +340,7 @@
 //               const token = await AsyncStorage.getItem("userToken");
 //               if (token) {
 //                 await axios.post(
-//                   "https://livingconnect-backend.vercel.app/logout",
+//                   "http://192.168.50.242:5000/logout",
 //                   {},
 //                   {
 //                     headers: { Authorization: `Bearer ${token}` },
@@ -624,7 +624,7 @@ const SidePanel = ({ isVisible, onClose }) => {
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
                 await axios.post(
-                  "https://livingconnect-backend.vercel.app/auth/logout",
+                  "http://192.168.50.242:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -701,7 +701,7 @@ const SidePanel = ({ isVisible, onClose }) => {
 //               const token = await AsyncStorage.getItem("userToken");
 //               if (token) {
 //                 await axios.post(
-//                   "https://livingconnect-backend.vercel.app/logout",
+//                   "http://192.168.50.242:5000/logout",
 //                   {},
 //                   {
 //                     headers: { Authorization: `Bearer ${token}` },
@@ -812,7 +812,7 @@ export default function MainPage() {
         <View style={localStyles.bannerImageContainer}>
           <Image
             source={{
-              uri: "https://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+              uri: "http://images.pexels.com/photos/276724/pexels-photo-276724.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
             }} // Replace with actual image URL
             style={localStyles.bannerImage}
           />
@@ -871,7 +871,7 @@ export default function MainPage() {
           <View style={localStyles.card}>
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                uri: "http://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               }}
               style={localStyles.cardImage}
             />
@@ -886,7 +886,7 @@ export default function MainPage() {
           <View style={localStyles.card}>
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                uri: "http://images.pexels.com/photos/2251247/pexels-photo-2251247.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               }}
               style={localStyles.cardImage}
             />

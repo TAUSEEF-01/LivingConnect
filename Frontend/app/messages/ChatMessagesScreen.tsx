@@ -28,9 +28,9 @@ import { UserType } from "../UserContext";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 //
-// const API_URL = 'https://livingconnect-backend.vercel.app';
+// const API_URL = 'http://192.168.50.242:5000';
 // const API_URL = 'http://10.33.25.160:5000';
-// const API_URL = 'https://livingconnect-backend.vercel.app';
+// const API_URL = 'http://192.168.50.242:5000';
 
 const ChatMessagesScreen = () => {
   const { currentUserId, recipientId } = useLocalSearchParams();
@@ -80,7 +80,7 @@ const ChatMessagesScreen = () => {
   // Use these IDs without $oid wrapper for requests
   // const recipientId = "675c911919831c86093ed034";
   // const currentUserId = "675d5df58fe7ec7ad49d9fc3";
-  const API_URL = "https://livingconnect-backend.vercel.app";
+  const API_URL = "http://192.168.50.242:5000";
 
   useEffect(() => {
     fetchMessages();
@@ -136,7 +136,7 @@ const ChatMessagesScreen = () => {
   //   <View style={styles.header}>
   //     <View style={styles.headerLeft}>
   //       <Image
-  //         source={{ uri: recepientData?.profilePic || 'https://via.placeholder.com/40' }}
+  //         source={{ uri: recepientData?.profilePic || 'http://via.placeholder.com/40' }}
   //         style={styles.recipientImage}
   //       />
   //       <Text style={styles.recipientName}>{recipientData.name || 'Recipient'}</Text>
@@ -667,7 +667,7 @@ const ChatMessagesScreen = () => {
   //         <View style={styles.normalHeader}>
   //           <View style={styles.recipientInfo}>
   //             <Image
-  //               source={{ uri: recipientImage || 'https://via.placeholder.com/40' }}
+  //               source={{ uri: recipientImage || 'http://via.placeholder.com/40' }}
   //               style={styles.recipientImage}
   //             />
   //             <Text style={styles.recipientName}>{recipientName || 'User'}</Text>
@@ -700,7 +700,7 @@ const ChatMessagesScreen = () => {
           <Image
             source={{
               uri:
-                recipientData?.profileImage || "https://via.placeholder.com/40",
+                recipientData?.profileImage || "http://via.placeholder.com/40",
             }}
             style={styles.recipientImage}
           />
@@ -725,7 +725,7 @@ const ChatMessagesScreen = () => {
   //       <View style={styles.headerContent}>
   //         <Image
   //           source={{
-  //             uri: recipientData?.profilePic || 'https://via.placeholder.com/40'
+  //             uri: recipientData?.profilePic || 'http://via.placeholder.com/40'
   //           }}
   //           style={styles.recipientImage}
   //         />
@@ -828,7 +828,7 @@ const ChatMessagesScreen = () => {
           <View>
             {item.imageUrl ? (
               <Image
-                // source={{ uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" }}
+                // source={{ uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" }}
                 source={{ uri: item.imageUrl }}
                 style={styles.messageImage}
                 resizeMode="cover"

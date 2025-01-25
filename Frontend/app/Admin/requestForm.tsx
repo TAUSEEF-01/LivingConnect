@@ -44,8 +44,8 @@
 //     try {
 //       if (!homeId) throw new Error("No home ID provided");
 //       const response = await axios.get(
-//         `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
-//         // `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+//         `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
+//         // `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
 //       );
 
 //     //   console.log("Fetched home details:", response.data);
@@ -83,7 +83,7 @@
 //   const handleAccept = async (id) => {
 //     try {
 //       const response = await axios.patch(
-//         `https://livingconnect-backend.vercel.app/houseDetails/accept/${id}`
+//         `http://192.168.50.242:5000/houseDetails/accept/${id}`
 //       );
 //       Alert.alert("Success", response.data.message);
 //       // Optionally, update your UI to reflect the change
@@ -163,14 +163,14 @@
 //           <View style={styles.section}>
 //             <Text style={styles.sectionTitle}>Facilities</Text>
 //             {/* <Text style={styles.text}>
-//           {Object.entries(home?.facitlities || {})
+//           {Object.entries(home?.facilities || {})
 //             .filter(([_, value]) => value)
 //             .map(([key]) => key.replace(/([A-Z])/g, " $1"))
 //             .join("\n") || "None"}
 //         </Text> */}
 
 //             <Text style={styles.text}>
-//               {Object.entries(home?.facitlities || {})
+//               {Object.entries(home?.facilities || {})
 //                 .map(
 //                   ([key, value]) =>
 //                     `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`
@@ -404,8 +404,9 @@ const FormVerifyPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+        `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
       );
+      console.log("Fetched home details:", response.data);
       setHome(response.data);
     } catch (error) {
       Alert.alert("Error", "Failed to fetch home details.");
@@ -418,7 +419,7 @@ const FormVerifyPage = () => {
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
-        `https://livingconnect-backend.vercel.app/houseDetails/accept/${id}`
+        `http://192.168.50.242:5000/houseDetails/accept/${id}`
       );
       Alert.alert("Success", response.data.message);
       router.replace("/Admin/adminPendingRequest");
@@ -516,7 +517,7 @@ const FormVerifyPage = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Facilities</Text>
             <Text style={styles.text}>
-              {Object.entries(home?.facitlities || {})
+              {Object.entries(home?.facilities || {})
                 .map(
                   ([key, value]) =>
                     `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`

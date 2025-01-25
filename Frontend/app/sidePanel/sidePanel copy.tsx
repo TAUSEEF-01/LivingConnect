@@ -23,7 +23,7 @@
 //           const token = await AsyncStorage.getItem("userToken");
 //           if (token) {
 //             await axios.post(
-//               "https://livingconnect-backend.vercel.app/logout",
+//               "http://192.168.50.242:5000/logout",
 //               {},
 //               { headers: { Authorization: `Bearer ${token}` } }
 //             );
@@ -164,7 +164,7 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
 
         if (token) {
           const response = await axios.get(
-            "https://livingconnect-backend.vercel.app/auth/adminCheck",
+            "http://192.168.50.242:5000/auth/adminCheck",
             { headers: { Authorization: `Bearer ${token}` } }
           );
           setIsAdmin(response.data?.isAdmin || false);
@@ -197,7 +197,7 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
     //           const token = await AsyncStorage.getItem("userToken");
     //           if (token) {
     //             await axios.post(
-    //               "https://livingconnect-backend.vercel.app/logout",
+    //               "http://192.168.50.242:5000/logout",
     //               //   {},
     //               { headers: { Authorization: `Bearer ${token}` } }
     //             );
@@ -230,8 +230,8 @@ const SidePanel = ({ isVisible, onClose, userName = "User" }) => {
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
                 await axios.post(
-                  "https://livingconnect-backend.vercel.app/auth/logout",
-                  // "https://livingconnect-backend.vercel.app/auth/logout",
+                  "http://192.168.50.242:5000/auth/logout",
+                  // "http://192.168.50.242:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -768,7 +768,7 @@ const [isSidePanelVisible, setSidePanelVisible] = useState(false);
           <View style={styles.bannerImageContainer}>
             <Image
               source={{
-                uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               }} // Replace with actual image URL
               style={styles.bannerImage}
             />

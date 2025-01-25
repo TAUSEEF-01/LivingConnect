@@ -1362,7 +1362,7 @@
 //       rent,
 //       rentPeriod,
 //       location,
-//       facitlities,
+//       facilities,
 //       availability,
 //       images
 //     } = req.body;
@@ -1378,7 +1378,7 @@
 //       rent,
 //       rentPeriod,
 //       location,
-//       facitlities,
+//       facilities,
 //       availability,
 //       images
 //     });
@@ -1467,10 +1467,8 @@ app.set("view engine", "ejs"); // Setting EJS as the template engine
 app.set("views", "./views"); // Specify the directory for your view templates
 
 const { connectMongoDB } = require("./connection");
-// connectMongoDB("mongodb://localhost:27017/UserInfo");
-connectMongoDB(
-  "mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/UserInfo?retryWrites=true&w=majority&appName=Cluster0"
-);
+connectMongoDB("mongodb://localhost:27017/UserInfo");
+// connectMongoDB("mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/UserInfo?retryWrites=true&w=majority&appName=Cluster0");
 
 const routes = require("./routes");
 app.use(routes);
@@ -1489,10 +1487,10 @@ app.get("/init", (req, res) => {
     total_amount: 100,
     currency: "BDT",
     tran_id: `REF${Date.now()}`,
-    success_url: "https://livingconnect-backend.vercel.app/success",
-    fail_url: "https://livingconnect-backend.vercel.app/fail",
-    cancel_url: "https://livingconnect-backend.vercel.app/cancel",
-    ipn_url: "https://livingconnect-backend.vercel.app/ipn",
+    success_url: "http://192.168.50.242:5000/success",
+    fail_url: "http://192.168.50.242:5000/fail",
+    cancel_url: "http://192.168.50.242:5000/cancel",
+    ipn_url: "http://192.168.50.242:5000/ipn",
     shipping_method: "Courier",
     product_name: "Computer",
     product_category: "Electronic",
@@ -1585,6 +1583,7 @@ app.post("/propertiesInsert", async (req, res) => {
 });
 
 app.get("/health", (req, res) => {
+  console.log("Server is running");
   res.status(200).json({ message: "Server is running" });
 });
 

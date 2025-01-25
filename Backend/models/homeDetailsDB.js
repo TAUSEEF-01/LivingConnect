@@ -46,7 +46,7 @@ const homeDetails = new mongoose.Schema({
     houseNumber: { type: String },
   },
 
-  facitlities: {
+  facilities: {
     garage: { type: Boolean },
     lift: { type: Boolean },
     gasSupply: { type: Boolean },

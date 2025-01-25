@@ -18,7 +18,7 @@
 //   const fetchHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/67641be675a585b5610f677c"
+//         "http://192.168.50.242:5000/houseDetails/get-homes-details/67641be675a585b5610f677c"
 //       );
 //       console.log(response.data); // Log response to verify structure
 //       setHome(response.data); // Set the home data
@@ -171,7 +171,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = "https://livingconnect-backend.vercel.app";
+const API_URL = "http://192.168.50.242:5000";
 
 interface OwnerInfo {
   email: string;
@@ -205,12 +205,13 @@ const HomeDetailsPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
-        // `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+        `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
+        // `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
       );
 
-      // console.log("Fetched home details:", response.data);
+      console.log("Fetched home details:", response.data);
       // console.log("fnc1");
+      // console.log("Response data:", response.data);
       setHome(response.data);
       // fetchUserProfile();
     } catch (error) {
@@ -233,7 +234,7 @@ const HomeDetailsPage = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log("Fetched Profile:", response.data);
+      // console.log("Fetched Profile:", response.data);
 
       setProfile(response.data); // Ensure this includes the `id` field
     } catch (error) {
@@ -288,7 +289,7 @@ const HomeDetailsPage = () => {
 
   //     // setLoading(true);
   //     // const response = await axios.get(
-  //     //   "https://livingconnect-backend.vercel.app/profile/getUserInfo/id",
+  //     //   "http://192.168.50.242:5000/profile/getUserInfo/id",
   //     //   {
   //     //     params: { userId: home?.userId }, // Pass userId as a query parameter
   //     //   }
@@ -311,14 +312,14 @@ const HomeDetailsPage = () => {
   //     // );
 
   //     // const response = await axios.get(
-  //     //   "https://livingconnect-backend.vercel.app/profile/getUserInfo/id",
+  //     //   "http://192.168.50.242:5000/profile/getUserInfo/id",
   //     //   {
   //     //     params: { userId: home.userId }, // Pass userId as a query parameter
   //     //   }
   //     // );
 
   //     const response = await axios.get(
-  //       `https://livingconnect-backend.vercel.app/profile/getUserInfo/${home.userId}`
+  //       `http://192.168.50.242:5000/profile/getUserInfo/${home.userId}`
   //     );
 
   //     console.log(response.data);
@@ -422,14 +423,14 @@ const HomeDetailsPage = () => {
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Facilities</Text>
             {/* <Text style={styles.text}>
-          {Object.entries(home?.facitlities || {})
+          {Object.entries(home?.facilities || {})
             .filter(([_, value]) => value)
             .map(([key]) => key.replace(/([A-Z])/g, " $1"))
             .join("\n") || "None"}
         </Text> */}
 
             <Text style={styles.text}>
-              {Object.entries(home?.facitlities || {})
+              {Object.entries(home?.facilities || {})
                 .map(
                   ([key, value]) =>
                     `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`

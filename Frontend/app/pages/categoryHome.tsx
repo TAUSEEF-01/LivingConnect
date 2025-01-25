@@ -18,7 +18,7 @@
 //   useEffect(() => {
 //     async function fetchProperties() {
 //       try {
-//         const response = await fetch('https://livingconnect-backend.vercel.app/properties');
+//         const response = await fetch('http://192.168.50.242:5000/properties');
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -80,7 +80,7 @@
 //           <View style={localStyles.bannerImageContainer}>
 //             <Image
 //               source={{
-//                 uri: "https://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//                 uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 //               }} // Replace with actual image URL
 //               style={localStyles.bannerImage}
 //             />
@@ -228,7 +228,7 @@
 
 //   const handleSearch = async () => {
 //     // Replace with your API endpoint or database query logic
-//     const response = await fetch('https://your-api-endpoint.com/search', {
+//     const response = await fetch('http://your-api-endpoint.com/search', {
 //       method: 'POST',
 //       headers: {
 //         'Content-Type': 'application/json',
@@ -474,7 +474,7 @@ const MainPage = () => {
     console.log("Filters:", filters);
 
     // Replace with your API endpoint or database query logic
-    const response = await fetch("https://livingconnect-backend.vercel.app/", {
+    const response = await fetch("http://192.168.50.242:5000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
