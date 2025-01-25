@@ -5208,6 +5208,10 @@ export default function CommunityCenter() {
     // router.replace("/pages/showAll");
   };
 
+  const handleShowAllCommunityCenterPress = async () => {
+    router.push("/pages/showAllCommunityCenter");
+  };
+
   const handleHomePress = async () => {
     router.push("/pages/categoryHome");
     // router.replace("/pages/showAll");
@@ -5609,7 +5613,7 @@ export default function CommunityCenter() {
               <Text style={localStyles.latestListingsHeader}>
                 Available Community Centers
               </Text>
-              <TouchableOpacity onPress={handleShowAllPress}>
+              <TouchableOpacity onPress={handleShowAllCommunityCenterPress}>
                 <Text style={localStyles.showAll}>Show all</Text>
               </TouchableOpacity>
 

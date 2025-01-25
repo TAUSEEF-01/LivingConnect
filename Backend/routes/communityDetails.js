@@ -99,6 +99,19 @@ router.post("/add-community-center", async (req, res) => {
 });
 
 
+// Endpoint to fetch all Community Center details
+router.get("/get-all-CommunityCenter-details", async (req, res) => {
+    try {
+      const query = { success: true };
+  
+      const homes = await CommunityDetails.find(query);
+      // const homes = await HomeDetails.find({});
+      res.status(200).json(homes);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching home details", error });
+    }
+  });
+
 
 // Fixed successFalse Search Endpoint
 router.get("/successFalse", async (req, res) => {
@@ -213,6 +226,8 @@ router.patch("/cancel/:id", async (req, res) => {
       });
     }
   });
+
+
 
 
 module.exports = router;

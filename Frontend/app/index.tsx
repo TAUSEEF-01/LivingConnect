@@ -133,8 +133,8 @@ export default function Index() {
           if (response.status === 200) {
             // Token is valid, navigate to the main page
             // router.replace("/(tabs)/mainPage");
-            // router.replace("/pages/mainPage");
-            router.replace("/pages/CommunityCenter");
+            router.replace("/pages/mainPage");
+            // router.replace("/pages/CommunityCenter");
 
             // router.replace("/pages/propertyList");
             // router.replace("/pages/showAll");
