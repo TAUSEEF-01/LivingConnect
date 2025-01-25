@@ -5692,7 +5692,7 @@ export default function CommunityCenter() {
 
               <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>
-                  Any Event Community Center
+                  Multi Event Community Center
                 </Text>
               </TouchableOpacity>
               <ScrollView horizontal style={localStyles.cardContainer}>

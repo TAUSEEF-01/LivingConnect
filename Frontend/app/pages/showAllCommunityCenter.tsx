@@ -776,13 +776,6 @@ const AllHomesPage = () => {
 
         <View style={styles.container}>
           {/* Header */}
-          {/* <View style={styles.header}>
-            <TextInput
-              style={styles.input}
-              placeholder="Where would you like to live?"
-              placeholderTextColor="gray"
-            />
-          </View> */}
 
           {/* Filters and Sorting */}
           <View style={styles.filterContainer}>
@@ -795,7 +788,7 @@ const AllHomesPage = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.filterButtonSecondary}
-                onPress={() => router.push("/pages/FiltersPage/filterInfo")}
+                onPress={() => router.push("/pages/FiltersPage/filterInfoCommunityCenter")}
               >
                 <Text style={styles.filterButtonText}>Show filters</Text>
               </TouchableOpacity>
@@ -811,8 +804,8 @@ const AllHomesPage = () => {
                 style={styles.card}
                 onPress={() =>
                   router.push({
-                    pathname: "/pages/HomeInfoPage/homeDetailsShowPage",
-                    params: { homeId: home._id }, // Pass the home ID as a query parameter
+                    pathname: "/pages/CommunityCenter_InfoPage/CommunityCenterDetailsShowPage",
+                    params: { communityId: home._id }, // Pass the home ID as a query parameter
                   })
                 }
               >
@@ -824,11 +817,14 @@ const AllHomesPage = () => {
                   />
                 )}
 
-                <Text style={styles.cardPrice}>Tk {home.rent}</Text>
+                <Text style={styles.cardPrice}>Base Price: {home.price.basePrice} Tk
+                </Text>
 
                 <Text style={styles.cardDetails}>
-                  {home.details.beds} beds | {home.details.baths} baths |{" "}
-                  {home.details.size} m²
+                Capacity: {home.details.capacity} people
+                {" | "}Parking:{" "} {home.details.parking} Cars
+                {" | "}Halls: {home.details.halls}
+                {" | "}{home.details.size} m²
                 </Text>
 
                 <Text style={styles.cardLocation}>

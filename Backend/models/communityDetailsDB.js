@@ -19,6 +19,11 @@ const communityDetails = new mongoose.Schema({
     required: true,
   },
 
+  name: {
+    type: String,
+    required: true, // name of the center
+  },
+
   details: {
     capacity: { type: Number, required: true }, // number of people
     halls: { type: Number, required: true }, // number of halls

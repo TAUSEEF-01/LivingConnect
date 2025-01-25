@@ -90,6 +90,7 @@ const CommunityCenterForm = () => {
       road: "",
       buildingNumber: "",
     },
+    name: "",
     facilities: {
       airConditioned: false,
       generator: false,
@@ -220,12 +221,22 @@ const CommunityCenterForm = () => {
         ))}
       </View>
 
+      <Text style={styles.sectionTitle}>Community Center Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder={"Enter Community Center Name"}
+          placeholderTextColor="#666"
+          value={formData.name}
+          onChangeText={(text) => handleInputChange("name", text)}
+        />
+
       <Text style={styles.sectionTitle}>Details</Text>
-      <View style={styles.detailsContainer}>
+      
         <TextInput
           style={styles.input}
           placeholder="Capacity (people)"
           keyboardType="numeric"
+          placeholderTextColor="#666"
           value={formData.details.capacity}
           onChangeText={(value) => handleInputChange("details.capacity", value)}
         />
@@ -233,6 +244,7 @@ const CommunityCenterForm = () => {
           style={styles.input}
           placeholder="Number of Halls"
           keyboardType="numeric"
+          placeholderTextColor="#666"
           value={formData.details.halls}
           onChangeText={(value) => handleInputChange("details.halls", value)}
         />
@@ -240,6 +252,7 @@ const CommunityCenterForm = () => {
           style={styles.input}
           placeholder="Size (sq meters)"
           keyboardType="numeric"
+          placeholderTextColor="#666"
           value={formData.details.size}
           onChangeText={(value) => handleInputChange("details.size", value)}
         />
@@ -247,9 +260,12 @@ const CommunityCenterForm = () => {
           style={styles.input}
           placeholder="Parking"
           keyboardType="numeric"
+          placeholderTextColor="#666"
           value={formData.details.parking}
           onChangeText={(value) => handleInputChange("details.parking", value)}
         />
+
+      {/* <View style={styles.detailsContainer}> */}
         <View style={styles.switchContainer}>
           <Text style={styles.switchLabel}>Kitchen Area</Text>
           <Switch
@@ -258,7 +274,8 @@ const CommunityCenterForm = () => {
               handleInputChange("details.kitchenArea", value)
             }
           />
-        </View>
+          </View>
+        {/* </View> */}
         <View style={styles.switchContainer}>
           <Text style={styles.switchLabel}>Dining Area</Text>
           <Switch
@@ -267,7 +284,8 @@ const CommunityCenterForm = () => {
               handleInputChange("details.diningArea", value)
             }
           />
-        </View>
+          </View>
+        
         <View style={styles.switchContainer}>
           <Text style={styles.switchLabel}>Stage Area</Text>
           <Switch
@@ -277,7 +295,7 @@ const CommunityCenterForm = () => {
             }
           />
         </View>
-      </View>
+      
 
       <Text style={styles.sectionTitle}>Pricing</Text>
       {/* <View style={styles.priceContainer}> */}
@@ -285,6 +303,7 @@ const CommunityCenterForm = () => {
           style={styles.input}
           placeholder="Base Price"
           keyboardType="numeric"
+          placeholderTextColor="#666"
           value={formData.price.basePrice}
           onChangeText={(value) => handleInputChange("price.basePrice", value)}
         />
@@ -292,6 +311,7 @@ const CommunityCenterForm = () => {
           style={styles.input}
           placeholder="Full Day Price"
           keyboardType="numeric"
+          placeholderTextColor="#666"
           value={formData.price.fullDayPrice}
           onChangeText={(value) =>
             handleInputChange("price.fullDayPrice", value)
@@ -301,6 +321,7 @@ const CommunityCenterForm = () => {
           style={styles.input}
           placeholder="Half Day Price"
           keyboardType="numeric"
+          placeholderTextColor="#666"
           value={formData.price.halfDayPrice}
           onChangeText={(value) =>
             handleInputChange("price.halfDayPrice", value)
@@ -310,6 +331,7 @@ const CommunityCenterForm = () => {
           style={styles.input}
           placeholder="Per Hour Price"
           keyboardType="numeric"
+          placeholderTextColor="#666"
           value={formData.price.perHourPrice}
           onChangeText={(value) =>
             handleInputChange("price.perHourPrice", value)
@@ -455,8 +477,9 @@ const styles = StyleSheet.create({
   typeContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 10,
-    padding: 10,
+    justifyContent: "space-between",
+    gap: 8,
+    marginTop: 8,
   },
   typeButton: {
     padding: 10,
@@ -493,10 +516,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#2d3748",
-    paddingHorizontal: 8,
+    // paddingHorizontal: 8,
     borderRadius: 8,
-    paddingVertical: 2,
-    marginBottom: 5,
+    // paddingVertical: 2,
+    marginTop: 5,
+    // marginBottom: 5,
     borderColor: "black",
   },
   switchLabel: {
