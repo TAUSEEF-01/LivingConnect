@@ -78,7 +78,7 @@
 //       console.log('Payload:', JSON.stringify(payload));
 
 //       // Make API call using fetch
-//       const response = await fetch('http://192.168.50.242:5000/home-details', {
+//       const response = await fetch('https://livingconnect-backend.vercel.app/home-details', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -239,7 +239,7 @@
 //       console.log('Payload:', JSON.stringify(payload));
 
 //       // Make API call using fetch
-//       const response = await fetch('http://192.168.50.242:5000/home-details', {
+//       const response = await fetch('https://livingconnect-backend.vercel.app/home-details', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -655,7 +655,7 @@ const HomeDetailsForm = () => {
     const token = await AsyncStorage.getItem("userToken");
 
     try {
-      // const response1 = await fetch("http://192.168.50.242:5000/home-details", {
+      // const response1 = await fetch("https://livingconnect-backend.vercel.app/home-details", {
       //   method: "POST",
       //   headers: {
       //     // "Content-Type": "application/json"
@@ -665,8 +665,8 @@ const HomeDetailsForm = () => {
       // },
 
       const response = await axios.post(
-        "http://192.168.50.242:5000/houseDetails/home-details",
-        // "http://192.168.50.242:5000/houseDetails/home-details",
+        "https://livingconnect-backend.vercel.app/houseDetails/home-details",
+        // "https://livingconnect-backend.vercel.app/houseDetails/home-details",
         formData,
         {
           headers: {

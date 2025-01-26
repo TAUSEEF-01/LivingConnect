@@ -61,7 +61,7 @@ const EditHomeDetails = () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://192.168.50.242:5000/houseDetails/get-homes-details/${id}`
+          `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${id}`
         );
 
         if (response.data) {
@@ -128,7 +128,7 @@ const EditHomeDetails = () => {
       console.log("Updating home with ID:", id);
       console.log("Update data:", updateData);
 
-      const url = `http://192.168.50.242:5000/houseDetails/update-home/${id}`;
+      const url = `https://livingconnect-backend.vercel.app/houseDetails/update-home/${id}`;
       console.log("Request URL:", url);
 
       const response = await axios({
@@ -160,87 +160,85 @@ const EditHomeDetails = () => {
     }
   };
 
-
   const pickImage = async () => {
-      // <-- tamzid
-      const permissionResult =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
-  
-      if (!permissionResult.granted) {
-        Alert.alert(
-          "Permission required",
-          "Please grant permission to access photos."
-        );
-        return;
-      }
-  
-      const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        quality: 0.7,
-        base64: true,
-      });
-  
-      if (!result.canceled) {
-        // Compress and resize the image
-        const manipResult = await ImageManipulator.manipulateAsync(
-          result.assets[0].uri,
-          [{ resize: { width: 500 } }],
-          { compress: 0.7, base64: true }
-        );
-  
-        // Use handleInputChange to update the images array
-        handleInputChange("images", [
-          ...formData.images,
-          `data:image/jpeg;base64,${manipResult.base64}`,
-        ]);
-      }
-    };
-  
-    // Function to remove an image by index
-    const removeImage = (indexToRemove) => {
-      setFormData((prevState) => ({
-        ...prevState,
-        images: prevState.images.filter((_, index) => index !== indexToRemove),
-      }));
-    };
-  
+    // <-- tamzid
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (!permissionResult.granted) {
+      Alert.alert(
+        "Permission required",
+        "Please grant permission to access photos."
+      );
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      quality: 0.7,
+      base64: true,
+    });
+
+    if (!result.canceled) {
+      // Compress and resize the image
+      const manipResult = await ImageManipulator.manipulateAsync(
+        result.assets[0].uri,
+        [{ resize: { width: 500 } }],
+        { compress: 0.7, base64: true }
+      );
+
+      // Use handleInputChange to update the images array
+      handleInputChange("images", [
+        ...formData.images,
+        `data:image/jpeg;base64,${manipResult.base64}`,
+      ]);
+    }
+  };
+
+  // Function to remove an image by index
+  const removeImage = (indexToRemove) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      images: prevState.images.filter((_, index) => index !== indexToRemove),
+    }));
+  };
 
   const [isOpen, setIsOpen] = useState(false);
-    const [selectedType, setSelectedType] = useState("Select Property Types");
-  
-    const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
-  
-    const toggleDropdown = () => {
-      setIsOpen(!isOpen);
-    };
-  
-    const handleTypeSelect = (type) => {
-      setSelectedType(type);
-      formData.PropertyType = type;
-      setIsOpen(false);
-    };
-  
-    // calender handle function
-    const [showFromPicker, setShowFromPicker] = useState(false);
-    const [showToPicker, setShowToPicker] = useState(false);
-  
-    const onChangeDate = (event, selectedDate, type) => {
-      const currentDate = selectedDate || new Date();
-      if (type === "from") {
-        setShowFromPicker(Platform.OS === "ios");
-        handleInputChange(
-          "availability.from",
-          currentDate.toISOString().split("T")[0]
-        );
-      } else {
-        setShowToPicker(Platform.OS === "ios");
-        handleInputChange(
-          "availability.to",
-          currentDate.toISOString().split("T")[0]
-        );
-      }
-    };
+  const [selectedType, setSelectedType] = useState("Select Property Types");
+
+  const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleTypeSelect = (type) => {
+    setSelectedType(type);
+    formData.PropertyType = type;
+    setIsOpen(false);
+  };
+
+  // calender handle function
+  const [showFromPicker, setShowFromPicker] = useState(false);
+  const [showToPicker, setShowToPicker] = useState(false);
+
+  const onChangeDate = (event, selectedDate, type) => {
+    const currentDate = selectedDate || new Date();
+    if (type === "from") {
+      setShowFromPicker(Platform.OS === "ios");
+      handleInputChange(
+        "availability.from",
+        currentDate.toISOString().split("T")[0]
+      );
+    } else {
+      setShowToPicker(Platform.OS === "ios");
+      handleInputChange(
+        "availability.to",
+        currentDate.toISOString().split("T")[0]
+      );
+    }
+  };
 
   if (loading) {
     return (
@@ -255,223 +253,220 @@ const EditHomeDetails = () => {
       <Text style={styles.title}>Edit Home Details</Text>
 
       <Text style={styles.sectionTitle}>Property Type</Text>
-      
-            <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
-              <View style={styles.dropdownContent}>
-                <Text style={styles.dropdownText}>{selectedType} </Text>
-                <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
-              </View>
-            </TouchableOpacity>
-      
-            {isOpen && (
-              <View style={styles.dropdownMenu}>
-                {propertyTypes.map((type) => (
-                  <TouchableOpacity
-                    key={type}
-                    style={[
-                      styles.dropdownItem,
-                      selectedType === type && styles.selectedItem,
-                    ]}
-                    onPress={() => handleTypeSelect(type)}
-                  >
-                    <Text
-                      style={[
-                        styles.dropdownItemText,
-                        selectedType === type && styles.selectedItemText,
-                      ]}
-                    >
-                      {/* {formData.PropertyType = type ? type : "rent"} */}
-                      {type}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            )}
-      
-            <Text style={styles.sectionTitle}>Details</Text>
-            <View style={styles.detailsContainer}>
-              {["beds", "baths", "balcony", "floor"].map((field, index) => (
-                <View key={field} style={styles.inputWrapper}>
-                  <TextInput
-                    style={styles.input}
-                    placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                    placeholderTextColor="#666" // Makes placeholder text white
-                    keyboardType="numeric"
-                    value={formData.details[field].toString()}
-                    onChangeText={(text) =>
-                      handleInputChange(
-                        `details.${field}`,
-                        text.replace(/[^0-9]/g, "")
-                      )
-                    }
-                  />
-                </View>
-              ))}
-            </View>
-      
-            <Text style={styles.sectionTitle}>Size (sq meters)</Text>
-            <TextInput
-              style={styles.input}
-              keyboardType="numeric" // Only show numeric keyboard
-              placeholder="Size (sq meters)"
-              placeholderTextColor="#666" // Makes placeholder text white
-              value={formData.details["size"].toString()} // Ensure value is a string
-              onChangeText={(value) => {
-                const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-                handleInputChange("details.size", numericValue);
-              }}
-            />
-      
-            <Text style={styles.sectionTitle}>Rent</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Rent"
-              placeholderTextColor="#666" // Makes placeholder text white
-              value={formData.rent.toString()} // Ensure value is a string
-              keyboardType="numeric" // Only show numeric keyboard
-              onChangeText={(value) => {
-                const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-                handleInputChange("rent", numericValue);
-              }}
-            />
-      
-            {/* <Text style={styles.sectionTitle}>Rent Period</Text> */}
-            <Text style={styles.sectionTitle}>Rent Period</Text>
-            <RentPeriodRadio
-              formData={formData}
-              handleInputChange={handleInputChange}
-            />
-      
-            <Text style={styles.sectionTitle}>Member Restriction</Text>
-            <MemberRestrictions
-              formData={formData}
-              handleInputChange={handleInputChange}
-            />
-      
-            {/* Location */}
-            <Text style={styles.sectionTitle}>Location</Text>
-            {["city", "area", "sector", "road", "houseNumber"].map((field) => (
-              <TextInput
-                key={field}
-                style={styles.input}
-                placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                placeholderTextColor="#666" // Makes placeholder text white
-                value={formData.location[field]}
-                onChangeText={(text) => handleInputChange(`location.${field}`, text)}
-              />
-            ))}
-      
-            {/* Facilities */}
-            <Text style={styles.sectionTitle}>Facilities</Text>
-            {Object.keys(formData.facilities).map((facility) => (
-              <View key={facility} style={styles.switchContainer}>
-                <Text style={styles.switchLabel}>
-                  {facility.charAt(0).toUpperCase() + facility.slice(1)}
-                </Text>
-                <Switch
-                  style={styles.switch}
-                  value={formData.facilities[facility]}
-                  onValueChange={(value) =>
-                    handleInputChange(`facilities.${facility}`, value)
-                  }
-                />
-              </View>
-            ))}
-      
-            <Text style={styles.sectionTitle}>Availability</Text>
-            <View>
-              {/* From Date Picker */}
-              <TouchableOpacity
-                onPress={() => setShowFromPicker(true)}
-                style={stylesDate.dateInput}
-              >
-                <Text style={stylesDate.dateText}>
-                  {formData.availability.from || "Post Date (Select Date)"}
-                </Text>
-              </TouchableOpacity>
-              {showFromPicker && (
-                <DateTimePicker
-                  value={
-                    formData.availability.from
-                      ? new Date(formData.availability.from)
-                      : new Date()
-                  }
-                  mode="date"
-                  display="default"
-                  onChange={(event, date) => onChangeDate(event, date, "from")}
-                />
-              )}
-      
-              {/* To Date Picker */}
-              <TouchableOpacity
-                onPress={() => setShowToPicker(true)}
-                style={stylesDate.dateInput}
-              >
-                <Text style={stylesDate.dateText}>
-                  {formData.availability.to || "Available From (Select Date)"}
-                </Text>
-              </TouchableOpacity>
-              {showToPicker && (
-                <DateTimePicker
-                  value={
-                    formData.availability.to
-                      ? new Date(formData.availability.to)
-                      : new Date()
-                  }
-                  mode="date"
-                  display="default"
-                  onChange={(event, date) => onChangeDate(event, date, "to")}
-                />
-              )}
-            </View>
-      
-            <Text style={styles.sectionTitle}>Images</Text>
-            {/* Button to Add Images */}
-            <TouchableOpacity style={stylesImages.addButton} onPress={pickImage}>
-              <Text style={stylesImages.buttonText}>Add Image</Text>
-            </TouchableOpacity>
-      
-            {/* Display Selected Image Previews */}
-            <View style={stylesImages.imageContainer}>
-              {formData.images.length > 0 ? (
-                <ScrollView horizontal>
-                  {formData.images.map((image, index) => (
-                    <View key={index} style={stylesImages.imageWrapper}>
-                      {/* Image Preview */}
-                      <Image
-                        source={{ uri: image }}
-                        style={stylesImages.imagePreview}
-                      />
-      
-                      {/* Cancel Button */}
-                      <TouchableOpacity
-                        style={stylesImages.cancelButton}
-                        onPress={() => removeImage(index)}
-                      >
-                        <Text style={stylesImages.cancelButtonText}>X</Text>
-                      </TouchableOpacity>
-                    </View>
-                  ))}
-                </ScrollView>
-              ) : (
-                <Text style={stylesImages.placeholderText}>
-                  No images uploaded yet.
-                </Text>
-              )}
-            </View>
-      
-            <View style={styles.submitButtonView}>
-              <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
-                <Text style={styles.buttonText}>Update Information</Text>
-              </TouchableOpacity>
-            </View>
 
-     
+      <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
+        <View style={styles.dropdownContent}>
+          <Text style={styles.dropdownText}>{selectedType} </Text>
+          <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
+        </View>
+      </TouchableOpacity>
+
+      {isOpen && (
+        <View style={styles.dropdownMenu}>
+          {propertyTypes.map((type) => (
+            <TouchableOpacity
+              key={type}
+              style={[
+                styles.dropdownItem,
+                selectedType === type && styles.selectedItem,
+              ]}
+              onPress={() => handleTypeSelect(type)}
+            >
+              <Text
+                style={[
+                  styles.dropdownItemText,
+                  selectedType === type && styles.selectedItemText,
+                ]}
+              >
+                {/* {formData.PropertyType = type ? type : "rent"} */}
+                {type}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+
+      <Text style={styles.sectionTitle}>Details</Text>
+      <View style={styles.detailsContainer}>
+        {["beds", "baths", "balcony", "floor"].map((field, index) => (
+          <View key={field} style={styles.inputWrapper}>
+            <TextInput
+              style={styles.input}
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              placeholderTextColor="#666" // Makes placeholder text white
+              keyboardType="numeric"
+              value={formData.details[field].toString()}
+              onChangeText={(text) =>
+                handleInputChange(
+                  `details.${field}`,
+                  text.replace(/[^0-9]/g, "")
+                )
+              }
+            />
+          </View>
+        ))}
+      </View>
+
+      <Text style={styles.sectionTitle}>Size (sq meters)</Text>
+      <TextInput
+        style={styles.input}
+        keyboardType="numeric" // Only show numeric keyboard
+        placeholder="Size (sq meters)"
+        placeholderTextColor="#666" // Makes placeholder text white
+        value={formData.details["size"].toString()} // Ensure value is a string
+        onChangeText={(value) => {
+          const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+          handleInputChange("details.size", numericValue);
+        }}
+      />
+
+      <Text style={styles.sectionTitle}>Rent</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Rent"
+        placeholderTextColor="#666" // Makes placeholder text white
+        value={formData.rent.toString()} // Ensure value is a string
+        keyboardType="numeric" // Only show numeric keyboard
+        onChangeText={(value) => {
+          const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+          handleInputChange("rent", numericValue);
+        }}
+      />
+
+      {/* <Text style={styles.sectionTitle}>Rent Period</Text> */}
+      <Text style={styles.sectionTitle}>Rent Period</Text>
+      <RentPeriodRadio
+        formData={formData}
+        handleInputChange={handleInputChange}
+      />
+
+      <Text style={styles.sectionTitle}>Member Restriction</Text>
+      <MemberRestrictions
+        formData={formData}
+        handleInputChange={handleInputChange}
+      />
+
+      {/* Location */}
+      <Text style={styles.sectionTitle}>Location</Text>
+      {["city", "area", "sector", "road", "houseNumber"].map((field) => (
+        <TextInput
+          key={field}
+          style={styles.input}
+          placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+          placeholderTextColor="#666" // Makes placeholder text white
+          value={formData.location[field]}
+          onChangeText={(text) => handleInputChange(`location.${field}`, text)}
+        />
+      ))}
+
+      {/* Facilities */}
+      <Text style={styles.sectionTitle}>Facilities</Text>
+      {Object.keys(formData.facilities).map((facility) => (
+        <View key={facility} style={styles.switchContainer}>
+          <Text style={styles.switchLabel}>
+            {facility.charAt(0).toUpperCase() + facility.slice(1)}
+          </Text>
+          <Switch
+            style={styles.switch}
+            value={formData.facilities[facility]}
+            onValueChange={(value) =>
+              handleInputChange(`facilities.${facility}`, value)
+            }
+          />
+        </View>
+      ))}
+
+      <Text style={styles.sectionTitle}>Availability</Text>
+      <View>
+        {/* From Date Picker */}
+        <TouchableOpacity
+          onPress={() => setShowFromPicker(true)}
+          style={stylesDate.dateInput}
+        >
+          <Text style={stylesDate.dateText}>
+            {formData.availability.from || "Post Date (Select Date)"}
+          </Text>
+        </TouchableOpacity>
+        {showFromPicker && (
+          <DateTimePicker
+            value={
+              formData.availability.from
+                ? new Date(formData.availability.from)
+                : new Date()
+            }
+            mode="date"
+            display="default"
+            onChange={(event, date) => onChangeDate(event, date, "from")}
+          />
+        )}
+
+        {/* To Date Picker */}
+        <TouchableOpacity
+          onPress={() => setShowToPicker(true)}
+          style={stylesDate.dateInput}
+        >
+          <Text style={stylesDate.dateText}>
+            {formData.availability.to || "Available From (Select Date)"}
+          </Text>
+        </TouchableOpacity>
+        {showToPicker && (
+          <DateTimePicker
+            value={
+              formData.availability.to
+                ? new Date(formData.availability.to)
+                : new Date()
+            }
+            mode="date"
+            display="default"
+            onChange={(event, date) => onChangeDate(event, date, "to")}
+          />
+        )}
+      </View>
+
+      <Text style={styles.sectionTitle}>Images</Text>
+      {/* Button to Add Images */}
+      <TouchableOpacity style={stylesImages.addButton} onPress={pickImage}>
+        <Text style={stylesImages.buttonText}>Add Image</Text>
+      </TouchableOpacity>
+
+      {/* Display Selected Image Previews */}
+      <View style={stylesImages.imageContainer}>
+        {formData.images.length > 0 ? (
+          <ScrollView horizontal>
+            {formData.images.map((image, index) => (
+              <View key={index} style={stylesImages.imageWrapper}>
+                {/* Image Preview */}
+                <Image
+                  source={{ uri: image }}
+                  style={stylesImages.imagePreview}
+                />
+
+                {/* Cancel Button */}
+                <TouchableOpacity
+                  style={stylesImages.cancelButton}
+                  onPress={() => removeImage(index)}
+                >
+                  <Text style={stylesImages.cancelButtonText}>X</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </ScrollView>
+        ) : (
+          <Text style={stylesImages.placeholderText}>
+            No images uploaded yet.
+          </Text>
+        )}
+      </View>
+
+      <View style={styles.submitButtonView}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
+          <Text style={styles.buttonText}>Update Information</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
-
 
 // RentPeriodRadio Component
 const RentPeriodRadio = ({ formData, handleInputChange }) => {
@@ -606,9 +601,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-
-
-
   detailsContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -660,7 +652,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
 
 const stylesDate = StyleSheet.create({
   sectionTitle: {
