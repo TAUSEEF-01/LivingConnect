@@ -20,10 +20,9 @@ import axios from "axios";
 import { router, useLocalSearchParams } from "expo-router";
 
 const CommunityCenterForm = () => {
+  const { id } = useLocalSearchParams();
+  const [loading, setLoading] = useState(true);
 
-    const { id } = useLocalSearchParams();
-      const [loading, setLoading] = useState(true);
-      
   const pickImage = async () => {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -95,7 +94,7 @@ const CommunityCenterForm = () => {
       road: "",
       buildingNumber: "",
     },
-    
+
     facilities: {
       airConditioned: false,
       generator: false,
@@ -125,14 +124,12 @@ const CommunityCenterForm = () => {
     "Multi-purpose",
   ];
 
-
-
   useEffect(() => {
     const fetchHomeDetails = async () => {
       try {
         setLoading(true);
         const response = await axios.get(
-          `http://192.168.50.242:5000/communityDetails/get-communityCenter-details/${id}`
+          `https://livingconnect-backend.vercel.app/communityDetails/get-communityCenter-details/${id}`
         );
 
         if (response.data) {
@@ -145,8 +142,8 @@ const CommunityCenterForm = () => {
               ...(response.data.details || {}),
             },
             price: {
-                ...formData.price,
-                ...(response.data.price || {}),
+              ...formData.price,
+              ...(response.data.price || {}),
             },
             location: {
               ...formData.location,
@@ -200,7 +197,7 @@ const CommunityCenterForm = () => {
       console.log("Updating home with ID:", id);
       console.log("Update data:", updateData);
 
-      const url = `http://192.168.50.242:5000/communityDetails/update-CommunityCenter/${id}`;
+      const url = `https://livingconnect-backend.vercel.app/communityDetails/update-CommunityCenter/${id}`;
       console.log("Request URL:", url);
 
       const response = await axios({
