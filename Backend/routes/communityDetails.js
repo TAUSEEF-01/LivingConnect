@@ -116,6 +116,36 @@ router.get("/get-all-CommunityCenter-details", async (req, res) => {
   });
 
 
+// Endpoint to fetch a single CommunityCenter by ID
+router.get("/get-user-CommunityCenter-properties", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+  
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    console.log("Get Homes Details api called");
+    console.log("User ID:", userId); 
+
+    const CommunityCenter = await CommunityDetails.find({ userId });
+
+    if (!CommunityCenter || CommunityCenter.length === 0) {
+      return res.status(404).json({ message: "No homes found for this user" });
+    }
+
+    console.log(CommunityCenter);
+    res.status(200).json(CommunityCenter);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
+  }
+});
+
+
+
 // Fixed successFalse Search Endpoint
 router.get("/successFalse", async (req, res) => {
     try {
@@ -230,6 +260,42 @@ router.patch("/cancel/:id", async (req, res) => {
     }
   });
 
+
+
+
+  
+// Endpoint to update home details
+router.patch("/update-CommunityCenter/:id", async (req, res) => {
+  const { id } = req.params; // Extract home ID from URL
+  const updateData = req.body; // Data to be updated
+
+  try {
+    console.log(`Updating Community Center information with ID: ${id}`);
+    console.log("Update data:", updateData);
+
+    // Validate ID format (optional, depending on your requirements)
+    if (!id) {
+      return res.status(400).json({ message: "Home ID is required" });
+    }
+
+    // Find the home by ID and update the fields provided in `updateData`
+    const updatedHome = await CommunityDetails.findByIdAndUpdate(
+      id,
+      { $set: updateData }, // Use `$set` to update only the specified fields
+      { new: true, runValidators: true } // Return the updated document and validate the data
+    );
+
+    if (!updatedHome) {
+      return res.status(404).json({ message: "Home not found" });
+    }
+
+    console.log("Community Center information updated successfully:", updatedHome);
+    res.status(200).json({ message: "Community Center information updated successfully", updatedHome });
+  } catch (error) {
+    console.error("Error updating Community Center details:", error);
+    res.status(500).json({ message: "Error updating Community Center details", error });
+  }
+});
 
 
 

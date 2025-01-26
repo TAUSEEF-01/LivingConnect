@@ -1,0 +1,68 @@
+{/* Property Type */}
+      <Text style={styles.sectionTitle}>Property Type</Text>
+      <TextInput
+        style={styles.input}
+        value={formData.centerType}
+        onChangeText={(value) => handleInputChange("centerType", value)}
+      />
+
+      {/* Rent */}
+      <Text style={styles.sectionTitle}>Rent</Text>
+      <TextInput
+        style={styles.input}
+        value={formData.rent?.toString() || ""}
+        onChangeText={(value) => handleInputChange("rent", value)}
+        keyboardType="numeric"
+      />
+
+      {/* Details */}
+      <Text style={styles.sectionTitle}>Details</Text>
+      <View style={styles.detailsContainer}>
+        {["beds", "baths", "size", "balcony", "floor"].map((field) => (
+          <View key={field} style={styles.inputWrapper}>
+            <TextInput
+              style={styles.input}
+              value={formData.details?.[field]?.toString() || ""}
+              onChangeText={(value) =>
+                handleInputChange(`details.${field}`, value)
+              }
+              placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+              keyboardType="numeric"
+            />
+          </View>
+        ))}
+      </View>
+
+      {/* Location */}
+      <Text style={styles.sectionTitle}>Location</Text>
+      {Object.keys(formData.location || {}).map((field) => (
+        <TextInput
+          key={field}
+          style={styles.input}
+          value={formData.location[field]?.toString() || ""}
+          onChangeText={(value) =>
+            handleInputChange(`location.${field}`, value)
+          }
+          placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+        />
+      ))}
+
+      {/* Facilities */}
+      <Text style={styles.sectionTitle}>Facilities</Text>
+      {Object.keys(formData.facilities || {}).map((facility) => (
+        <View key={facility} style={styles.switchContainer}>
+          <Text style={styles.switchLabel}>
+            {facility.charAt(0).toUpperCase() + facility.slice(1)}
+          </Text>
+          <Switch
+            value={!!formData.facilities[facility]}
+            onValueChange={(value) =>
+              handleInputChange(`facilities.${facility}`, value)
+            }
+          />
+        </View>
+      ))}
+
+      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+        <Text style={styles.buttonText}>Update Home Details</Text>
+      </TouchableOpacity>

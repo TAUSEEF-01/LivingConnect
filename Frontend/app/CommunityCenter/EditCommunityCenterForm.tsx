@@ -1,10 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   ScrollView,
   Switch,
@@ -12,14 +10,15 @@ import {
   Platform,
   Alert,
   Image,
+  ActivityIndicator,
 } from "react-native";
+import { useLocalSearchParams, router } from "expo-router";
+import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
-import axios from "axios";
-import { router } from "expo-router";
 
-const CommunityCenterForm = () => {
+const EditCommunityCenterDetails = () => {
   const pickImage = async () => {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -60,6 +59,28 @@ const CommunityCenterForm = () => {
     }));
   };
 
+  const { id } = useLocalSearchParams();
+  const [loading, setLoading] = useState(true);
+  const [showFromPicker, setShowFromPicker] = useState(false);
+  const [showToPicker, setShowToPicker] = useState(false);
+
+  const onChangeDate = (event, selectedDate, type) => {
+    const currentDate = selectedDate || new Date();
+    if (type === "from") {
+      setShowFromPicker(Platform.OS === "ios");
+      handleInputChange(
+        "availability.from",
+        currentDate.toISOString().split("T")[0]
+      );
+    } else {
+      setShowToPicker(Platform.OS === "ios");
+      handleInputChange(
+        "availability.to",
+        currentDate.toISOString().split("T")[0]
+      );
+    }
+  };
+
   const [formData, setFormData] = useState({
     centerType: "",
     details: {
@@ -71,12 +92,6 @@ const CommunityCenterForm = () => {
       diningArea: false,
       stageArea: false,
     },
-    // restrictions: {
-    //   noiseRestriction: false,
-    //   timeRestriction: "",
-    //   foodRestriction: false,
-    //   decorationRestriction: false,
-    // },
     price: {
       basePrice: "",
       fullDayPrice: "",
@@ -102,13 +117,6 @@ const CommunityCenterForm = () => {
       staging: false,
       security: false,
     },
-    // availability: {
-    //   regularHours: {
-    //     open: "",
-    //     close: "",
-    //   },
-    //   bookedDates: [],
-    // },
     availability: { from: "", to: "" },
     images: [],
   });
@@ -120,92 +128,129 @@ const CommunityCenterForm = () => {
     "Multi-purpose",
   ];
 
+  useEffect(() => {
+    const fetchHomeDetails = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://livingconnect-backend.vercel.app/communityDetails/get-communityCenter-details/${id}`
+        );
+
+        if (response.data) {
+          // Ensure all required properties exist
+          const data = {
+            ...formData, // Keep default structure
+            ...response.data, // Overlay with received data
+            details: {
+              ...formData.details,
+              ...(response.data.details || {}),
+            },
+            location: {
+              ...formData.location,
+              ...(response.data.location || {}),
+            },
+            facilities: {
+              ...formData.facilities,
+              ...(response.data.facilities || {}),
+            },
+            availability: {
+              ...formData.availability,
+              ...(response.data.availability || {}),
+            },
+            price: {
+              ...formData.price,
+              ...(response.data.price || {}),
+            },
+          };
+          console.log("Received data:", data);
+          setFormData(data);
+        }
+      } catch (error) {
+        console.error("Error fetching home details:", error);
+        Alert.alert("Error", "Failed to load home details");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchHomeDetails();
+    }
+  }, [id]);
+
   const handleInputChange = (path, value) => {
     const keys = path.split(".");
     setFormData((prevState) => {
-      let newState = { ...prevState };
-      let temp = newState;
+      const newState = { ...prevState };
+      let current = newState;
 
       for (let i = 0; i < keys.length - 1; i++) {
-        temp[keys[i]] = { ...temp[keys[i]] };
-        temp = temp[keys[i]];
+        if (!current[keys[i]]) {
+          current[keys[i]] = {};
+        }
+        current[keys[i]] = { ...current[keys[i]] };
+        current = current[keys[i]];
       }
 
-      temp[keys[keys.length - 1]] = value;
+      current[keys[keys.length - 1]] = value;
       return newState;
     });
   };
 
   const handleSubmit = async () => {
-    console.log("Payload:", JSON.stringify(formData));
-
-    const token = await AsyncStorage.getItem("userToken");
-
     try {
-      const response = await axios.post(
-        "https://livingconnect-backend.vercel.app/communityDetails/add-community-center",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      // Remove _id field from formData to avoid MongoDB conflicts
+      const { _id, __v, ...updateData } = formData;
+
+      console.log("Updating home with ID:", id);
+      console.log("Update data:", updateData);
+
+      const url = `https://livingconnect-backend.vercel.app/communityDetails/update-CommunityCenter/${id}`;
+      console.log("Request URL:", url);
+
+      const response = await axios({
+        method: "PATCH",
+        url,
+        data: updateData,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        validateStatus: (status) => {
+          return status < 500; // Resolve only if status code is less than 500
+        },
+      });
+
+      console.log("Response:", response.data); // Add this for debugging
 
       if (response.status === 200) {
-        console.log("Form submitted successfully");
-        Alert.alert(
-          "Form submitted successfully. The admins will review your request."
-        );
-        router.replace("/pages/mainPage");
+        Alert.alert("Success", "Community Center details updated successfully");
+        router.back();
       } else {
-        console.error("Submission failed");
-        Alert.alert("Fill up all the fields");
+        throw new Error(response.data?.message || "Update failed");
       }
     } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [selectedType, setSelectedType] = useState("Select Property Types");
-
-  // const propertyTypes = ["Rent", "Sale", "Sublet", "Over a Time period"];
-
-  // const toggleDropdown = () => {
-  //   setIsOpen(!isOpen);
-  // };
-
-  // const handleTypeSelect = (type) => {
-  //   setSelectedType(type);
-  //   formData.PropertyType = type;
-  //   setIsOpen(false);
-  // };
-
-  const [showFromPicker, setShowFromPicker] = useState(false);
-  const [showToPicker, setShowToPicker] = useState(false);
-
-  const onChangeDate = (event, selectedDate, type) => {
-    const currentDate = selectedDate || new Date();
-    if (type === "from") {
-      setShowFromPicker(Platform.OS === "ios");
-      handleInputChange(
-        "availability.from",
-        currentDate.toISOString().split("T")[0]
-      );
-    } else {
-      setShowToPicker(Platform.OS === "ios");
-      handleInputChange(
-        "availability.to",
-        currentDate.toISOString().split("T")[0]
+      console.error("Error updating Community Center details:", error);
+      const errorMessage = error.response?.data?.message || error.message;
+      Alert.alert(
+        "Error",
+        `Failed to update Community Center details: ${errorMessage}`
       );
     }
   };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#38bdf8" />
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
-      <Text style={styles.title}>Add Community Center</Text>
+      <Text style={styles.title}>Edit Community Center Details</Text>
 
       <Text style={styles.sectionTitle}>Center Type</Text>
       <View style={styles.typeContainer}>
@@ -438,7 +483,7 @@ const CommunityCenterForm = () => {
 
       <View style={styles.submitButtonView}>
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
+          <Text style={styles.buttonText}>Update Community Center Details</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -446,6 +491,12 @@ const CommunityCenterForm = () => {
 };
 
 const styles = StyleSheet.create({
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "black",
+  },
   container: {
     flex: 1,
     padding: 10,
@@ -505,18 +556,17 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     marginTop: 3,
+    padding: 10,
   },
   switchContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "#2d3748",
-    // paddingHorizontal: 8,
+    paddingHorizontal: 8,
     borderRadius: 8,
-    // paddingVertical: 2,
-    marginTop: 5,
-    // marginBottom: 5,
-    borderColor: "black",
+    paddingVertical: 2,
+    marginBottom: 5,
   },
   switchLabel: {
     fontSize: 16,
@@ -617,4 +667,4 @@ const stylesImages = StyleSheet.create({
   },
 });
 
-export default CommunityCenterForm;
+export default EditCommunityCenterDetails;
