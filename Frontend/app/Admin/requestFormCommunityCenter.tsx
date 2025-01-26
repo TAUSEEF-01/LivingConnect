@@ -92,6 +92,9 @@ const CommunityDetailsPage = ({ route }) => {
         <Text style={styles.title}>
           {community.centerType ? community.centerType.toUpperCase() : "N/A"}
         </Text>
+        <Text style={styles.titleName}>
+          {community.name ? community.name : "N/A"}
+        </Text>
 
         {/* Images */}
         {/* <ScrollView horizontal style={styles.imageContainer}>
@@ -268,6 +271,14 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: "bold",
     color: "#38bdf8",
+    marginBottom: 16,
+    textAlign: "center",
+  },
+
+  titleName: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#F0BB78",
     marginBottom: 16,
     textAlign: "center",
   },
