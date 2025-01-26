@@ -855,7 +855,7 @@ export default function Profile() {
             Authorization: `Bearer ${token}`,
           },
           // timeout: 10000
-          timeout: 1000,
+          // timeout: 1000,
         }
       );
 
@@ -864,7 +864,7 @@ export default function Profile() {
         router.push("/pages/mainPage");
       } else {
         Alert.alert("Error", "Failed to update profile.");
-        // router.push("/pages/mainPage");
+        router.push("/pages/mainPage");
       }
     } catch (error) {
       console.error("Detailed Error:", JSON.stringify(error, null, 2));

@@ -233,4 +233,69 @@ router.patch("/cancel/:id", async (req, res) => {
 
 
 
+  // Endpoint to fetch all CommunityCenter by ID
+router.get("/get-user-CommunityCenter-properties", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+  
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    console.log("Get Community Center Details api called");
+    console.log("User ID:", userId); 
+
+    const CommunityCenter = await CommunityDetails.find({ userId });
+
+    if (!CommunityCenter || CommunityCenter.length === 0) {
+      return res.status(404).json({ message: "No Community Center found for this user" });
+    }
+
+
+    console.log(CommunityCenter);
+    res.status(200).json(CommunityCenter);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching Community Center details", error });
+  }
+});
+
+
+
+
+// Endpoint to update CommunityCenter details
+router.patch("/update-CommunityCenter/:id", async (req, res) => {
+  const { id } = req.params; // Extract home ID from URL
+  const updateData = req.body; // Data to be updated
+
+  try {
+    console.log(`Updating CommunityCenter with ID: ${id}`);
+    console.log("Update data:", updateData);
+
+    // Validate ID format (optional, depending on your requirements)
+    if (!id) {
+      return res.status(400).json({ message: "CommunityCenter ID is required" });
+    }
+
+    // Find the home by ID and update the fields provided in `updateData`
+    const UpdatedCommunityCenter = await CommunityDetails.findByIdAndUpdate(
+      id,
+      { $set: updateData }, // Use `$set` to update only the specified fields
+      { new: true, runValidators: true } // Return the updated document and validate the data
+    );
+
+    if (!UpdatedCommunityCenter) {
+      return res.status(404).json({ message: "Home not found" });
+    }
+
+    console.log("CommunityCenter updated successfully:", UpdatedCommunityCenter);
+    res.status(200).json({ message: "CommunityCenter updated successfully", UpdatedCommunityCenter });
+  } catch (error) {
+    console.error("Error updating CommunityCenter details:", error);
+    res.status(500).json({ message: "Error updating CommunityCenter details", error });
+  }
+});
+
 module.exports = router;

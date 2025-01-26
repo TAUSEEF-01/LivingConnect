@@ -155,7 +155,9 @@ const CommunityCenterForm = () => {
 
       if (response.status === 200) {
         console.log("Form submitted successfully");
-        Alert.alert("Form submitted successfully");
+        Alert.alert(
+          "Form submitted successfully. The admins will review your request."
+        );
         router.replace("/pages/mainPage");
       } else {
         console.error("Submission failed");

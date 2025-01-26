@@ -1467,8 +1467,10 @@ app.set("view engine", "ejs"); // Setting EJS as the template engine
 app.set("views", "./views"); // Specify the directory for your view templates
 
 const { connectMongoDB } = require("./connection");
-// connectMongoDB("mongodb://localhost:27017/UserInfo");
-connectMongoDB("mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/UserInfo?retryWrites=true&w=majority&appName=Cluster0");
+connectMongoDB("mongodb://localhost:27017/UserInfo");
+// connectMongoDB(
+//   "mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/UserInfo?retryWrites=true&w=majority&appName=Cluster0"
+// );
 
 const routes = require("./routes");
 app.use(routes);

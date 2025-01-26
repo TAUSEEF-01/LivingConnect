@@ -230,7 +230,7 @@ const AdminApprovalPage = () => {
             })
           }
         >
-          <Text style={styles.title}>{index + 1}. Form ID:</Text>
+          <Text style={styles.title}>{index + 1}. Request id: </Text>
           <Text style={styles.details}>{form._id}</Text>
         </TouchableOpacity>
       ))}

@@ -286,9 +286,9 @@ export default function MyImage() {
       <TouchableOpacity
         style={styles.updateButton}
         onPress={() => {
-          // router.push("/profile/updateProfile");
+          router.push("/pages/UserProperties/showUserAllProperties");
           // router.push(`/Rent/editHomeDetails?id=${homeId}`);//67646960c5f2d543cfbf208d
-          router.push(`/Rent/editHomeDetails?id=67646960c5f2d543cfbf208d`);
+          // router.push(`/Rent/editHomeDetails?id=67646960c5f2d543cfbf208d`);
         }}
       >
         <Text style={styles.buttonText}>Edit My Property Details</Text>
