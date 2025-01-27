@@ -150,7 +150,7 @@
 // // // //   },
 // // // //   activeTab: {
 // // // //     borderBottomWidth: 2,
-// // // //     borderBottomColor: "#2563eb",
+// // // //     borderBottomColor: "#38bdf8",
 // // // //   },
 // // // //   tabText: {
 // // // //     color: "white",
@@ -187,7 +187,7 @@
 // // // //     marginTop: 12,
 // // // //   },
 // // // //   actionButton: {
-// // // //     backgroundColor: "#2563eb",
+// // // //     backgroundColor: "#38bdf8",
 // // // //     paddingHorizontal: 16,
 // // // //     paddingVertical: 8,
 // // // //     borderRadius: 8,
@@ -1410,7 +1410,7 @@
 // // // //   // contactButton: {
 // // // //   //   marginBottom: 16,
 // // // //   //   padding: 12,
-// // // //   //   backgroundColor: "#2563eb",
+// // // //   //   backgroundColor: "#38bdf8",
 // // // //   //   borderRadius: 8,
 
 // // // //   //   // height: "6%", // Height is 10% of the parent container/screen
@@ -1456,7 +1456,7 @@
 
 // // // //   contactButton: {
 // // // //     padding: 12,
-// // // //     backgroundColor: "#2563eb",
+// // // //     backgroundColor: "#38bdf8",
 // // // //     borderRadius: 8,
 // // // //     justifyContent: "center",
 // // // //     alignItems: "center",
@@ -1497,7 +1497,7 @@
 // // // // //   // Remove absolute positioning
 // // // // // contactButton: {
 // // // // //   padding: 12,
-// // // // //   backgroundColor: "#2563eb",
+// // // // //   backgroundColor: "#38bdf8",
 // // // // //   borderRadius: 8,
 // // // // //   marginBottom: 16,
 // // // // // },
@@ -2548,7 +2548,7 @@
 
 // // //   contactButton: {
 // // //     padding: 12,
-// // //     // backgroundColor: "#2563eb",
+// // //     // backgroundColor: "#38bdf8",
 // // //     backgroundColor: "#38bdf8",
 // // //     borderRadius: 8,
 // // //     justifyContent: "center",
@@ -3744,7 +3744,7 @@
 
 // //   contactButton: {
 // //     padding: 12,
-// //     // backgroundColor: "#2563eb",
+// //     // backgroundColor: "#38bdf8",
 // //     backgroundColor: "#38bdf8",
 // //     borderRadius: 8,
 // //     justifyContent: "center",
@@ -5107,7 +5107,7 @@
 
 //   contactButton: {
 //     padding: 12,
-//     // backgroundColor: "#2563eb",
+//     // backgroundColor: "#38bdf8",
 //     backgroundColor: "#38bdf8",
 //     borderRadius: 8,
 //     justifyContent: "center",
@@ -6903,7 +6903,7 @@ const localStyles = StyleSheet.create({
 
   contactButton: {
     padding: 12,
-    // backgroundColor: "#2563eb",
+    // backgroundColor: "#38bdf8",
     backgroundColor: "#38bdf8",
     borderRadius: 8,
     justifyContent: "center",

@@ -70,6 +70,7 @@ const SidePanel = ({ isVisible, onClose }) => {
       if (token) {
         const response = await axios.get(
           "https://livingconnect-backend.vercel.app/auth/adminCheck",
+          // "https://192.168.0.103:5000/auth/adminCheck",
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setIsAdmin(response.data?.isAdmin || false);

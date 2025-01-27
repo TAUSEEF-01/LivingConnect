@@ -1,0 +1,221 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+  Platform,
+  StatusBar,
+  SafeAreaView,
+} from "react-native";
+import axios from "axios";
+import { router, useFocusEffect } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const UserServicesList = () => {
+  const [forms, setForms] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchUserHouses = async () => {
+    try {
+      const token = await AsyncStorage.getItem("userToken");
+      const response = await axios.get(
+        "https://livingconnect-backend.vercel.app/communityDetails/get-user-CommunityCenter-properties",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setForms(response.data);
+    } catch (error) {
+      Alert.alert("Error", "Failed to fetch your properties.");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchUserHouses();
+      return () => {};
+    }, [])
+  );
+
+  if (loading) {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color="#38bdf8" />
+      </View>
+    );
+  }
+
+  const renderContent = () => {
+    if (forms.length === 0) {
+          return (
+            <View style={styles.noDataContainer}>
+              <Text style={styles.noDataText}>No forms to verify.</Text>
+            </View>
+          );
+        }
+
+    return (
+      <ScrollView style={styles.scrollContainer}>
+        {forms.map((form, index) => (
+          <TouchableOpacity
+            key={form._id}
+            style={styles.card}
+            onPress={() =>
+              router.push({
+                pathname: "/CommunityCenter/CommunityCenterEditForm",
+                params: { id: form._id },
+              })
+            }
+            activeOpacity={0.7}
+          >
+            <View style={styles.cardHeader}>
+              <Text style={styles.cardTitle}>Services {index + 1}</Text>
+              <Text style={styles.editText}>Edit Details →</Text>
+            </View>
+            <View style={styles.cardDivider} />
+            <Text style={styles.cardId}>ID: {form._id}</Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>My Services</Text>
+        <Text style={styles.headerSubtitle}>Manage Your Listed Services</Text>
+      </View>
+      {renderContent()}
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#F8FAFF",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  headerContainer: {
+    backgroundColor: "#38bdf8",
+    padding: 24,
+    paddingTop: Platform.OS === "ios" ? 20 : 40,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#FFFFFF",
+    textAlign: "center",
+    letterSpacing: 0.5,
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: "#E0E7FF",
+    textAlign: "center",
+    marginTop: 4,
+    letterSpacing: 0.5,
+  },
+  scrollContainer: {
+    flex: 1,
+    padding: 20,
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F8FAFF",
+  },
+  noDataContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  noDataText: {
+    fontSize: 18,
+    color: "#64748B",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  addButton: {
+    backgroundColor: "#38bdf8",
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  addButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    marginBottom: 16,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  cardHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#38bdf8",
+  },
+  editText: {
+    fontSize: 14,
+    color: "#38bdf8",
+    fontWeight: "500",
+  },
+  cardDivider: {
+    height: 1,
+    backgroundColor: "#E0E7FF",
+    marginBottom: 12,
+  },
+  cardId: {
+    fontSize: 14,
+    color: "#64748B",
+  },
+});
+
+export default UserServicesList;
