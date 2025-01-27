@@ -18,7 +18,7 @@
 //     //       setLoading(true);
 
 //     //       // Make a request to the backend with the token in the Authorization header
-//     //       const response = await axios.get("https://livingconnect-backend.vercel.app/get-profile", {
+//     //       const response = await axios.get("http://192.168.50.242:5000/get-profile", {
 //     //         headers: {
 //     //           Authorization: `Bearer ${token}`,
 //     //         },
@@ -198,8 +198,8 @@ export default function MyImage() {
 
       setLoading(true);
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/profile/get-profile",
-        // "https://livingconnect-backend.vercel.app/profile/get-profile",
+        "http://192.168.50.242:5000/profile/get-profile",
+        // "http://192.168.50.242:5000/profile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -640,7 +640,7 @@ const styles = StyleSheet.create({
 
 //       setLoading(true);
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/get-profile",
+//         "http://192.168.50.242:5000/get-profile",
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`,

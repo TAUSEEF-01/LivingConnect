@@ -319,7 +319,7 @@
 // // // //         return;
 // // // //       }
 
-// // // //       const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
+// // // //       const response = await axios.get("http://192.168.50.242:5000/verify", {
 // // // //         headers: { Authorization: `Bearer ${token}` },
 // // // //       });
 
@@ -582,7 +582,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   {
 // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -867,7 +867,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1560,7 +1560,7 @@
 // // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // // //               if (token) {
 // // // // //                 await axios.post(
-// // // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // // //                   "http://192.168.50.242:5000/logout",
 // // // // //                   {},
 // // // // //                   {
 // // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -1664,7 +1664,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1776,8 +1776,8 @@
 // // //   useEffect(() => {
 // // //     async function fetchProperties() {
 // // //       try {
-// // //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
-// // //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// // //         const response = await fetch("http://192.168.50.242:5000/properties");
+// // //         // const response = await fetch("http://192.168.50.242:5000/properties");
 // // //         const data = await response.json();
 
 // // //         // console.log('Fetched properties:', data);
@@ -1799,8 +1799,8 @@
 // // //   const fetchAllHomeDetails = async () => {
 // // //     try {
 // // //       const response = await axios.get(
-// // //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-// // //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// // //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// // //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 // // //       );
 // // //       setHomes(response.data);
 // // //     } catch (error) {
@@ -2683,8 +2683,8 @@
 // //   useEffect(() => {
 // //     async function fetchProperties() {
 // //       try {
-// //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
-// //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// //         const response = await fetch("http://192.168.50.242:5000/properties");
+// //         // const response = await fetch("http://192.168.50.242:5000/properties");
 // //         const data = await response.json();
 
 // //         // console.log('Fetched properties:', data);
@@ -2706,8 +2706,8 @@
 // //   const fetchAllHomeDetails = async () => {
 // //     try {
 // //       const response = await axios.get(
-// //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-// //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 // //       );
 // //       setHomes(response.data);
 // //     } catch (error) {
@@ -3880,9 +3880,9 @@
 //     async function fetchProperties() {
 //       try {
 //         const response = await fetch(
-//           "https://livingconnect-backend.vercel.app/properties"
+//           "http://192.168.50.242:5000/properties"
 //         );
-//         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+//         // const response = await fetch("http://192.168.50.242:5000/properties");
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -3904,8 +3904,8 @@
 //   const fetchAllHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-//         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+//         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+//         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 //       );
 //       setHomes(response.data);
 //     } catch (error) {
@@ -5187,7 +5187,7 @@ import styles from "../../styles";
 import SidePanel from "../sidePanel/sidePanel";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import Entypo from '@expo/vector-icons/Entypo';
+import Entypo from "@expo/vector-icons/Entypo";
 
 export default function CommunityCenter() {
   const [isSidePanelVisible, setSidePanelVisible] = useState(false);
@@ -5236,8 +5236,6 @@ export default function CommunityCenter() {
     // router.replace("/Rent/rentAHomeForm");
   };
 
-  
-
   const handleAddServicePress = async () => {
     router.push("/services/addServicesForm");
   };
@@ -5254,10 +5252,8 @@ export default function CommunityCenter() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch(
-          "https://livingconnect-backend.vercel.app/properties"
-        );
-        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+        const response = await fetch("http://192.168.50.242:5000/properties");
+        // const response = await fetch("http://192.168.50.242:5000/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -5279,8 +5275,8 @@ export default function CommunityCenter() {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -5298,8 +5294,8 @@ export default function CommunityCenter() {
   const fetchAllCommunityCenterDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details"
-        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "http://192.168.50.242:5000/communityDetails/get-all-CommunityCenter-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
       );
       setCommunityCenter(response.data);
     } catch (error) {
@@ -5968,8 +5964,6 @@ export default function CommunityCenter() {
                 <Text style={localStyles.showAll}>Show all</Text>
               </TouchableOpacity> */}
 
-
-
               {/* <TouchableOpacity
                 style={{
                   backgroundColor: "#38bdf8",
@@ -6026,59 +6020,69 @@ export default function CommunityCenter() {
                 <Entypo name="arrow-with-circle-right" size={24} color="white" />
               </TouchableOpacity> */}
 
-<TouchableOpacity
-  style={{
-    backgroundColor: "#38bdf8",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    width: "98%",
-    marginVertical: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    shadowColor: "#38bdf8",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 6,
-  }}
-  onPress={handleRentAHomePress}
-  activeOpacity={0.7}
->
-  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-    {/* {dummyHomeServices
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={handleRentAHomePress}
+                activeOpacity={0.7}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flex: 1,
+                  }}
+                >
+                  {/* {dummyHomeServices
       .filter((service) => service.name.includes("Cleaning"))
       .map((service) => (
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
-            <Image
-              source={{ uri: "http://images.unsplash.com/photo-1581578731548-c64695cc6952" }}
-              style={{
-                width: "90%", // Set the width of the image
-                height: 100, // Set the height of the image
-                borderRadius: 8, // Optional: add rounded corners
-              }}
-            />
-          {/* )} */}
-        </View>
-      {/* ))} */}
-    <Text
-      style={{
-        color: "white",
-        fontSize: 16,
-        fontWeight: "600",
-        textAlign: "center",
-        flex: 1, // Pushes arrow to the side
-      }}
-    >
-      Home Cleaning{"\n"}Services
-    </Text>
-  
-  <Entypo name="arrow-with-circle-right" size={24} color="white" />
-</TouchableOpacity>
+                  <Image
+                    source={{
+                      uri: "http://images.unsplash.com/photo-1581578731548-c64695cc6952",
+                    }}
+                    style={{
+                      width: "90%", // Set the width of the image
+                      height: 100, // Set the height of the image
+                      borderRadius: 8, // Optional: add rounded corners
+                    }}
+                  />
+                  {/* )} */}
+                </View>
+                {/* ))} */}
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    textAlign: "center",
+                    flex: 1, // Pushes arrow to the side
+                  }}
+                >
+                  Home Cleaning{"\n"}Services
+                </Text>
 
-
+                <Entypo
+                  name="arrow-with-circle-right"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
 
               {/* Home Categories */}
               {/* <TouchableOpacity onPress={handleHomePress}>
@@ -6122,58 +6126,69 @@ export default function CommunityCenter() {
                   ))}
               </ScrollView> */}
 
-<TouchableOpacity
-  style={{
-    backgroundColor: "#38bdf8",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    width: "98%",
-    marginVertical: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    shadowColor: "#38bdf8",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 6,
-  }}
-  onPress={handleRentAHomePress}
-  activeOpacity={0.7}
->
-  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-    {/* {dummyHomeServices
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={handleRentAHomePress}
+                activeOpacity={0.7}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flex: 1,
+                  }}
+                >
+                  {/* {dummyHomeServices
       .filter((service) => service.name.includes("Cleaning"))
       .map((service) => (
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
-            <Image
-              source={{ uri: "http://images.unsplash.com/photo-1621905252507-b35492cc74b4" }}
-              style={{
-                width: "90%", // Set the width of the image
-                height: 100, // Set the height of the image
-                borderRadius: 8, // Optional: add rounded corners
-              }}
-            />
-          {/* )} */}
-        </View>
-      {/* ))} */}
-    <Text
-      style={{
-        color: "white",
-        fontSize: 16,
-        fontWeight: "600",
-        textAlign: "center",
-        flex: 1, // Pushes arrow to the side
-      }}
-    >
-      Home Repair{"\n"}Services
-    </Text>
-  
-  <Entypo name="arrow-with-circle-right" size={24} color="white" />
-</TouchableOpacity>
+                  <Image
+                    source={{
+                      uri: "http://images.unsplash.com/photo-1621905252507-b35492cc74b4",
+                    }}
+                    style={{
+                      width: "90%", // Set the width of the image
+                      height: 100, // Set the height of the image
+                      borderRadius: 8, // Optional: add rounded corners
+                    }}
+                  />
+                  {/* )} */}
+                </View>
+                {/* ))} */}
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    textAlign: "center",
+                    flex: 1, // Pushes arrow to the side
+                  }}
+                >
+                  Home Repair{"\n"}Services
+                </Text>
 
+                <Entypo
+                  name="arrow-with-circle-right"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
 
               {/* <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>Home Repair Services</Text>
@@ -6214,58 +6229,69 @@ export default function CommunityCenter() {
                   ))}
               </ScrollView> */}
 
-<TouchableOpacity
-  style={{
-    backgroundColor: "#38bdf8",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    width: "98%",
-    marginVertical: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    shadowColor: "#38bdf8",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 6,
-  }}
-  onPress={handleRentAHomePress}
-  activeOpacity={0.7}
->
-  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-    {/* {dummyHomeServices
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={handleRentAHomePress}
+                activeOpacity={0.7}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flex: 1,
+                  }}
+                >
+                  {/* {dummyHomeServices
       .filter((service) => service.name.includes("Cleaning"))
       .map((service) => (
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
-            <Image
-              source={{ uri: "http://images.unsplash.com/photo-1600585152220-90363fe7e115" }}
-              style={{
-                width: "90%", // Set the width of the image
-                height: 100, // Set the height of the image
-                borderRadius: 8, // Optional: add rounded corners
-              }}
-            />
-          {/* )} */}
-        </View>
-      {/* ))} */}
-    <Text
-      style={{
-        color: "white",
-        fontSize: 16,
-        fontWeight: "600",
-        textAlign: "center",
-        flex: 1, // Pushes arrow to the side
-      }}
-    >
-      Home Shift{"\n"}Services 
-    </Text>
-  
-  <Entypo name="arrow-with-circle-right" size={24} color="white" />
-</TouchableOpacity>
+                  <Image
+                    source={{
+                      uri: "http://images.unsplash.com/photo-1600585152220-90363fe7e115",
+                    }}
+                    style={{
+                      width: "90%", // Set the width of the image
+                      height: 100, // Set the height of the image
+                      borderRadius: 8, // Optional: add rounded corners
+                    }}
+                  />
+                  {/* )} */}
+                </View>
+                {/* ))} */}
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    textAlign: "center",
+                    flex: 1, // Pushes arrow to the side
+                  }}
+                >
+                  Home Shift{"\n"}Services
+                </Text>
 
+                <Entypo
+                  name="arrow-with-circle-right"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
 
               {/* <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>Home Shift Services</Text>

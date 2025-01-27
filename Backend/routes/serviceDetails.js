@@ -50,14 +50,18 @@ try {
     const profileImage = userInfo.profileImage;
 
     const {
+        companyName,
+        description,
       serviceType,
       cost,
       location,
       images,
     } = req.body;
 
+    console.log("req.body:", req.body);
+
     // Validate required fields
-    if (!userId || !serviceType || !cost || !location || !images) {
+    if (!userId || !serviceType || !cost || !location || !images || !companyName) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
@@ -68,6 +72,8 @@ try {
       contactNumber: contactNumber || null, // Optional
       profileImage: profileImage || null, // Optional
       serviceType,
+      companyName,
+        description,
       cost,
       location,
       images,
