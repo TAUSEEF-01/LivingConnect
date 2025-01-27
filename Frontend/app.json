@@ -52,21 +52,21 @@
     "slug": "Fast_Home_App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/ic_launcher.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splashScreen.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/ic_launcher.png",
+        "backgroundColor": "#000000"
       },
       "package": "com.tauseef_01.Fast_Home_App",
       "googleMapsApiKey":"AIzaSyD5lBtXgJGmF963hHCbXiWNG3G0VPYSzU4"
@@ -74,7 +74,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/ic_launcher.png"
     },
     "plugins": [
       "expo-router",

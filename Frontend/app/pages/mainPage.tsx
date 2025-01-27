@@ -5187,6 +5187,8 @@ import styles from "../../styles";
 import SidePanel from "../sidePanel/sidePanel";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import Entypo from '@expo/vector-icons/Entypo';
+
 export default function CommunityCenter() {
   const [isSidePanelVisible, setSidePanelVisible] = useState(false);
   const [user, setUser] = useState(null);
@@ -5232,6 +5234,12 @@ export default function CommunityCenter() {
 
     router.push("/Rent/rentAHomeForm");
     // router.replace("/Rent/rentAHomeForm");
+  };
+
+  
+
+  const handleAddServicePress = async () => {
+    router.push("/services/addServicesForm");
   };
 
   const handleProvideServicesPress = async () => {
@@ -5928,7 +5936,7 @@ export default function CommunityCenter() {
                   shadowRadius: 5,
                   elevation: 6,
                 }}
-                onPress={handleRentAHomePress}
+                onPress={handleAddServicePress}
                 activeOpacity={0.7}
               >
                 <Ionicons
@@ -5956,12 +5964,124 @@ export default function CommunityCenter() {
               <Text style={localStyles.latestListingsHeader}>
                 Available Services
               </Text>
-              <TouchableOpacity onPress={handleShowAllPress}>
+              {/* <TouchableOpacity onPress={handleShowAllPress}>
                 <Text style={localStyles.showAll}>Show all</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+
+
+
+              {/* <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={handleRentAHomePress}
+                activeOpacity={0.7}
+              >
+                
+                <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    {dummyHomeServices
+                    .filter((service) => service.name.includes("Cleaning"))
+                    .map((service) => (
+                      <View >
+                    {service.images.length > 0 && (
+                          <Image
+                            source={{ uri: service.images[0] }}
+                            // style={localStyles.cardImage}
+                          />
+                        )}
+                  </View>
+                
+                  ))}
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    Home Cleaning Services {" "}
+                    </Text>
+                  </Text>
+                <Entypo name="arrow-with-circle-right" size={24} color="white" />
+              </TouchableOpacity> */}
+
+<TouchableOpacity
+  style={{
+    backgroundColor: "#38bdf8",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    width: "98%",
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    shadowColor: "#38bdf8",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 6,
+  }}
+  onPress={handleRentAHomePress}
+  activeOpacity={0.7}
+>
+  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
+    {/* {dummyHomeServices
+      .filter((service) => service.name.includes("Cleaning"))
+      .map((service) => (
+        <View key={service.name} style={{ marginRight: 12 }}>
+          {service.images.length > 0 && ( */}
+            <Image
+              source={{ uri: "http://images.unsplash.com/photo-1581578731548-c64695cc6952" }}
+              style={{
+                width: "90%", // Set the width of the image
+                height: 100, // Set the height of the image
+                borderRadius: 8, // Optional: add rounded corners
+              }}
+            />
+          {/* )} */}
+        </View>
+      {/* ))} */}
+    <Text
+      style={{
+        color: "white",
+        fontSize: 16,
+        fontWeight: "600",
+        textAlign: "center",
+        flex: 1, // Pushes arrow to the side
+      }}
+    >
+      Home Cleaning{"\n"}Services
+    </Text>
+  
+  <Entypo name="arrow-with-circle-right" size={24} color="white" />
+</TouchableOpacity>
+
+
 
               {/* Home Categories */}
-              <TouchableOpacity onPress={handleHomePress}>
+              {/* <TouchableOpacity onPress={handleHomePress}>
                 <Text style={localStyles.categories}>
                   Home Cleaning Services
                 </Text>
@@ -6000,9 +6120,62 @@ export default function CommunityCenter() {
                       </Text>
                     </TouchableOpacity>
                   ))}
-              </ScrollView>
+              </ScrollView> */}
 
-              <TouchableOpacity onPress={handleApartmentPress}>
+<TouchableOpacity
+  style={{
+    backgroundColor: "#38bdf8",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    width: "98%",
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    shadowColor: "#38bdf8",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 6,
+  }}
+  onPress={handleRentAHomePress}
+  activeOpacity={0.7}
+>
+  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
+    {/* {dummyHomeServices
+      .filter((service) => service.name.includes("Cleaning"))
+      .map((service) => (
+        <View key={service.name} style={{ marginRight: 12 }}>
+          {service.images.length > 0 && ( */}
+            <Image
+              source={{ uri: "http://images.unsplash.com/photo-1621905252507-b35492cc74b4" }}
+              style={{
+                width: "90%", // Set the width of the image
+                height: 100, // Set the height of the image
+                borderRadius: 8, // Optional: add rounded corners
+              }}
+            />
+          {/* )} */}
+        </View>
+      {/* ))} */}
+    <Text
+      style={{
+        color: "white",
+        fontSize: 16,
+        fontWeight: "600",
+        textAlign: "center",
+        flex: 1, // Pushes arrow to the side
+      }}
+    >
+      Home Repair{"\n"}Services
+    </Text>
+  
+  <Entypo name="arrow-with-circle-right" size={24} color="white" />
+</TouchableOpacity>
+
+
+              {/* <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>Home Repair Services</Text>
               </TouchableOpacity>
               <ScrollView horizontal style={localStyles.cardContainer}>
@@ -6039,9 +6212,62 @@ export default function CommunityCenter() {
                       </Text>
                     </TouchableOpacity>
                   ))}
-              </ScrollView>
+              </ScrollView> */}
 
-              <TouchableOpacity onPress={handleApartmentPress}>
+<TouchableOpacity
+  style={{
+    backgroundColor: "#38bdf8",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 12,
+    width: "98%",
+    marginVertical: 8,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    shadowColor: "#38bdf8",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 6,
+  }}
+  onPress={handleRentAHomePress}
+  activeOpacity={0.7}
+>
+  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
+    {/* {dummyHomeServices
+      .filter((service) => service.name.includes("Cleaning"))
+      .map((service) => (
+        <View key={service.name} style={{ marginRight: 12 }}>
+          {service.images.length > 0 && ( */}
+            <Image
+              source={{ uri: "http://images.unsplash.com/photo-1600585152220-90363fe7e115" }}
+              style={{
+                width: "90%", // Set the width of the image
+                height: 100, // Set the height of the image
+                borderRadius: 8, // Optional: add rounded corners
+              }}
+            />
+          {/* )} */}
+        </View>
+      {/* ))} */}
+    <Text
+      style={{
+        color: "white",
+        fontSize: 16,
+        fontWeight: "600",
+        textAlign: "center",
+        flex: 1, // Pushes arrow to the side
+      }}
+    >
+      Home Shift{"\n"}Services 
+    </Text>
+  
+  <Entypo name="arrow-with-circle-right" size={24} color="white" />
+</TouchableOpacity>
+
+
+              {/* <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>Home Shift Services</Text>
               </TouchableOpacity>
               <ScrollView horizontal style={localStyles.cardContainer}>
@@ -6078,7 +6304,7 @@ export default function CommunityCenter() {
                       </Text>
                     </TouchableOpacity>
                   ))}
-              </ScrollView>
+              </ScrollView> */}
 
               {/* <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>

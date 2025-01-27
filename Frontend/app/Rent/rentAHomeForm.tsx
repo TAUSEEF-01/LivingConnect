@@ -866,7 +866,7 @@ const HomeDetailsForm = () => {
   };
 
   const handleSubmit = async () => {
-    console.log("Payload:", JSON.stringify(formData));
+    // console.log("Payload:", JSON.stringify(formData));
 
     const token = await AsyncStorage.getItem("userToken");
 
