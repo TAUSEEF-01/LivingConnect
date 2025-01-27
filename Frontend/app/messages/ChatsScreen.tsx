@@ -145,7 +145,7 @@
 //   const [loading, setLoading] = useState(true);
 //   const [currentUser, setCurrentUser] = useState<any>(null);
 //   const [profile, setProfile] = useState<any>(null);
-//   const API_URL = "http://192.168.50.242:5000"; // Update this with your API endpoint
+//   const API_URL = "https://livingconnect-backend.vercel.app"; // Update this with your API endpoint
 //   const router = useRouter();
 
 //   useEffect(() => {
@@ -767,8 +767,8 @@ const ChatScreen = () => {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
-  // const API_URL = "http://192.168.50.242:5000"; // Update this with your API endpoint
-  const API_URL = "http://192.168.50.242:5000";
+  // const API_URL = "https://livingconnect-backend.vercel.app"; // Update this with your API endpoint
+  const API_URL = "https://livingconnect-backend.vercel.app";
   const router = useRouter();
 
   useEffect(() => {

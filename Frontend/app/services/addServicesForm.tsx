@@ -26,37 +26,36 @@ const CreateServiceForm = () => {
     images: [],
   });
 
-//   const handleInputChange = (path, value) => {
-//     const keys = path.split(".");
-//     setFormData((prevState) => {
-//       let newState = { ...prevState };
-//       let temp = newState;
+  //   const handleInputChange = (path, value) => {
+  //     const keys = path.split(".");
+  //     setFormData((prevState) => {
+  //       let newState = { ...prevState };
+  //       let temp = newState;
 
-//       // Traverse object path
-//       for (let i = 0; i < keys.length - 1; i++) {
-//         temp[keys[i]] = { ...temp[keys[i]] };
-//         temp = temp[keys[i]];
-//       }
+  //       // Traverse object path
+  //       for (let i = 0; i < keys.length - 1; i++) {
+  //         temp[keys[i]] = { ...temp[keys[i]] };
+  //         temp = temp[keys[i]];
+  //       }
 
-//       // Assign the value
-//       temp[keys[keys.length - 1]] = value;
-//       return newState;
-//     });
-//   };
+  //       // Assign the value
+  //       temp[keys[keys.length - 1]] = value;
+  //       return newState;
+  //     });
+  //   };
 
-
-const handleInputChange = (path, value) => {
+  const handleInputChange = (path, value) => {
     const keys = path.split(".");
     setFormData((prevState) => {
       let newState = { ...prevState };
       let temp = newState;
-  
+
       // Traverse the object path
       for (let i = 0; i < keys.length - 1; i++) {
         temp[keys[i]] = { ...temp[keys[i]] };
         temp = temp[keys[i]];
       }
-  
+
       // For location, if it's a city and areas, handle it separately
       if (keys[keys.length - 1] === "location") {
         // If the value is a city with areas, assign it properly
@@ -71,11 +70,10 @@ const handleInputChange = (path, value) => {
         // Default case for other fields
         temp[keys[keys.length - 1]] = value;
       }
-  
+
       return newState;
     });
   };
-  
 
   const pickImage = async () => {
     const permissionResult =
@@ -125,7 +123,6 @@ const handleInputChange = (path, value) => {
     console.log("Payload:", JSON.stringify(formData));
     console.log(token);
 
-
     if (
       !formData.companyName ||
       !formData.serviceType ||
@@ -139,7 +136,7 @@ const handleInputChange = (path, value) => {
 
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/serviceDetails/services",
+        "https://livingconnect-backend.vercel.app/serviceDetails/services",
         formData,
         {
           headers: {
@@ -220,23 +217,22 @@ const handleInputChange = (path, value) => {
       )}
 
       <Text style={styles.sectionTitle}>Company Name</Text>
-        <TextInput
-            style={styles.input}
-            placeholder={"Enter Company Name"}
-            placeholderTextColor="#666"
-            value={formData.companyName}
-            onChangeText={(text) => handleInputChange("companyName", text)}
-        />
+      <TextInput
+        style={styles.input}
+        placeholder={"Enter Company Name"}
+        placeholderTextColor="#666"
+        value={formData.companyName}
+        onChangeText={(text) => handleInputChange("companyName", text)}
+      />
 
-
-        <Text style={styles.sectionTitle}>Description</Text>
-        <TextInput
-            style={styles.input}
-            placeholder={"Short Description"}
-            placeholderTextColor="#666"
-            value={formData.description}
-            onChangeText={(text) => handleInputChange("description", text)}
-        />
+      <Text style={styles.sectionTitle}>Description</Text>
+      <TextInput
+        style={styles.input}
+        placeholder={"Short Description"}
+        placeholderTextColor="#666"
+        value={formData.description}
+        onChangeText={(text) => handleInputChange("description", text)}
+      />
 
       <Text style={styles.sectionTitle}>Cost</Text>
       <TextInput
@@ -634,9 +630,9 @@ const styles = StyleSheet.create({
     color: "#007BFF",
     marginTop: 5,
   },
-  
+
   dropdownCity: {
-    marginBottom: 10,  
+    marginBottom: 10,
   },
   dropdownButton: {
     backgroundColor: "#f0f0f0",
@@ -651,14 +647,14 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginTop: 5,
   },
-//   dropdownItem: {
-//     padding: 10,
-//     borderBottomWidth: 1,
-//     borderBottomColor: "#ccc",
-//   },
-//   dropdownItemText: {
-//     color: "#333",
-//   },
+  //   dropdownItem: {
+  //     padding: 10,
+  //     borderBottomWidth: 1,
+  //     borderBottomColor: "#ccc",
+  //   },
+  //   dropdownItemText: {
+  //     color: "#333",
+  //   },
   locationList: {
     marginTop: 20,
   },

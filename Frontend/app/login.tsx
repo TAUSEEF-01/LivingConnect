@@ -17,7 +17,7 @@ export default function LoginScreen() {
   //   setError("");
 
   //   try {
-  //     const response = await fetch("http://192.168.50.242:5000/login", {
+  //     const response = await fetch("https://livingconnect-backend.vercel.app/login", {
   //       method: "POST",
   //       headers: {
   //         "Content-Type": "application/json",
@@ -51,14 +51,17 @@ export default function LoginScreen() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch("http://192.168.50.242:5000/auth/login", {
-        // const response = await fetch("http://192.168.50.242:5000/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        "https://livingconnect-backend.vercel.app/auth/login",
+        {
+          // const response = await fetch("https://livingconnect-backend.vercel.app/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
 

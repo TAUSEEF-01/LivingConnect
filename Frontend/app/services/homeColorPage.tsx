@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -17,7 +16,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = "http://192.168.50.242:5000";
+const API_URL = "https://livingconnect-backend.vercel.app";
 
 interface OwnerInfo {
   email: string;
@@ -48,7 +47,7 @@ const HomeDetailsPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `http://192.168.50.242:5000/serviceDetails/get-all-service-details/${homeId}`
+        `https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details/${homeId}`
       );
 
       console.log("Fetched home details:", response.data);
@@ -109,7 +108,6 @@ const HomeDetailsPage = () => {
     console.log("Fetched Owner ID:", ownerId); // Debug ownerId
   }, [ownerId]);
 
-
   if (loading) {
     return (
       <View style={styles.loaderContainer}>
@@ -135,9 +133,8 @@ const HomeDetailsPage = () => {
           {home?.serviceType.toUpperCase() || "N/A"}
         </Text>
 
-
         <Text style={styles.titleName}>
-            {home.companyName ? home.companyName : "N/A"}
+          {home.companyName ? home.companyName : "N/A"}
         </Text>
 
         {/* Image Gallery */}
@@ -158,56 +155,45 @@ const HomeDetailsPage = () => {
           </Text>
         </View>
 
-
-
         <View style={styles.infoSection}>
-
-            {/* Property Details */}
+          {/* Property Details */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Description</Text>
-            <Text style={styles.text}>{home.description || "Hope you like our service"}</Text>
-            
+            <Text style={styles.text}>
+              {home.description || "Hope you like our service"}
+            </Text>
           </View>
 
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Cost</Text>
-            <Text style={styles.costText}>
-             Tk {home.cost || 0} 
-            </Text>
-        </View>
-        
+            <Text style={styles.costText}>Tk {home.cost || 0}</Text>
+          </View>
+
           {/* Location Details */}
           <View style={styles.section}>
-  <Text style={styles.sectionTitle}>Location</Text>
-  {home?.location && Object.keys(home.location).length > 0 ? (
-    Object.entries(home.location).map(([city, areas]) => (
-      <View key={city} style={styles.cityContainer}>
-        {/* City Name */}
-        <Text style={styles.cityTitle}>{city}</Text>
+            <Text style={styles.sectionTitle}>Location</Text>
+            {home?.location && Object.keys(home.location).length > 0 ? (
+              Object.entries(home.location).map(([city, areas]) => (
+                <View key={city} style={styles.cityContainer}>
+                  {/* City Name */}
+                  <Text style={styles.cityTitle}>{city}</Text>
 
-        {/* List of Areas */}
-        {Array.isArray(areas) && areas.length > 0 ? (
-          areas.map((area, index) => (
-            <Text key={index} style={styles.areaText}>
-              - {area}
-            </Text>
-          ))
-        ) : (
-          <Text style={styles.noAreaText}>No areas available</Text>
-        )}
-      </View>
-    ))
-  ) : (
-    <Text style={styles.text}>Location not available</Text>
-  )}
-</View>
-
-
-          
-
-          
-
-         
+                  {/* List of Areas */}
+                  {Array.isArray(areas) && areas.length > 0 ? (
+                    areas.map((area, index) => (
+                      <Text key={index} style={styles.areaText}>
+                        - {area}
+                      </Text>
+                    ))
+                  ) : (
+                    <Text style={styles.noAreaText}>No areas available</Text>
+                  )}
+                </View>
+              ))
+            ) : (
+              <Text style={styles.text}>Location not available</Text>
+            )}
+          </View>
 
           {/* User info */}
           <View style={styles.section}>
@@ -276,7 +262,7 @@ const styles = StyleSheet.create({
     color: "#F0BB78", // "#fa0269",
     marginBottom: 16,
   },
-  costText:{
+  costText: {
     fontSize: 18,
     lineHeight: 24,
     color: "#F0BB78", // "#fa0269",
@@ -368,7 +354,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontStyle: "italic",
   },
-
 
   callText: {
     fontSize: 18,

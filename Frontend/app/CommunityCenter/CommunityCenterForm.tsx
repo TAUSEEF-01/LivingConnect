@@ -143,7 +143,7 @@ const CommunityCenterForm = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/communityDetails/add-community-center",
+        "https://livingconnect-backend.vercel.app/communityDetails/add-community-center",
         formData,
         {
           headers: {

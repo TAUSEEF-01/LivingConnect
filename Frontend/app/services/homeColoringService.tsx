@@ -14,7 +14,7 @@
 
 // // //   const fetchHomes = async () => {
 // // //     try {
-// // //       const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
+// // //       const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
 // // //         params: filters,
 // // //       });
 // // //       setHomes(response.data);
@@ -112,7 +112,7 @@
 
 // // //     const fetchHomes = async () => {
 // // //       try {
-// // //         const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
+// // //         const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
 // // //           params: filters,
 // // //         });
 // // //         setHomes(response.data);
@@ -249,7 +249,7 @@
 
 // //   const fetchHomes = async () => {
 // //     try {
-// //       const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
+// //       const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
 // //         params: filters,
 // //       });
 // //       setHomes(response.data);
@@ -541,8 +541,8 @@
 //       console.log("Filters:", filters);
 
 //       const response = await axios.get(
-//         "http://192.168.50.242:5000/houseDetails/searchHomes",
-//         // "http://192.168.50.242:5000/houseDetails/searchHomes",
+//         "https://livingconnect-backend.vercel.app/houseDetails/searchHomes",
+//         // "https://livingconnect-backend.vercel.app/houseDetails/searchHomes",
 //         {
 //           params: filters,
 //         }
@@ -648,7 +648,7 @@
 //           ))}
 //         </View>
 
-//         {/* 
+//         {/*
 //         <TextInput
 //           placeholder="Beds"
 //           style={styles.input}
@@ -820,7 +820,7 @@
 //         )}
 //       /> */}
 
-//       {/* 
+//       {/*
 // <FlatList
 //   data={homes}
 //   keyExtractor={(item) => item._id}
@@ -932,7 +932,7 @@
 //     flex: 1,
 //     padding: 10,
 //     paddingTop: 45,
-//     backgroundColor: "black", 
+//     backgroundColor: "black",
 //   },
 //   filters: {
 //     marginBottom: 20,
@@ -948,11 +948,11 @@
 //   detailsContainer: {
 //     flexDirection: "row",
 //     flexWrap: "wrap",
-//     justifyContent: "space-between", 
+//     justifyContent: "space-between",
 //   },
 
 //   inputWrapper: {
-//     width: "49.8%", 
+//     width: "49.8%",
 //   },
 //   input: {
 //     borderWidth: 1,
@@ -1098,7 +1098,7 @@
 //     fontStyle: "italic", // Italic style for the location
 //     fontWeight: "bold",
 //   },
- 
+
 // });
 
 // const localStyles = StyleSheet.create({
@@ -1186,19 +1186,6 @@
 //   },
 // });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -1232,7 +1219,7 @@ const AllHomesPage = () => {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/serviceDetails/get-all-service-details-houseColoring"
+        "https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details-houseColoring"
       );
       setHomes(response.data);
     } catch (error) {
@@ -1326,18 +1313,16 @@ const AllHomesPage = () => {
         </View>
 
         <View style={styles.container}>
-          
-
           {/* Filters and Sorting */}
           <View style={styles.filterContainer}>
             {/* <View style={styles.filterRow}> */}
-              
-              <TouchableOpacity
-                style={styles.filterButtonSecondary}
-                onPress={() => router.push("/pages/FiltersPage/filterInfo")}
-              >
-                <Text style={styles.filterButtonText}>Show filters</Text>
-              </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.filterButtonSecondary}
+              onPress={() => router.push("/pages/FiltersPage/filterInfo")}
+            >
+              <Text style={styles.filterButtonText}>Show filters</Text>
+            </TouchableOpacity>
             {/* </View> */}
           </View>
 
@@ -1353,7 +1338,6 @@ const AllHomesPage = () => {
                   })
                 } // Navigate to the details page
               >
-
                 {home.images.length > 0 && (
                   <Image
                     source={{ uri: home.images[0] }} // Display the first image
@@ -1361,20 +1345,15 @@ const AllHomesPage = () => {
                   />
                 )}
 
-              <Text style={styles.cardDetails}>
-                  {home.companyName} 
-                </Text>
+                <Text style={styles.cardDetails}>{home.companyName}</Text>
 
                 <Text style={styles.cardPrice}>Tk {home.cost}</Text>
-
-                
 
                 <Text style={styles.cardLocation}>
                   {home.location && Object.keys(home.location).length > 0
                     ? `${Object.keys(home.location).join(", ")}`
                     : "Location not available"}
                 </Text>
-
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -1544,7 +1523,6 @@ const styles = StyleSheet.create({
     overflow: "hidden", // Ensures smooth corners
     borderWidth: 1,
     //   borderColor: "#f1f1f1", // Light border for the card
-    
   },
   cardImage: {
     width: "100%",
