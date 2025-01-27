@@ -443,6 +443,7 @@ export default function ProfilePage() {
   const fetchUserProfile = async () => {
     try {
       const token = await AsyncStorage.getItem("userToken");
+      console.log(token);
       if (!token) throw new Error("No token found");
 
       setLoading(true);
