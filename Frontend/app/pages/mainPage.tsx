@@ -5187,7 +5187,7 @@ import styles from "../../styles";
 import SidePanel from "../sidePanel/sidePanel";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-import Entypo from '@expo/vector-icons/Entypo';
+import Entypo from "@expo/vector-icons/Entypo";
 
 export default function CommunityCenter() {
   const [isSidePanelVisible, setSidePanelVisible] = useState(false);
@@ -5235,8 +5235,6 @@ export default function CommunityCenter() {
     router.push("/Rent/rentAHomeForm");
     // router.replace("/Rent/rentAHomeForm");
   };
-
-  
 
   const handleAddServicePress = async () => {
     router.push("/services/addServicesForm");
@@ -5377,98 +5375,98 @@ export default function CommunityCenter() {
   //   },
   // ];
 
-  const dummyHomeServices = [
-    {
-      _id: "s1",
-      name: "Professional Cleaning Service",
-      images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
-      price: 1500,
-      details: {
-        duration: "3 hours",
-        rating: "4.8",
-        experience: "5 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Dhanmondi",
-      },
-    },
-    {
-      _id: "s2",
-      name: "Expert Home Repair",
-      images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
-      price: 2000,
-      details: {
-        duration: "Variable",
-        rating: "4.9",
-        experience: "8 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Gulshan",
-      },
-    },
-    {
-      _id: "s3",
-      name: "Professional Home Shifting",
-      images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
-      price: 5000,
-      details: {
-        duration: "Full day",
-        rating: "4.7",
-        experience: "6 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Mirpur",
-      },
-    },
-    {
-      _id: "s4",
-      name: "Professional Cleaning Service",
-      images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
-      price: 1500,
-      details: {
-        duration: "3 hours",
-        rating: "4.8",
-        experience: "5 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Dhanmondi",
-      },
-    },
-    {
-      _id: "s5",
-      name: "Expert Home Repair",
-      images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
-      price: 2000,
-      details: {
-        duration: "Variable",
-        rating: "4.9",
-        experience: "8 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Gulshan",
-      },
-    },
-    {
-      _id: "s6",
-      name: "Professional Home Shifting",
-      images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
-      price: 5000,
-      details: {
-        duration: "Full day",
-        rating: "4.7",
-        experience: "6 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Mirpur",
-      },
-    },
-  ];
+  // const dummyHomeServices = [
+  //   {
+  //     _id: "s1",
+  //     name: "Professional Cleaning Service",
+  //     images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
+  //     price: 1500,
+  //     details: {
+  //       duration: "3 hours",
+  //       rating: "4.8",
+  //       experience: "5 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Dhanmondi",
+  //     },
+  //   },
+  //   {
+  //     _id: "s2",
+  //     name: "Expert Home Repair",
+  //     images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
+  //     price: 2000,
+  //     details: {
+  //       duration: "Variable",
+  //       rating: "4.9",
+  //       experience: "8 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Gulshan",
+  //     },
+  //   },
+  //   {
+  //     _id: "s3",
+  //     name: "Professional Home Shifting",
+  //     images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
+  //     price: 5000,
+  //     details: {
+  //       duration: "Full day",
+  //       rating: "4.7",
+  //       experience: "6 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Mirpur",
+  //     },
+  //   },
+  //   {
+  //     _id: "s4",
+  //     name: "Professional Cleaning Service",
+  //     images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
+  //     price: 1500,
+  //     details: {
+  //       duration: "3 hours",
+  //       rating: "4.8",
+  //       experience: "5 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Dhanmondi",
+  //     },
+  //   },
+  //   {
+  //     _id: "s5",
+  //     name: "Expert Home Repair",
+  //     images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
+  //     price: 2000,
+  //     details: {
+  //       duration: "Variable",
+  //       rating: "4.9",
+  //       experience: "8 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Gulshan",
+  //     },
+  //   },
+  //   {
+  //     _id: "s6",
+  //     name: "Professional Home Shifting",
+  //     images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
+  //     price: 5000,
+  //     details: {
+  //       duration: "Full day",
+  //       rating: "4.7",
+  //       experience: "6 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Mirpur",
+  //     },
+  //   },
+  // ];
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -5968,8 +5966,6 @@ export default function CommunityCenter() {
                 <Text style={localStyles.showAll}>Show all</Text>
               </TouchableOpacity> */}
 
-
-
               {/* <TouchableOpacity
                 style={{
                   backgroundColor: "#38bdf8",
@@ -6026,59 +6022,71 @@ export default function CommunityCenter() {
                 <Entypo name="arrow-with-circle-right" size={24} color="white" />
               </TouchableOpacity> */}
 
-<TouchableOpacity
-  style={{
-    backgroundColor: "#38bdf8",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    width: "98%",
-    marginVertical: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    shadowColor: "#38bdf8",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 6,
-  }}
-  onPress={handleRentAHomePress}
-  activeOpacity={0.7}
->
-  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-    {/* {dummyHomeServices
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8", //"grey",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={() => {
+                  router.push("/services/homeColoringService");
+                }}
+                activeOpacity={0.7}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flex: 1,
+                  }}
+                >
+                  {/* {dummyHomeServices
       .filter((service) => service.name.includes("Cleaning"))
       .map((service) => (
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
-            <Image
-              source={{ uri: "http://images.unsplash.com/photo-1581578731548-c64695cc6952" }}
-              style={{
-                width: "90%", // Set the width of the image
-                height: 100, // Set the height of the image
-                borderRadius: 8, // Optional: add rounded corners
-              }}
-            />
-          {/* )} */}
-        </View>
-      {/* ))} */}
-    <Text
-      style={{
-        color: "white",
-        fontSize: 16,
-        fontWeight: "600",
-        textAlign: "center",
-        flex: 1, // Pushes arrow to the side
-      }}
-    >
-      Home Cleaning{"\n"}Services
-    </Text>
-  
-  <Entypo name="arrow-with-circle-right" size={24} color="white" />
-</TouchableOpacity>
+                  <Image
+                    source={{
+                      uri: "http://images.unsplash.com/photo-1581578731548-c64695cc6952",
+                    }}
+                    style={{
+                      width: "90%", // Set the width of the image
+                      height: 100, // Set the height of the image
+                      borderRadius: 8, // Optional: add rounded corners
+                    }}
+                  />
+                  {/* )} */}
+                </View>
+                {/* ))} */}
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    textAlign: "center",
+                    flex: 1, // Pushes arrow to the side
+                  }}
+                >
+                  Home Coloring{"\n"}Services
+                </Text>
 
-
+                <Entypo
+                  name="arrow-with-circle-right"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
 
               {/* Home Categories */}
               {/* <TouchableOpacity onPress={handleHomePress}>
@@ -6122,58 +6130,69 @@ export default function CommunityCenter() {
                   ))}
               </ScrollView> */}
 
-<TouchableOpacity
-  style={{
-    backgroundColor: "#38bdf8",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    width: "98%",
-    marginVertical: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    shadowColor: "#38bdf8",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 6,
-  }}
-  onPress={handleRentAHomePress}
-  activeOpacity={0.7}
->
-  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-    {/* {dummyHomeServices
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={handleRentAHomePress}
+                activeOpacity={0.7}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flex: 1,
+                  }}
+                >
+                  {/* {dummyHomeServices
       .filter((service) => service.name.includes("Cleaning"))
       .map((service) => (
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
-            <Image
-              source={{ uri: "http://images.unsplash.com/photo-1621905252507-b35492cc74b4" }}
-              style={{
-                width: "90%", // Set the width of the image
-                height: 100, // Set the height of the image
-                borderRadius: 8, // Optional: add rounded corners
-              }}
-            />
-          {/* )} */}
-        </View>
-      {/* ))} */}
-    <Text
-      style={{
-        color: "white",
-        fontSize: 16,
-        fontWeight: "600",
-        textAlign: "center",
-        flex: 1, // Pushes arrow to the side
-      }}
-    >
-      Home Repair{"\n"}Services
-    </Text>
-  
-  <Entypo name="arrow-with-circle-right" size={24} color="white" />
-</TouchableOpacity>
+                  <Image
+                    source={{
+                      uri: "http://images.unsplash.com/photo-1621905252507-b35492cc74b4",
+                    }}
+                    style={{
+                      width: "90%", // Set the width of the image
+                      height: 100, // Set the height of the image
+                      borderRadius: 8, // Optional: add rounded corners
+                    }}
+                  />
+                  {/* )} */}
+                </View>
+                {/* ))} */}
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    textAlign: "center",
+                    flex: 1, // Pushes arrow to the side
+                  }}
+                >
+                  Home Repair{"\n"}Services
+                </Text>
 
+                <Entypo
+                  name="arrow-with-circle-right"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
 
               {/* <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>Home Repair Services</Text>
@@ -6214,58 +6233,69 @@ export default function CommunityCenter() {
                   ))}
               </ScrollView> */}
 
-<TouchableOpacity
-  style={{
-    backgroundColor: "#38bdf8",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderRadius: 12,
-    width: "98%",
-    marginVertical: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    shadowColor: "#38bdf8",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 6,
-  }}
-  onPress={handleRentAHomePress}
-  activeOpacity={0.7}
->
-  <View style={{ flexDirection: "row", alignItems: "center", flex: 1 }}>
-    {/* {dummyHomeServices
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#38bdf8",
+                  paddingHorizontal: 16,
+                  paddingVertical: 12,
+                  borderRadius: 12,
+                  width: "98%",
+                  marginVertical: 8,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  shadowColor: "#38bdf8",
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 5,
+                  elevation: 6,
+                }}
+                onPress={handleRentAHomePress}
+                activeOpacity={0.7}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    flex: 1,
+                  }}
+                >
+                  {/* {dummyHomeServices
       .filter((service) => service.name.includes("Cleaning"))
       .map((service) => (
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
-            <Image
-              source={{ uri: "http://images.unsplash.com/photo-1600585152220-90363fe7e115" }}
-              style={{
-                width: "90%", // Set the width of the image
-                height: 100, // Set the height of the image
-                borderRadius: 8, // Optional: add rounded corners
-              }}
-            />
-          {/* )} */}
-        </View>
-      {/* ))} */}
-    <Text
-      style={{
-        color: "white",
-        fontSize: 16,
-        fontWeight: "600",
-        textAlign: "center",
-        flex: 1, // Pushes arrow to the side
-      }}
-    >
-      Home Shift{"\n"}Services 
-    </Text>
-  
-  <Entypo name="arrow-with-circle-right" size={24} color="white" />
-</TouchableOpacity>
+                  <Image
+                    source={{
+                      uri: "http://images.unsplash.com/photo-1600585152220-90363fe7e115",
+                    }}
+                    style={{
+                      width: "90%", // Set the width of the image
+                      height: 100, // Set the height of the image
+                      borderRadius: 8, // Optional: add rounded corners
+                    }}
+                  />
+                  {/* )} */}
+                </View>
+                {/* ))} */}
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "600",
+                    textAlign: "center",
+                    flex: 1, // Pushes arrow to the side
+                  }}
+                >
+                  Home Shift{"\n"}Services
+                </Text>
 
+                <Entypo
+                  name="arrow-with-circle-right"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
 
               {/* <TouchableOpacity onPress={handleApartmentPress}>
                 <Text style={localStyles.categories}>Home Shift Services</Text>
