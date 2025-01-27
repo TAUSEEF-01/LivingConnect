@@ -605,7 +605,7 @@
 
 //   contactButton: {
 //     padding: 12,
-//     // backgroundColor: "#2563eb",
+//     // backgroundColor: "#38bdf8",
 //     backgroundColor: "#38bdf8",
 //     borderRadius: 8,
 //     justifyContent: "center",
@@ -1085,7 +1085,7 @@ const styles = StyleSheet.create({
 
   contactButton: {
     padding: 12,
-    // backgroundColor: "#2563eb",
+    // backgroundColor: "#38bdf8",
     backgroundColor: "#38bdf8",
     borderRadius: 8,
     justifyContent: "center",
