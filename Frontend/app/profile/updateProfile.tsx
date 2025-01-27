@@ -1486,12 +1486,7 @@ import * as ImageManipulator from "expo-image-manipulator";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-interface UserProfile {
-  email: string;
-  name: string;
-  contactNumber: string;
-  profileImage: string | null;
-}
+
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState(null);
@@ -1500,15 +1495,27 @@ export default function Profile() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
+  interface UserProfile {
+    email: string;
+    name: string;
+    contactNumber: string;
+    profileImage: string | null;
+  }
+
   useEffect(() => {
     fetchUserProfile();
   }, []);
 
   const pickImage = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    console.log("here");
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissionResult.granted) {
-      Alert.alert("Permission required", "Please grant permission to access photos.");
+      Alert.alert(
+        "Permission required",
+        "Please grant permission to access photos."
+      );
       return;
     }
 
@@ -1520,12 +1527,14 @@ export default function Profile() {
     });
 
     if (!result.canceled) {
+      // Compress and resize the image
       const manipResult = await ImageManipulator.manipulateAsync(
         result.assets[0].uri,
         [{ resize: { width: 500 } }],
         { compress: 0.7, base64: true }
       );
 
+      // Store the base64 image with data URI prefix
       setProfileImage(`data:image/jpeg;base64,${manipResult.base64}`);
     }
   };
@@ -1574,6 +1583,7 @@ export default function Profile() {
 
     try {
       const token = await AsyncStorage.getItem("userToken");
+
       const response = await axios.post(
         "https://livingconnect-backend.vercel.app/profile/update-profile",
         {
@@ -1585,7 +1595,7 @@ export default function Profile() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          timeout: 1000,
+          // timeout: 1000,
         }
       );
 
@@ -1597,7 +1607,15 @@ export default function Profile() {
       }
     } catch (error) {
       console.error("Detailed Error:", JSON.stringify(error, null, 2));
-      Alert.alert("Network Error", "Check your server connection and try again.");
+
+      if (error.response) {
+        console.error("Error Response Data:", error.response.data);
+      }
+
+      Alert.alert(
+        "Network Error",
+        "Check your server connection and try again."
+      );
     }
   };
 
@@ -1611,10 +1629,10 @@ export default function Profile() {
           <Text style={styles.headerSubtitle}>Edit Your Information</Text>
         </View>
       </View>
-
+    
       <View style={styles.profileCard}>
         <View style={styles.imageContainer}>
-          <TouchableOpacity onPress={pickImage}>
+          {/* <TouchableOpacity onPress={pickImage}>
             {profileImage ? (
               <Image source={{ uri: profileImage }} style={styles.profileImage} />
             ) : (
@@ -1622,7 +1640,17 @@ export default function Profile() {
                 <Text style={styles.placeholderText}>Select Image</Text>
               </View>
             )}
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
+        <TouchableOpacity onPress={pickImage}>
+          {profileImage ? (
+            <Image source={{ uri: profileImage }} style={styles.profileImage} />
+          ) : (
+            <View style={styles.imagePlaceholder}>
+              <Text style={styles.imagePlaceholderText}>Pick an Image</Text>
+            </View>
+          )}
+        </TouchableOpacity>
           <View style={styles.imageBorder} />
         </View>
 
@@ -1717,6 +1745,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(229, 229, 229, 0.5)',
   },
+
+  imagePlaceholderText: {
+    color: "#555",
+    fontSize: 16,
+    textAlign: "center",
+  },
+
   imageContainer: {
     position: 'relative',
     alignItems: 'center',
@@ -1729,7 +1764,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0E7FF',
   },
   imageBorder: {
-    position: 'absolute',
     top: -3,
     left: -3,
     right: -3,
