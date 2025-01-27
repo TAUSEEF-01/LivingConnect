@@ -390,6 +390,141 @@
 
 // export default AdminPendingRequestPage;
 
+// import React from "react";
+// import {
+//   View,
+//   Text,
+//   StyleSheet,
+//   ScrollView,
+//   TouchableOpacity,
+//   Alert,
+//   ActivityIndicator,
+//   SafeAreaView,
+// } from "react-native";
+// import axios from "axios";
+// import { router, useFocusEffect } from "expo-router";
+
+// const AdminPendingRequestPage = () => {
+//   const [forms, setForms] = React.useState([]);
+//   const [loading, setLoading] = React.useState(true);
+
+//   const fetchSuccessFalse = async () => {
+//     try {
+//       setLoading(true);
+//       const response = await axios.get(
+//         "https://livingconnect-backend.vercel.app/communityDetails/successFalse"
+//       );
+//       setForms(response.data);
+//     } catch (error) {
+//       Alert.alert("Error", "Failed to fetch form details.");
+//       console.error(error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // Replace useEffect with useFocusEffect
+//   useFocusEffect(
+//     React.useCallback(() => {
+//       fetchSuccessFalse();
+
+//       // Optional: Clean up function if needed
+//       return () => {
+//         // Cleanup code here if necessary
+//       };
+//     }, []) // Empty dependency array since we want this to run on every focus
+//   );
+
+//   if (loading) {
+//     return (
+//       <View style={styles.loaderContainer}>
+//         <ActivityIndicator size="large" color="#007BFF" />
+//       </View>
+//     );
+//   }
+
+//   if (forms.length === 0) {
+//     return (
+//       <View style={styles.noDataContainer}>
+//         <Text style={styles.noDataText}>No forms to verify.</Text>
+//       </View>
+//     );
+//   }
+
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <ScrollView style={styles.containerView}>
+//         {forms.map((form, index) => (
+//           <TouchableOpacity
+//             key={form._id}
+//             style={styles.card}
+//             onPress={() =>
+//               router.push({
+//                 pathname: "/Admin/requestFormCommunityCenter",
+//                 params: { communityId: form._id },
+//               })
+//             }
+//           >
+//             <Text style={styles.title}>{index + 1}. Request id: </Text>
+//             <Text style={styles.details}>{form._id}</Text>
+//           </TouchableOpacity>
+//         ))}
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 16,
+//     // paddingTop: 45,
+//     backgroundColor: "#f9f9f9",
+//   },
+//   containerView: {
+//     marginTop: 32,
+//     marginBottom: 16,
+//   },
+
+//   loaderContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   noDataContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   noDataText: {
+//     fontSize: 16,
+//     color: "#555",
+//   },
+//   card: {
+//     backgroundColor: "#fff",
+//     padding: 16,
+//     borderRadius: 8,
+//     marginBottom: 16,
+//     shadowColor: "#000",
+//     shadowOpacity: 0.1,
+//     shadowRadius: 4,
+//     shadowOffset: { width: 0, height: 2 },
+//     elevation: 3,
+//   },
+//   title: {
+//     fontSize: 18,
+//     fontWeight: "bold",
+//     marginBottom: 8,
+//   },
+//   details: {
+//     fontSize: 14,
+//     color: "#555",
+//   },
+// });
+
+// export default AdminPendingRequestPage;
+
+
 import React from "react";
 import {
   View,
@@ -400,6 +535,8 @@ import {
   Alert,
   ActivityIndicator,
   SafeAreaView,
+  Platform,
+  StatusBar,
 } from "react-native";
 import axios from "axios";
 import { router, useFocusEffect } from "expo-router";
@@ -411,49 +548,53 @@ const AdminPendingRequestPage = () => {
   const fetchSuccessFalse = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/communityDetails/successFalse"
-      );
+      const response = await axios.get( "https://livingconnect-backend.vercel.app/communityDetails/successFalse");
       setForms(response.data);
     } catch (error) {
-      Alert.alert("Error", "Failed to fetch form details.");
+      Alert.alert(
+        "Error",
+        "Failed to fetch form details. Please try again later.",
+        [{ text: "OK", style: "default" }]
+      );
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
-  // Replace useEffect with useFocusEffect
   useFocusEffect(
     React.useCallback(() => {
       fetchSuccessFalse();
-
-      // Optional: Clean up function if needed
-      return () => {
-        // Cleanup code here if necessary
-      };
-    }, []) // Empty dependency array since we want this to run on every focus
+      return () => {};
+    }, [])
   );
 
-  if (loading) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color="#007BFF" />
-      </View>
-    );
-  }
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <View style={styles.centerContainer}>
+          <ActivityIndicator size="large" color="#38bdf8" />
+          <Text style={styles.loadingText}>Loading requests...</Text>
+        </View>
+      );
+    }
 
-  if (forms.length === 0) {
-    return (
-      <View style={styles.noDataContainer}>
-        <Text style={styles.noDataText}>No forms to verify.</Text>
-      </View>
-    );
-  }
+    if (forms.length === 0) {
+      return (
+        <View style={styles.centerContainer}>
+          <Text style={styles.noDataText}>No pending requests to verify</Text>
+          <Text style={styles.noDataSubText}>
+            New requests will appear here
+          </Text>
+        </View>
+      );
+    }
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView style={styles.containerView}>
+    return (
+      <ScrollView 
+        style={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
         {forms.map((form, index) => (
           <TouchableOpacity
             key={form._id}
@@ -464,12 +605,32 @@ const AdminPendingRequestPage = () => {
                 params: { communityId: form._id },
               })
             }
+            activeOpacity={0.7}
           >
-            <Text style={styles.title}>{index + 1}. Request id: </Text>
-            <Text style={styles.details}>{form._id}</Text>
+            <View style={styles.cardHeader}>
+              <Text style={styles.cardNumber}>Request #{index + 1}</Text>
+              <View style={styles.statusBadge}>
+                <Text style={styles.statusText}>Pending</Text>
+              </View>
+            </View>
+            <View style={styles.cardDivider} />
+            <View style={styles.cardContent}>
+              <Text style={styles.idLabel}>Request ID:</Text>
+              <Text style={styles.idText}>{form._id}</Text>
+            </View>
           </TouchableOpacity>
         ))}
       </ScrollView>
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerTitle}>Pending Requests</Text>
+        <Text style={styles.headerSubtitle}>Review and Process</Text>
+      </View>
+      {renderContent()}
     </SafeAreaView>
   );
 };
@@ -477,48 +638,123 @@ const AdminPendingRequestPage = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#F8FAFF",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  headerContainer: {
+    backgroundColor: "#38bdf8",
+    padding: 24,
+    paddingTop: Platform.OS === "ios" ? 20 : 40,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
+    marginBottom: 20,
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#FFFFFF",
+    textAlign: "center",
+    letterSpacing: 0.5,
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: "#E0E7FF",
+    textAlign: "center",
+    marginTop: 4,
+    letterSpacing: 0.5,
+  },
+  scrollContainer: {
+    flex: 1,
     padding: 16,
-    // paddingTop: 45,
-    backgroundColor: "#f9f9f9",
   },
-  containerView: {
-    marginTop: 32,
-    marginBottom: 16,
-  },
-
-  loaderContainer: {
+  centerContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    padding: 20,
   },
-  noDataContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  loadingText: {
+    marginTop: 12,
+    fontSize: 16,
+    color: "#64748B",
+    fontWeight: "500",
   },
   noDataText: {
-    fontSize: 16,
-    color: "#555",
-  },
-  card: {
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 8,
-    marginBottom: 16,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 3,
-  },
-  title: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "600",
+    color: "#64748B",
     marginBottom: 8,
   },
-  details: {
+  noDataSubText: {
     fontSize: 14,
-    color: "#555",
+    color: "#94A3B8",
+    textAlign: "center",
+  },
+  card: {
+    backgroundColor: "#FFFFFF",
+    borderRadius: 16,
+    marginBottom: 16,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+  },
+  cardHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  cardNumber: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#38bdf8",
+  },
+  statusBadge: {
+    backgroundColor: "#EEF2FF",
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#C7D2FE",
+  },
+  statusText: {
+    color: "#4F46E5",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  cardDivider: {
+    height: 1,
+    backgroundColor: "#E2E8F0",
+    marginBottom: 12,
+  },
+  cardContent: {
+    gap: 4,
+  },
+  idLabel: {
+    fontSize: 14,
+    color: "#64748B",
+    fontWeight: "500",
+  },
+  idText: {
+    fontSize: 14,
+    color: "#334155",
+    fontWeight: "400",
   },
 });
 

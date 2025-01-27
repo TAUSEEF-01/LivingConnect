@@ -1120,7 +1120,7 @@ const localStyles = StyleSheet.create({
   contactButton: {
     marginBottom: 16,
     padding: 12,
-    backgroundColor: "#2563eb",
+    backgroundColor: "#38bdf8",
     borderRadius: 8,
 
     // height: "6%", // Height is 10% of the parent container/screen

@@ -590,16 +590,18 @@
 //   },
 // });
 
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Alert,
-  StyleSheet,
-  TextInput,
-} from "react-native";
+//Started from here
+
+// import React, { useEffect, useState } from "react";
+// import {
+//   View,
+//   Text,
+//   TouchableOpacity,
+//   Image,
+//   Alert,
+//   StyleSheet,
+//   TextInput,
+// } from "react-native";
 // import axios from "axios";
 // import * as ImagePicker from "expo-image-picker";
 
@@ -730,33 +732,355 @@ import {
 //   }
 // };
 
+// import axios from "axios";
+// import * as ImagePicker from "expo-image-picker";
+// import * as ImageManipulator from "expo-image-manipulator";
+// import { router } from "expo-router";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// export default function Profile() {
+//   const [profileImage, setProfileImage] = useState(null);
+//   const [userName, setUserName] = useState("");
+//   const [contactNumber, setContactNumber] = useState("");
+
+//   interface UserProfile {
+//     email: string;
+//     name: string;
+//     contactNumber: string;
+//     profileImage: string | null;
+//   }
+
+//   const pickImage = async () => {
+//     const permissionResult =
+//       await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+//     if (!permissionResult.granted) {
+//       Alert.alert(
+//         "Permission required",
+//         "Please grant permission to access photos."
+//       );
+//       return;
+//     }
+
+//     const result = await ImagePicker.launchImageLibraryAsync({
+//       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+//       allowsEditing: true,
+//       quality: 0.7,
+//       base64: true,
+//     });
+
+//     if (!result.canceled) {
+//       // Compress and resize the image
+//       const manipResult = await ImageManipulator.manipulateAsync(
+//         result.assets[0].uri,
+//         [{ resize: { width: 500 } }],
+//         { compress: 0.7, base64: true }
+//       );
+
+//       // Store the base64 image with data URI prefix
+//       setProfileImage(`data:image/jpeg;base64,${manipResult.base64}`);
+//     }
+//   };
+
+//   const [profile, setProfile] = useState<UserProfile | null>(null);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     fetchUserProfile();
+//   }, []);
+
+//   const fetchUserProfile = async () => {
+//     try {
+//       // Retrieve the token from AsyncStorage
+//       const token = await AsyncStorage.getItem("userToken");
+
+//       if (!token) {
+//         throw new Error("No token found");
+//       }
+
+//       setLoading(true);
+//       const response = await axios.get(
+//         "https://livingconnect-backend.vercel.app/profile/get-profile",
+//         // "https://livingconnect-backend.vercel.app/profile/get-profile",
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+
+//       setProfile(response.data);
+
+//       setProfileImage(response.data.profileImage);
+//       setUserName(response.data.name);
+//       setContactNumber(response.data.contactNumber);
+//       // setLoading(false);
+//     } catch (err) {
+//       console.error("Failed to fetch profile:", err);
+//       // setLoading(false);
+//     }
+//   };
+
+//   const handleSaveProfile = async () => {
+//     // Validation
+//     if (!userName.trim()) {
+//       Alert.alert("Error", "Name cannot be empty.");
+//       return;
+//     }
+
+//     if (!contactNumber.trim()) {
+//       Alert.alert("Error", "Contact number cannot be empty.");
+//       return;
+//     }
+
+//     if (!profileImage) {
+//       Alert.alert("Error", "Please select an image first.");
+//       return;
+//     }
+
+//     try {
+//       const token = await AsyncStorage.getItem("userToken");
+
+//       const response = await axios.post(
+//         // "https://livingconnect-backend.vercel.app/profile/update-profile",
+//         "https://livingconnect-backend.vercel.app/profile/update-profile",
+//         {
+//           // email: 'abc02@gmail.com',
+//           name: userName,
+//           contactNumber: contactNumber,
+//           profileImage: profileImage,
+//         },
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//           // timeout: 10000
+//           timeout: 1000,
+//         }
+//       );
+
+//       if (response.status === 200) {
+//         Alert.alert("Success", "Profile updated successfully!");
+//         router.push("/pages/mainPage");
+//       } else {
+//         Alert.alert("Error", "Failed to update profile.");
+//         // router.push("/pages/mainPage");
+//       }
+//     } catch (error) {
+//       console.error("Detailed Error:", JSON.stringify(error, null, 2));
+
+//       if (error.response) {
+//         console.error("Error Response Data:", error.response.data);
+//       }
+
+//       Alert.alert(
+//         "Network Error",
+//         "Check your server connection and try again."
+//       );
+//     }
+//   };
+
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.title}>Update Profile</Text>
+//       <View style={styles.profileContainer}>
+//         <TouchableOpacity onPress={pickImage}>
+//           {profileImage ? (
+//             <Image source={{ uri: profileImage }} style={styles.profileImage} />
+//           ) : (
+//             <View style={styles.imagePlaceholder}>
+//               <Text style={styles.imagePlaceholderText}>Pick an Image</Text>
+//             </View>
+//           )}
+//         </TouchableOpacity>
+
+//         <TextInput
+//           style={styles.input}
+//           value={userName}
+//           onChangeText={setUserName}
+//           // placeholder="Enter your name"
+//           placeholder={userName || "Enter your name"} // Use `userName` if available, else default placeholder
+//           placeholderTextColor="#FFFFFF" // Set placeholder color to white
+//         />
+
+//         <TextInput
+//           style={styles.input}
+//           value={contactNumber}
+//           onChangeText={setContactNumber}
+//           placeholder={contactNumber || "Enter your contact number"}
+//           keyboardType="phone-pad"
+//           placeholderTextColor="#FFFFFF" // Set placeholder color to white
+//         />
+//       </View>
+//       <TouchableOpacity style={styles.saveButton} onPress={handleSaveProfile}>
+//         <Text style={styles.buttonText}>Save Profile</Text>
+//       </TouchableOpacity>
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: "center",
+//     paddingTop: 40,
+//     backgroundColor: "black",
+//   },
+//   profileContainer: {
+//     // width: "90%",
+//     // alignItems: "center",
+//     // justifyContent: "center",
+//     // backgroundColor: "#1f2937",
+//     // borderRadius: 10,
+//     // padding: 20,
+//     // marginBottom: 20,
+//     // shadowColor: "#000",
+//     // shadowOffset: { width: 0, height: 2 },
+//     // shadowOpacity: 0.1,
+//     // shadowRadius: 4,
+//     // elevation: 3,
+
+//     width: "100%",
+//     backgroundColor: "#1f2937",
+//     borderRadius: 10,
+//     padding: 20,
+//     alignItems: "center",
+//     marginBottom: 15,
+//     shadowColor: "#000",
+//     shadowOffset: { width: 0, height: 3 },
+//     shadowOpacity: 0.1,
+//     shadowRadius: 5,
+//     elevation: 4,
+//   },
+//   title: {
+//     fontSize: 24,
+//     fontWeight: "bold",
+//     marginBottom: 20,
+//     color: "#38bdf8",
+//   },
+//   profileImage: {
+//     width: 180,
+//     height: 180,
+//     borderRadius: 10,
+//     borderWidth: 3,
+//     borderColor: "#38bdf8",
+
+//     // width: 150,
+//     // height: 150,
+//     // borderRadius: 75,
+//     // borderWidth: 2,
+//     // borderColor: "black",
+
+//     // width: "100%",
+//     // height: 150,
+//     // backgroundColor: "#fff",
+//     // borderRadius: 10,
+//     // padding: 20,
+//     // alignItems: "center",
+//     // marginBottom: 15,
+//   },
+//   imagePlaceholder: {
+//     width: 180,
+//     height: 180,
+//     borderRadius: 10,
+//     borderWidth: 3,
+//     borderColor: "#38bdf8",
+//     backgroundColor: "#fff",
+//     // padding: 20,
+//     justifyContent: "center",
+//     alignItems: "center",
+//     marginBottom: 15,
+
+//     // shadowColor: "#000",
+//     // shadowOffset: { width: 0, height: 3 },
+//     // shadowOpacity: 0.1,
+//     // shadowRadius: 5,
+//     // elevation: 4,
+
+//     // width: 150,
+//     // height: 150,
+//     // borderRadius: 75,
+//     // backgroundColor: "#fff",
+
+//     // padding: 20,
+//     // alignItems: "center",
+//     // marginBottom: 20,
+//   },
+//   imagePlaceholderText: {
+//     color: "#555",
+//     fontSize: 16,
+//     textAlign: "center",
+//   },
+//   input: {
+//     borderWidth: 2,
+//     borderColor: "#ccc",
+//     borderRadius: 8,
+//     padding: 10,
+//     width: "90%",
+//     marginTop: 20,
+//     fontSize: 16,
+//     backgroundColor: "#2d3748",
+//     color: "white",
+//   },
+//   saveButton: {
+//     marginTop: 30,
+//     padding: 12,
+//     backgroundColor: "#38bdf8",
+//     borderRadius: 8,
+//     alignItems: "center",
+//     width: "80%",
+//   },
+//   buttonText: {
+//     color: "#fff",
+//     fontSize: 18,
+//     fontWeight: "bold",
+//   },
+// });
+
+
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+  StatusBar,
+  SafeAreaView,
+  Platform,
+} from "react-native";
 import axios from "axios";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+interface UserProfile {
+  email: string;
+  name: string;
+  contactNumber: string;
+  profileImage: string | null;
+}
+
 export default function Profile() {
   const [profileImage, setProfileImage] = useState(null);
   const [userName, setUserName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  interface UserProfile {
-    email: string;
-    name: string;
-    contactNumber: string;
-    profileImage: string | null;
-  }
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
 
   const pickImage = async () => {
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissionResult.granted) {
-      Alert.alert(
-        "Permission required",
-        "Please grant permission to access photos."
-      );
+      Alert.alert("Permission required", "Please grant permission to access photos.");
       return;
     }
 
@@ -768,38 +1092,23 @@ export default function Profile() {
     });
 
     if (!result.canceled) {
-      // Compress and resize the image
       const manipResult = await ImageManipulator.manipulateAsync(
         result.assets[0].uri,
         [{ resize: { width: 500 } }],
         { compress: 0.7, base64: true }
       );
 
-      // Store the base64 image with data URI prefix
       setProfileImage(`data:image/jpeg;base64,${manipResult.base64}`);
     }
   };
 
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchUserProfile();
-  }, []);
-
   const fetchUserProfile = async () => {
     try {
-      // Retrieve the token from AsyncStorage
       const token = await AsyncStorage.getItem("userToken");
+      if (!token) throw new Error("No token found");
 
-      if (!token) {
-        throw new Error("No token found");
-      }
-
-      setLoading(true);
       const response = await axios.get(
         "https://livingconnect-backend.vercel.app/profile/get-profile",
-        // "https://livingconnect-backend.vercel.app/profile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -809,19 +1118,17 @@ export default function Profile() {
       );
 
       setProfile(response.data);
-
       setProfileImage(response.data.profileImage);
       setUserName(response.data.name);
       setContactNumber(response.data.contactNumber);
-      // setLoading(false);
+      setLoading(false);
     } catch (err) {
       console.error("Failed to fetch profile:", err);
-      // setLoading(false);
+      setLoading(false);
     }
   };
 
   const handleSaveProfile = async () => {
-    // Validation
     if (!userName.trim()) {
       Alert.alert("Error", "Name cannot be empty.");
       return;
@@ -839,12 +1146,9 @@ export default function Profile() {
 
     try {
       const token = await AsyncStorage.getItem("userToken");
-
       const response = await axios.post(
-        // "https://livingconnect-backend.vercel.app/profile/update-profile",
         "https://livingconnect-backend.vercel.app/profile/update-profile",
         {
-          // email: 'abc02@gmail.com',
           name: userName,
           contactNumber: contactNumber,
           profileImage: profileImage,
@@ -853,7 +1157,6 @@ export default function Profile() {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          // timeout: 10000
           timeout: 1000,
         }
       );
@@ -863,176 +1166,207 @@ export default function Profile() {
         router.push("/pages/mainPage");
       } else {
         Alert.alert("Error", "Failed to update profile.");
-        // router.push("/pages/mainPage");
       }
     } catch (error) {
       console.error("Detailed Error:", JSON.stringify(error, null, 2));
-
-      if (error.response) {
-        console.error("Error Response Data:", error.response.data);
-      }
-
-      Alert.alert(
-        "Network Error",
-        "Check your server connection and try again."
-      );
+      Alert.alert("Network Error", "Check your server connection and try again.");
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Update Profile</Text>
-      <View style={styles.profileContainer}>
-        <TouchableOpacity onPress={pickImage}>
-          {profileImage ? (
-            <Image source={{ uri: profileImage }} style={styles.profileImage} />
-          ) : (
-            <View style={styles.imagePlaceholder}>
-              <Text style={styles.imagePlaceholderText}>Pick an Image</Text>
-            </View>
-          )}
-        </TouchableOpacity>
-
-        <TextInput
-          style={styles.input}
-          value={userName}
-          onChangeText={setUserName}
-          // placeholder="Enter your name"
-          placeholder={userName || "Enter your name"} // Use `userName` if available, else default placeholder
-          placeholderTextColor="#FFFFFF" // Set placeholder color to white
-        />
-
-        <TextInput
-          style={styles.input}
-          value={contactNumber}
-          onChangeText={setContactNumber}
-          placeholder={contactNumber || "Enter your contact number"}
-          keyboardType="phone-pad"
-          placeholderTextColor="#FFFFFF" // Set placeholder color to white
-        />
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#38bdf8" />
+      
+      <View style={styles.headerContainer}>
+        <View style={styles.headerContent}>
+          <Text style={styles.headerTitle}>Update Profile</Text>
+          <Text style={styles.headerSubtitle}>Edit Your Information</Text>
+        </View>
       </View>
-      <TouchableOpacity style={styles.saveButton} onPress={handleSaveProfile}>
-        <Text style={styles.buttonText}>Save Profile</Text>
-      </TouchableOpacity>
-    </View>
+
+      <View style={styles.profileCard}>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity onPress={pickImage}>
+            {profileImage ? (
+              <Image source={{ uri: profileImage }} style={styles.profileImage} />
+            ) : (
+              <View style={styles.imagePlaceholder}>
+                <Text style={styles.placeholderText}>Select Image</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+          <View style={styles.imageBorder} />
+        </View>
+
+        <View style={styles.detailsContainer}>
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Name</Text>
+            <TextInput
+              style={styles.input}
+              value={userName}
+              onChangeText={setUserName}
+              placeholder={userName || "Enter your name"}
+              placeholderTextColor="#6B7280"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputLabel}>Contact Number</Text>
+            <TextInput
+              style={styles.input}
+              value={contactNumber}
+              onChangeText={setContactNumber}
+              placeholder={contactNumber || "Enter your contact number"}
+              keyboardType="phone-pad"
+              placeholderTextColor="#6B7280"
+            />
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={handleSaveProfile}
+        >
+          <Text style={styles.buttonText}>Save Profile</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    paddingTop: 40,
-    backgroundColor: "black",
+    backgroundColor: '#F8FAFF',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
-  profileContainer: {
-    // width: "90%",
-    // alignItems: "center",
-    // justifyContent: "center",
-    // backgroundColor: "#1f2937",
-    // borderRadius: 10,
-    // padding: 20,
-    // marginBottom: 20,
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 2 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 4,
-    // elevation: 3,
-
-    width: "100%",
-    backgroundColor: "#1f2937",
-    borderRadius: 10,
-    padding: 20,
-    alignItems: "center",
-    marginBottom: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 4,
+  headerContainer: {
+    backgroundColor: '#38bdf8',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    paddingVertical: 24,
+    paddingHorizontal: 20,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 8,
+    marginBottom: 24,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    color: "#38bdf8",
+  headerContent: {
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 0.5,
+  },
+  headerSubtitle: {
+    fontSize: 16,
+    color: '#E0E7FF',
+    marginTop: 4,
+    letterSpacing: 0.5,
+  },
+  profileCard: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    margin: 16,
+    padding: 24,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(229, 229, 229, 0.5)',
+  },
+  imageContainer: {
+    position: 'relative',
+    alignItems: 'center',
+    marginBottom: 24,
   },
   profileImage: {
-    width: 180,
-    height: 180,
-    borderRadius: 10,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: '#E0E7FF',
+  },
+  imageBorder: {
+    position: 'absolute',
+    top: -3,
+    left: -3,
+    right: -3,
+    bottom: -3,
+    borderRadius: 63,
     borderWidth: 3,
-    borderColor: "#38bdf8",
-
-    // width: 150,
-    // height: 150,
-    // borderRadius: 75,
-    // borderWidth: 2,
-    // borderColor: "black",
-
-    // width: "100%",
-    // height: 150,
-    // backgroundColor: "#fff",
-    // borderRadius: 10,
-    // padding: 20,
-    // alignItems: "center",
-    // marginBottom: 15,
+    borderColor: '#38bdf8',
+    opacity: 0.2,
   },
   imagePlaceholder: {
-    width: 180,
-    height: 180,
-    borderRadius: 10,
-    borderWidth: 3,
-    borderColor: "#38bdf8",
-    backgroundColor: "#fff",
-    // padding: 20,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 15,
-
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 3 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 5,
-    // elevation: 4,
-
-    // width: 150,
-    // height: 150,
-    // borderRadius: 75,
-    // backgroundColor: "#fff",
-
-    // padding: 20,
-    // alignItems: "center",
-    // marginBottom: 20,
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: '#E0E7FF',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  imagePlaceholderText: {
-    color: "#555",
+  placeholderText: {
+    color: '#6B7280',
     fontSize: 16,
-    textAlign: "center",
+    fontWeight: '500',
+  },
+  detailsContainer: {
+    gap: 16,
+  },
+  inputContainer: {
+    marginBottom: 16,
+  },
+  inputLabel: {
+    fontSize: 14,
+    color: '#6B7280',
+    marginBottom: 8,
+    letterSpacing: 0.3,
   },
   input: {
-    borderWidth: 2,
-    borderColor: "#ccc",
+    backgroundColor: '#F8FAFF',
+    borderWidth: 1,
+    borderColor: '#E0E7FF',
     borderRadius: 8,
-    padding: 10,
-    width: "90%",
-    marginTop: 20,
-    fontSize: 16,
-    backgroundColor: "#2d3748",
-    color: "white",
-  },
-  saveButton: {
-    marginTop: 30,
     padding: 12,
-    backgroundColor: "#38bdf8",
-    borderRadius: 8,
-    alignItems: "center",
-    width: "80%",
+    fontSize: 16,
+    color: '#38bdf8',
+  },
+  buttonContainer: {
+    padding: 16,
+  },
+  actionButton: {
+    backgroundColor: '#38bdf8',
+    padding: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 3,
   },
   buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '600',
+    letterSpacing: 0.3,
   },
 });
 

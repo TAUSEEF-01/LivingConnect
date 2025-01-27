@@ -109,7 +109,7 @@
 // // // // //     marginBottom: 10,
 // // // // //   },
 // // // // //   searchButton: {
-// // // // //     backgroundColor: '#2563eb',
+// // // // //     backgroundColor: '#38bdf8',
 // // // // //     paddingVertical: 12,
 // // // // //     paddingHorizontal: 20,
 // // // // //     borderRadius: 12,
@@ -561,7 +561,7 @@
 // // //         >
 // // //           <Marker
 // // //             coordinate={selectedLocation}
-// // //             pinColor="#2563eb"
+// // //             pinColor="#38bdf8"
 // // //           />
 // // //         </MapView>
 // // //       </View>
@@ -621,11 +621,11 @@
 // // //     color: '#1f2937',
 // // //   },
 // // //   searchButton: {
-// // //     backgroundColor: '#2563eb',
+// // //     backgroundColor: '#38bdf8',
 // // //     paddingHorizontal: 20,
 // // //     justifyContent: 'center',
 // // //     borderRadius: 12,
-// // //     shadowColor: '#2563eb',
+// // //     shadowColor: '#38bdf8',
 // // //     shadowOffset: { width: 0, height: 2 },
 // // //     shadowOpacity: 0.2,
 // // //     shadowRadius: 4,
@@ -827,7 +827,7 @@
 // // //         >
 // // //           <Marker
 // // //             coordinate={selectedLocation}
-// // //             pinColor="#2563eb"
+// // //             pinColor="#38bdf8"
 // // //           />
 // // //         </MapView>
 // // //       </View>
@@ -1048,7 +1048,7 @@
 
 // //           <Marker
 // //             coordinate={selectedLocation}
-// //             pinColor="#2563eb"
+// //             pinColor="#38bdf8"
 // //           />
 // //         </MapView>
 // //       </View>
@@ -1108,11 +1108,11 @@
 // //     color: '#1f2937',
 // //   },
 // //   searchButton: {
-// //     backgroundColor: '#2563eb',
+// //     backgroundColor: '#38bdf8',
 // //     paddingHorizontal: 20,
 // //     justifyContent: 'center',
 // //     borderRadius: 12,
-// //     shadowColor: '#2563eb',
+// //     shadowColor: '#38bdf8',
 // //     shadowOffset: { width: 0, height: 2 },
 // //     shadowOpacity: 0.2,
 // //     shadowRadius: 4,
@@ -1383,7 +1383,7 @@
 //         >
 //           <Marker
 //             coordinate={selectedLocation}
-//             pinColor="#2563eb"
+//             pinColor="#38bdf8"
 //           />
 //         </MapView>
 //       </View>
@@ -1444,11 +1444,11 @@
 //     color: '#1f2937',
 //   },
 //   searchButton: {
-//     backgroundColor: '#2563eb',
+//     backgroundColor: '#38bdf8',
 //     paddingHorizontal: 20,
 //     justifyContent: 'center',
 //     borderRadius: 12,
-//     shadowColor: '#2563eb',
+//     shadowColor: '#38bdf8',
 //     shadowOffset: { width: 0, height: 2 },
 //     shadowOpacity: 0.2,
 //     shadowRadius: 4,
@@ -1720,7 +1720,7 @@ export default function GoMapView() {
                 onRegionChangeComplete={setMapRegion}
                 onPress={handleMapPress}
               >
-                <Marker coordinate={selectedLocation} pinColor="#2563eb" />
+                <Marker coordinate={selectedLocation} pinColor="#38bdf8" />
               </MapView>
             </View>
 
@@ -1794,11 +1794,11 @@ const styles = StyleSheet.create({
     color: "#1f2937",
   },
   searchButton: {
-    backgroundColor: "#2563eb",
+    backgroundColor: "#38bdf8",
     paddingHorizontal: 20,
     justifyContent: "center",
     borderRadius: 12,
-    shadowColor: "#2563eb",
+    shadowColor: "#38bdf8",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
