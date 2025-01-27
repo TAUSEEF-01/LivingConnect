@@ -10,7 +10,7 @@
 //   const fetchHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+//         `http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`
 //       );
 //       setHome(response.data);
 //     } catch (error) {
@@ -86,7 +86,7 @@
 //   const fetchHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+//         `http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`
 //       );
 //       setHome(response.data);
 //     } catch (error) {
@@ -210,7 +210,7 @@
 //   const fetchHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/67641be675a585b5610f677c"
+//         "http://192.168.0.103:5000/houseDetails/get-homes-details/67641be675a585b5610f677c"
 //       );
 //       console.log(response.data); // Log response to verify structure
 //       setHome(response.data); // Set the home data
@@ -359,7 +359,7 @@
 
 //   const fetchHomeDetails = async () => {
 //     try {
-//       const response = await axios.get(`https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`);
+//       const response = await axios.get(`http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`);
 //       setHome(response.data);
 //     } catch (error) {
 //       Alert.alert("Error", "Failed to fetch home details.");
@@ -499,8 +499,8 @@ const HomeDetailsPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
-        // `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+        `http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`
+        // `http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`
       );
       setHome(response.data);
     } catch (error) {

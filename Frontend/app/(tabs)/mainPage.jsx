@@ -77,7 +77,7 @@
 //         return;
 //       }
 
-//       const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
+//       const response = await axios.get("http://192.168.0.103:5000/verify", {
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 
@@ -340,7 +340,7 @@
 //               const token = await AsyncStorage.getItem("userToken");
 //               if (token) {
 //                 await axios.post(
-//                   "https://livingconnect-backend.vercel.app/logout",
+//                   "http://192.168.0.103:5000/logout",
 //                   {},
 //                   {
 //                     headers: { Authorization: `Bearer ${token}` },
@@ -624,7 +624,7 @@ const SidePanel = ({ isVisible, onClose }) => {
               const token = await AsyncStorage.getItem("userToken");
               if (token) {
                 await axios.post(
-                  "https://livingconnect-backend.vercel.app/auth/logout",
+                  "http://192.168.0.103:5000/auth/logout",
                   {},
                   { headers: { Authorization: `Bearer ${token}` } }
                 );
@@ -701,7 +701,7 @@ const SidePanel = ({ isVisible, onClose }) => {
 //               const token = await AsyncStorage.getItem("userToken");
 //               if (token) {
 //                 await axios.post(
-//                   "https://livingconnect-backend.vercel.app/logout",
+//                   "http://192.168.0.103:5000/logout",
 //                   {},
 //                   {
 //                     headers: { Authorization: `Bearer ${token}` },

@@ -76,9 +76,9 @@ export default function CommunityCenter() {
     async function fetchProperties() {
       try {
         const response = await fetch(
-          "https://livingconnect-backend.vercel.app/properties"
+          "http://192.168.0.103:5000/properties"
         );
-        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+        // const response = await fetch("http://192.168.0.103:5000/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -100,8 +100,8 @@ export default function CommunityCenter() {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "http://192.168.0.103:5000/houseDetails/get-all-Homes-details"
+        // "http://192.168.0.103:5000/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {

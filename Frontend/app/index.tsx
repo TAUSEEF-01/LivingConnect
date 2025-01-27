@@ -119,9 +119,9 @@ export default function Index() {
           console.log("Token found in AsyncStorage");
           // Check the token validity using the verify endpoint
           const response = await axios.get(
-            "https://livingconnect-backend.vercel.app/auth/verify",
+            "http://192.168.0.103:5000/auth/verify",
             // const response = await axios.get(
-            //   "https://livingconnect-backend.vercel.app/auth/verify",
+            //   "http://192.168.0.103:5000/auth/verify",
             {
               headers: {
                 Authorization: `Bearer ${token}`, // Send token in the Authorization header

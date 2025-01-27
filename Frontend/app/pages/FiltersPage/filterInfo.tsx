@@ -14,7 +14,7 @@
 
 // //   const fetchHomes = async () => {
 // //     try {
-// //       const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
+// //       const response = await axios.get("http://192.168.0.103:5000/houseDetails/searchHomes", {
 // //         params: filters,
 // //       });
 // //       setHomes(response.data);
@@ -112,7 +112,7 @@
 
 // //     const fetchHomes = async () => {
 // //       try {
-// //         const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
+// //         const response = await axios.get("http://192.168.0.103:5000/houseDetails/searchHomes", {
 // //           params: filters,
 // //         });
 // //         setHomes(response.data);
@@ -249,7 +249,7 @@
 
 //   const fetchHomes = async () => {
 //     try {
-//       const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
+//       const response = await axios.get("http://192.168.0.103:5000/houseDetails/searchHomes", {
 //         params: filters,
 //       });
 //       setHomes(response.data);
@@ -541,8 +541,8 @@ export default function SearchHomes() {
       console.log("Filters:", filters);
 
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/houseDetails/searchHomes",
-        // "https://livingconnect-backend.vercel.app/houseDetails/searchHomes",
+        "http://192.168.0.103:5000/houseDetails/searchHomes",
+        // "http://192.168.0.103:5000/houseDetails/searchHomes",
         {
           params: filters,
         }

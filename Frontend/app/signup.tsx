@@ -64,9 +64,9 @@ export default function SignUpScreen() {
 
       // Send registration data to the server
       const response = await axios.post(
-        "https://livingconnect-backend.vercel.app/auth/register",
+        "http://192.168.0.103:5000/auth/register",
         // const response = await axios.post(
-        // "https://livingconnect-backend.vercel.app/auth/register",
+        // "http://192.168.0.103:5000/auth/register",
         {
           email,
           password,
@@ -95,7 +95,7 @@ export default function SignUpScreen() {
   //       password: "password123",
   //     };
 
-  //     const response = await axios.post("https://livingconnect-backend.vercel.app/register", userData);
+  //     const response = await axios.post("http://192.168.0.103:5000/register", userData);
 
   //     // const response = await axios.post("http://localhost:5000/register", {
   //     //   email: "test@example.com",

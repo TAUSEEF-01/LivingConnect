@@ -28,9 +28,9 @@ import { UserType } from "../UserContext";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 //
-// const API_URL = 'https://livingconnect-backend.vercel.app';
+// const API_URL = 'http://192.168.0.103:5000';
 // const API_URL = 'http://10.33.25.160:5000';
-// const API_URL = 'https://livingconnect-backend.vercel.app';
+// const API_URL = 'http://192.168.0.103:5000';
 
 const ChatMessagesScreen = () => {
   const { currentUserId, recipientId } = useLocalSearchParams();
@@ -80,7 +80,7 @@ const ChatMessagesScreen = () => {
   // Use these IDs without $oid wrapper for requests
   // const recipientId = "675c911919831c86093ed034";
   // const currentUserId = "675d5df58fe7ec7ad49d9fc3";
-  const API_URL = "https://livingconnect-backend.vercel.app";
+  const API_URL = "http://192.168.0.103:5000";
 
   useEffect(() => {
     fetchMessages();

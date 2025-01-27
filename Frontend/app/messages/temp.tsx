@@ -215,7 +215,7 @@ const ChatMessagesScreen = () => {
     try {
       const response = await fetch(
         `http://192.168.0.109:8000/messages/${userId}/${recepientId}`
-        // `https://livingconnect-backend.vercel.app/messages/${userId}/${recepientId}`
+        // `http://192.168.0.103:5000/messages/${userId}/${recepientId}`
       );
       const data = await response.json();
 

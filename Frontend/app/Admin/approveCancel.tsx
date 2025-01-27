@@ -44,8 +44,8 @@ const FormVerifyPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
-        // `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+        `http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`
+        // `http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`
       );
 
       //   console.log("Fetched home details:", response.data);
@@ -83,7 +83,7 @@ const FormVerifyPage = () => {
   // const handleAccept = async (id) => {
   //   try {
   //     const response = await axios.patch(
-  //       `https://livingconnect-backend.vercel.app/houseDetails/cancel/${id}`
+  //       `http://192.168.0.103:5000/houseDetails/cancel/${id}`
   //     );
   //     Alert.alert("Successfully canceled", response.data.message);
   //     // Optionally, update your UI to reflect the change
@@ -96,7 +96,7 @@ const FormVerifyPage = () => {
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
-        `https://livingconnect-backend.vercel.app/houseDetails/cancel/${id}`
+        `http://192.168.0.103:5000/houseDetails/cancel/${id}`
       );
       Alert.alert("Successfully canceled", response.data.message);
       router.replace("/Admin/adminApprovedRequest");
