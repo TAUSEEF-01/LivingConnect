@@ -5236,6 +5236,12 @@ export default function CommunityCenter() {
     // router.replace("/Rent/rentAHomeForm");
   };
 
+  
+
+  const handleAddServicePress = async () => {
+    router.push("/services/addServicesForm");
+  };
+
   const handleProvideServicesPress = async () => {
     // const handleProvideServicesPress = () => {
     router.push("/services/deliveryServices");
@@ -5930,7 +5936,7 @@ export default function CommunityCenter() {
                   shadowRadius: 5,
                   elevation: 6,
                 }}
-                onPress={handleRentAHomePress}
+                onPress={handleAddServicePress}
                 activeOpacity={0.7}
               >
                 <Ionicons

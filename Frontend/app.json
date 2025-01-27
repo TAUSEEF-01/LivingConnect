@@ -52,11 +52,11 @@
     "slug": "Fast_Home_App",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/ic_launcher.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splashScreen.png",
       "resizeMode": "contain",
       "backgroundColor": "#000000"
     },
@@ -65,7 +65,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
+        "foregroundImage": "./assets/images/ic_launcher.png",
         "backgroundColor": "#000000"
       },
       "package": "com.tauseef_01.Fast_Home_App",
@@ -74,7 +74,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/icon.png"
+      "favicon": "./assets/images/ic_launcher.png"
     },
     "plugins": [
       "expo-router",

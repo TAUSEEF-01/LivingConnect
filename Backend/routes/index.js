@@ -18,6 +18,10 @@ router.use("/messages", messageRoutes);
 const communityDetails = require("./communityDetails");
 router.use("/communityDetails", communityDetails);
 
+
+const servicesDetails = require("./serviceDetails");
+router.use("/serviceDetails", servicesDetails);
+
 router.get("/", async (req, res) => {
   // const token = req.headers.authorization?.split(" ")[1];
   // if (!token) {
