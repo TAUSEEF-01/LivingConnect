@@ -93,97 +93,24 @@ try {
 
 
 
-// // Create new home details
-// router.post("/home-details", async (req, res) => {
-//   console.log("Home Details api called");
-
-//   const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
-
-//   console.log("Token:", token);
-
-//   if (!token) {
-//     return res.status(401).json({ message: "Unauthorized: No token provided" });
-//   }
-
-//   try {
-//     const userInfo = await getUserInfo(token);
-//     const userId = userInfo.userId;
-//     const email = userInfo.email;
-//     const contactNumber = userInfo.contactNumber;
-//     const profileImage = userInfo.profileImage;
-
-//     const {
-//       // userId,
-//       PropertyType,
-//       details,
-//       memberRestriction,
-//       rent,
-//       rentPeriod,
-//       location,
-//       facilities,
-//       availability,
-//       images,
-//     } = req.body;
-
-//     console.log(req.body); // Add this line to see the incoming data
-
-//     // Create a new home details document
-//     const newServicesDetails = new ServicesDetails({
-//       userId,
-//       email,
-//       contactNumber,
-//       profileImage,
-//       PropertyType,
-//       details,
-//       memberRestriction,
-//       rent,
-//       rentPeriod,
-//       location,
-//       facilities,
-//       availability,
-//       images,
-//     });
-
-//     console.log(newServicesDetails); // Check if _id is available
-
-//     // Save the new home details to the database
-//     const savedServicesDetails = await newServicesDetails.save();
-
-//     console.log("Saved Home Details!");
-
-//     res.status(200).json({
-//       message: "Home details added successfully",
-//       homeDetails: savedServicesDetails,
-//     });
-//   } catch (error) {
-//     console.error("Error adding home details:", error);
-//     res.status(500).json({
-//       message: "Error adding home details",
-//       error: error.message,
-//     });
-//   }
-// });
 
 
-
-
-
-// // Endpoint to fetch a single home by ID
-// router.get("/get-homes-details/:id", async (req, res) => {
-//   try {
-//     console.log("Get Homes Details api called");
-//     console.log(req.params.id);
-//     const home = await ServicesDetails.findById(req.params.id);
-//     // const home = await ServicesDetails.findById("67641db8d20432a2fb09230c");
-//     if (!home) {
-//       return res.status(404).json({ message: "Home not found" });
-//     }
-//     console.log(home);
-//     res.status(200).json(home);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error fetching home details", error });
-//   }
-// });
+// Endpoint to fetch a single home by ID
+router.get("/get-all-service-details/:id", async (req, res) => {
+  try {
+    console.log("Get Service Details api called");
+    console.log(req.params.id);
+    const home = await ServicesDetails.findById(req.params.id);
+    // const home = await ServicesDetails.findById("67641db8d20432a2fb09230c");
+    if (!home) {
+      return res.status(404).json({ message: "Service not found" });
+    }
+    console.log(home);
+    res.status(200).json(home);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching Service details", error });
+  }
+});
 
 
 
@@ -221,18 +148,17 @@ try {
 // });
 
 
-// // Endpoint to fetch all home details
-// router.get("/get-all-Homes-details", async (req, res) => {
-//   try {
-//     const query = { success: true };
+// Endpoint to fetch all home details
+router.get("/get-all-service-details-houseColoring", async (req, res) => {
+  try {
+    const query = { success: true, serviceType: "Home Coloring" };
 
-//     const homes = await ServicesDetails.find(query);
-//     // const homes = await ServicesDetails.find({});
-//     res.status(200).json(homes);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error fetching home details", error });
-//   }
-// });
+    const homes = await ServicesDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
+  }
+});
 
 // // router.get("/searchHomes", async (req, res) => {
 // //   try {

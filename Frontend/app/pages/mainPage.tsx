@@ -5373,98 +5373,98 @@ export default function CommunityCenter() {
   //   },
   // ];
 
-  const dummyHomeServices = [
-    {
-      _id: "s1",
-      name: "Professional Cleaning Service",
-      images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
-      price: 1500,
-      details: {
-        duration: "3 hours",
-        rating: "4.8",
-        experience: "5 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Dhanmondi",
-      },
-    },
-    {
-      _id: "s2",
-      name: "Expert Home Repair",
-      images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
-      price: 2000,
-      details: {
-        duration: "Variable",
-        rating: "4.9",
-        experience: "8 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Gulshan",
-      },
-    },
-    {
-      _id: "s3",
-      name: "Professional Home Shifting",
-      images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
-      price: 5000,
-      details: {
-        duration: "Full day",
-        rating: "4.7",
-        experience: "6 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Mirpur",
-      },
-    },
-    {
-      _id: "s4",
-      name: "Professional Cleaning Service",
-      images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
-      price: 1500,
-      details: {
-        duration: "3 hours",
-        rating: "4.8",
-        experience: "5 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Dhanmondi",
-      },
-    },
-    {
-      _id: "s5",
-      name: "Expert Home Repair",
-      images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
-      price: 2000,
-      details: {
-        duration: "Variable",
-        rating: "4.9",
-        experience: "8 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Gulshan",
-      },
-    },
-    {
-      _id: "s6",
-      name: "Professional Home Shifting",
-      images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
-      price: 5000,
-      details: {
-        duration: "Full day",
-        rating: "4.7",
-        experience: "6 years",
-      },
-      location: {
-        city: "Dhaka",
-        area: "Mirpur",
-      },
-    },
-  ];
+  // const dummyHomeServices = [
+  //   {
+  //     _id: "s1",
+  //     name: "Professional Cleaning Service",
+  //     images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
+  //     price: 1500,
+  //     details: {
+  //       duration: "3 hours",
+  //       rating: "4.8",
+  //       experience: "5 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Dhanmondi",
+  //     },
+  //   },
+  //   {
+  //     _id: "s2",
+  //     name: "Expert Home Repair",
+  //     images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
+  //     price: 2000,
+  //     details: {
+  //       duration: "Variable",
+  //       rating: "4.9",
+  //       experience: "8 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Gulshan",
+  //     },
+  //   },
+  //   {
+  //     _id: "s3",
+  //     name: "Professional Home Shifting",
+  //     images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
+  //     price: 5000,
+  //     details: {
+  //       duration: "Full day",
+  //       rating: "4.7",
+  //       experience: "6 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Mirpur",
+  //     },
+  //   },
+  //   {
+  //     _id: "s4",
+  //     name: "Professional Cleaning Service",
+  //     images: ["http://images.unsplash.com/photo-1581578731548-c64695cc6952"],
+  //     price: 1500,
+  //     details: {
+  //       duration: "3 hours",
+  //       rating: "4.8",
+  //       experience: "5 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Dhanmondi",
+  //     },
+  //   },
+  //   {
+  //     _id: "s5",
+  //     name: "Expert Home Repair",
+  //     images: ["http://images.unsplash.com/photo-1621905252507-b35492cc74b4"],
+  //     price: 2000,
+  //     details: {
+  //       duration: "Variable",
+  //       rating: "4.9",
+  //       experience: "8 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Gulshan",
+  //     },
+  //   },
+  //   {
+  //     _id: "s6",
+  //     name: "Professional Home Shifting",
+  //     images: ["http://images.unsplash.com/photo-1600585152220-90363fe7e115"],
+  //     price: 5000,
+  //     details: {
+  //       duration: "Full day",
+  //       rating: "4.7",
+  //       experience: "6 years",
+  //     },
+  //     location: {
+  //       city: "Dhaka",
+  //       area: "Mirpur",
+  //     },
+  //   },
+  // ];
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -6022,7 +6022,7 @@ export default function CommunityCenter() {
 
               <TouchableOpacity
                 style={{
-                  backgroundColor: "#38bdf8",
+                  backgroundColor: "#38bdf8", //"grey",
                   paddingHorizontal: 16,
                   paddingVertical: 12,
                   borderRadius: 12,
@@ -6037,7 +6037,7 @@ export default function CommunityCenter() {
                   shadowRadius: 5,
                   elevation: 6,
                 }}
-                onPress={handleRentAHomePress}
+                onPress={()=> {router.push("/services/homeColoringService")}}
                 activeOpacity={0.7}
               >
                 <View
@@ -6074,7 +6074,7 @@ export default function CommunityCenter() {
                     flex: 1, // Pushes arrow to the side
                   }}
                 >
-                  Home Cleaning{"\n"}Services
+                  Home Coloring{"\n"}Services
                 </Text>
 
                 <Entypo
