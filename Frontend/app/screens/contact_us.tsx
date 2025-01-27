@@ -1,5 +1,52 @@
 import React from "react";
+<<<<<<< HEAD
 import { View, Text, TouchableOpacity, StyleSheet, Linking, Alert, Image } from "react-native";
+=======
+import { View, Text, Image, StyleSheet, FlatList, StatusBar, TouchableOpacity, Linking, Alert } from "react-native";
+
+const contactDetails = [
+  {
+    id: "1",
+    name: "Md. Tauseef - Ur - Rahman",
+    role: "Project Lead",
+    email: "mdtauseef.rahmang01@gmail.com",
+    phone: "+1234567890",
+    image: require("../../assets/images/email1.jpg"), // Adjust with the actual image path
+  },
+  {
+    id: "2",
+    name: "Tamzid Bin Tariq",
+    role: "Developer",
+    email: "mdtauseef.rahman@gmail.com",
+    phone: "+1234567891",
+    image: require("../../assets/images/email1.jpg"), // Adjust with the actual image path
+  },
+  {
+    id: "3",
+    name: "Ashraful Alam",
+    role: "Designer",
+    email: "mdtauseef.rahman01@gmail.com",
+    phone: "+1234567892",
+    image: require("../../assets/images/email1.jpg"), // Adjust with the actual image path
+  },
+  {
+    id: "4",
+    name: "Sumaiya Tabassum",
+    role: "Designer",
+    email: "mdtauseef.rahman02@gmail.com",
+    phone: "+1234567893",
+    image: require("../../assets/images/email1.jpg"), // Adjust with the actual image path
+  },
+];
+
+const handleEmailPress = (email) => {
+  const subject = "Customer Inquiry";
+  const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+  Linking.openURL(mailto).catch(() =>
+    Alert.alert("Error", "Could not open email client.")
+  );
+};
+>>>>>>> 07f884c1 (Fixed MessageHistory Page)
 
 export default function ContactUsPage() {
   // Function to handle the email intent

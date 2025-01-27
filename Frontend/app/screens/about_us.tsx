@@ -11,8 +11,13 @@ const teamMembers = [
   },
   {
     id: "2",
+<<<<<<< HEAD
     name: "Jane Smith",
     role: "Developer",
+=======
+    name: "Tamzid Bin Tariq",
+    role: "Student: University of Dhaka",
+>>>>>>> 07f884c1 (Fixed MessageHistory Page)
     image: require("../../assets/images/email1.jpg"), // Adjust with the actual image path
   },
   {

@@ -28,9 +28,15 @@ import { UserType } from "../UserContext";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 //
+<<<<<<< HEAD
 // const API_URL = 'http://192.168.50.242:5000';
 // const API_URL = 'http://10.33.25.160:5000';
 // const API_URL = 'http://192.168.0.109:5000';
+=======
+// const API_URL = 'https://livingconnect-backend.vercel.app';
+const API_URL = 'http://192.168.0.103:5000';
+// const API_URL = 'https://livingconnect-backend.vercel.app';
+>>>>>>> 07f884c1 (Fixed MessageHistory Page)
 
 const ChatMessagesScreen = () => {
   const { currentUserId, recipientId } = useLocalSearchParams();
