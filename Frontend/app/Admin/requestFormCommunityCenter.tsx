@@ -54,7 +54,8 @@ const CommunityDetailsPage = ({ route }) => {
         `https://livingconnect-backend.vercel.app/communityDetails/accept/${id}`
       );
       Alert.alert("Success", response.data.message);
-      router.replace("/Admin/adminPendingRequestCommunityCenter");
+      // router.replace("/Admin/adminPendingRequestCommunityCenter");
+      router.back();
     } catch (error) {
       Alert.alert("Error", "Failed to accept the home.");
       console.error(error);

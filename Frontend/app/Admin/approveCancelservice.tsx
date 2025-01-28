@@ -23,7 +23,8 @@ interface OwnerInfo {
 }
 
 const FormVerifyPage = () => {
-  const { homeId } = useLocalSearchParams(); // Get homeId from router params
+  const { communityId } = useLocalSearchParams(); // Get communityId from router params
+
   const [home, setHome] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -42,19 +43,20 @@ const FormVerifyPage = () => {
 
   const fetchHomeDetails = async () => {
     try {
-      if (!homeId) throw new Error("No home ID provided");
+      if (!communityId) throw new Error("No home ID provided");
+      console.log(communityId);
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
-        // `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+        `https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details/${communityId}`
+        // `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${communityId}`
       );
 
-      //   console.log("Fetched home details:", response.data);
+      console.log("Fetched home details:", response.data);
       // console.log("fnc1");
       setHome(response.data);
       // fetchUserProfile();
     } catch (error) {
-      Alert.alert("Error", "Failed to fetch home details.");
-      console.error("Error fetching home details:", error);
+      Alert.alert("Error", "Failed to fetch Service details.");
+      console.error("Error fetching Service details:", error);
     } finally {
       setLoading(false);
     }
@@ -80,26 +82,13 @@ const FormVerifyPage = () => {
     );
   }
 
-  // const handleAccept = async (id) => {
-  //   try {
-  //     const response = await axios.patch(
-  //       `https://livingconnect-backend.vercel.app/houseDetails/cancel/${id}`
-  //     );
-  //     Alert.alert("Successfully canceled", response.data.message);
-  //     // Optionally, update your UI to reflect the change
-  //   } catch (error) {
-  //     Alert.alert("Error", "Failed to accept the home.");
-  //     console.error(error);
-  //   }
-  // };
-
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
-        `https://livingconnect-backend.vercel.app/houseDetails/cancel/${id}`
+        `https://livingconnect-backend.vercel.app/serviceDetails/cancel/${id}`
       );
       Alert.alert("Successfully canceled", response.data.message);
-      // router.replace("/Admin/adminApprovedRequest");
+      // router.replace("/Admin/adminApprovedRequestService");
       router.back();
     } catch (error) {
       Alert.alert("Error", "Failed to accept the home.");
@@ -113,10 +102,11 @@ const FormVerifyPage = () => {
       <ScrollView>
         {/* Header */}
         <Text style={styles.title}>
-          {home?.PropertyType.toUpperCase() || "N/A"}
+          {home?.serviceType.toUpperCase() || "N/A"}
         </Text>
-        <Text style={styles.rent}>
-          Rent: {home?.rent || 0} Tk ({home?.rentPeriod || "N/A"})
+
+        <Text style={styles.titleName}>
+          {home.companyName ? home.companyName : "N/A"}
         </Text>
 
         {/* Image Gallery */}
@@ -138,120 +128,61 @@ const FormVerifyPage = () => {
         </View>
 
         <View style={styles.infoSection}>
+          {/* Property Details */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Description</Text>
+            <Text style={styles.text}>
+              {home.description || "Hope you like our service"}
+            </Text>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Cost</Text>
+            <Text style={styles.costText}>Tk {home.cost || 0}</Text>
+          </View>
+
           {/* Location Details */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Location</Text>
-            <Text style={styles.text}>
-              {home?.location?.city || "N/A"}, {home?.location?.area || "N/A"}
-            </Text>
-            <Text style={styles.text}>
-              Road: {home?.location?.road || "N/A"}, House:{" "}
-              {home?.location?.houseNumber || "N/A"}
-            </Text>
-          </View>
+            {home?.location && Object.keys(home.location).length > 0 ? (
+              Object.entries(home.location).map(([city, areas]) => (
+                <View key={city} style={styles.cityContainer}>
+                  {/* City Name */}
+                  <Text style={styles.cityTitle}>{city}</Text>
 
-          {/* Property Details */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Property Details</Text>
-            <Text style={styles.text}>Beds: {home?.details?.beds || 0}</Text>
-            <Text style={styles.text}>Baths: {home?.details?.baths || 0}</Text>
-            <Text style={styles.text}>
-              Size: {home?.details?.size || "N/A"} sq.m.
-            </Text>
-            <Text style={styles.text}>
-              Balcony: {home?.details?.balcony || 0}
-            </Text>
-            <Text style={styles.text}>
-              Floor: {home?.details?.floor || "N/A"}
-            </Text>
-          </View>
-
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Member Restrictions</Text>
-            <Text style={styles.memberRestriction}>
-              {home?.memberRestriction || "N/A"}
-            </Text>
-          </View>
-
-          {/* Facilities */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Facilities</Text>
-            {/* <Text style={styles.text}>
-          {Object.entries(home?.facilities || {})
-            .filter(([_, value]) => value)
-            .map(([key]) => key.replace(/([A-Z])/g, " $1"))
-            .join("\n") || "None"}
-        </Text> */}
-
-            <Text style={styles.text}>
-              {Object.entries(home?.facilities || {})
-                .map(
-                  ([key, value]) =>
-                    `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`
-                )
-                .join("\n") || "None"}
-            </Text>
-          </View>
-
-          {/* Availability */}
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Availability</Text>
-            <Text style={styles.text}>
-              Post Date:{" "}
-              {home?.availability?.from
-                ? new Date(home.availability.from).toLocaleDateString()
-                : "N/A"}
-            </Text>
-            <Text style={styles.text}>
-              Available From:{" "}
-              {home?.availability?.to
-                ? new Date(home.availability.to).toLocaleDateString()
-                : "N/A"}
-            </Text>
+                  {/* List of Areas */}
+                  {Array.isArray(areas) && areas.length > 0 ? (
+                    areas.map((area, index) => (
+                      <Text key={index} style={styles.areaText}>
+                        - {area}
+                      </Text>
+                    ))
+                  ) : (
+                    <Text style={styles.noAreaText}>No areas available</Text>
+                  )}
+                </View>
+              ))
+            ) : (
+              <Text style={styles.text}>Location not available</Text>
+            )}
           </View>
 
           {/* User info */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Owner</Text>
-            {/* <Text style={styles.text}> */}
-            {/* {profile?.email || "N/A"} */}
-            {/* Email: {home.email || "N/A"} */}
-            {/* </Text> */}
-
-            {/* <Text style={styles.text}>
-              Email: {home.email || "N/A"}
-            </Text> */}
+            <Text style={styles.sectionTitle}>Contact Info</Text>
 
             <Text style={styles.text}>Email: {home?.email || "N/A"}</Text>
 
             <Text style={styles.text}>
-              Contact Number:{" "}
+              Number:{" "}
               <Text style={styles.callText}>{home.contactNumber || "N/A"}</Text>
             </Text>
-
-            <Text style={styles.text}>
-              Success:{" "}
-              <Text style={styles.callText}>
-                {home.success ? "True" : "False"}
-              </Text>
-            </Text>
-
             <TouchableOpacity
               style={styles.callButton}
-              // onPress={()=> router.push("/messages/CallerDialScreen")}
               onPress={() => makeCall(home.contactNumber || "")}
             >
               <Text style={styles.buttonText}>Call</Text>
             </TouchableOpacity>
-
-            {/* <TouchableOpacity
-              style={styles.callButton}
-              onPress={() => {
-                handleAccept(home._id); // Call the function to accept
-                router.replace("/Admin/adminApprovedRequest"); // Navigate to the page
-              }}
-              
-            > */}
 
             <TouchableOpacity
               style={styles.callButton}
@@ -332,6 +263,31 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     marginBottom: 8,
+  },
+  costText: {
+    fontSize: 18,
+    lineHeight: 24,
+    color: "#F0BB78", // "#fa0269",
+    fontWeight: "bold",
+  },
+  cityContainer: {
+    marginBottom: 12,
+  },
+  cityTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#007BFF",
+  },
+  areaText: {
+    fontSize: 14,
+    color: "white",
+    paddingLeft: 10,
+  },
+  noAreaText: {
+    fontSize: 14,
+    color: "#999",
+    paddingLeft: 10,
+    fontStyle: "italic",
   },
   memberRestriction: {
     fontSize: 18,

@@ -14,7 +14,7 @@
 
 // // //   const fetchHomes = async () => {
 // // //     try {
-// // //       const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
+// // //       const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
 // // //         params: filters,
 // // //       });
 // // //       setHomes(response.data);
@@ -112,7 +112,7 @@
 
 // // //     const fetchHomes = async () => {
 // // //       try {
-// // //         const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
+// // //         const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
 // // //           params: filters,
 // // //         });
 // // //         setHomes(response.data);
@@ -249,7 +249,7 @@
 
 // //   const fetchHomes = async () => {
 // //     try {
-// //       const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
+// //       const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
 // //         params: filters,
 // //       });
 // //       setHomes(response.data);
@@ -541,8 +541,8 @@
 //       console.log("Filters:", filters);
 
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/searchHomes",
-//         // "https://livingconnect-backend.vercel.app/houseDetails/searchHomes",
+//         "http://192.168.50.242:5000/houseDetails/searchHomes",
+//         // "http://192.168.50.242:5000/houseDetails/searchHomes",
 //         {
 //           params: filters,
 //         }
@@ -1219,7 +1219,7 @@ const AllHomesPage = () => {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details-houseColoring"
+        "http://192.168.50.242:5000/serviceDetails/get-all-service-details-houseColoring"
       );
       setHomes(response.data);
     } catch (error) {
@@ -1250,7 +1250,7 @@ const AllHomesPage = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "black", paddingVertical: 0 }}>
       <View style={localStyles.statusBarWrapper}>
         <StatusBar
           barStyle="light-content" // Light content for white text/icons on a dark background

@@ -18,7 +18,7 @@
 // //   const fetchUserHouses = async () => {
 // //     try {
 // //       const response = await axios.get(
-// //         "https://livingconnect-backend.vercel.app/houseDetails/successFalse" // Replace with your API endpoint
+// //         "http://192.168.50.242:5000/houseDetails/successFalse" // Replace with your API endpoint
 // //       );
 // //       setForms(response.data);
 // //     } catch (error) {
@@ -33,7 +33,7 @@
 // //   // const handleApprove = async (formId) => {
 // //   //   try {
 // //   //     await axios.patch(
-// //   //       `https://livingconnect-backend.vercel.app/forms/approve/${formId}` // Replace with your API endpoint
+// //   //       `http://192.168.50.242:5000/forms/approve/${formId}` // Replace with your API endpoint
 // //   //     );
 // //   //     Alert.alert("Success", "Form approved successfully.");
 // //   //     setForms(forms.filter((form) => form.id !== formId)); // Remove approved form from the list
@@ -47,7 +47,7 @@
 // //   // const handleReject = async (formId) => {
 // //   //   try {
 // //   //     await axios.delete(
-// //   //       `https://livingconnect-backend.vercel.app/forms/reject/${formId}` // Replace with your API endpoint
+// //   //       `http://192.168.50.242:5000/forms/reject/${formId}` // Replace with your API endpoint
 // //   //     );
 // //   //     Alert.alert("Success", "Form rejected successfully.");
 // //   //     setForms(forms.filter((form) => form.id !== formId)); // Remove rejected form from the list
@@ -175,7 +175,7 @@
 //   const fetchUserHouses = async () => {
 //     // try {
 //     //   const response = await axios.get(
-//     //     "https://livingconnect-backend.vercel.app/houseDetails/get-user-house-properties" // Replace with your API endpoint
+//     //     "http://192.168.50.242:5000/houseDetails/get-user-house-properties" // Replace with your API endpoint
 //     //   );
 
 //     const token = await AsyncStorage.getItem("userToken");
@@ -183,7 +183,7 @@
 
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/communityDetails/get-user-CommunityCenter-properties",
+//         "http://192.168.50.242:5000/communityDetails/get-user-CommunityCenter-properties",
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
@@ -299,8 +299,6 @@
 
 // export default AdminApprovalPage;
 
-
-
 import React, { useState } from "react";
 import {
   View,
@@ -326,7 +324,7 @@ const UserCommunitiesList = () => {
     try {
       const token = await AsyncStorage.getItem("userToken");
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/communityDetails/get-user-CommunityCenter-properties",
+        "http://192.168.50.242:5000/communityDetails/get-user-CommunityCenter-properties",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -360,12 +358,12 @@ const UserCommunitiesList = () => {
 
   const renderContent = () => {
     if (forms.length === 0) {
-          return (
-            <View style={styles.noDataContainer}>
-              <Text style={styles.noDataText}>No forms to verify.</Text>
-            </View>
-          );
-        }
+      return (
+        <View style={styles.noDataContainer}>
+          <Text style={styles.noDataText}>No forms to verify.</Text>
+        </View>
+      );
+    }
 
     return (
       <ScrollView style={styles.scrollContainer}>
@@ -397,7 +395,9 @@ const UserCommunitiesList = () => {
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>My Community Centres</Text>
-        <Text style={styles.headerSubtitle}>Manage Your Listed Community Centres</Text>
+        <Text style={styles.headerSubtitle}>
+          Manage Your Listed Community Centres
+        </Text>
       </View>
       {renderContent()}
     </SafeAreaView>

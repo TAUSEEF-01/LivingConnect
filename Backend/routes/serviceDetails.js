@@ -101,7 +101,6 @@ router.get("/get-all-service-details/:id", async (req, res) => {
     console.log("Get Service Details api called");
     console.log(req.params.id);
     const home = await ServicesDetails.findById(req.params.id);
-    // const home = await ServicesDetails.findById("67641db8d20432a2fb09230c");
     if (!home) {
       return res.status(404).json({ message: "Service not found" });
     }
@@ -294,97 +293,97 @@ router.get("/get-all-service-details-houseColoring", async (req, res) => {
 //   }
 // });
 
-// // Fixed successFalse Search Endpoint
-// router.get("/successFalse", async (req, res) => {
-//   try {
-//     // Construct search query
-//     const query = { success: false };
+// Fixed successFalse Search Endpoint
+router.get("/successFalse", async (req, res) => {
+  try {
+    // Construct search query
+    const query = { success: false };
 
-//     const homes = await ServicesDetails.find(query, { email: 1 });
-//     console.log(homes);
-//     res.status(200).json(homes);
-//   } catch (error) {
-//     console.error("Error retrieving homes:", error);
-//     res.status(500).json({ message: "Failed to retrieve homes", error });
-//   }
-// });
+    const homes = await ServicesDetails.find(query, { email: 1 });
+    console.log(homes);
+    res.status(200).json(homes);
+  } catch (error) {
+    console.error("Error retrieving Services:", error);
+    res.status(500).json({ message: "Failed to retrieve Services", error });
+  }
+});
 
-// // Fixed successTrue Search Endpoint
-// router.get("/successTrue", async (req, res) => {
-//   try {
-//     // Construct search query
-//     const query = { success: true };
+// Fixed successTrue Search Endpoint
+router.get("/successTrue", async (req, res) => {
+  try {
+    // Construct search query
+    const query = { success: true };
 
-//     const homes = await ServicesDetails.find(query, { email: 1 });
-//     console.log(homes);
-//     res.status(200).json(homes);
-//   } catch (error) {
-//     console.error("Error retrieving homes:", error);
-//     res.status(500).json({ message: "Failed to retrieve homes", error });
-//   }
-// });
+    const homes = await ServicesDetails.find(query, { email: 1 });
+    console.log(homes);
+    res.status(200).json(homes);
+  } catch (error) {
+    console.error("Error retrieving Services:", error);
+    res.status(500).json({ message: "Failed to retrieve Services", error });
+  }
+});
 
-// // Endpoint to accept a home and set success to true
-// router.patch("/accept/:id", async (req, res) => {
-//   // console.log("Accept Home API called");
+// Endpoint to accept a home and set success to true
+router.patch("/accept/:id", async (req, res) => {
+  // console.log("Accept Home API called");
 
-//   const { id } = req.params;
+  const { id } = req.params;
 
-//   try {
-//     // Find the home by ID and update success to true
-//     const updatedHome = await ServicesDetails.findByIdAndUpdate(
-//       id,
-//       { success: true },
-//       { new: true } // Return the updated document
-//     );
+  try {
+    // Find the home by ID and update success to true
+    const updatedHome = await ServicesDetails.findByIdAndUpdate(
+      id,
+      { success: true },
+      { new: true } // Return the updated document
+    );
 
-//     if (!updatedHome) {
-//       return res.status(404).json({ message: "Home not found" });
-//     }
+    if (!updatedHome) {
+      return res.status(404).json({ message: "Services not found" });
+    }
 
-//     res.status(200).json({
-//       message: "Home accepted successfully",
-//       home: updatedHome,
-//     });
-//   } catch (error) {
-//     console.error("Error updating home success:", error);
-//     res.status(500).json({
-//       message: "Failed to accept the home",
-//       error,
-//     });
-//   }
-// });
+    res.status(200).json({
+      message: "Services accepted successfully",
+      home: updatedHome,
+    });
+  } catch (error) {
+    console.error("Error updating Services success:", error);
+    res.status(500).json({
+      message: "Failed to accept the Services",
+      error,
+    });
+  }
+});
 
-// // Endpoint to accept a home and set success to true
-// router.patch("/cancel/:id", async (req, res) => {
-//   // console.log("Accept Home API called");
+// Endpoint to accept a home and set success to true
+router.patch("/cancel/:id", async (req, res) => {
+  // console.log("Accept Home API called");
 
-//   const { id } = req.params;
+  const { id } = req.params;
 
-//   try {
-//     // Find the home by ID and update success to true
-//     const updatedHome = await ServicesDetails.findByIdAndUpdate(
-//       id,
-//       { success: false },
-//       { new: true } // Return the updated document
-//     );
+  try {
+    // Find the home by ID and update success to true
+    const updatedHome = await ServicesDetails.findByIdAndUpdate(
+      id,
+      { success: false },
+      { new: true } // Return the updated document
+    );
 
-//     if (!updatedHome) {
-//       return res.status(404).json({ message: "Home not found" });
-//     }
+    if (!updatedHome) {
+      return res.status(404).json({ message: "Services not found" });
+    }
 
-//     res.status(200).json({
-//       message: "Home canceled successfully",
-//       home: updatedHome,
-//     });
-//   } catch (error) {
-//     console.error("Error updating home success:", error);
-//     res.status(500).json({
-//       message: "Failed to accept the home",
-//       error,
-//     });
-//   }
-// });
+    res.status(200).json({
+      message: "Services canceled successfully",
+      home: updatedHome,
+    });
+  } catch (error) {
+    console.error("Error updating Services success:", error);
+    res.status(500).json({
+      message: "Failed to accept the Services",
+      error,
+    });
+  }
+});
 
 // router.get("/userIdByEmail", async (req, res) => {
 //   try {

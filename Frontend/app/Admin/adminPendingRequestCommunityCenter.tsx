@@ -524,7 +524,6 @@
 
 // export default AdminPendingRequestPage;
 
-
 import React from "react";
 import {
   View,
@@ -548,7 +547,9 @@ const AdminPendingRequestPage = () => {
   const fetchSuccessFalse = async () => {
     try {
       setLoading(true);
-      const response = await axios.get( "https://livingconnect-backend.vercel.app/communityDetails/successFalse");
+      const response = await axios.get(
+        "https://livingconnect-backend.vercel.app/communityDetails/successFalse"
+      );
       setForms(response.data);
     } catch (error) {
       Alert.alert(
@@ -591,7 +592,7 @@ const AdminPendingRequestPage = () => {
     }
 
     return (
-      <ScrollView 
+      <ScrollView
         style={styles.scrollContainer}
         showsVerticalScrollIndicator={false}
       >

@@ -319,7 +319,7 @@
 // // // //         return;
 // // // //       }
 
-// // // //       const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
+// // // //       const response = await axios.get("http://192.168.50.242:5000/verify", {
 // // // //         headers: { Authorization: `Bearer ${token}` },
 // // // //       });
 
@@ -582,7 +582,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   {
 // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -867,7 +867,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1560,7 +1560,7 @@
 // // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // // //               if (token) {
 // // // // //                 await axios.post(
-// // // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // // //                   "http://192.168.50.242:5000/logout",
 // // // // //                   {},
 // // // // //                   {
 // // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -1664,7 +1664,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "https://livingconnect-backend.vercel.app/logout",
+// // // //                   "http://192.168.50.242:5000/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1776,8 +1776,8 @@
 // // //   useEffect(() => {
 // // //     async function fetchProperties() {
 // // //       try {
-// // //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
-// // //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// // //         const response = await fetch("http://192.168.50.242:5000/properties");
+// // //         // const response = await fetch("http://192.168.50.242:5000/properties");
 // // //         const data = await response.json();
 
 // // //         // console.log('Fetched properties:', data);
@@ -1799,8 +1799,8 @@
 // // //   const fetchAllHomeDetails = async () => {
 // // //     try {
 // // //       const response = await axios.get(
-// // //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-// // //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// // //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// // //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 // // //       );
 // // //       setHomes(response.data);
 // // //     } catch (error) {
@@ -2683,8 +2683,8 @@
 // //   useEffect(() => {
 // //     async function fetchProperties() {
 // //       try {
-// //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
-// //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// //         const response = await fetch("http://192.168.50.242:5000/properties");
+// //         // const response = await fetch("http://192.168.50.242:5000/properties");
 // //         const data = await response.json();
 
 // //         // console.log('Fetched properties:', data);
@@ -2706,8 +2706,8 @@
 // //   const fetchAllHomeDetails = async () => {
 // //     try {
 // //       const response = await axios.get(
-// //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-// //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 // //       );
 // //       setHomes(response.data);
 // //     } catch (error) {
@@ -3880,9 +3880,9 @@
 //     async function fetchProperties() {
 //       try {
 //         const response = await fetch(
-//           "https://livingconnect-backend.vercel.app/properties"
+//           "http://192.168.50.242:5000/properties"
 //         );
-//         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+//         // const response = await fetch("http://192.168.50.242:5000/properties");
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -3904,8 +3904,8 @@
 //   const fetchAllHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-//         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+//         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+//         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
 //       );
 //       setHomes(response.data);
 //     } catch (error) {
@@ -5252,10 +5252,8 @@ export default function CommunityCenter() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch(
-          "https://livingconnect-backend.vercel.app/properties"
-        );
-        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+        const response = await fetch("http://192.168.50.242:5000/properties");
+        // const response = await fetch("http://192.168.50.242:5000/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -5277,8 +5275,8 @@ export default function CommunityCenter() {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
-        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -5296,8 +5294,8 @@ export default function CommunityCenter() {
   const fetchAllCommunityCenterDetails = async () => {
     try {
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details"
-        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "http://192.168.50.242:5000/communityDetails/get-all-CommunityCenter-details"
+        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
       );
       setCommunityCenter(response.data);
     } catch (error) {
@@ -5469,7 +5467,7 @@ export default function CommunityCenter() {
   // ];
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "black", paddingVertical: 0 }}>
       {/* <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} /> */}
 
       <View style={localStyles.statusBarWrapper}>
@@ -6635,7 +6633,7 @@ const localStyles = StyleSheet.create({
   // },
 
   statusBarWrapper: {
-    marginBottom: 33, // Adjust the bottom margin as needed
+    marginBottom: 33, // Adjust the bottom margin as needed 33
   },
 
   header: {

@@ -174,7 +174,7 @@
 //   const fetchSuccessTrue = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/successTrue" // Replace with your API endpoint
+//         "http://192.168.50.242:5000/houseDetails/successTrue" // Replace with your API endpoint
 //       );
 //       setForms(response.data);
 //     } catch (error) {
@@ -283,7 +283,6 @@
 
 // export default AdminApprovalPage;
 
-
 import React, { useState } from "react";
 import {
   View,
@@ -307,12 +306,16 @@ const AdminApprovalPage = () => {
   const fetchSuccessTrue = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/successTrue");
+      const response = await axios.get(
+        "http://192.168.50.242:5000/houseDetails/successTrue"
+      );
       setForms(response.data);
     } catch (error) {
-      Alert.alert("Error", "Failed to fetch form details. Please try again later.", [
-        { text: "OK", style: "default" }
-      ]);
+      Alert.alert(
+        "Error",
+        "Failed to fetch form details. Please try again later.",
+        [{ text: "OK", style: "default" }]
+      );
       console.error(error);
     } finally {
       setLoading(false);
@@ -340,13 +343,18 @@ const AdminApprovalPage = () => {
       return (
         <View style={styles.centerContainer}>
           <Text style={styles.noDataText}>No forms to verify</Text>
-          <Text style={styles.noDataSubText}>New requests will appear here</Text>
+          <Text style={styles.noDataSubText}>
+            New requests will appear here
+          </Text>
         </View>
       );
     }
 
     return (
-      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
         {forms.map((form, index) => (
           <TouchableOpacity
             key={form._id}
@@ -354,7 +362,7 @@ const AdminApprovalPage = () => {
             onPress={() =>
               router.push({
                 pathname: "/Admin/approveCancel",
-              params: { homeId: form._id }, 
+                params: { homeId: form._id },
               })
             }
             activeOpacity={0.7}

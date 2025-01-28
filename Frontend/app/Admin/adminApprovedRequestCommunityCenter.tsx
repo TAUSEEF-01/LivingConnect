@@ -18,7 +18,7 @@
 // // // //   const fetchSuccessFalse = async () => {
 // // // //     try {
 // // // //       const response = await axios.get(
-// // // //         "https://livingconnect-backend.vercel.app/houseDetails/successFalse" // Replace with your API endpoint
+// // // //         "http://192.168.50.242:5000/houseDetails/successFalse" // Replace with your API endpoint
 // // // //       );
 // // // //       setForms(response.data);
 // // // //     } catch (error) {
@@ -33,7 +33,7 @@
 // // // //   // const handleApprove = async (formId) => {
 // // // //   //   try {
 // // // //   //     await axios.patch(
-// // // //   //       `https://livingconnect-backend.vercel.app/forms/approve/${formId}` // Replace with your API endpoint
+// // // //   //       `http://192.168.50.242:5000/forms/approve/${formId}` // Replace with your API endpoint
 // // // //   //     );
 // // // //   //     Alert.alert("Success", "Form approved successfully.");
 // // // //   //     setForms(forms.filter((form) => form.id !== formId)); // Remove approved form from the list
@@ -47,7 +47,7 @@
 // // // //   // const handleReject = async (formId) => {
 // // // //   //   try {
 // // // //   //     await axios.delete(
-// // // //   //       `https://livingconnect-backend.vercel.app/forms/reject/${formId}` // Replace with your API endpoint
+// // // //   //       `http://192.168.50.242:5000/forms/reject/${formId}` // Replace with your API endpoint
 // // // //   //     );
 // // // //   //     Alert.alert("Success", "Form rejected successfully.");
 // // // //   //     setForms(forms.filter((form) => form.id !== formId)); // Remove rejected form from the list
@@ -174,7 +174,7 @@
 // // //   const fetchSuccessFalse = async () => {
 // // //     try {
 // // //       const response = await axios.get(
-// // //         "https://livingconnect-backend.vercel.app/houseDetails/successFalse" // Replace with your API endpoint
+// // //         "http://192.168.50.242:5000/houseDetails/successFalse" // Replace with your API endpoint
 // // //       );
 // // //       setForms(response.data);
 // // //     } catch (error) {
@@ -293,7 +293,7 @@
 //   const fetchSuccessFalse = async () => {
 //     try {
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/houseDetails/successFalse"
+//         "http://192.168.50.242:5000/houseDetails/successFalse"
 //       );
 //       setForms(response.data); // Only success: false forms are returned
 //     } catch (error) {
@@ -412,7 +412,7 @@
 //     try {
 //       setLoading(true);
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/communityDetails/successTrue"
+//         "http://192.168.50.242:5000/communityDetails/successTrue"
 //       );
 //       setForms(response.data);
 //     } catch (error) {
@@ -524,7 +524,6 @@
 
 // export default AdminPendingRequestPage;
 
-
 import React, { useState } from "react";
 import {
   View,
@@ -548,12 +547,16 @@ const AdminPendingRequestPage = () => {
   const fetchSuccessTrue = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("https://livingconnect-backend.vercel.app/communityDetails/successTrue");
+      const response = await axios.get(
+        "http://192.168.50.242:5000/communityDetails/successTrue"
+      );
       setForms(response.data);
     } catch (error) {
-      Alert.alert("Error", "Failed to fetch form details. Please try again later.", [
-        { text: "OK", style: "default" }
-      ]);
+      Alert.alert(
+        "Error",
+        "Failed to fetch form details. Please try again later.",
+        [{ text: "OK", style: "default" }]
+      );
       console.error(error);
     } finally {
       setLoading(false);
@@ -581,13 +584,18 @@ const AdminPendingRequestPage = () => {
       return (
         <View style={styles.centerContainer}>
           <Text style={styles.noDataText}>No forms to verify</Text>
-          <Text style={styles.noDataSubText}>New requests will appear here</Text>
+          <Text style={styles.noDataSubText}>
+            New requests will appear here
+          </Text>
         </View>
       );
     }
 
     return (
-      <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
         {forms.map((form, index) => (
           <TouchableOpacity
             key={form._id}
