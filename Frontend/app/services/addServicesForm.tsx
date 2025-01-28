@@ -1,10 +1,462 @@
+// import React, { useState } from "react";
+// import {
+//   View,
+//   Text,
+//   TextInput,
+//   TouchableOpacity,
+//   Button,
+//   ScrollView,
+//   StyleSheet,
+//   Alert,
+//   Image,
+// } from "react-native";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+// import * as ImagePicker from "expo-image-picker";
+// import * as ImageManipulator from "expo-image-manipulator";
+// import axios from "axios";
+// import { router } from "expo-router";
+
+// const CreateServiceForm = () => {
+//   const [formData, setFormData] = useState({
+//     companyName: "",
+//     description: "",
+//     serviceType: "",
+//     cost: "",
+//     location: {},
+//     images: [],
+//   });
+
+//   //   const handleInputChange = (path, value) => {
+//   //     const keys = path.split(".");
+//   //     setFormData((prevState) => {
+//   //       let newState = { ...prevState };
+//   //       let temp = newState;
+
+//   //       // Traverse object path
+//   //       for (let i = 0; i < keys.length - 1; i++) {
+//   //         temp[keys[i]] = { ...temp[keys[i]] };
+//   //         temp = temp[keys[i]];
+//   //       }
+
+//   //       // Assign the value
+//   //       temp[keys[keys.length - 1]] = value;
+//   //       return newState;
+//   //     });
+//   //   };
+
+//   const handleInputChange = (path, value) => {
+//     const keys = path.split(".");
+//     setFormData((prevState) => {
+//       let newState = { ...prevState };
+//       let temp = newState;
+
+//       // Traverse the object path
+//       for (let i = 0; i < keys.length - 1; i++) {
+//         temp[keys[i]] = { ...temp[keys[i]] };
+//         temp = temp[keys[i]];
+//       }
+
+//       // For location, if it's a city and areas, handle it separately
+//       if (keys[keys.length - 1] === "location") {
+//         // If the value is a city with areas, assign it properly
+//         if (!temp[keys[keys.length - 1]]) {
+//           temp[keys[keys.length - 1]] = {};
+//         }
+//         // Assuming value is an object with city name as key and areas as value
+//         Object.keys(value).forEach((city) => {
+//           temp[keys[keys.length - 1]][city] = value[city]; // Add city and areas
+//         });
+//       } else {
+//         // Default case for other fields
+//         temp[keys[keys.length - 1]] = value;
+//       }
+
+//       return newState;
+//     });
+//   };
+
+//   const pickImage = async () => {
+//     const permissionResult =
+//       await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+//     if (!permissionResult.granted) {
+//       Alert.alert(
+//         "Permission required",
+//         "Please grant permission to access photos."
+//       );
+//       return;
+//     }
+
+//     const result = await ImagePicker.launchImageLibraryAsync({
+//       mediaTypes: ImagePicker.MediaTypeOptions.Images,
+//       allowsEditing: true,
+//       quality: 0.7,
+//       base64: true,
+//     });
+
+//     if (!result.canceled) {
+//       // Compress and resize the image
+//       const manipResult = await ImageManipulator.manipulateAsync(
+//         result.assets[0].uri,
+//         [{ resize: { width: 500 } }],
+//         { compress: 0.7, base64: true }
+//       );
+
+//       // Use handleInputChange to update the images array
+//       handleInputChange("images", [
+//         ...formData.images,
+//         `data:image/jpeg;base64,${manipResult.base64}`,
+//       ]);
+//     }
+//   };
+
+//   // Function to remove an image by index
+//   const removeImage = (indexToRemove) => {
+//     setFormData((prevState) => ({
+//       ...prevState,
+//       images: prevState.images.filter((_, index) => index !== indexToRemove),
+//     }));
+//   };
+
+//   const handleSubmit = async () => {
+//     const token = await AsyncStorage.getItem("userToken");
+//     console.log("Payload:", JSON.stringify(formData));
+//     console.log(token);
+
+//     if (
+//       !formData.companyName ||
+//       !formData.serviceType ||
+//       !formData.cost ||
+//       Object.keys(formData.location).length === 0 ||
+//       formData.images.length === 0
+//     ) {
+//       Alert.alert("Validation Error", "All fields are required.");
+//       return;
+//     }
+
+//     try {
+//       const response = await axios.post(
+//         "http://192.168.50.242:5000/serviceDetails/services",
+//         formData,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+
+//       if (response.status === 201) {
+//         console.log(formData);
+//         Alert.alert("Success", "Service created successfully!");
+//         router.replace("/pages/mainPage");
+//       } else {
+//         Alert.alert("Error", "Failed to create service.");
+//       }
+//     } catch (error) {
+//       console.error("Error creating service:", error);
+//       Alert.alert("Error", "An error occurred while submitting the form.");
+//     }
+//   };
+
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [selectedType, setSelectedType] = useState("Select Service Types");
+
+//   const serviceType = ["Home Coloring", "Home Repair", "Home Shift"];
+
+//   const toggleDropdown = () => {
+//     setIsOpen(!isOpen);
+//   };
+
+//   const handleTypeSelect = (type) => {
+//     setSelectedType(type);
+//     formData.serviceType = type;
+//     setIsOpen(false);
+//   };
+
+//   const [currentCity, setCurrentCity] = useState("");
+//   const [currentArea, setCurrentArea] = useState("");
+//   const [selectedCity, setSelectedCity] = useState("");
+//   const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+
+//   return (
+//     <ScrollView style={styles.container}>
+//       <Text style={styles.title}>Add Services Form</Text>
+
+//       <Text style={styles.sectionTitle}>Service Type</Text>
+
+//       <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
+//         <View style={styles.dropdownContent}>
+//           <Text style={styles.dropdownText}>{selectedType} </Text>
+//           <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
+//         </View>
+//       </TouchableOpacity>
+
+//       {isOpen && (
+//         <View style={styles.dropdownMenu}>
+//           {serviceType.map((type) => (
+//             <TouchableOpacity
+//               key={type}
+//               style={[
+//                 styles.dropdownItem,
+//                 selectedType === type && styles.selectedItem,
+//               ]}
+//               onPress={() => handleTypeSelect(type)}
+//             >
+//               <Text
+//                 style={[
+//                   styles.dropdownItemText,
+//                   selectedType === type && styles.selectedItemText,
+//                 ]}
+//               >
+//                 {type}
+//               </Text>
+//             </TouchableOpacity>
+//           ))}
+//         </View>
+//       )}
+
+//       <Text style={styles.sectionTitle}>Company Name</Text>
+//       <TextInput
+//         style={styles.input}
+//         placeholder={"Enter Company Name"}
+//         placeholderTextColor="#666"
+//         value={formData.companyName}
+//         onChangeText={(text) => handleInputChange("companyName", text)}
+//       />
+
+//       <Text style={styles.sectionTitle}>Description</Text>
+//       <TextInput
+//         style={styles.input}
+//         placeholder={"Short Description"}
+//         placeholderTextColor="#666"
+//         value={formData.description}
+//         onChangeText={(text) => handleInputChange("description", text)}
+//       />
+
+//       <Text style={styles.sectionTitle}>Cost</Text>
+//       <TextInput
+//         style={styles.input}
+//         placeholder="Cost"
+//         placeholderTextColor="#666" // Makes placeholder text white
+//         value={formData.cost.toString()} // Ensure value is a string
+//         keyboardType="numeric" // Only show numeric keyboard
+//         onChangeText={(value) => {
+//           const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+//           handleInputChange("cost", numericValue);
+//         }}
+//       />
+
+//       {/* Location */}
+//       {/* <Text style={styles.sectionTitle}>Location</Text>
+//             <TextInput
+//                 style={styles.input}
+//                 placeholder="Add Cities"
+//                 placeholderTextColor="#666" // Makes placeholder text white
+//                 value={formData.location}
+//                 onChangeText={(text) => handleInputChange("location", text)}
+//             /> */}
+
+//       {/* <Text style={styles.sectionTitle}>Location</Text>
+//       <View style={styles.locationContainer}>
+//         <TextInput
+//           style={styles.input}
+//           placeholder="Add Cities"
+//           placeholderTextColor="#666" // Makes placeholder text white
+//           value={currentCity} // Temporary state for the current city input
+//           onChangeText={(text) => setCurrentCity(text)}
+//         />
+//         <TouchableOpacity
+//           style={styles.addLocationButton}
+//           onPress={() => {
+//             if (currentCity.trim() !== "") {
+//               handleInputChange("location", [
+//                 ...formData.location,
+//                 currentCity.trim(),
+//               ]);
+//               setCurrentCity(""); // Clear the input field
+//             }
+//           }}
+//         >
+//           <Text style={styles.addLocationButtonText}>Add City</Text>
+//         </TouchableOpacity>
+//       </View> */}
+
+//       <Text style={styles.sectionTitle}>Location</Text>
+//       <View style={styles.location}>
+//         {/* City Input */}
+//         <View style={styles.locationContainer}>
+//           <TextInput
+//             style={styles.locationInput}
+//             placeholder="Add City"
+//             placeholderTextColor="#666"
+//             value={currentCity}
+//             onChangeText={(text) => setCurrentCity(text)}
+//           />
+//           <TouchableOpacity
+//             style={styles.addLocationButton}
+//             onPress={() => {
+//               if (
+//                 currentCity.trim() !== "" &&
+//                 !formData.location[currentCity.trim()]
+//               ) {
+//                 handleInputChange("location", {
+//                   ...formData.location,
+//                   [currentCity.trim()]: [],
+//                 });
+//                 setCurrentCity("");
+//                 setSelectedCity(currentCity.trim());
+//               }
+//             }}
+//           >
+//             <Text style={styles.addLocationButtonText}>Add City</Text>
+//           </TouchableOpacity>
+//         </View>
+
+//         {/* Dropdown to Select City */}
+//         <View style={styles.dropdownCity}>
+//           <Text style={styles.dropdownLabel}>Select City:</Text>
+//           <TouchableOpacity
+//             style={styles.dropdownButton}
+//             onPress={() => setCityDropdownOpen(!cityDropdownOpen)}
+//           >
+//             <Text style={styles.dropdownButtonText}>
+//               {selectedCity || "Select City"}
+//             </Text>
+//           </TouchableOpacity>
+//           {cityDropdownOpen && (
+//             <View style={styles.dropdownList}>
+//               {Object.keys(formData.location).map((city, index) => (
+//                 <TouchableOpacity
+//                   key={index}
+//                   style={styles.dropdownItem}
+//                   onPress={() => {
+//                     setSelectedCity(city);
+//                     setCityDropdownOpen(false);
+//                   }}
+//                 >
+//                   <Text style={styles.dropdownItemText}>{city}</Text>
+//                 </TouchableOpacity>
+//               ))}
+//             </View>
+//           )}
+//         </View>
+
+//         {/* Area Input under Selected City */}
+//         {selectedCity && formData.location[selectedCity] && (
+//           <View style={styles.locationContainer}>
+//             <TextInput
+//               style={styles.locationInput}
+//               placeholder={`Add Areas in ${selectedCity}`}
+//               placeholderTextColor="#666"
+//               value={currentArea}
+//               onChangeText={(text) => setCurrentArea(text)}
+//             />
+//             <TouchableOpacity
+//               style={styles.addLocationButton}
+//               onPress={() => {
+//                 if (currentArea.trim() !== "") {
+//                   handleInputChange("location", {
+//                     ...formData.location,
+//                     [selectedCity]: [
+//                       ...formData.location[selectedCity],
+//                       currentArea.trim(),
+//                     ],
+//                   });
+//                   setCurrentArea("");
+//                 }
+//               }}
+//             >
+//               <Text style={styles.addLocationButtonText}>Add Area</Text>
+//             </TouchableOpacity>
+//           </View>
+//         )}
+
+//         {/* Display Cities and Areas */}
+//         <View style={styles.locationList}>
+//           {Object.entries(formData.location).map(([city, areas], index) => (
+//             <View key={index} style={styles.locationItem}>
+//               <Text style={styles.locationText}>
+//                 {city}:{" "}
+//                 <Text style={styles.areaText}>
+//                   {areas.length > 0 ? areas.join(", ") : " No areas added"}
+//                 </Text>
+//               </Text>
+//               <TouchableOpacity
+//                 style={styles.removeButton}
+//                 onPress={() => {
+//                   const updatedLocation = { ...formData.location };
+//                   delete updatedLocation[city];
+//                   handleInputChange("location", updatedLocation);
+
+//                   // Reset selectedCity if it was the deleted city
+//                   if (selectedCity === city) {
+//                     setSelectedCity(null);
+//                   }
+//                 }}
+//               >
+//                 <Text style={styles.removeButtonText}>Remove City</Text>
+//               </TouchableOpacity>
+//             </View>
+//           ))}
+//         </View>
+//       </View>
+
+//       <Text style={styles.sectionTitle}>Images</Text>
+//       {/* Button to Add Images */}
+//       <TouchableOpacity style={stylesImages.addButton} onPress={pickImage}>
+//         <Text style={stylesImages.buttonText}>Add Image</Text>
+//       </TouchableOpacity>
+
+//       {/* Display Selected Image Previews */}
+//       <View style={stylesImages.imageContainer}>
+//         {formData.images.length > 0 ? (
+//           <ScrollView horizontal>
+//             {formData.images.map((image, index) => (
+//               <View key={index} style={stylesImages.imageWrapper}>
+//                 {/* Image Preview */}
+//                 <Image
+//                   source={{ uri: image }}
+//                   style={stylesImages.imagePreview}
+//                 />
+
+//                 {/* Cancel Button */}
+//                 <TouchableOpacity
+//                   style={stylesImages.cancelButton}
+//                   onPress={() => removeImage(index)}
+//                 >
+//                   <Text style={stylesImages.cancelButtonText}>X</Text>
+//                 </TouchableOpacity>
+//               </View>
+//             ))}
+//           </ScrollView>
+//         ) : (
+//           <Text style={stylesImages.placeholderText}>
+//             No images uploaded yet.
+//           </Text>
+//         )}
+//       </View>
+
+//       <View style={styles.submitButtonView}>
+//         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+//           {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
+//           <Text style={styles.buttonText}>Submit</Text>
+//         </TouchableOpacity>
+//       </View>
+//     </ScrollView>
+//   );
+// };
+
+// export default CreateServiceForm;
+
+
+
 import React, { useState } from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  Button,
   ScrollView,
   StyleSheet,
   Alert,
@@ -26,64 +478,64 @@ const CreateServiceForm = () => {
     images: [],
   });
 
-  //   const handleInputChange = (path, value) => {
-  //     const keys = path.split(".");
-  //     setFormData((prevState) => {
-  //       let newState = { ...prevState };
-  //       let temp = newState;
+  const [currentCity, setCurrentCity] = useState("");
+  const [currentArea, setCurrentArea] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedType, setSelectedType] = useState("Select Service Types");
 
-  //       // Traverse object path
-  //       for (let i = 0; i < keys.length - 1; i++) {
-  //         temp[keys[i]] = { ...temp[keys[i]] };
-  //         temp = temp[keys[i]];
-  //       }
-
-  //       // Assign the value
-  //       temp[keys[keys.length - 1]] = value;
-  //       return newState;
-  //     });
-  //   };
+  const serviceType = ["Home Coloring", "Home Repair", "Home Shift"];
 
   const handleInputChange = (path, value) => {
-    const keys = path.split(".");
-    setFormData((prevState) => {
-      let newState = { ...prevState };
-      let temp = newState;
+    setFormData(prevState => ({
+      ...prevState,
+      [path]: value
+    }));
+  };
 
-      // Traverse the object path
-      for (let i = 0; i < keys.length - 1; i++) {
-        temp[keys[i]] = { ...temp[keys[i]] };
-        temp = temp[keys[i]];
-      }
+  const handleAddCity = () => {
+    const trimmedCity = currentCity.trim();
+    if (trimmedCity !== "" && !formData.location[trimmedCity]) {
+      handleInputChange("location", {
+        ...formData.location,
+        [trimmedCity]: [],
+      });
+      setCurrentCity("");
+      setSelectedCity(trimmedCity);
+      setCityDropdownOpen(false);
+    }
+  };
 
-      // For location, if it's a city and areas, handle it separately
-      if (keys[keys.length - 1] === "location") {
-        // If the value is a city with areas, assign it properly
-        if (!temp[keys[keys.length - 1]]) {
-          temp[keys[keys.length - 1]] = {};
-        }
-        // Assuming value is an object with city name as key and areas as value
-        Object.keys(value).forEach((city) => {
-          temp[keys[keys.length - 1]][city] = value[city]; // Add city and areas
-        });
-      } else {
-        // Default case for other fields
-        temp[keys[keys.length - 1]] = value;
-      }
+  const handleAddArea = () => {
+    const trimmedArea = currentArea.trim();
+    if (trimmedArea !== "" && selectedCity) {
+      const updatedLocation = {
+        ...formData.location,
+        [selectedCity]: [...formData.location[selectedCity], trimmedArea],
+      };
+      handleInputChange("location", updatedLocation);
+      setCurrentArea("");
+    }
+  };
 
-      return newState;
-    });
+  const handleRemoveCity = (cityToRemove) => {
+    const updatedLocation = { ...formData.location };
+    delete updatedLocation[cityToRemove];
+    handleInputChange("location", updatedLocation);
+    
+    if (selectedCity === cityToRemove) {
+      setSelectedCity("");
+      setCurrentArea("");
+    }
+    setCityDropdownOpen(false);
   };
 
   const pickImage = async () => {
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissionResult.granted) {
-      Alert.alert(
-        "Permission required",
-        "Please grant permission to access photos."
-      );
+      Alert.alert("Permission required", "Please grant permission to access photos.");
       return;
     }
 
@@ -95,14 +547,12 @@ const CreateServiceForm = () => {
     });
 
     if (!result.canceled) {
-      // Compress and resize the image
       const manipResult = await ImageManipulator.manipulateAsync(
         result.assets[0].uri,
         [{ resize: { width: 500 } }],
         { compress: 0.7, base64: true }
       );
 
-      // Use handleInputChange to update the images array
       handleInputChange("images", [
         ...formData.images,
         `data:image/jpeg;base64,${manipResult.base64}`,
@@ -110,19 +560,13 @@ const CreateServiceForm = () => {
     }
   };
 
-  // Function to remove an image by index
   const removeImage = (indexToRemove) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      images: prevState.images.filter((_, index) => index !== indexToRemove),
-    }));
+    const updatedImages = formData.images.filter((_, index) => index !== indexToRemove);
+    handleInputChange("images", updatedImages);
   };
 
   const handleSubmit = async () => {
-    const token = await AsyncStorage.getItem("userToken");
-    console.log("Payload:", JSON.stringify(formData));
-    console.log(token);
-
+    // Validation
     if (
       !formData.companyName ||
       !formData.serviceType ||
@@ -135,8 +579,9 @@ const CreateServiceForm = () => {
     }
 
     try {
+      const token = await AsyncStorage.getItem("userToken");
       const response = await axios.post(
-        "https://livingconnect-backend.vercel.app/serviceDetails/services",
+        "http://192.168.50.242:5000/serviceDetails/services",
         formData,
         {
           headers: {
@@ -147,7 +592,6 @@ const CreateServiceForm = () => {
       );
 
       if (response.status === 201) {
-        console.log(formData);
         Alert.alert("Success", "Service created successfully!");
         router.replace("/pages/mainPage");
       } else {
@@ -159,35 +603,16 @@ const CreateServiceForm = () => {
     }
   };
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedType, setSelectedType] = useState("Select Service Types");
-
-  const serviceType = ["Home Coloring", "Home Repair", "Home Shift"];
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleTypeSelect = (type) => {
-    setSelectedType(type);
-    formData.serviceType = type;
-    setIsOpen(false);
-  };
-
-  const [currentCity, setCurrentCity] = useState("");
-  const [currentArea, setCurrentArea] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
-
+  // Rest of your component JSX remains the same, just update the location section:
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Add Services Form</Text>
 
+      {/* Service Type Dropdown */}
       <Text style={styles.sectionTitle}>Service Type</Text>
-
-      <TouchableOpacity style={styles.dropdown} onPress={toggleDropdown}>
+      <TouchableOpacity style={styles.dropdown} onPress={() => setIsOpen(!isOpen)}>
         <View style={styles.dropdownContent}>
-          <Text style={styles.dropdownText}>{selectedType} </Text>
+          <Text style={styles.dropdownText}>{selectedType}</Text>
           <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
         </View>
       </TouchableOpacity>
@@ -197,18 +622,14 @@ const CreateServiceForm = () => {
           {serviceType.map((type) => (
             <TouchableOpacity
               key={type}
-              style={[
-                styles.dropdownItem,
-                selectedType === type && styles.selectedItem,
-              ]}
-              onPress={() => handleTypeSelect(type)}
+              style={[styles.dropdownItem, selectedType === type && styles.selectedItem]}
+              onPress={() => {
+                setSelectedType(type);
+                handleInputChange("serviceType", type);
+                setIsOpen(false);
+              }}
             >
-              <Text
-                style={[
-                  styles.dropdownItemText,
-                  selectedType === type && styles.selectedItemText,
-                ]}
-              >
+              <Text style={[styles.dropdownItemText, selectedType === type && styles.selectedItemText]}>
                 {type}
               </Text>
             </TouchableOpacity>
@@ -216,72 +637,41 @@ const CreateServiceForm = () => {
         </View>
       )}
 
+      {/* Company Name */}
       <Text style={styles.sectionTitle}>Company Name</Text>
       <TextInput
         style={styles.input}
-        placeholder={"Enter Company Name"}
+        placeholder="Enter Company Name"
         placeholderTextColor="#666"
         value={formData.companyName}
         onChangeText={(text) => handleInputChange("companyName", text)}
       />
 
+      {/* Description */}
       <Text style={styles.sectionTitle}>Description</Text>
       <TextInput
         style={styles.input}
-        placeholder={"Short Description"}
+        placeholder="Short Description"
         placeholderTextColor="#666"
         value={formData.description}
         onChangeText={(text) => handleInputChange("description", text)}
       />
 
+      {/* Cost */}
       <Text style={styles.sectionTitle}>Cost</Text>
       <TextInput
         style={styles.input}
         placeholder="Cost"
-        placeholderTextColor="#666" // Makes placeholder text white
-        value={formData.cost.toString()} // Ensure value is a string
-        keyboardType="numeric" // Only show numeric keyboard
+        placeholderTextColor="#666"
+        value={formData.cost.toString()}
+        keyboardType="numeric"
         onChangeText={(value) => {
-          const numericValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+          const numericValue = value.replace(/[^0-9]/g, "");
           handleInputChange("cost", numericValue);
         }}
       />
 
-      {/* Location */}
-      {/* <Text style={styles.sectionTitle}>Location</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Add Cities"
-                placeholderTextColor="#666" // Makes placeholder text white
-                value={formData.location}
-                onChangeText={(text) => handleInputChange("location", text)}
-            /> */}
-
-      {/* <Text style={styles.sectionTitle}>Location</Text>
-      <View style={styles.locationContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Add Cities"
-          placeholderTextColor="#666" // Makes placeholder text white
-          value={currentCity} // Temporary state for the current city input
-          onChangeText={(text) => setCurrentCity(text)}
-        />
-        <TouchableOpacity
-          style={styles.addLocationButton}
-          onPress={() => {
-            if (currentCity.trim() !== "") {
-              handleInputChange("location", [
-                ...formData.location,
-                currentCity.trim(),
-              ]);
-              setCurrentCity(""); // Clear the input field
-            }
-          }}
-        >
-          <Text style={styles.addLocationButtonText}>Add City</Text>
-        </TouchableOpacity>
-      </View> */}
-
+      {/* Location Section */}
       <Text style={styles.sectionTitle}>Location</Text>
       <View style={styles.location}>
         {/* City Input */}
@@ -291,81 +681,60 @@ const CreateServiceForm = () => {
             placeholder="Add City"
             placeholderTextColor="#666"
             value={currentCity}
-            onChangeText={(text) => setCurrentCity(text)}
+            onChangeText={setCurrentCity}
           />
           <TouchableOpacity
             style={styles.addLocationButton}
-            onPress={() => {
-              if (
-                currentCity.trim() !== "" &&
-                !formData.location[currentCity.trim()]
-              ) {
-                handleInputChange("location", {
-                  ...formData.location,
-                  [currentCity.trim()]: [],
-                });
-                setCurrentCity("");
-                setSelectedCity(currentCity.trim());
-              }
-            }}
+            onPress={handleAddCity}
           >
             <Text style={styles.addLocationButtonText}>Add City</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Dropdown to Select City */}
-        <View style={styles.dropdownCity}>
-          <Text style={styles.dropdownLabel}>Select City:</Text>
-          <TouchableOpacity
-            style={styles.dropdownButton}
-            onPress={() => setCityDropdownOpen(!cityDropdownOpen)}
-          >
-            <Text style={styles.dropdownButtonText}>
-              {selectedCity || "Select City"}
-            </Text>
-          </TouchableOpacity>
-          {cityDropdownOpen && (
-            <View style={styles.dropdownList}>
-              {Object.keys(formData.location).map((city, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={styles.dropdownItem}
-                  onPress={() => {
-                    setSelectedCity(city);
-                    setCityDropdownOpen(false);
-                  }}
-                >
-                  <Text style={styles.dropdownItemText}>{city}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          )}
-        </View>
+        {/* City Dropdown */}
+        {Object.keys(formData.location).length > 0 && (
+          <View style={styles.dropdownCity}>
+            <Text style={styles.dropdownLabel}>Select City:</Text>
+            <TouchableOpacity
+              style={styles.dropdownButton}
+              onPress={() => setCityDropdownOpen(!cityDropdownOpen)}
+            >
+              <Text style={styles.dropdownButtonText}>
+                {selectedCity || "Select City"}
+              </Text>
+            </TouchableOpacity>
+            {cityDropdownOpen && (
+              <View style={styles.dropdownList}>
+                {Object.keys(formData.location).map((city) => (
+                  <TouchableOpacity
+                    key={city}
+                    style={styles.dropdownItem}
+                    onPress={() => {
+                      setSelectedCity(city);
+                      setCityDropdownOpen(false);
+                    }}
+                  >
+                    <Text style={styles.dropdownItemText}>{city}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            )}
+          </View>
+        )}
 
-        {/* Area Input under Selected City */}
-        {selectedCity && formData.location[selectedCity] && (
+        {/* Area Input */}
+        {selectedCity && (
           <View style={styles.locationContainer}>
             <TextInput
               style={styles.locationInput}
               placeholder={`Add Areas in ${selectedCity}`}
               placeholderTextColor="#666"
               value={currentArea}
-              onChangeText={(text) => setCurrentArea(text)}
+              onChangeText={setCurrentArea}
             />
             <TouchableOpacity
               style={styles.addLocationButton}
-              onPress={() => {
-                if (currentArea.trim() !== "") {
-                  handleInputChange("location", {
-                    ...formData.location,
-                    [selectedCity]: [
-                      ...formData.location[selectedCity],
-                      currentArea.trim(),
-                    ],
-                  });
-                  setCurrentArea("");
-                }
-              }}
+              onPress={handleAddArea}
             >
               <Text style={styles.addLocationButtonText}>Add Area</Text>
             </TouchableOpacity>
@@ -374,26 +743,17 @@ const CreateServiceForm = () => {
 
         {/* Display Cities and Areas */}
         <View style={styles.locationList}>
-          {Object.entries(formData.location).map(([city, areas], index) => (
-            <View key={index} style={styles.locationItem}>
+          {Object.entries(formData.location).map(([city, areas]) => (
+            <View key={city} style={styles.locationItem}>
               <Text style={styles.locationText}>
                 {city}:{" "}
                 <Text style={styles.areaText}>
-                  {areas.length > 0 ? areas.join(", ") : " No areas added"}
+                  {areas.length > 0 ? areas.join(", ") : "No areas added"}
                 </Text>
               </Text>
               <TouchableOpacity
                 style={styles.removeButton}
-                onPress={() => {
-                  const updatedLocation = { ...formData.location };
-                  delete updatedLocation[city];
-                  handleInputChange("location", updatedLocation);
-
-                  // Reset selectedCity if it was the deleted city
-                  if (selectedCity === city) {
-                    setSelectedCity(null);
-                  }
-                }}
+                onPress={() => handleRemoveCity(city)}
               >
                 <Text style={styles.removeButtonText}>Remove City</Text>
               </TouchableOpacity>
@@ -402,25 +762,18 @@ const CreateServiceForm = () => {
         </View>
       </View>
 
+      {/* Images Section */}
       <Text style={styles.sectionTitle}>Images</Text>
-      {/* Button to Add Images */}
       <TouchableOpacity style={stylesImages.addButton} onPress={pickImage}>
         <Text style={stylesImages.buttonText}>Add Image</Text>
       </TouchableOpacity>
 
-      {/* Display Selected Image Previews */}
       <View style={stylesImages.imageContainer}>
         {formData.images.length > 0 ? (
           <ScrollView horizontal>
             {formData.images.map((image, index) => (
               <View key={index} style={stylesImages.imageWrapper}>
-                {/* Image Preview */}
-                <Image
-                  source={{ uri: image }}
-                  style={stylesImages.imagePreview}
-                />
-
-                {/* Cancel Button */}
+                <Image source={{ uri: image }} style={stylesImages.imagePreview} />
                 <TouchableOpacity
                   style={stylesImages.cancelButton}
                   onPress={() => removeImage(index)}
@@ -431,15 +784,13 @@ const CreateServiceForm = () => {
             ))}
           </ScrollView>
         ) : (
-          <Text style={stylesImages.placeholderText}>
-            No images uploaded yet.
-          </Text>
+          <Text style={stylesImages.placeholderText}>No images uploaded yet.</Text>
         )}
       </View>
 
+      {/* Submit Button */}
       <View style={styles.submitButtonView}>
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-          {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
       </View>
@@ -447,7 +798,9 @@ const CreateServiceForm = () => {
   );
 };
 
+// Your existing styles remain the same
 export default CreateServiceForm;
+
 
 const styles = StyleSheet.create({
   container: {

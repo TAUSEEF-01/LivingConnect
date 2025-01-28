@@ -404,7 +404,7 @@ const FormVerifyPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+        `https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details/${homeId}`
       );
       console.log("Fetched home details:", response.data);
       setHome(response.data);
@@ -419,7 +419,7 @@ const FormVerifyPage = () => {
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
-        `https://livingconnect-backend.vercel.app/houseDetails/accept/${id}`
+        `https://livingconnect-backend.vercel.app/serviceDetails/accept/${id}`
       );
       Alert.alert("Success", response.data.message);
       // router.replace("/Admin/adminPendingRequest");
@@ -451,15 +451,19 @@ const FormVerifyPage = () => {
   }
 
   return (
+    // <ScrollView style={styles.container}>
     <SafeAreaView style={styles.container}>
       <ScrollView>
+        {/* Header */}
         <Text style={styles.title}>
-          {home?.PropertyType?.toUpperCase() || "N/A"}
-        </Text>
-        <Text style={styles.rent}>
-          Rent: {home?.rent || 0} Tk ({home?.rentPeriod || "N/A"})
+          {home?.serviceType.toUpperCase() || "N/A"}
         </Text>
 
+        <Text style={styles.titleName}>
+          {home.companyName ? home.companyName : "N/A"}
+        </Text>
+
+        {/* Image Gallery */}
         <ScrollView horizontal style={styles.imageContainer}>
           {home?.images?.map((image, index) => (
             <Image
@@ -468,11 +472,7 @@ const FormVerifyPage = () => {
               style={styles.image}
               resizeMode="cover"
             />
-          )) || (
-            <View style={styles.errorContainer}>
-              <Text style={styles.errorText}>No images available</Text>
-            </View>
-          )}
+          )) || <Text style={styles.errorText}>No images available</Text>}
         </ScrollView>
 
         <View>
@@ -482,96 +482,68 @@ const FormVerifyPage = () => {
         </View>
 
         <View style={styles.infoSection}>
+          {/* Property Details */}
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Description</Text>
+            <Text style={styles.text}>
+              {home.description || "Hope you like our service"}
+            </Text>
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>Cost</Text>
+            <Text style={styles.costText}>Tk {home.cost || 0}</Text>
+          </View>
+
+          {/* Location Details */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Location</Text>
-            <Text style={styles.text}>
-              {home?.location?.city || "N/A"}, {home?.location?.area || "N/A"}
-            </Text>
-            <Text style={styles.text}>
-              Road: {home?.location?.road || "N/A"}, House:{" "}
-              {home?.location?.houseNumber || "N/A"}
-            </Text>
+            {home?.location && Object.keys(home.location).length > 0 ? (
+              Object.entries(home.location).map(([city, areas]) => (
+                <View key={city} style={styles.cityContainer}>
+                  {/* City Name */}
+                  <Text style={styles.cityTitle}>{city}</Text>
+
+                  {/* List of Areas */}
+                  {Array.isArray(areas) && areas.length > 0 ? (
+                    areas.map((area, index) => (
+                      <Text key={index} style={styles.areaText}>
+                        - {area}
+                      </Text>
+                    ))
+                  ) : (
+                    <Text style={styles.noAreaText}>No areas available</Text>
+                  )}
+                </View>
+              ))
+            ) : (
+              <Text style={styles.text}>Location not available</Text>
+            )}
           </View>
 
+          {/* User info */}
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Property Details</Text>
-            <Text style={styles.text}>Beds: {home?.details?.beds || 0}</Text>
-            <Text style={styles.text}>Baths: {home?.details?.baths || 0}</Text>
-            <Text style={styles.text}>
-              Size: {home?.details?.size || "N/A"} sq.m.
-            </Text>
-            <Text style={styles.text}>
-              Balcony: {home?.details?.balcony || 0}
-            </Text>
-            <Text style={styles.text}>
-              Floor: {home?.details?.floor || "N/A"}
-            </Text>
-          </View>
+            <Text style={styles.sectionTitle}>Contact Info</Text>
 
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Member Restrictions</Text>
-            <Text style={styles.memberRestriction}>
-              {home?.memberRestriction || "N/A"}
-            </Text>
-          </View>
-
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Facilities</Text>
-            <Text style={styles.text}>
-              {Object.entries(home?.facilities || {})
-                .map(
-                  ([key, value]) =>
-                    `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`
-                )
-                .join("\n") || "None"}
-            </Text>
-          </View>
-
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Availability</Text>
-            <Text style={styles.text}>
-              Post Date:{" "}
-              {home?.availability?.from
-                ? new Date(home.availability.from).toLocaleDateString()
-                : "N/A"}
-            </Text>
-            <Text style={styles.text}>
-              Available From:{" "}
-              {home?.availability?.to
-                ? new Date(home.availability.to).toLocaleDateString()
-                : "N/A"}
-            </Text>
-          </View>
-
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Owner</Text>
             <Text style={styles.text}>Email: {home?.email || "N/A"}</Text>
+
             <Text style={styles.text}>
-              Contact Number:{" "}
+              Number:{" "}
               <Text style={styles.callText}>{home.contactNumber || "N/A"}</Text>
             </Text>
-            <Text style={styles.text}>
-              Success:{" "}
-              <Text style={styles.callText}>
-                {home.success ? "True" : "False"}
-              </Text>
-            </Text>
+            <TouchableOpacity
+              style={styles.callButton}
+              onPress={() => makeCall(home.contactNumber || "")}
+            >
+              <Text style={styles.buttonText}>Call</Text>
+            </TouchableOpacity>
 
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                style={styles.callButton}
-                onPress={() => makeCall(home.contactNumber || "")}
-              >
-                <Text style={styles.buttonText}>Call</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.callButton}
-                onPress={() => handleAccept(home._id)}
-              >
-                <Text style={styles.buttonText}>Accept</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.callButton}
+              onPress={() => handleAccept(home._id)}
+            >
+              <Text style={styles.buttonText}>Accept</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -580,114 +552,6 @@ const FormVerifyPage = () => {
 };
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   paddingVertical: 16,
-  //   paddingHorizontal: 10,
-  //   backgroundColor: "#1A1A1D",
-  // },
-  // loaderContainer: {
-  //   flex: 1,
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  // },
-  // title: {
-  //   textAlign: "center",
-  //   fontSize: 28,
-  //   fontWeight: "bold",
-  //   color: "#38bdf8",
-  //   marginBottom: 12,
-  // },
-  // rent: {
-  //   fontSize: 18,
-  //   fontWeight: "600",
-  //   color: "#F0BB78",
-  //   marginBottom: 16,
-  // },
-  // imageContainer: {
-  //   alignSelf: "center",
-  //   marginBottom: 8,
-  //   flexDirection: "row",
-  // },
-  // image: {
-  //   alignContent: "center",
-  //   width: 350,
-  //   height: 200,
-  //   borderRadius: 8,
-  //   marginRight: 12,
-  //   borderWidth: 1,
-  //   borderColor: "#ddd",
-  // },
-  // errorContainer: {
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   width: 350,
-  //   height: 200,
-  // },
-  // imageText: {
-  //   textAlign: "center",
-  //   fontSize: 18,
-  //   fontWeight: "bold",
-  //   color: "#fff",
-  //   marginBottom: 14,
-  // },
-  // section: {
-  //   marginBottom: 20,
-  //   backgroundColor: "#2d3748",
-  //   padding: 16,
-  //   borderRadius: 8,
-  //   shadowColor: "#fff",
-  //   shadowOpacity: 0.1,
-  //   shadowRadius: 4,
-  //   shadowOffset: { width: 0, height: 2 },
-  //   elevation: 3,
-  // },
-  // sectionTitle: {
-  //   fontSize: 20,
-  //   fontWeight: "bold",
-  //   color: "#fff",
-  //   marginBottom: 8,
-  // },
-  // memberRestriction: {
-  //   fontSize: 18,
-  //   fontWeight: "600",
-  //   color: "#02eefa",
-  //   marginBottom: 16,
-  // },
-  // text: {
-  //   fontSize: 16,
-  //   color: "#faf5f5",
-  //   lineHeight: 24,
-  // },
-  // errorText: {
-  //   fontSize: 16,
-  //   color: "#666",
-  // },
-  // infoSection: {
-  //   marginTop: 8,
-  // },
-  // callText: {
-  //   fontSize: 18,
-  //   fontWeight: "600",
-  //   color: "#02eefa",
-  //   marginBottom: 16,
-  // },
-  // buttonContainer: {
-  //   gap: 10,
-  // },
-  // callButton: {
-  //   backgroundColor: "#38bdf8",
-  //   paddingHorizontal: 16,
-  //   paddingVertical: 12,
-  //   borderRadius: 8,
-  //   width: "100%",
-  //   marginTop: 10,
-  // },
-  // buttonText: {
-  //   textAlign: "center",
-  //   color: "white",
-  // },
-
   container: {
     flex: 1,
     // padding: 16,
@@ -754,6 +618,31 @@ const styles = StyleSheet.create({
     color: "#fff",
     marginBottom: 8,
   },
+  costText: {
+    fontSize: 18,
+    lineHeight: 24,
+    color: "#F0BB78", // "#fa0269",
+    fontWeight: "bold",
+  },
+  cityContainer: {
+    marginBottom: 12,
+  },
+  cityTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#007BFF",
+  },
+  areaText: {
+    fontSize: 14,
+    color: "white",
+    paddingLeft: 10,
+  },
+  noAreaText: {
+    fontSize: 14,
+    color: "#999",
+    paddingLeft: 10,
+    fontStyle: "italic",
+  },
   memberRestriction: {
     fontSize: 18,
     fontWeight: "600",
@@ -800,3 +689,246 @@ const styles = StyleSheet.create({
 });
 
 export default FormVerifyPage;
+
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <ScrollView>
+//         <Text style={styles.title}>
+//           {home?.PropertyType?.toUpperCase() || "N/A"}
+//         </Text>
+//         <Text style={styles.rent}>
+//           Rent: {home?.rent || 0} Tk ({home?.rentPeriod || "N/A"})
+//         </Text>
+
+//         <ScrollView horizontal style={styles.imageContainer}>
+//           {home?.images?.map((image, index) => (
+//             <Image
+//               key={index}
+//               source={{ uri: image }}
+//               style={styles.image}
+//               resizeMode="cover"
+//             />
+//           )) || (
+//             <View style={styles.errorContainer}>
+//               <Text style={styles.errorText}>No images available</Text>
+//             </View>
+//           )}
+//         </ScrollView>
+
+//         <View>
+//           <Text style={styles.imageText}>
+//             Images ({home?.images?.length || 0})
+//           </Text>
+//         </View>
+
+//         <View style={styles.infoSection}>
+//           <View style={styles.section}>
+//             <Text style={styles.sectionTitle}>Location</Text>
+//             <Text style={styles.text}>
+//               {home?.location?.city || "N/A"}, {home?.location?.area || "N/A"}
+//             </Text>
+//             <Text style={styles.text}>
+//               Road: {home?.location?.road || "N/A"}, House:{" "}
+//               {home?.location?.houseNumber || "N/A"}
+//             </Text>
+//           </View>
+
+//           <View style={styles.section}>
+//             <Text style={styles.sectionTitle}>Property Details</Text>
+//             <Text style={styles.text}>Beds: {home?.details?.beds || 0}</Text>
+//             <Text style={styles.text}>Baths: {home?.details?.baths || 0}</Text>
+//             <Text style={styles.text}>
+//               Size: {home?.details?.size || "N/A"} sq.m.
+//             </Text>
+//             <Text style={styles.text}>
+//               Balcony: {home?.details?.balcony || 0}
+//             </Text>
+//             <Text style={styles.text}>
+//               Floor: {home?.details?.floor || "N/A"}
+//             </Text>
+//           </View>
+
+//           <View style={styles.section}>
+//             <Text style={styles.sectionTitle}>Member Restrictions</Text>
+//             <Text style={styles.memberRestriction}>
+//               {home?.memberRestriction || "N/A"}
+//             </Text>
+//           </View>
+
+//           <View style={styles.section}>
+//             <Text style={styles.sectionTitle}>Facilities</Text>
+//             <Text style={styles.text}>
+//               {Object.entries(home?.facilities || {})
+//                 .map(
+//                   ([key, value]) =>
+//                     `${key.replace(/([A-Z])/g, " $1")}: ${value ? "Yes" : "No"}`
+//                 )
+//                 .join("\n") || "None"}
+//             </Text>
+//           </View>
+
+//           <View style={styles.section}>
+//             <Text style={styles.sectionTitle}>Availability</Text>
+//             <Text style={styles.text}>
+//               Post Date:{" "}
+//               {home?.availability?.from
+//                 ? new Date(home.availability.from).toLocaleDateString()
+//                 : "N/A"}
+//             </Text>
+//             <Text style={styles.text}>
+//               Available From:{" "}
+//               {home?.availability?.to
+//                 ? new Date(home.availability.to).toLocaleDateString()
+//                 : "N/A"}
+//             </Text>
+//           </View>
+
+//           <View style={styles.section}>
+//             <Text style={styles.sectionTitle}>Owner</Text>
+//             <Text style={styles.text}>Email: {home?.email || "N/A"}</Text>
+//             <Text style={styles.text}>
+//               Contact Number:{" "}
+//               <Text style={styles.callText}>{home.contactNumber || "N/A"}</Text>
+//             </Text>
+//             <Text style={styles.text}>
+//               Success:{" "}
+//               <Text style={styles.callText}>
+//                 {home.success ? "True" : "False"}
+//               </Text>
+//             </Text>
+
+//             <View style={styles.buttonContainer}>
+//               <TouchableOpacity
+//                 style={styles.callButton}
+//                 onPress={() => makeCall(home.contactNumber || "")}
+//               >
+//                 <Text style={styles.buttonText}>Call</Text>
+//               </TouchableOpacity>
+
+//               <TouchableOpacity
+//                 style={styles.callButton}
+//                 onPress={() => handleAccept(home._id)}
+//               >
+//                 <Text style={styles.buttonText}>Accept</Text>
+//               </TouchableOpacity>
+//             </View>
+//           </View>
+//         </View>
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     // padding: 16,
+//     paddingVertical: 16,
+//     paddingHorizontal: 10,
+//     backgroundColor: "#1A1A1D",
+//   },
+//   loaderContainer: {
+//     flex: 1,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   title: {
+//     // marginTop: 20,
+//     textAlign: "center",
+//     fontSize: 28,
+//     fontWeight: "bold",
+//     color: "#38bdf8",
+//     marginBottom: 12,
+//   },
+//   rent: {
+//     fontSize: 18,
+//     fontWeight: "600",
+//     color: "#F0BB78", // "#fa0269",
+//     marginBottom: 16,
+//   },
+//   imageContainer: {
+//     // alignContent: "center",
+//     alignSelf: "center",
+//     marginBottom: 8,
+//     flexDirection: "row",
+//   },
+//   image: {
+//     alignContent: "center",
+//     width: 350,
+//     height: 200,
+//     borderRadius: 8,
+//     marginRight: 12,
+//     borderWidth: 1,
+//     borderColor: "#ddd",
+//   },
+//   imageText: {
+//     textAlign: "center",
+//     fontSize: 18,
+//     fontWeight: "bold",
+//     color: "#fff",
+//     marginBottom: 14,
+//   },
+//   section: {
+//     // borderBottomWidth: 1,
+//     marginBottom: 20,
+//     backgroundColor: "#2d3748",
+//     padding: 16,
+//     borderRadius: 8,
+//     shadowColor: "#fff",
+//     shadowOpacity: 0.1,
+//     shadowRadius: 4,
+//     shadowOffset: { width: 0, height: 2 },
+//     elevation: 3,
+//   },
+//   sectionTitle: {
+//     fontSize: 20,
+//     fontWeight: "bold",
+//     color: "#fff",
+//     marginBottom: 8,
+//   },
+//   memberRestriction: {
+//     fontSize: 18,
+//     fontWeight: "600",
+//     color: "#02eefa",
+//     marginBottom: 16,
+//   },
+//   text: {
+//     fontSize: 16,
+//     color: "#faf5f5",
+//     lineHeight: 24,
+//   },
+//   errorText: {
+//     fontSize: 16,
+//     color: "#666",
+//   },
+//   infoSection: {
+//     marginTop: 8,
+//     // marginBottom: 10,
+//   },
+//   callText: {
+//     fontSize: 18,
+//     fontWeight: "600",
+//     color: "#02eefa",
+//     marginBottom: 16,
+//   },
+//   callButton: {
+//     // backgroundColor: "grey",
+//     backgroundColor: "#38bdf8",
+//     paddingHorizontal: 16,
+//     paddingVertical: 12,
+//     // paddingBottom: 12,
+//     // paddingTop: 1,
+
+//     borderRadius: 8,
+//     // width: 115,
+//     width: "100%",
+//     marginBottom: 1,
+//     marginTop: 10,
+//   },
+//   buttonText: {
+//     textAlign: "center",
+//     color: "white",
+//   },
+// });
+
+// export default FormVerifyPage;

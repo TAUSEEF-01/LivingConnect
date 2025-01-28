@@ -217,15 +217,15 @@ const CommunityCenterForm = () => {
       console.log("Response:", response.data); // Add this for debugging
 
       if (response.status === 200) {
-        Alert.alert("Success", "Home details updated successfully");
+        Alert.alert("Success", "Information Updated successfully");
         router.back();
       } else {
         throw new Error(response.data?.message || "Update failed");
       }
     } catch (error) {
-      console.error("Error updating home details:", error);
+      console.error("Error updating details:", error);
       const errorMessage = error.response?.data?.message || error.message;
-      Alert.alert("Error", `Failed to update home details: ${errorMessage}`);
+      Alert.alert("Error", `Failed to update details: ${errorMessage}`);
     }
   };
 

@@ -18,7 +18,7 @@
 //     //       setLoading(true);
 
 //     //       // Make a request to the backend with the token in the Authorization header
-//     //       const response = await axios.get("https://livingconnect-backend.vercel.app/get-profile", {
+//     //       const response = await axios.get("http://192.168.50.242:5000/get-profile", {
 //     //         headers: {
 //     //           Authorization: `Bearer ${token}`,
 //     //         },
@@ -198,8 +198,8 @@
 
 //       setLoading(true);
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/profile/get-profile",
-//         // "https://livingconnect-backend.vercel.app/profile/get-profile",
+//         "http://192.168.50.242:5000/profile/get-profile",
+//         // "http://192.168.50.242:5000/profile/get-profile",
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
@@ -448,7 +448,7 @@ export default function ProfilePage() {
 
       setLoading(true);
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/profile/get-profile",
+        "http://192.168.50.242:5000/profile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -478,10 +478,7 @@ export default function ProfilePage() {
     return (
       <View style={styles.errorContainer}>
         <Text style={styles.errorText}>{error}</Text>
-        <TouchableOpacity 
-          style={styles.retryButton} 
-          onPress={fetchUserProfile}
-        >
+        <TouchableOpacity style={styles.retryButton} onPress={fetchUserProfile}>
           <Text style={styles.retryButtonText}>Retry</Text>
         </TouchableOpacity>
       </View>
@@ -491,7 +488,7 @@ export default function ProfilePage() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#38bdf8" />
-      
+
       <View style={styles.headerContainer}>
         <View style={styles.headerContent}>
           <Text style={styles.headerTitle}>Profile</Text>
@@ -520,15 +517,17 @@ export default function ProfilePage() {
             <Text style={styles.detailLabel}>Name</Text>
             <Text style={styles.detailValue}>{profile?.name || "N/A"}</Text>
           </View>
-          
+
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Email</Text>
             <Text style={styles.detailValue}>{profile?.email || "N/A"}</Text>
           </View>
-          
+
           <View style={styles.detailRow}>
             <Text style={styles.detailLabel}>Contact</Text>
-            <Text style={styles.detailValue}>{profile?.contactNumber || "N/A"}</Text>
+            <Text style={styles.detailValue}>
+              {profile?.contactNumber || "N/A"}
+            </Text>
           </View>
         </View>
       </View>
@@ -543,7 +542,9 @@ export default function ProfilePage() {
 
         <TouchableOpacity
           style={styles.actionButton}
-          onPress={() => router.push("/pages/UserProperties/showUserAllProperties")}
+          onPress={() =>
+            router.push("/pages/UserProperties/showUserAllProperties")
+          }
         >
           <Text style={styles.buttonText}>Edit My Properties</Text>
         </TouchableOpacity>
@@ -555,16 +556,16 @@ export default function ProfilePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFF',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    backgroundColor: "#F8FAFF",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   headerContainer: {
-    backgroundColor: '#38bdf8',
+    backgroundColor: "#38bdf8",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingVertical: 24,
     paddingHorizontal: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -575,26 +576,26 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   headerContent: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#FFFFFF',
+    fontWeight: "700",
+    color: "#FFFFFF",
     letterSpacing: 0.5,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: '#E0E7FF',
+    color: "#E0E7FF",
     marginTop: 4,
     letterSpacing: 0.5,
   },
   profileCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     margin: 16,
     padding: 24,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -603,63 +604,63 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: 'rgba(229, 229, 229, 0.5)',
+    borderColor: "rgba(229, 229, 229, 0.5)",
   },
   imageContainer: {
-    position: 'relative',
-    alignItems: 'center',
+    position: "relative",
+    alignItems: "center",
     marginBottom: 24,
   },
   profileImage: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#E0E7FF',
+    backgroundColor: "#E0E7FF",
   },
   imageBorder: {
-    position: 'absolute',
+    position: "absolute",
     top: -3,
     left: -3,
     right: -3,
     bottom: -3,
     borderRadius: 63,
     borderWidth: 3,
-    borderColor: '#38bdf8',
+    borderColor: "#38bdf8",
     opacity: 0.2,
   },
   imagePlaceholder: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#E0E7FF',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#E0E7FF",
+    justifyContent: "center",
+    alignItems: "center",
   },
   placeholderText: {
-    color: '#6B7280',
+    color: "#6B7280",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   detailsContainer: {
     gap: 16,
   },
   detailRow: {
-    backgroundColor: '#F8FAFF',
+    backgroundColor: "#F8FAFF",
     padding: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E7FF',
+    borderColor: "#E0E7FF",
   },
   detailLabel: {
     fontSize: 14,
-    color: '#6B7280',
+    color: "#6B7280",
     marginBottom: 4,
     letterSpacing: 0.3,
   },
   detailValue: {
     fontSize: 16,
-    color: '#38bdf8',
-    fontWeight: '500',
+    color: "#38bdf8",
+    fontWeight: "500",
     letterSpacing: 0.3,
   },
   buttonContainer: {
@@ -667,11 +668,11 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   actionButton: {
-    backgroundColor: '#38bdf8',
+    backgroundColor: "#38bdf8",
     padding: 16,
     borderRadius: 12,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -681,40 +682,40 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     letterSpacing: 0.3,
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F8FAFF',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F8FAFF",
   },
   errorContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F8FAFF',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F8FAFF",
     padding: 20,
   },
   errorText: {
-    color: '#EF4444',
+    color: "#EF4444",
     fontSize: 16,
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   retryButton: {
-    backgroundColor: '#38bdf8',
+    backgroundColor: "#38bdf8",
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
   },
   retryButtonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: "600",
   },
 });
 
@@ -949,7 +950,7 @@ const styles = StyleSheet.create({
 
 //       setLoading(true);
 //       const response = await axios.get(
-//         "https://livingconnect-backend.vercel.app/get-profile",
+//         "http://192.168.50.242:5000/get-profile",
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`,

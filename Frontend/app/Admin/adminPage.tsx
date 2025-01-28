@@ -229,12 +229,12 @@ const AdminPage = () => {
         <View style={styles.buttonGroup}>
           {renderButton(
             'Pending Requests',
-            () => router.push("/Admin/adminPendingRequest"),
+            () => router.push("/Admin/adminPendingRequestService"),
             true
           )}
           {renderButton(
             'Approved Requests',
-            () => router.push("/Admin/adminApprovedRequest"),
+            () => router.push("/Admin/adminApprovedRequestService"),
             false
           )}
         </View>

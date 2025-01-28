@@ -145,7 +145,7 @@
 // //   const [loading, setLoading] = useState(true);
 // //   const [currentUser, setCurrentUser] = useState<any>(null);
 // //   const [profile, setProfile] = useState<any>(null);
-// //   const API_URL = "https://livingconnect-backend.vercel.app"; // Update this with your API endpoint
+// //   const API_URL = "http://192.168.50.242:5000"; // Update this with your API endpoint
 // //   const router = useRouter();
 
 // //   useEffect(() => {
@@ -767,8 +767,8 @@
 //   const [loading, setLoading] = useState(true);
 //   const [currentUser, setCurrentUser] = useState<any>(null);
 //   const [profile, setProfile] = useState<any>(null);
-//   // const API_URL = "https://livingconnect-backend.vercel.app"; // Update this with your API endpoint
-//   const API_URL = "https://livingconnect-backend.vercel.app";
+//   // const API_URL = "http://192.168.50.242:5000"; // Update this with your API endpoint
+//   const API_URL = "http://192.168.50.242:5000";
 //   const router = useRouter();
 
 //   useEffect(() => {
@@ -1391,13 +1391,8 @@
 
 // export default ChatScreen;
 
-
-
-
-
 // // import React from 'react';
 // // import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-
 
 // // // Sample chat data
 // // const chatData = [
@@ -1424,7 +1419,6 @@
 // //   },
 // // ];
 
-
 // // export default function ChatsScreen() {
 // //   const renderItem = ({ item }) => (
 // //     <TouchableOpacity style={styles.chatItem}>
@@ -1437,14 +1431,12 @@
 // //     </TouchableOpacity>
 // //   );
 
-
 // //   return (
 // //     <View style={styles.container}>
 // //       {/* Top Bar */}
 // //       <View style={styles.header}>
 // //         <Text style={styles.headerText}>Message History</Text>
 // //       </View>
-
 
 // //       {/* Chat List */}
 // //       <FlatList
@@ -1456,7 +1448,6 @@
 // //     </View>
 // //   );
 // // }
-
 
 // // const styles = StyleSheet.create({
 // //   container: {
@@ -1514,7 +1505,6 @@
 // //   },
 // // });
 
-
 // import React, { useState, useEffect } from "react";
 // import {
 //   View,
@@ -1530,13 +1520,11 @@
 // import { useRouter } from "expo-router";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 // interface OwnerInfo {
 //   email: string;
 //   name: string;
 //   contactNumber: string;
 // }
-
 
 // interface ChatItem {
 //   _id: string;
@@ -1545,15 +1533,13 @@
 //   lastMessage: string;
 // }
 
-
 // const ChatScreen = () => {
 //   const [chats, setChats] = useState<ChatItem>([]);
 //   const [loading, setLoading] = useState(true);
 //   const [currentUser, setCurrentUser] = useState<any>(null);
 //   const [profile, setProfile] = useState<any>(null);
-//   const API_URL = "https://livingconnect-backend.vercel.app"; // Update this with your API endpoint
+//   const API_URL = "http://192.168.50.242:5000"; // Update this with your API endpoint
 //   const router = useRouter();
-
 
 //   useEffect(() => {
 //     fetchProfile();
@@ -1561,30 +1547,24 @@
 //     // fetchChats();
 //   }, []);
 
-
 //   useEffect(() => {
 //     if (profile?.id) {
 //       fetchChats();
 //     }
 //   }, [profile]);
 
-
 //   const fetchProfile = async () => {
 //     try {
 //       const token = await AsyncStorage.getItem("userToken"); // Correct key here
 //       if (!token) throw new Error("User is not logged in");
 
-
 //       console.log("Retrieved token:", token);
-
 
 //       const response = await axios.get(`${API_URL}/profile/get-profile`, {
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 
-
 //       // console.log("Fetched Profile:", response.data);
-
 
 //       setProfile(response.data); // Ensure this includes the `id` field
 //       setCurrentUser(response.data);
@@ -1592,7 +1572,6 @@
 //       console.error("Error fetching user profile:", error);
 //     }
 //   };
-
 
 //   // Fetch logged-in user data
 //   // const fetchUserData = async () => {
@@ -1604,7 +1583,6 @@
 //   //     Alert.alert("Error", "Failed to fetch user data.");
 //   //   }
 //   // };
-
 
 //   // Fetch chats of the logged-in user
 //   // const fetchChats = async () => {
@@ -1624,16 +1602,13 @@
 //   //         const userId =
 //   //           chat.senderId === profile?.id ? chat.recepientId : chat.senderId;
 
-
 //   //         if (!userId) {
 //   //           console.error("User ID is undefined for chat:", chat);
 //   //           return null; // Skip this chat
 //   //         }
 
-
 //   //         //       const userResponse = await axios.get(`${API_URL}/messages/messages/users/${userId}`);
 //   //         //     const user = userResponse.data;
-
 
 //   //         //     return {
 //   //         //       _id: chat._id,
@@ -1647,14 +1622,12 @@
 //   //           const userResponse = await axios.get(`${API_URL}/messages/messages/users/${userId}`);
 //   //           const user = userResponse.data;
 
-
 //   //           return {
 //   //             _id: chat._id,
 //   //             name: user.name || "Unnamed User",
 //   //             profileImage: user.profileImage || null,
 //   //             lastMessage: chat.message || "No messages yet.",
 //   //           };
-
 
 //   //         } catch (error) {
 //   //           console.error("Error fetching recipient data:", error);
@@ -1672,7 +1645,6 @@
 //   //   }
 //   // };
 
-
 //   // this below code worked for me
 //   const fetchChats = async () => {
 //     setLoading(true);
@@ -1681,7 +1653,6 @@
 //         `${API_URL}/messages/messagehistory/conversations/${profile?.id}`
 //       );
 
-
 //       // Enrich chats with user details
 //       const enrichedChats = await Promise.all(
 //         response.data.map(async (chat) => {
@@ -1689,18 +1660,15 @@
 //             const userId =
 //               chat.senderId === profile?.id ? chat.recepientId : chat.senderId;
 
-
 //             if (!userId) {
 //               console.warn("User ID is undefined for chat:", chat);
 //               return null; // Skip this chat if userId is undefined
 //             }
 
-
 //             const userResponse = await axios.get(
 //               `${API_URL}/messages/messages/users/${userId}`
 //             );
 //             const user = userResponse.data;
-
 
 //             return {
 //               _id:
@@ -1719,10 +1687,8 @@
 //         })
 //       );
 
-
 //       // Filter out any null chats caused by errors
 //       const validChats = enrichedChats.filter((chat) => chat !== null);
-
 
 //       setChats(validChats);
 //     } catch (error) {
@@ -1733,14 +1699,12 @@
 //     }
 //   };
 
-
 //   // const fetchChats = async () => {
 //   //   setLoading(true);
 //   //   try {
 //   //     const response = await axios.get(
 //   //       `${API_URL}/messages/messagehistory/conversations/${profile?.id}`
 //   //     );
-
 
 //   //     const enrichedChats = response.data.map((chat) => ({
 //   //       _id: chat.otherUser?._id || "Unknown User",
@@ -1750,7 +1714,6 @@
 //   //       timeStamp: chat.timeStamp,
 //   //     }));
 
-
 //   //     setChats(enrichedChats);
 //   //   } catch (error) {
 //   //     console.error("Error fetching chat history:", error.message);
@@ -1759,7 +1722,6 @@
 //   //     setLoading(false);
 //   //   }
 //   // };
-
 
 //   // Navigate to the ChatMessagesScreen
 //   // const navigateToChat = (chat) => {
@@ -1771,7 +1733,6 @@
 //   //     },
 //   //   });
 //   // };
-
 
 //   const navigateToChat = (chat: ChatItem) => {
 //     router.push({
@@ -1785,7 +1746,6 @@
 //       },
 //     });
 //   };
-
 
 //   // Render a single chat item
 //   // const renderChatItem = ({ item }) => (
@@ -1808,7 +1768,6 @@
 //   //   </TouchableOpacity>
 //   // );
 
-
 //   const renderChatItem = ({ item }: { item: ChatItem }) => (
 //     <TouchableOpacity
 //       style={styles.chatItem}
@@ -1829,7 +1788,6 @@
 //     </TouchableOpacity>
 //   );
 
-
 //   const renderItem = ({ item }) => (
 //     <View style={styles.chatItem}>
 //       <Text style={styles.chatTitle}>{item.title}</Text>
@@ -1837,9 +1795,7 @@
 //     </View>
 //   );
 
-
 //   // return (
-
 
 //   //   <View style={styles.container}>
 //   //     {loading ? (
@@ -1850,7 +1806,6 @@
 //   //         // keyExtractor={(item) => item.chatId.toString()}
 //   //         keyExtractor={(item) => item._id?.toString() || Math.random().toString()}
 //   //         renderItem={renderChatItem}
-
 
 //   //         contentContainerStyle={styles.chatList}
 //   //         ListEmptyComponent={
@@ -1879,7 +1834,6 @@
 //     </View>
 //   );
 // };
-
 
 // const styles = StyleSheet.create({
 //   container: {
@@ -1936,21 +1890,10 @@
 //   },
 // });
 
-
 // export default ChatScreen;
 
-
-
-
-
-
-
-
-
-
 // import React from 'react';
 // import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-
 
 // // Sample chat data
 // const chatData = [
@@ -1977,7 +1920,6 @@
 //   },
 // ];
 
-
 // export default function ChatsScreen() {
 //   const renderItem = ({ item }) => (
 //     <TouchableOpacity style={styles.chatItem}>
@@ -1990,14 +1932,12 @@
 //     </TouchableOpacity>
 //   );
 
-
 //   return (
 //     <View style={styles.container}>
 //       {/* Top Bar */}
 //       <View style={styles.header}>
 //         <Text style={styles.headerText}>Message History</Text>
 //       </View>
-
 
 //       {/* Chat List */}
 //       <FlatList
@@ -2009,7 +1949,6 @@
 //     </View>
 //   );
 // }
-
 
 // const styles = StyleSheet.create({
 //   container: {
@@ -2067,40 +2006,8 @@
 //   },
 // });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React from 'react';
 // import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-
-
-
 
 // // Sample chat data
 // const chatData = [
@@ -2127,9 +2034,6 @@
 //   },
 // ];
 
-
-
-
 // export default function ChatsScreen() {
 //   const renderItem = ({ item }) => (
 //     <TouchableOpacity style={styles.chatItem}>
@@ -2142,18 +2046,12 @@
 //     </TouchableOpacity>
 //   );
 
-
-
-
 //   return (
 //     <View style={styles.container}>
 //       {/* Top Bar */}
 //       <View style={styles.header}>
 //         <Text style={styles.headerText}>Message History</Text>
 //       </View>
-
-
-
 
 //       {/* Chat List */}
 //       <FlatList
@@ -2165,9 +2063,6 @@
 //     </View>
 //   );
 // }
-
-
-
 
 // const styles = StyleSheet.create({
 //   container: {
@@ -2224,9 +2119,6 @@
 //     color: '#999',
 //   },
 // });
-
-
-
 
 import React, { useState, useEffect } from "react";
 import {
@@ -2246,9 +2138,6 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
-
-
 interface ChatData {
   _id: string;
   senderId: string;
@@ -2256,9 +2145,6 @@ interface ChatData {
   message: string;
   timeStamp: string;
 }
-
-
-
 
 interface ChatItem {
   _id: string;
@@ -2269,24 +2155,14 @@ interface ChatItem {
   profileImage: string;
 }
 
-
-
-
-
-
-
-
 const ChatScreen = () => {
   const [chats, setChats] = useState<ChatItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [profile, setProfile] = useState<any>(null);
-  // const API_URL = "https://livingconnect-backend.vercel.app"; // Update this with your API endpoint
-  const API_URL = "https://livingconnect-backend.vercel.app";
+  // const API_URL = "http://192.168.50.242:5000"; // Update this with your API endpoint
+  const API_URL = "http://192.168.50.242:5000";
   const router = useRouter();
-
-
-
 
   useEffect(() => {
     fetchProfile();
@@ -2294,43 +2170,25 @@ const ChatScreen = () => {
     // fetchChats();
   }, []);
 
-
-
-
   useEffect(() => {
     if (profile?.id) {
-    console.log(profile.id);
+      console.log(profile.id);
       fetchChats();
     }
   }, [profile]);
-
-
-
 
   const fetchProfile = async () => {
     try {
       const token = await AsyncStorage.getItem("userToken"); // Correct key here
       if (!token) throw new Error("User is not logged in");
 
-
-
-
       console.log("Retrieved token:", token);
-
-
-
 
       const response = await axios.get(`${API_URL}/profile/get-profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-
-
-
       console.log("Fetched Profile:", response.data);
-
-
-
 
       setProfile(response.data); // Ensure this includes the `id` field
       setCurrentUser(response.data);
@@ -2338,26 +2196,25 @@ const ChatScreen = () => {
       console.error("Error fetching user profile:", error);
     }
   };
- 
+
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
     const now = new Date();
-    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
-
-
-
+    const diffInHours = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60 * 60)
+    );
 
     if (diffInHours < 24) {
-      return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      return date.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
     } else if (diffInHours < 48) {
-      return 'Yesterday';
+      return "Yesterday";
     } else {
-      return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+      return date.toLocaleDateString([], { month: "short", day: "numeric" });
     }
   };
-
-
-
 
   // Fetch logged-in user data
   // const fetchUserData = async () => {
@@ -2370,9 +2227,6 @@ const ChatScreen = () => {
   //   }
   // };
 
-
-
-
   // Fetch chats of the logged-in user
   const fetchChats = async () => {
     setLoading(true);
@@ -2380,16 +2234,16 @@ const ChatScreen = () => {
       const response = await axios.get(
         `${API_URL}/messages/messagehistory/conversations/${profile?.id}`
       );
- 
-      console.log('API Response:', response.data); // Debug log
- 
+
+      console.log("API Response:", response.data); // Debug log
+
       // Handle response with proper data validation
       // const chatsData = response.data?.data || [];
-     
+
       // if (!Array.isArray(chatsData)) {
       //   throw new Error('Invalid response format');
       // }
- 
+
       // // Enrich chats with user details
       // const enrichedChats = await Promise.all(
       //   chatsData.map(async (chat) => {
@@ -2397,7 +2251,7 @@ const ChatScreen = () => {
       //       const userId = chat.senderId === profile?.id
       //         ? chat.recepientId
       //         : chat.senderId;
-           
+
       //       return {
       //         ...chat,
       //         userId,
@@ -2408,31 +2262,32 @@ const ChatScreen = () => {
       //     }
       //   })
       // );
- 
+
       // setChats(enrichedChats);
-
-
-
 
       if (response.data?.data) {
         setLoading(true);
         const formattedChats = await Promise.all(
           response.data.data.map(async (chat: ChatData) => {
-            const userId = (chat.recepientId == profile?.id)? chat.senderId:chat.recepientId;
-   
+            const userId =
+              chat.recepientId == profile?.id
+                ? chat.senderId
+                : chat.recepientId;
+
             try {
               const userResponse = await axios.get(
                 `${API_URL}/messages/getusersdata/users/${userId}`
               );
               const userData = userResponse.data;
-   
+
               return {
                 _id: chat._id,
                 lastMessage: chat.message || "Image File",
                 timestamp: chat.timeStamp,
                 userId: userId,
                 name: userData?.name || "Unnamed User",
-                profileImage: userData?.profileImage || "https://via.placeholder.com/40"
+                profileImage:
+                  userData?.profileImage || "https://via.placeholder.com/40",
               };
             } catch (error) {
               console.error(`Error fetching user ${userId} details:`, error);
@@ -2442,7 +2297,7 @@ const ChatScreen = () => {
                 timestamp: chat.timeStamp,
                 userId: userId,
                 name: "Unnamed User",
-                profileImage: "https://via.placeholder.com/40"
+                profileImage: "https://via.placeholder.com/40",
               };
             }
           })
@@ -2451,15 +2306,12 @@ const ChatScreen = () => {
         setChats(formattedChats);
       }
     } catch (error) {
-      console.error('Error fetching chats:', error);
+      console.error("Error fetching chats:", error);
       setChats([]);
     } finally {
       setLoading(false);
     }
   };
-
-
-
 
   // this below code worked for me
   // const fetchChats = async () => {
@@ -2469,9 +2321,6 @@ const ChatScreen = () => {
   //       `${API_URL}/messages/messagehistory/conversations/${profile?.id}`
   //       // `http://192.168.0.109:8000/messages/messagehistory/conversations/${profile?.id}`
   //     );
-
-
-
 
   //     // Enrich chats with user details
   //     const enrichedChats = await Promise.all(
@@ -2483,24 +2332,15 @@ const ChatScreen = () => {
   //             // ? chat.recipientId
   //             : chat.senderId;
 
-
-
-
   //           if (!userId) {
   //             console.warn("User ID is undefined for chat:", chat);
   //             return null; // Skip this chat if userId is undefined
   //           }
 
-
-
-
   //           const userResponse = await axios.get(
   //             `${API_URL}/messages/messages/users/${userId}`
   //           );
   //           const user = userResponse.data;
-
-
-
 
   //           return {
   //             _id:
@@ -2520,14 +2360,8 @@ const ChatScreen = () => {
   //       })
   //     );
 
-
-
-
   //     // Filter out any null chats caused by errors
   //     const validChats = enrichedChats.filter((chat) => chat !== null);
-
-
-
 
   //     setChats(validChats);
   //   } catch (error) {
@@ -2538,9 +2372,6 @@ const ChatScreen = () => {
   //   }
   // };
 
-
-
-
   // const fetchChats = async () => {
   //   setLoading(true);
   //   try {
@@ -2548,14 +2379,14 @@ const ChatScreen = () => {
   //     if (!token) {
   //       throw new Error("User is not logged in");
   //     }
- 
+
   //     const response = await axios.get(
   //       `${API_URL}/messages/messagehistory/conversations/${profile?.id}`,
   //       {
   //         headers: { Authorization: `Bearer ${token}` }
   //       }
   //     );
-     
+
   //     const chats = response.data.map(chat => ({
   //       _id: chat.partnerId,
   //       name: chat.partnerName,
@@ -2563,7 +2394,7 @@ const ChatScreen = () => {
   //       lastMessage: chat.lastMessage || "No messages yet.",
   //       timeStamp: chat.timeStamp
   //     }));
- 
+
   //     setChats(chats);
   //   } catch (error) {
   //     console.error("Error fetching chat history:", error);
@@ -2576,9 +2407,7 @@ const ChatScreen = () => {
   //     setLoading(false);
   //   }
   // };
- 
- 
- 
+
   // Navigate to the ChatMessagesScreen
   // const navigateToChat = (chat) => {
   //   router.push({
@@ -2590,18 +2419,15 @@ const ChatScreen = () => {
   //   });
   // };
 
-
-
-
   const navigateToChat = (chat: ChatItem) => {
     router.push({
       pathname: "/messages/ChatMessagesScreen",
       params: {
-        currentUserId: profile?.id,//(chat.senderId === profile?.id)?profile?.id:
+        currentUserId: profile?.id, //(chat.senderId === profile?.id)?profile?.id:
         // chat.senderId,
-        recipientId: chat.userId,//(chat.recepientId === profile?.id)?profile?.id:
+        recipientId: chat.userId, //(chat.recepientId === profile?.id)?profile?.id:
         // chat.recepientId,
-       
+
         // recipientId: chat._id,
         // currentUserId: currentUser?._id,
         // currentUserId, recipientId
@@ -2611,9 +2437,6 @@ const ChatScreen = () => {
     // console.log(chat.userId);
     // console.log(chat.receiverId);
   };
-
-
-
 
   // Render a single chat item
   // const renderChatItem = ({ item }) => (
@@ -2636,9 +2459,6 @@ const ChatScreen = () => {
   //   </TouchableOpacity>
   // );
 
-
-
-
   const renderChatItem = ({ item }: { item: ChatItem }) => (
     // <TouchableOpacity
     //   style={styles.chatItem}
@@ -2660,7 +2480,7 @@ const ChatScreen = () => {
     //         style={styles.profileImage}
     //       />
     //   </View>
-     
+
     //   <View style={styles.chatInfo}>
     //     <Text style={styles.chatName}>{item.name}</Text>
     //     <Text style={styles.lastMessage} numberOfLines={1}>
@@ -2668,9 +2488,6 @@ const ChatScreen = () => {
     //     </Text>
     //   </View>
     // </TouchableOpacity>
-
-
-
 
     <TouchableOpacity
       style={styles.chatItem}
@@ -2690,7 +2507,9 @@ const ChatScreen = () => {
         <View style={styles.chatInfo}>
           <View style={styles.chatHeader}>
             <Text style={styles.chatName}>{item.name}</Text>
-            <Text style={styles.timestamp}>{formatTimestamp(item.timestamp)}</Text>
+            <Text style={styles.timestamp}>
+              {formatTimestamp(item.timestamp)}
+            </Text>
           </View>
           <Text style={styles.lastMessage} numberOfLines={1}>
             {item.lastMessage}
@@ -2700,9 +2519,6 @@ const ChatScreen = () => {
     </TouchableOpacity>
   );
 
-
-
-
   const renderItem = ({ item }) => (
     <View style={styles.chatItem}>
       <Text style={styles.chatTitle}>{item.title}</Text>
@@ -2710,13 +2526,7 @@ const ChatScreen = () => {
     </View>
   );
 
-
-
-
   // return (
-
-
-
 
   //   <View style={styles.container}>
   //     {loading ? (
@@ -2728,9 +2538,6 @@ const ChatScreen = () => {
   //         keyExtractor={(item) => item._id?.toString() || Math.random().toString()}
   //         renderItem={renderChatItem}
 
-
-
-
   //         contentContainerStyle={styles.chatList}
   //         ListEmptyComponent={
   //           <Text style={styles.emptyMessage}>No chats available.</Text>
@@ -2739,32 +2546,29 @@ const ChatScreen = () => {
   //     )}
   //   </View>
   // );
-//   return (
-//     <View style={styles.headerContainer}>
-//       <Text style={styles.headerText}>Message History</Text>
-//       {loading ? (
-//         <ActivityIndicator size="large" color="#007bff" />
-//       ) : (
-//         <FlatList
-//           data={chats}
-//           keyExtractor={(item) => item._id}
-//           renderItem={renderChatItem}
-//           contentContainerStyle={styles.chatList}
-//           ListEmptyComponent={
-//             <Text style={styles.emptyMessage}>No chats available.</Text>
-//           }
-//         />
-//       )}
-//     </View>
-//   );
- 
-// };
+  //   return (
+  //     <View style={styles.headerContainer}>
+  //       <Text style={styles.headerText}>Message History</Text>
+  //       {loading ? (
+  //         <ActivityIndicator size="large" color="#007bff" />
+  //       ) : (
+  //         <FlatList
+  //           data={chats}
+  //           keyExtractor={(item) => item._id}
+  //           renderItem={renderChatItem}
+  //           contentContainerStyle={styles.chatList}
+  //           ListEmptyComponent={
+  //             <Text style={styles.emptyMessage}>No chats available.</Text>
+  //           }
+  //         />
+  //       )}
+  //     </View>
+  //   );
 
+  // };
 
-
-
-return (
-  <SafeAreaView style={styles.container}>
+  return (
+    <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={styles.headerContent}>
           <Text style={styles.headerTitle}>Messages</Text>
@@ -2793,15 +2597,8 @@ return (
         />
       )}
     </SafeAreaView>
-);
+  );
 };
-
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
   // container: {
@@ -2870,16 +2667,16 @@ const styles = StyleSheet.create({
   // }
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFF',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    backgroundColor: "#F8FAFF",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   headerContainer: {
-    backgroundColor: '#38bdf8',
+    backgroundColor: "#38bdf8",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingVertical: 24,
     paddingHorizontal: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -2889,42 +2686,42 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   headerContent: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#FFFFFF',
+    fontWeight: "700",
+    color: "#FFFFFF",
     letterSpacing: 0.5,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: '#E0E7FF',
+    color: "#E0E7FF",
     marginTop: 4,
     letterSpacing: 0.5,
   },
   newMessageButton: {
-    backgroundColor: '#38bdf8',
+    backgroundColor: "#38bdf8",
     padding: 12,
     borderRadius: 12,
     marginTop: 16,
-    alignSelf: 'center',
+    alignSelf: "center",
   },
   newMessageButtonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   chatList: {
     padding: 16,
   },
   chatItem: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     marginBottom: 12,
     padding: 16,
     elevation: 2,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -2932,74 +2729,74 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 4,
     borderWidth: 1,
-    borderColor: 'rgba(229, 229, 229, 0.5)',
+    borderColor: "rgba(229, 229, 229, 0.5)",
   },
   chatContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   avatarContainer: {
-    position: 'relative',
+    position: "relative",
   },
   profileImage: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#E0E7FF',
+    backgroundColor: "#E0E7FF",
     borderWidth: 3,
-    borderColor: '#F0F6FF',
+    borderColor: "#F0F6FF",
   },
   onlineIndicator: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 2,
     right: 2,
     width: 14,
     height: 14,
     borderRadius: 7,
-    backgroundColor: '#10B981',
+    backgroundColor: "#10B981",
     borderWidth: 2,
-    borderColor: '#FFFFFF',
+    borderColor: "#FFFFFF",
   },
   chatInfo: {
     flex: 1,
     marginLeft: 16,
   },
   chatHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 6,
   },
   chatName: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#38bdf8',
+    fontWeight: "600",
+    color: "#38bdf8",
     letterSpacing: 0.3,
   },
   timestamp: {
     fontSize: 12,
-    color: '#6B7280',
-    fontWeight: '500',
+    color: "#6B7280",
+    fontWeight: "500",
   },
   lastMessage: {
     fontSize: 14,
-    color: '#4B5563',
+    color: "#4B5563",
     marginTop: 2,
     letterSpacing: 0.2,
   },
   emptyContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: Dimensions.get('window').height * 0.15,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: Dimensions.get("window").height * 0.15,
   },
   emptyIconContainer: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#E0E7FF',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#E0E7FF",
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 16,
   },
   emptyIcon: {
@@ -3007,24 +2804,22 @@ const styles = StyleSheet.create({
   },
   emptyMessage: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#38bdf8',
+    fontWeight: "600",
+    color: "#38bdf8",
     marginBottom: 8,
     letterSpacing: 0.3,
   },
   emptySubMessage: {
     fontSize: 16,
-    color: '#6B7280',
-    textAlign: 'center',
+    color: "#6B7280",
+    textAlign: "center",
     letterSpacing: 0.2,
   },
   loadingContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
-
 export default ChatScreen;
-

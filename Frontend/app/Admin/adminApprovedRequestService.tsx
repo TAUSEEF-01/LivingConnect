@@ -7,33 +7,31 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  SafeAreaView,
   Platform,
   StatusBar,
-  SafeAreaView,
 } from "react-native";
 import axios from "axios";
 import { router, useFocusEffect } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const UserServicesList = () => {
+const AdminPendingRequestPage = () => {
   const [forms, setForms] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchUserHouses = async () => {
+  const fetchSuccessTrue = async () => {
     try {
-      const token = await AsyncStorage.getItem("userToken");
+      console.log("here you are");
+      setLoading(true);
       const response = await axios.get(
-        "http://192.168.50.242:5000/communityDetails/get-user-CommunityCenter-properties",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
+        "https://livingconnect-backend.vercel.app/serviceDetails/successTrue"
       );
       setForms(response.data);
     } catch (error) {
-      Alert.alert("Error", "Failed to fetch your properties.");
+      Alert.alert(
+        "Error",
+        "Failed to fetch form details. Please try again later.",
+        [{ text: "OK", style: "default" }]
+      );
       console.error(error);
     } finally {
       setLoading(false);
@@ -42,48 +40,60 @@ const UserServicesList = () => {
 
   useFocusEffect(
     React.useCallback(() => {
-      fetchUserHouses();
+      fetchSuccessTrue();
       return () => {};
     }, [])
   );
 
-  if (loading) {
-    return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator size="large" color="#38bdf8" />
-      </View>
-    );
-  }
-
   const renderContent = () => {
+    if (loading) {
+      return (
+        <View style={styles.centerContainer}>
+          <ActivityIndicator size="large" color="#22C55E" />
+          <Text style={styles.loadingText}>Loading requests...</Text>
+        </View>
+      );
+    }
+
     if (forms.length === 0) {
       return (
-        <View style={styles.noDataContainer}>
-          <Text style={styles.noDataText}>No forms to verify.</Text>
+        <View style={styles.centerContainer}>
+          <Text style={styles.noDataText}>No forms to verify</Text>
+          <Text style={styles.noDataSubText}>
+            New requests will appear here
+          </Text>
         </View>
       );
     }
 
     return (
-      <ScrollView style={styles.scrollContainer}>
+      <ScrollView
+        style={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
         {forms.map((form, index) => (
           <TouchableOpacity
             key={form._id}
             style={styles.card}
             onPress={() =>
               router.push({
-                pathname: "/CommunityCenter/CommunityCenterEditForm",
-                params: { id: form._id },
+                pathname: "/Admin/approveCancelservice",
+                params: { communityId: form._id },
               })
             }
             activeOpacity={0.7}
           >
             <View style={styles.cardHeader}>
-              <Text style={styles.cardTitle}>Services {index + 1}</Text>
-              <Text style={styles.editText}>Edit Details →</Text>
+              <Text style={styles.cardNumber}>Request #{index + 1}</Text>
+              <View style={styles.statusBadge}>
+                <Text style={styles.statusText}>Pending</Text>
+              </View>
             </View>
             <View style={styles.cardDivider} />
-            <Text style={styles.cardId}>ID: {form._id}</Text>
+            <View style={styles.cardContent}>
+              <Text style={styles.idLabel}>Request ID:</Text>
+              <Text style={styles.idText}>{form._id}</Text>
+            </View>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -93,8 +103,8 @@ const UserServicesList = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.headerTitle}>My Services</Text>
-        <Text style={styles.headerSubtitle}>Manage Your Listed Services</Text>
+        <Text style={styles.headerTitle}>Approved Requests</Text>
+        <Text style={styles.headerSubtitle}>Review and Process</Text>
       </View>
       {renderContent()}
     </SafeAreaView>
@@ -108,7 +118,7 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   headerContainer: {
-    backgroundColor: "#38bdf8",
+    backgroundColor: "#22C55E", // Changed to green
     padding: 24,
     paddingTop: Platform.OS === "ios" ? 20 : 40,
     borderBottomLeftRadius: 30,
@@ -121,6 +131,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 12,
     elevation: 8,
+    marginBottom: 20,
   },
   headerTitle: {
     fontSize: 28,
@@ -131,51 +142,37 @@ const styles = StyleSheet.create({
   },
   headerSubtitle: {
     fontSize: 16,
-    color: "#E0E7FF",
+    color: "#DCFCE7", // Adjusted for green theme
     textAlign: "center",
     marginTop: 4,
     letterSpacing: 0.5,
   },
   scrollContainer: {
     flex: 1,
-    padding: 20,
+    padding: 16,
   },
-  loaderContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#F8FAFF",
-  },
-  noDataContainer: {
+  centerContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+  },
+  loadingText: {
+    marginTop: 12,
+    fontSize: 16,
+    color: "#64748B",
+    fontWeight: "500",
   },
   noDataText: {
     fontSize: 18,
-    color: "#64748B",
-    marginBottom: 20,
-    textAlign: "center",
-  },
-  addButton: {
-    backgroundColor: "#38bdf8",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 4,
-  },
-  addButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
     fontWeight: "600",
+    color: "#64748B",
+    marginBottom: 8,
+  },
+  noDataSubText: {
+    fontSize: 14,
+    color: "#94A3B8",
+    textAlign: "center",
   },
   card: {
     backgroundColor: "#FFFFFF",
@@ -190,6 +187,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 4,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
   },
   cardHeader: {
     flexDirection: "row",
@@ -197,25 +196,42 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 12,
   },
-  cardTitle: {
+  cardNumber: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#38bdf8",
+    color: "#22C55E", // Changed to green
   },
-  editText: {
-    fontSize: 14,
-    color: "#38bdf8",
-    fontWeight: "500",
+  statusBadge: {
+    backgroundColor: "#DCFCE7", // Changed to light green
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#86EFAC", // Changed to green border
+  },
+  statusText: {
+    color: "#16A34A", // Changed to darker green
+    fontSize: 12,
+    fontWeight: "600",
   },
   cardDivider: {
     height: 1,
-    backgroundColor: "#E0E7FF",
+    backgroundColor: "#E2E8F0",
     marginBottom: 12,
   },
-  cardId: {
+  cardContent: {
+    gap: 4,
+  },
+  idLabel: {
     fontSize: 14,
     color: "#64748B",
+    fontWeight: "500",
+  },
+  idText: {
+    fontSize: 14,
+    color: "#334155",
+    fontWeight: "400",
   },
 });
 
-export default UserServicesList;
+export default AdminPendingRequestPage;
