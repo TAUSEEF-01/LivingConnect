@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 const { generateToken } = require("./utils/generateToken");
 const { validateToken } = require("./utils/validateToken");
 const { getUserInfo } = require("./utils/getUserInfo");
-const HomeDetails = require("./models/homeDetailsDB");
+const homeRoute = require("./routes/houseDetails");
 const app = express();
 const PORT = 5000;
 
@@ -21,7 +21,7 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-app.use("/homes", require("./routes/houseDetails"));
+app.use('/api', homeRoute);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json()); // Middleware to parse JSON bodies
@@ -30,9 +30,12 @@ app.set("view engine", "ejs"); // Setting EJS as the template engine
 app.set("views", "./views"); // Specify the directory for your view templates
 
 const { connectMongoDB } = require("./connection");
-connectMongoDB(
-  "mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/UserInfo?retryWrites=true&w=majority&appName=Cluster0"
-);
+// connectMongoDB(
+//   "mongodb+srv://thebest:oDgT53RnQtXgolkb@cluster0.ab0nk.mongodb.net/UserInfo?retryWrites=true&w=majority&appName=Cluster0"
+// );
+connectMongoDB("mongodb://localhost:27017/UserInfo");
+
+
 const routes = require("./routes");
 app.use(routes);
 const SSLCommerzPayment = require("sslcommerz-lts");

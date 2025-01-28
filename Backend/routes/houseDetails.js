@@ -11,26 +11,13 @@ const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
 const { getUserInfo } = require("../utils/getUserInfo");
 
-router.get("/homes/locations", async (req, res) => {
+router.get("/homes", async (req, res) => {
   try {
-    // Fetch only latitude and longitude from all documents
-    const locations = await HomeDetails.location.find({}, {
-      // _id: 0, // Exclude the _id field
-      latitude: 1,
-      longitude: 1,
-    });
-
-    // Map the results to an array of lat-long pairs
-    const latLongArray = locations.map(home => ({
-      latitude: home.location.latitude,
-      longitude: home.location.longitude,
-    }));
-
-    // Send the array as the response
-    res.status(200).json(latLongArray);
-  } catch (error) {
-    console.error("Error fetching locations:", error);
-    res.status(500).json({ error: "Failed to fetch locations" });
+    const homes = await HomeDetails.find(); // Fetch all homes
+    res.json(homes);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 

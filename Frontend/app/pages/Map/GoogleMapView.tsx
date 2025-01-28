@@ -3,63 +3,64 @@ import { View, StyleSheet, ActivityIndicator, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import axios from "axios";
 
-interface Location {
+interface Home {
   location: {
     latitude: number;
     longitude: number;
-    area?: string;
-    city?: string;
+    area: string;
+    city: string;
   };
 }
 
 const HomesMap = () => {
-  const [locations, setLocations] = useState<Location[]>([]);
+  const [currentLocation, setCurrentLocation] = useState({
+    latitude: 23.810331,
+    longitude: 90.412521,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.1,
+  });
+  const [homes, setHomes] = useState<Home[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch all locations from the backend
   useEffect(() => {
-    const fetchLocations = async () => {
+    const fetchHomes = async () => {
       try {
-        const response = await axios.get("http://192.168.0.103:5000/homes/locations"); // Replace with your backend URL
-        setLocations(response.data); // Save locations to state
+        const response = await axios.get("http://192.168.0.103:5000/api/homes");
+        setHomes(response.data);
       } catch (error) {
-        console.error("Error fetching locations:", error);
-        Alert.alert("Error", "Failed to fetch locations");
+        console.error("Error fetching homes:", error);
+        Alert.alert("Error", "Failed to fetch homes");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLocations();
+    fetchHomes();
   }, []);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
-      ) : (
-        <MapView
-          style={styles.map}
-          initialRegion={{
-            latitude: 23.810331, // Default map center
-            longitude: 90.412521,
-            latitudeDelta: 0.1,
-            longitudeDelta: 0.1,
-          }}
-        >
-          {locations.map((location, index) => (
-            <Marker
-              key={index}
-              coordinate={{
-                latitude: parseFloat(location.location.latitude),
-                longitude: parseFloat(location.location.longitude),
-              }}
-              title={location.location.area || "Unknown Area"}
-              description={location.location.city || "Unknown City"}
-            />
-          ))}
-        </MapView>
-      )}
+      <MapView style={styles.map} initialRegion={currentLocation}>
+        {homes.map((home, index) => (
+          <Marker
+            key={index}
+            coordinate={{
+              latitude: home.location.latitude,
+              longitude: home.location.longitude,
+            }}
+            title={home.location.area}
+            description={home.location.city}
+          />
+        ))}
+      </MapView>
     </View>
   );
 };
