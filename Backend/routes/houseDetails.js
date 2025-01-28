@@ -11,6 +11,29 @@ const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
 const { getUserInfo } = require("../utils/getUserInfo");
 
+router.get("/homes/locations", async (req, res) => {
+  try {
+    // Fetch only latitude and longitude from all documents
+    const locations = await HomeDetails.location.find({}, {
+      // _id: 0, // Exclude the _id field
+      latitude: 1,
+      longitude: 1,
+    });
+
+    // Map the results to an array of lat-long pairs
+    const latLongArray = locations.map(home => ({
+      latitude: home.location.latitude,
+      longitude: home.location.longitude,
+    }));
+
+    // Send the array as the response
+    res.status(200).json(latLongArray);
+  } catch (error) {
+    console.error("Error fetching locations:", error);
+    res.status(500).json({ error: "Failed to fetch locations" });
+  }
+});
+
 router.post("/updateHomeDetails", async (req, res) => {
   console.log("Update Home Details api called");
   const { userId, images, type, rent, details, location } = req.body;
@@ -69,7 +92,11 @@ router.post("/home-details", async (req, res) => {
     } = req.body;
 
     console.log(req.body); // Add this line to see the incoming data
-
+    if (!location.city || !location.area) {
+      return res.status(400).json({
+        error: "Location, city, and area are required fields."
+      });
+    }
     // Create a new home details document
     const newHomeDetails = new HomeDetails({
       userId,
@@ -133,100 +160,6 @@ router.get("/get-all-Homes-details", async (req, res) => {
     res.status(500).json({ message: "Error fetching home details", error });
   }
 });
-
-
-
-// router.get("/searchHomes", async (req, res) => {
-//   try {
-//     const { city, area, rentMin, rentMax, propertyType } = req.query;
-
-//     // Construct search query
-//     const query = {};
-//     if (city) query["location.city"] = city;
-//     if (area) query["location.area"] = area;
-//     if (rentMin) query.rent = { ...query.rent, $gte: Number(rentMin) };
-//     if (rentMax) query.rent = { ...query.rent, $lte: Number(rentMax) };
-//     if (propertyType) query.PropertyType = propertyType;
-
-//     const homes = await HomeDetails.find(query);
-//     res.status(200).json(homes);
-//   } catch (error) {
-//     console.error("Error retrieving homes:", error);
-//     res.status(500).json({ message: "Failed to retrieve homes", error });
-//   }
-// });
-
-
-
-
-
-// router.get("/searchHomes", async (req, res) => {
-//   try {
-//     const {
-//       city,
-//       area,
-//       rentMin,
-//       rentMax,
-//       propertyType,
-//       beds,
-//       baths,
-//       balcony,
-//       // sizeMin,
-//       // sizeMax,
-//       // garage,
-//       // lift,
-//       // gasSupply,
-//       // generator,
-//       // internet,
-//       // cctv,
-//       // wifi,
-//       // availableFrom,
-//       availableTo,
-//     } = req.query;
-
-//     // Construct search query
-//     const query = {};
-
-//     // Location filters
-//     if (city) query["location.city"] = city;
-//     if (area) query["location.area"] = area;
-
-//     // Rent filters
-//     if (rentMin) query.rent = { ...query.rent, $gte: Number(rentMin) };
-//     if (rentMax) query.rent = { ...query.rent, $lte: Number(rentMax) };
-
-//     // Property type
-//     if (propertyType) query.PropertyType = propertyType;
-
-//     // Details filters
-//     if (beds) query["details.beds"] = Number(beds);
-//     if (baths) query["details.baths"] = Number(baths);
-//     if (balcony) query["details.balcony"] = Number(balcony);
-//     if (sizeMin) query["details.size"] = { ...query["details.size"], $gte: Number(sizeMin) };
-//     if (sizeMax) query["details.size"] = { ...query["details.size"], $lte: Number(sizeMax) };
-
-//     // Facility filters
-//     if (garage) query["facitlities.garage"] = garage === "true";
-//     if (lift) query["facitlities.lift"] = lift === "true";
-//     if (gasSupply) query["facitlities.gasSupply"] = gasSupply === "true";
-//     if (generator) query["facitlities.generator"] = generator === "true";
-//     if (internet) query["facitlities.internet"] = internet === "true";
-//     if (cctv) query["facitlities.cctv"] = cctv === "true";
-//     if (wifi) query["facitlities.wifi"] = wifi === "true";
-
-//     // Availability filters
-//     if (availableFrom) query["availability.from"] = { $gte: new Date(availableFrom) };
-//     if (availableTo) query["availability.to"] = { $lte: new Date(availableTo) };
-
-//     const homes = await HomeDetails.find(query);
-//     res.status(200).json(homes);
-//   } catch (error) {
-//     console.error("Error retrieving homes:", error);
-//     res.status(500).json({ message: "Failed to retrieve homes", error });
-//   }
-// });
-
-
 // Updated Search Endpoint
 router.get("/searchHomes", async (req, res) => {
   try {
@@ -243,7 +176,6 @@ router.get("/searchHomes", async (req, res) => {
       balcony,
       availabilityTo,
     } = req.query;
-
     // Construct search query
     const query = {success: true};
     if (city) query["location.city"] = city;
@@ -265,15 +197,11 @@ router.get("/searchHomes", async (req, res) => {
     res.status(500).json({ message: "Failed to retrieve homes", error });
   }
 });
-
-
-
 // Fixed successFalse Search Endpoint
 router.get("/successFalse", async (req, res) => {
   try {
     // Construct search query
     const query = { success: false };
-
     const homes = await HomeDetails.find(query, { email: 1 });
     console.log(homes);
     res.status(200).json(homes);
@@ -282,9 +210,6 @@ router.get("/successFalse", async (req, res) => {
     res.status(500).json({ message: "Failed to retrieve homes", error });
   }
 });
-
-
-
 // Fixed successTrue Search Endpoint
 router.get("/successTrue", async (req, res) => {
   try {
@@ -299,14 +224,10 @@ router.get("/successTrue", async (req, res) => {
     res.status(500).json({ message: "Failed to retrieve homes", error });
   }
 });
-
-
 // Endpoint to accept a home and set success to true
 router.patch("/accept/:id", async (req, res) => {
   // console.log("Accept Home API called");
-
   const { id } = req.params;
-
   try {
     // Find the home by ID and update success to true
     const updatedHome = await HomeDetails.findByIdAndUpdate(

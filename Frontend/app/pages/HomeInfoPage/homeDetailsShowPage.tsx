@@ -1,158 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import {
-//   View,
-//   Text,
-//   ScrollView,
-//   StyleSheet,
-//   Image,
-//   ActivityIndicator,
-//   Alert,
-// } from "react-native";
-// import axios from "axios";
-
-// const HomeDetailsPage = () => {
-//   const [home, setHome] = useState(null); // To store the single home object
-//   const [loading, setLoading] = useState(true);
-
-//   // Fetch home details from the backend
-//   const fetchHomeDetails = async () => {
-//     try {
-//       const response = await axios.get(
-//         "http://192.168.0.103:5000/houseDetails/get-homes-details/67641be675a585b5610f677c"
-//       );
-//       console.log(response.data); // Log response to verify structure
-//       setHome(response.data); // Set the home data
-//     } catch (error) {
-//       Alert.alert("Error", "Failed to fetch home details.");
-//       console.error(error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchHomeDetails();
-//   }, []);
-
-//   if (loading) {
-//     return (
-//       <View style={styles.loaderContainer}>
-//         <ActivityIndicator size="large" color="#007BFF" />
-//       </View>
-//     );
-//   }
-
-//   if (!home) {
-//     return (
-//       <View style={styles.noDataContainer}>
-//         <Text style={styles.noDataText}>No home details found.</Text>
-//       </View>
-//     );
-//   }
-
-//   return (
-//     <ScrollView style={styles.container}>
-//       <View style={styles.card}>
-//         {/* Property Type and Rent */}
-//         <Text style={styles.title}>
-//           {home.PropertyType} - ${home.rent} ({home.rentPeriod})
-//         </Text>
-//         {/* Location */}
-//         <Text style={styles.subtitle}>
-//           {home.location.city}, {home.location.area}, {home.location.road}
-//         </Text>
-//         {/* Details */}
-//         <Text style={styles.details}>
-//           Beds: {home.details.beds}, Baths: {home.details.baths}, Size:{" "}
-//           {home.details.size || "N/A"} sq.m.
-//         </Text>
-//         <Text style={styles.details}>
-//           Balcony: {home.details.balcony}, Floor:{" "}
-//           {home.details.floor || "N/A"}
-//         </Text>
-//         {/* Availability */}
-//         <Text style={styles.details}>
-//           Available:{" "}
-//           {new Date(home.availability.from).toLocaleDateString()} -{" "}
-//           {new Date(home.availability.to).toLocaleDateString()}
-//         </Text>
-//         {/* Facilities */}
-//         <Text style={styles.details}>
-//           Member Restriction: {home.memberRestriction || "None"}
-//         </Text>
-//         {/* Images */}
-//         <ScrollView horizontal style={styles.imageScroll}>
-//           {home.images.map((image, index) => (
-//             <Image
-//               key={index}
-//               source={{ uri: image }} // Replace `image` with full URL if needed
-//               style={styles.image}
-//             />
-//           ))}
-//         </ScrollView>
-//       </View>
-//     </ScrollView>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 16,
-//     backgroundColor: "#f9f9f9",
-//   },
-//   loaderContainer: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-//   noDataContainer: {
-//     flex: 1,
-//     justifyContent: "center",
-//     alignItems: "center",
-//   },
-//   noDataText: {
-//     fontSize: 16,
-//     color: "#555",
-//   },
-//   card: {
-//     backgroundColor: "#fff",
-//     padding: 16,
-//     borderRadius: 8,
-//     marginBottom: 16,
-//     shadowColor: "#000",
-//     shadowOpacity: 0.1,
-//     shadowRadius: 4,
-//     shadowOffset: { width: 0, height: 2 },
-//     elevation: 3,
-//   },
-//   title: {
-//     fontSize: 18,
-//     fontWeight: "bold",
-//     marginBottom: 8,
-//   },
-//   subtitle: {
-//     fontSize: 14,
-//     color: "#555",
-//     marginBottom: 8,
-//   },
-//   details: {
-//     fontSize: 14,
-//     marginBottom: 4,
-//   },
-//   imageScroll: {
-//     marginTop: 8,
-//   },
-//   image: {
-//     width: 100,
-//     height: 100,
-//     borderRadius: 8,
-//     marginRight: 8,
-//   },
-// });
-
-// export default HomeDetailsPage;
-
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -170,6 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router, useLocalSearchParams } from "expo-router";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MapView , { Marker } from "react-native-maps";
 
 const API_URL = "http://192.168.0.103:5000";
 
@@ -179,17 +25,40 @@ interface OwnerInfo {
   contactNumber: string;
 }
 
+interface HomeDetails {
+  PropertyType: string;
+  rent: number;
+  rentPeriod: string;
+  images: string[];
+  location: {
+    latitude: number;
+    longitude: number;
+    area: string;
+    city: string;
+  };
+  details: {
+    beds: number;
+    baths: number;
+    size: number;
+    balcony: number;
+    floor: string;
+  };
+  memberRestriction: string;
+  facililities: Record<string, boolean>;
+  availability: {
+    from: string;
+    to: string;
+  };
+  email: string;
+  contactNumber: string;
+}
+
 const HomeDetailsPage = () => {
   const [ownerId, setOwnerId] = useState<string | null>(null);
   const { homeId } = useLocalSearchParams(); // Get homeId from router params
-  const [home, setHome] = useState(null);
+  const [home, setHome] = useState<HomeDetails | null>(null);
   const [loading, setLoading] = useState(true);
-
   const [profile, setProfile] = useState<OwnerInfo | null>(null);
-
-  // useEffect(() => {
-  //   async function fetchHomeDetails() {
-
   const makeCall = (phoneNumber) => {
     const formattedNumber =
       Platform.OS === "android"
@@ -200,19 +69,13 @@ const HomeDetailsPage = () => {
       console.error("Error occurred while trying to make a call:", err);
     });
   };
-
   const fetchHomeDetails = async () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
         `http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`
-        // `http://192.168.0.103:5000/houseDetails/get-homes-details/${homeId}`
       );
-
-      // console.log("Fetched home details:", response.data);
-      // console.log("fnc1");
       setHome(response.data);
-      // fetchUserProfile();
     } catch (error) {
       Alert.alert("Error", "Failed to fetch home details.");
       console.error("Error fetching home details:", error);
@@ -220,27 +83,20 @@ const HomeDetailsPage = () => {
       setLoading(false);
     }
   };
-  // }
-
   const fetchProfile = async () => {
     try {
       const token = await AsyncStorage.getItem("userToken"); // Correct key here
       if (!token) throw new Error("User is not logged in");
-
       console.log("Retrieved token:", token);
-
       const response = await axios.get(`${API_URL}/profile/get-profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-
       console.log("Fetched Profile:", response.data);
-
       setProfile(response.data); // Ensure this includes the `id` field
     } catch (error) {
       console.error("Error fetching user profile:", error);
     }
   };
-
   // Fetch owner ID based on email
   const fetchOwnerId = async (email: string) => {
     try {
@@ -259,10 +115,7 @@ const HomeDetailsPage = () => {
   useEffect(() => {
     fetchHomeDetails();
     fetchProfile();
-    // fetchUserProfile();
-    // }, [homeId]);
   }, []);
-
   useEffect(() => {
     if (home?.email) {
       console.log("Fetching owner ID for email:", home.email); // Debug email
@@ -273,69 +126,6 @@ const HomeDetailsPage = () => {
   useEffect(() => {
     console.log("Fetched Owner ID:", ownerId); // Debug ownerId
   }, [ownerId]);
-
-  // // useEffect(() => {
-  //   // async function fetchUserProfile() {
-
-  // const fetchUserProfile = async () => {
-  //   console.log("fetchUserProfile userId: ", home.userId);
-  //   // if(!home.userId) return;
-
-  //   try {
-  //     if (!home.userId) throw new Error("No User ID provided");
-  //     // console.log("fnc2");
-  //     // console.log("fetchUserProfile userId: ", home.userId);
-
-  //     // setLoading(true);
-  //     // const response = await axios.get(
-  //     //   "http://192.168.0.103:5000/profile/getUserInfo/id",
-  //     //   {
-  //     //     params: { userId: home?.userId }, // Pass userId as a query parameter
-  //     //   }
-  //     //   // {
-  //     //     // headers: {
-  //     //     //   Authorization: `Bearer ${token}`,
-  //     //     //   "Content-Type": "application/json",
-  //     //     // },
-  //     //     // {
-  //     //     //   "userId": home?.userId,
-  //     //     // },
-  //     //     // {
-  //     //     //   headers: {
-  //     //     //     // Add headers if required
-  //     //     //     // Authorization: `Bearer ${token}`,
-  //     //     //     "Content-Type": "application/json",
-  //     //     //   },
-  //     //     // },
-  //     //   // }
-  //     // );
-
-  //     // const response = await axios.get(
-  //     //   "http://192.168.0.103:5000/profile/getUserInfo/id",
-  //     //   {
-  //     //     params: { userId: home.userId }, // Pass userId as a query parameter
-  //     //   }
-  //     // );
-
-  //     const response = await axios.get(
-  //       `http://192.168.0.103:5000/profile/getUserInfo/${home.userId}`
-  //     );
-
-  //     console.log(response.data);
-
-  //     setProfile(response.data);
-  //     // setLoading(false);
-  //   } catch (err) {
-  //     console.error("Failed to fetch profile:", err);
-  //     setLoading(false);
-  //   }
-  // };
-  // // }
-
-  // useEffect(() => {
-  //   fetchUserProfile();
-  // }, []);
-
   if (loading) {
     return (
       <View style={styles.loaderContainer}>
@@ -343,7 +133,6 @@ const HomeDetailsPage = () => {
       </View>
     );
   }
-
   if (!home) {
     return (
       <View style={styles.loaderContainer}>
@@ -386,13 +175,30 @@ const HomeDetailsPage = () => {
           {/* Location Details */}
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Location</Text>
-            <Text style={styles.text}>
-              {home?.location?.city || "N/A"}, {home?.location?.area || "N/A"}
-            </Text>
-            <Text style={styles.text}>
-              Road: {home?.location?.road || "N/A"}, House:{" "}
-              {home?.location?.houseNumber || "N/A"}
-            </Text>
+            <MapView
+              style={styles.map}
+              initialRegion={{
+                latitude: home?.location?.latitude || 0,
+                longitude: home?.location?.longitude || 0,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+            >
+              <Marker
+                coordinate={{
+                  latitude: home?.location?.latitude || 0,
+                  longitude: home?.location?.longitude || 0,
+                }}
+                title={home?.location?.address || "N/A"}
+              />
+            </MapView>
+              <Marker
+                coordinate={{
+                  latitude: home?.location?.latitude || 0,
+                  longitude: home?.location?.longitude || 0,
+                }}
+                title={home?.location?.address || "N/A"}
+              />
           </View>
 
           {/* Property Details */}
@@ -513,6 +319,11 @@ const HomeDetailsPage = () => {
 };
 
 const styles = StyleSheet.create({
+  map: {
+    height: 200,
+    width: "100%",
+    borderRadius: 10,
+  },
   container: {
     flex: 1,
     // padding: 16,

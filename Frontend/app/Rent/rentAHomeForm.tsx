@@ -68,13 +68,12 @@ const HomeDetailsForm = () => {
   // image upload end
 
   const [formData, setFormData] = useState({
-    // userId: "",
     PropertyType: "",
     details: { beds: "", baths: "", size: "", balcony: "", floor: "" },
     memberRestriction: "",
     rent: "",
     rentPeriod: "",
-    location: { latitude: "", longitude: "", area: "" , city: "" },
+    location: { latitude: 0, longitude: 0, area: "" , city: "" },
     facilities: {
       garage: false,
       lift: false,
@@ -111,7 +110,7 @@ const HomeDetailsForm = () => {
     console.log("Payload:", JSON.stringify(formData));
 
     const token = await AsyncStorage.getItem("userToken");
-
+    console.log("Token:", token);
     try {
       const response = await axios.post(
         "http://192.168.0.103:5000/houseDetails/home-details", //192.168.192.42
@@ -229,6 +228,7 @@ const HomeDetailsForm = () => {
       } catch (error) {
         console.error("Error fetching location details:", error);
       }
+      formData.location = locationDetails;
     };
     
 
