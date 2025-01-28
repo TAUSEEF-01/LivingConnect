@@ -155,9 +155,37 @@ router.get("/get-all-service-details-houseColoring", async (req, res) => {
     const homes = await ServicesDetails.find(query);
     res.status(200).json(homes);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching home details", error });
+    res.status(500).json({ message: "Error fetching home Coloring", error });
   }
 });
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-service-details-houseRepair", async (req, res) => {
+  try {
+    const query = { success: true, serviceType: "Home Repair" };
+
+    const homes = await ServicesDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home Repair", error });
+  }
+});
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-service-details-houseShift", async (req, res) => {
+  try {
+    const query = { success: true, serviceType: "Home Shift" };
+
+    const homes = await ServicesDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home Shift", error });
+  }
+});
+
+
 
 // // router.get("/searchHomes", async (req, res) => {
 // //   try {

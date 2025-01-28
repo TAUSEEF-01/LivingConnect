@@ -6145,7 +6145,9 @@ export default function CommunityCenter() {
                   shadowRadius: 5,
                   elevation: 6,
                 }}
-                onPress={handleRentAHomePress}
+                onPress={() => {
+                  router.push("/services/homeRepairService");
+                }}
                 activeOpacity={0.7}
               >
                 <View
@@ -6248,7 +6250,9 @@ export default function CommunityCenter() {
                   shadowRadius: 5,
                   elevation: 6,
                 }}
-                onPress={handleRentAHomePress}
+                onPress={() => {
+                  router.push("/services/homeShiftService");
+                }}
                 activeOpacity={0.7}
               >
                 <View

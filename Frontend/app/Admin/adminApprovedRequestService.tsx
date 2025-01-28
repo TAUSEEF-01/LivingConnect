@@ -23,7 +23,7 @@ const AdminPendingRequestPage = () => {
       console.log("here you are");
       setLoading(true);
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/serviceDetails/successTrue"
+        "http://192.168.50.242:5000/serviceDetails/successTrue"
       );
       setForms(response.data);
     } catch (error) {

@@ -25,7 +25,7 @@ const CommunityApprovedDetailsPage = ({ route }) => {
     try {
       console.log(communityId);
       const response = await axios.get(
-        `https://livingconnect-backend.vercel.app/communityDetails/get-communityCenter-details/${communityId}`
+        `http://192.168.50.242:5000/communityDetails/get-communityCenter-details/${communityId}`
       );
       console.log("Community details response:", response.data);
       setCommunity(response.data);
@@ -51,7 +51,7 @@ const CommunityApprovedDetailsPage = ({ route }) => {
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
-        `https://livingconnect-backend.vercel.app/communityDetails/cancel/${id}`
+        `http://192.168.50.242:5000/communityDetails/cancel/${id}`
       );
       Alert.alert("Success", response.data.message);
       // router.replace("/Admin/adminApprovedRequestCommunityCenter");
