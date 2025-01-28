@@ -113,38 +113,34 @@ router.get("/get-all-service-details/:id", async (req, res) => {
 
 
 
-// // Endpoint to fetch a single home by ID
-// router.get("/get-user-house-properties", async (req, res) => {
-//   const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+// Endpoint to fetch a single home by ID
+router.get("/get-user-services-properties", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
   
-//   if (!token) {
-//     return res.status(401).json({ message: "Unauthorized: No token provided" });
-//   }
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
 
-//   try {
-//     const userInfo = await getUserInfo(token);
-//     const userId = userInfo.userId;
+  try {
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
 
-//     console.log("Get Homes Details api called");
-//     console.log("User ID:", userId); 
-//     // const homes = await ServicesDetails.find(userId);
-//     // if (!homes) {
-//     //   return res.status(404).json({ message: "Homes not found" });
-//     // }
+    console.log("Get Homes Details api called");
+    console.log("User ID:", userId); 
 
-//     const homes = await ServicesDetails.find({ userId });
+    const homes = await ServicesDetails.find({ userId });
 
-//     if (!homes || homes.length === 0) {
-//       return res.status(404).json({ message: "No homes found for this user" });
-//     }
+    if (!homes || homes.length === 0) {
+      return res.status(404).json({ message: "No homes found for this user" });
+    }
 
 
-//     console.log(homes);
-//     res.status(200).json(homes);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error fetching home details", error });
-//   }
-// });
+    console.log(homes);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
+  }
+});
 
 
 // Endpoint to fetch all home details
@@ -429,37 +425,39 @@ router.patch("/cancel/:id", async (req, res) => {
 
 
 
-// // Endpoint to update home details
-// router.patch("/update-home/:id", async (req, res) => {
-//   const { id } = req.params; // Extract home ID from URL
-//   const updateData = req.body; // Data to be updated
+// Endpoint to update home details
+router.patch("/update-service/:id", async (req, res) => {
+  const { id } = req.params; // Extract home ID from URL
+  const updateData = req.body; // Data to be updated
 
-//   try {
-//     console.log(`Updating home with ID: ${id}`);
-//     console.log("Update data:", updateData);
+  try {
+    console.log(`Updating home with ID: ${id}`);
+    console.log("Update data:", updateData);
 
-//     // Validate ID format (optional, depending on your requirements)
-//     if (!id) {
-//       return res.status(400).json({ message: "Home ID is required" });
-//     }
+    // Validate ID format (optional, depending on your requirements)
+    if (!id) {
+      return res.status(400).json({ message: "Home ID is required" });
+    }
 
-//     // Find the home by ID and update the fields provided in `updateData`
-//     const updatedHome = await ServicesDetails.findByIdAndUpdate(
-//       id,
-//       { $set: updateData }, // Use `$set` to update only the specified fields
-//       { new: true, runValidators: true } // Return the updated document and validate the data
-//     );
+    // Find the home by ID and update the fields provided in `updateData`
+    const updatedHome = await ServicesDetails.findByIdAndUpdate(
+      id,
+      { $set: updateData }, // Use `$set` to update only the specified fields
+      { new: true, runValidators: true } // Return the updated document and validate the data
+    );
 
-//     if (!updatedHome) {
-//       return res.status(404).json({ message: "Home not found" });
-//     }
+    if (!updatedHome) {
+      return res.status(404).json({ message: "Home not found" });
+    }
 
-//     console.log("Home updated successfully:", updatedHome);
-//     res.status(200).json({ message: "Home updated successfully", updatedHome });
-//   } catch (error) {
-//     console.error("Error updating home details:", error);
-//     res.status(500).json({ message: "Error updating home details", error });
-//   }
-// });
+    console.log("Home updated successfully:", updatedHome);
+    res.status(200).json({ message: "Home updated successfully", updatedHome });
+  } catch (error) {
+    console.error("Error updating home details:", error);
+    res.status(500).json({ message: "Error updating home details", error });
+  }
+});
+
+
 
 module.exports = router;

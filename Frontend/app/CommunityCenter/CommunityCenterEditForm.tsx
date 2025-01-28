@@ -198,7 +198,7 @@ const CommunityCenterForm = () => {
       console.log("Update data:", updateData);
 
       const url = `http://192.168.50.242:5000/communityDetails/update-CommunityCenter/${id}`;
-      console.log("Request URL:", url);
+      // console.log("Request URL:", url);
 
       const response = await axios({
         method: "PATCH",

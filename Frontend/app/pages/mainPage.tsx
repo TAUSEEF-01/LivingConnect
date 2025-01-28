@@ -6454,7 +6454,7 @@ export default function CommunityCenter() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={localStyles.actionButton}
-                  onPress={() => router.push("/pages/Map/googleMapPage")}
+                  onPress={() => router.push("/pages/Map/locationCheck")}
                 >
                   <Text style={localStyles.actionButtonText}>Rent</Text>
                 </TouchableOpacity>

@@ -1638,9 +1638,6 @@
 //   },
 // });
 
-
-
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import {
@@ -1661,7 +1658,7 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import axios from "axios";
 import { router } from "expo-router";
-import MapView , { Marker } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 
 const HomeDetailsForm = () => {
   const pickImage = async () => {
@@ -1716,7 +1713,7 @@ const HomeDetailsForm = () => {
     memberRestriction: "",
     rent: "",
     rentPeriod: "",
-    location: { latitude: 0, longitude: 0, area: "" , city: "" },
+    location: { latitude: 0, longitude: 0, area: "", city: "" },
     facilities: {
       garage: false,
       lift: false,
@@ -1753,7 +1750,8 @@ const HomeDetailsForm = () => {
     console.log("Payload:", JSON.stringify(formData));
 
     const token = await AsyncStorage.getItem("userToken");
-    console.log("Token:", token);
+    // console.log("Token:", token);
+    console.log(formData);
     try {
       const response = await axios.post(
         "http://192.168.50.242:5000/houseDetails/home-details", //192.168.192.42
@@ -1815,65 +1813,85 @@ const HomeDetailsForm = () => {
         currentDate.toISOString().split("T")[0]
       );
     }
-    };
-    const [locationDetails, setLocationDetails] = useState({
-      latitude: 23.8103,
-      longitude: 90.4125,
-      area: "",
-      city: "",
-    });
-    interface LocationAddress {
-      neighbourhood?: string;
-      suburb?: string;
-      city?: string;
-      municipality?: string;
-      state?: string;
-      postcode?: string;
-      country?: string;
-    }
-    interface NominatimResponse {
-      place_id: number;
-      lat: string;
-      lon: string;
-      display_name: string;
-      address: LocationAddress;
-    }
-    const handleMapPress = async (event: { nativeEvent: { coordinate: { latitude: number; longitude: number } } }) => {
-      const { latitude, longitude } = event.nativeEvent.coordinate;
-      console.log("Map Pressed:", latitude, longitude);
-    
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=en`,
-          {
-            headers: {
-              "User-Agent": "LivingConnect (nafim1703@gmail.com)", // Replace with your app name and email
-            },
-          }
-        );
-    
-        // Check for response status
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+  };
+
+
+  const [locationDetails, setLocationDetails] = useState({
+    latitude: 23.8103,
+    longitude: 90.4125,
+    area: "Dhaka",
+    city: "Dhanmondi",
+  });
+
+  interface LocationAddress {
+    neighbourhood?: string;
+    suburb?: string;
+    city?: string;
+    municipality?: string;
+    state?: string;
+    postcode?: string;
+    country?: string;
+  }
+
+  interface NominatimResponse {
+    place_id: number;
+    lat: string;
+    lon: string;
+    display_name: string;
+    address: LocationAddress;
+  }
+
+  const handleMapPress = async (event: {
+    nativeEvent: { coordinate: { latitude: number; longitude: number } };
+  }) => {
+    const { latitude, longitude } = event.nativeEvent.coordinate;
+    console.log("Map Pressed:", latitude, longitude);
+
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=en`,
+        {
+          headers: {
+            "User-Agent": "LivingConnect (nafim1703@gmail.com)", // Replace with your app name and email
+          },
         }
-        console.log("Reverse Geocoding Response:", response);
-        // Parse the JSON response
-        const data = await response.json();
-        console.log("Reverse Geocoding Response:", data);
-    
-        // Update state with location details
-        setLocationDetails({
-          latitude,
-          longitude,
-          area: (data.address.neighbourhood || data.address.suburb || "unknown area").toLowerCase(),
-      city: (data.address.city || data.address.municipality || "unknown city").toLowerCase(),
-        });
-      } catch (error) {
-        console.error("Error fetching location details:", error);
+      );
+
+      // Check for response status
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-      formData.location = locationDetails;
-    };
-    
+      // console.log("Reverse Geocoding Response:", response);
+      // Parse the JSON response
+      const data = await response.json();
+      // console.log("Reverse Geocoding Response:", data);
+      // console.log("Reverse Geocoding Response:", data);
+
+      const locationInfo = {
+        latitude,
+        longitude,
+        // area: data.address.suburb || "unknown area",
+        // city: data.address.city || data.address.municipality || "unknown city",
+        area: (
+          data.address.suburb ||
+          "unknown area"
+        ).toLowerCase(),
+        city: (
+          data.address.city ||
+          data.address.municipality ||
+          "unknown city"
+        ).toLowerCase(),
+      };
+
+      console.log(locationInfo);
+
+      // Update state with location details
+      setLocationDetails(locationInfo);
+    } catch (error) {
+      console.error("Error fetching location details:", error);
+    }
+    formData.location = locationDetails;
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -1987,11 +2005,12 @@ const HomeDetailsForm = () => {
       >
         <Marker
           coordinate={{
-            latitude: locationDetails.latitude,
-            longitude: locationDetails.longitude,
+            latitude: locationDetails.latitude || 0,
+            longitude: locationDetails.longitude || 0,
           }}
         />
       </MapView>
+
       <View style={styles.details}>
         <Text>Latitude: {locationDetails.latitude}</Text>
         <Text>Longitude: {locationDetails.longitude}</Text>
