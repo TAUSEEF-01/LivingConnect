@@ -44,8 +44,8 @@ const FormVerifyPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
-        // `http://192.168.50.242:5000/houseDetails/get-homes-details/${homeId}`
+        `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
+        // `https://livingconnect-backend.vercel.app/houseDetails/get-homes-details/${homeId}`
       );
 
       //   console.log("Fetched home details:", response.data);
@@ -83,7 +83,7 @@ const FormVerifyPage = () => {
   // const handleAccept = async (id) => {
   //   try {
   //     const response = await axios.patch(
-  //       `http://192.168.50.242:5000/houseDetails/cancel/${id}`
+  //       `https://livingconnect-backend.vercel.app/houseDetails/cancel/${id}`
   //     );
   //     Alert.alert("Successfully canceled", response.data.message);
   //     // Optionally, update your UI to reflect the change
@@ -96,7 +96,7 @@ const FormVerifyPage = () => {
   const handleAccept = async (id) => {
     try {
       const response = await axios.patch(
-        `http://192.168.50.242:5000/houseDetails/cancel/${id}`
+        `https://livingconnect-backend.vercel.app/houseDetails/cancel/${id}`
       );
       Alert.alert("Successfully canceled", response.data.message);
       // router.replace("/Admin/adminApprovedRequest");
@@ -148,6 +148,26 @@ const FormVerifyPage = () => {
               Road: {home?.location?.road || "N/A"}, House:{" "}
               {home?.location?.houseNumber || "N/A"}
             </Text>
+
+            <TouchableOpacity
+              style={styles.callButton}
+              onPress={() => {
+                router.push({
+                  pathname: "/pages/Map/showLocationOnMap",
+                  params: {
+                    latitude: home.location.latitude,
+                    longitude: home.location.longitude,
+                    // locationName: 'My Location'
+                    city: home.location.city,
+                    area: home.location.area,
+                  },
+                });
+                // console.log("recipientId: ", ownerId);
+                // console.log("currentUserId: ", profile?.id);
+              }}
+            >
+              <Text style={styles.buttonText}>Show location on map</Text>
+            </TouchableOpacity>
           </View>
 
           {/* Property Details */}

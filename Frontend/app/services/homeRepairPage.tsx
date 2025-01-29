@@ -16,7 +16,7 @@ import { router, useLocalSearchParams } from "expo-router";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const API_URL = "http://192.168.50.242:5000";
+const API_URL = "https://livingconnect-backend.vercel.app";
 
 interface OwnerInfo {
   email: string;
@@ -47,7 +47,7 @@ const HomeDetailsPage = () => {
     try {
       if (!homeId) throw new Error("No home ID provided");
       const response = await axios.get(
-        `http://192.168.50.242:5000/serviceDetails/get-all-service-details/${homeId}`
+        `https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details/${homeId}`
       );
 
       console.log("Fetched home details:", response.data);

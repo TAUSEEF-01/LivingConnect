@@ -46,7 +46,7 @@
 // // //     };
 
 // // //     try {
-// // //       const response = await fetch('http://192.168.50.242:5000/updateHomeDetails', {
+// // //       const response = await fetch('https://livingconnect-backend.vercel.app/updateHomeDetails', {
 // // //         method: 'POST',
 // // //         headers: {
 // // //           'Content-Type': 'application/json',
@@ -375,7 +375,7 @@
 // //       console.log("Payload:", JSON.stringify(payload));
 
 // //       // Make API call using fetch
-// //       const response = await fetch("http://192.168.50.242:5000/home-details", {
+// //       const response = await fetch("https://livingconnect-backend.vercel.app/home-details", {
 // //         method: "POST",
 // //         headers: {
 // //           "Content-Type": "application/json",
@@ -872,8 +872,8 @@
 
 //     try {
 //       const response = await axios.post(
-//         "http://192.168.50.242:5000/houseDetails/home-details", //192.168.192.42
-//         // "http://192.168.50.242:5000/houseDetails/home-details", //192.168.192.42
+//         "https://livingconnect-backend.vercel.app/houseDetails/home-details", //192.168.192.42
+//         // "https://livingconnect-backend.vercel.app/houseDetails/home-details", //192.168.192.42
 //         formData,
 //         {
 //           headers: {
@@ -1755,7 +1755,7 @@ const HomeDetailsForm = () => {
     console.log(formData);
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/houseDetails/home-details", //192.168.192.42
+        "https://livingconnect-backend.vercel.app/houseDetails/home-details", //192.168.192.42
         // "http://192.168.0.103:5000/houseDetails/home-details", //192.168.192.42
         formData,
         {
@@ -1816,64 +1816,67 @@ const HomeDetailsForm = () => {
     }
   };
 
-
   // const setLocation = (location) => {
   //   handleInputChange("location", location);
   // };
 
   const [location, setLocation] = useState(null);
-    const params = useLocalSearchParams();
-  
-    // // ✅ Prevent infinite re-renders by updating state only if it hasn't been set
-    // useEffect(() => {
-    //   if (!location && params?.latitude && params?.longitude) {
-    //     setLocation({
-    //       latitude: parseFloat(params.latitude),
-    //       longitude: parseFloat(params.longitude),
-    //       city: params.city || 'Unknown City',
-    //       area: params.area || 'Unknown Area',
-    //     });
-    //     console.log("location", location);
-    //     handleInputChange("location", location);
-    //   }
-    // }, [params]); // Run effect only when params change
+  const params = useLocalSearchParams();
 
-    // ✅ Prevent infinite loop by using a functional update
-useEffect(() => {
-  if (params?.latitude && params?.longitude) {
-    setLocation(prev => prev || { // Only update if location is still null
-      latitude: parseFloat(params.latitude),
-      longitude: parseFloat(params.longitude),
-      city: params.city || 'Unknown City',
-      area: params.area || 'Unknown Area',
-    });
-  }
-}, [params]); // Runs only when params change
+  // // ✅ Prevent infinite re-renders by updating state only if it hasn't been set
+  // useEffect(() => {
+  //   if (!location && params?.latitude && params?.longitude) {
+  //     setLocation({
+  //       latitude: parseFloat(params.latitude),
+  //       longitude: parseFloat(params.longitude),
+  //       city: params.city || 'Unknown City',
+  //       area: params.area || 'Unknown Area',
+  //     });
+  //     console.log("location", location);
+  //     handleInputChange("location", location);
+  //   }
+  // }, [params]); // Run effect only when params change
 
-// ✅ Ensure handleInputChange runs AFTER location updates
-useEffect(() => {
-  if (location) {
-    console.log("location", location);  
-    handleInputChange("location", location);
-  }
-}, [location]); // Runs only when location updates
+  // ✅ Prevent infinite loop by using a functional update
+  useEffect(() => {
+    if (params?.latitude && params?.longitude) {
+      setLocation(
+        (prev) =>
+          prev || {
+            // Only update if location is still null
+            latitude: parseFloat(params.latitude),
+            longitude: parseFloat(params.longitude),
+            city: params.city || "Unknown City",
+            area: params.area || "Unknown Area",
+          }
+      );
+    }
+  }, [params]); // Runs only when params change
 
+  // ✅ Ensure handleInputChange runs AFTER location updates
+  useEffect(() => {
+    if (location) {
+      console.log("location", location);
+      handleInputChange("location", location);
+    }
+  }, [location]); // Runs only when location updates
 
-
-
-const [showWebView, setShowWebView] = useState(false);
+  const [showWebView, setShowWebView] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState("");
 
   const API_URL = Platform.select({
-    ios: "http://192.168.50.242:5000",
-    android: "http://192.168.50.242:5000",
+    ios: "https://livingconnect-backend.vercel.app",
+    android: "https://livingconnect-backend.vercel.app",
   });
 
   const handlePayment = async () => {
     try {
-      const response = await fetch("http://192.168.50.242:5000/init", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://livingconnect-backend.vercel.app/init",
+        {
+          method: "GET",
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -1910,13 +1913,12 @@ const [showWebView, setShowWebView] = useState(false);
   if (showWebView && paymentUrl) {
     return (
       <WebView
-      style={{ flex: 1, marginTop: 30 }}
+        style={{ flex: 1, marginTop: 30 }}
         source={{ uri: paymentUrl }}
         onNavigationStateChange={handleNavigationStateChange}
       />
     );
   }
-  
 
   return (
     <ScrollView style={styles.container}>
@@ -2022,17 +2024,21 @@ const [showWebView, setShowWebView] = useState(false);
       {/* <Button title="Select Location on Map" onPress={() => router.push('/pages/Map/locationCheck')} /> */}
       <TouchableOpacity
         style={styles.locationButton}
-        onPress={() => router.push('/pages/Map/locationCheck')}
-      ><Text style={styles.buttonText}>Select Location on Map</Text></TouchableOpacity>
-            {location && (
-              <View style={styles.locationDetails}>
-                <Text style={styles.locationText}>Latitude: {location.latitude}</Text>
-                <Text style={styles.locationText}>Longitude: {location.longitude}</Text>
-                <Text style={styles.locationText}>City: {location.city}</Text>
-                <Text style={styles.locationText}>Area: {location.area}</Text>
-              </View>
-            )}
-        {/* <View style={styles.details}>
+        onPress={() => router.push("/pages/Map/locationCheck")}
+      >
+        <Text style={styles.buttonText}>Select Location on Map</Text>
+      </TouchableOpacity>
+      {location && (
+        <View style={styles.locationDetails}>
+          <Text style={styles.locationText}>Latitude: {location.latitude}</Text>
+          <Text style={styles.locationText}>
+            Longitude: {location.longitude}
+          </Text>
+          <Text style={styles.locationText}>City: {location.city}</Text>
+          <Text style={styles.locationText}>Area: {location.area}</Text>
+        </View>
+      )}
+      {/* <View style={styles.details}>
           <Text>Latitude: {formData.location.latitude}</Text>
           <Text>Longitude: {formData.location.longitude}</Text>
           <Text>Area: {formData.location.area}</Text>
@@ -2146,7 +2152,7 @@ const [showWebView, setShowWebView] = useState(false);
         )}
       </View>
 
-      <View style={styles.buttonView}> 
+      <View style={styles.buttonView}>
         <TouchableOpacity style={styles.paymentButton} onPress={handlePayment}>
           <Text style={styles.buttonText}>Payment</Text>
         </TouchableOpacity>
@@ -2515,21 +2521,21 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderColor: "black",
   },
-  // switch:{
-  //   backgroundColor: "#2d3748",
-  // },
+  switch: {
+    backgroundColor: "#2d3748",
+  },
   switchLabel: {
     fontSize: 16,
     color: "white",
     marginLeft: 15,
   },
-  buttonView:{
+  buttonView: {
     marginBottom: 70,
     marginTop: 20,
   },
   paymentButton: {
     // marginTop: 20,
-    marginBottom:10,
+    marginBottom: 10,
     // marginTop: 30,
     padding: 12,
     backgroundColor: "#38bdf8",
@@ -2547,15 +2553,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-  locationButton:{
-    marginBottom:5,
+  locationButton: {
+    marginBottom: 5,
     padding: 12,
     backgroundColor: "#38bdf8",
     borderRadius: 8,
     alignItems: "center",
     width: "100%",
   },
-  locationDetails:{
+  locationDetails: {
     backgroundColor: "#2d3748",
     paddingHorizontal: 8,
     borderRadius: 8,
@@ -2564,7 +2570,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     borderColor: "black",
   },
-  locationText:{
+  locationText: {
     fontSize: 16,
     fontWeight: "bold",
     color: "white",

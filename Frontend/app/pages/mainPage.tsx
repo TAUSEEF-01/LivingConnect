@@ -319,7 +319,7 @@
 // // // //         return;
 // // // //       }
 
-// // // //       const response = await axios.get("http://192.168.50.242:5000/verify", {
+// // // //       const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
 // // // //         headers: { Authorization: `Bearer ${token}` },
 // // // //       });
 
@@ -582,7 +582,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "http://192.168.50.242:5000/logout",
+// // // //                   "https://livingconnect-backend.vercel.app/logout",
 // // // //                   {},
 // // // //                   {
 // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -867,7 +867,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "http://192.168.50.242:5000/logout",
+// // // //                   "https://livingconnect-backend.vercel.app/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1560,7 +1560,7 @@
 // // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // // //               if (token) {
 // // // // //                 await axios.post(
-// // // // //                   "http://192.168.50.242:5000/logout",
+// // // // //                   "https://livingconnect-backend.vercel.app/logout",
 // // // // //                   {},
 // // // // //                   {
 // // // // //                     headers: { Authorization: `Bearer ${token}` },
@@ -1664,7 +1664,7 @@
 // // // //               const token = await AsyncStorage.getItem("userToken");
 // // // //               if (token) {
 // // // //                 await axios.post(
-// // // //                   "http://192.168.50.242:5000/logout",
+// // // //                   "https://livingconnect-backend.vercel.app/logout",
 // // // //                   {},
 // // // //                   { headers: { Authorization: `Bearer ${token}` } }
 // // // //                 );
@@ -1776,8 +1776,8 @@
 // // //   useEffect(() => {
 // // //     async function fetchProperties() {
 // // //       try {
-// // //         const response = await fetch("http://192.168.50.242:5000/properties");
-// // //         // const response = await fetch("http://192.168.50.242:5000/properties");
+// // //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// // //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
 // // //         const data = await response.json();
 
 // // //         // console.log('Fetched properties:', data);
@@ -1799,8 +1799,8 @@
 // // //   const fetchAllHomeDetails = async () => {
 // // //     try {
 // // //       const response = await axios.get(
-// // //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-// // //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// // //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// // //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
 // // //       );
 // // //       setHomes(response.data);
 // // //     } catch (error) {
@@ -2683,8 +2683,8 @@
 // //   useEffect(() => {
 // //     async function fetchProperties() {
 // //       try {
-// //         const response = await fetch("http://192.168.50.242:5000/properties");
-// //         // const response = await fetch("http://192.168.50.242:5000/properties");
+// //         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
+// //         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
 // //         const data = await response.json();
 
 // //         // console.log('Fetched properties:', data);
@@ -2706,8 +2706,8 @@
 // //   const fetchAllHomeDetails = async () => {
 // //     try {
 // //       const response = await axios.get(
-// //         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-// //         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+// //         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+// //         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
 // //       );
 // //       setHomes(response.data);
 // //     } catch (error) {
@@ -3880,9 +3880,9 @@
 //     async function fetchProperties() {
 //       try {
 //         const response = await fetch(
-//           "http://192.168.50.242:5000/properties"
+//           "https://livingconnect-backend.vercel.app/properties"
 //         );
-//         // const response = await fetch("http://192.168.50.242:5000/properties");
+//         // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -3904,8 +3904,8 @@
 //   const fetchAllHomeDetails = async () => {
 //     try {
 //       const response = await axios.get(
-//         "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-//         // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+//         "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+//         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
 //       );
 //       setHomes(response.data);
 //     } catch (error) {
@@ -5186,7 +5186,7 @@ import axios from "axios";
 import styles from "../../styles";
 import SidePanel from "../sidePanel/sidePanel";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
+import Feather from "@expo/vector-icons/Feather";
 import Entypo from "@expo/vector-icons/Entypo";
 
 export default function CommunityCenter() {
@@ -5253,8 +5253,10 @@ export default function CommunityCenter() {
   useEffect(() => {
     async function fetchProperties() {
       try {
-        const response = await fetch("http://192.168.50.242:5000/properties");
-        // const response = await fetch("http://192.168.50.242:5000/properties");
+        const response = await fetch(
+          "https://livingconnect-backend.vercel.app/properties"
+        );
+        // const response = await fetch("https://livingconnect-backend.vercel.app/properties");
         const data = await response.json();
 
         // console.log('Fetched properties:', data);
@@ -5276,8 +5278,8 @@ export default function CommunityCenter() {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -5295,8 +5297,8 @@ export default function CommunityCenter() {
   const fetchAllCommunityCenterDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/communityDetails/get-all-CommunityCenter-details"
-        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details"
+        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setCommunityCenter(response.data);
     } catch (error) {
@@ -5468,7 +5470,9 @@ export default function CommunityCenter() {
   // ];
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "black", paddingVertical: 0 }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "black", paddingVertical: 0 }}
+    >
       {/* <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} /> */}
 
       <View style={localStyles.statusBarWrapper}>
@@ -5618,7 +5622,7 @@ export default function CommunityCenter() {
                   elevation: 6,
                 }}
                 onPress={() => {
-                  router.push("/CommunityCenter/CommunityCenterForm");
+                  router.push("/pages/Map/locationInputCommunityCenter");
                 }}
                 activeOpacity={0.7}
               >
@@ -5644,7 +5648,7 @@ export default function CommunityCenter() {
 
             {/* Latest Listings Section */}
             <View style={localStyles.latestListings}>
-              <Text style={localStyles.latestListingsHeader}>
+              <Text style={localStyles.sectionTitle}>
                 Available Community Centers
               </Text>
               <TouchableOpacity onPress={handleShowAllCommunityCenterPress}>
@@ -5958,9 +5962,7 @@ export default function CommunityCenter() {
 
             {/* Latest Listings Section */}
             <View style={localStyles.latestListings}>
-              <Text style={localStyles.latestListingsHeader}>
-                Available Services
-              </Text>
+              <Text style={localStyles.sectionTitle}>Available Services</Text>
               {/* <TouchableOpacity onPress={handleShowAllPress}>
                 <Text style={localStyles.showAll}>Show all</Text>
               </TouchableOpacity> */}
@@ -6441,12 +6443,12 @@ export default function CommunityCenter() {
                 </TouchableOpacity> */}
               </View>
 
-              <TextInput
+              {/* <TextInput
                 placeholder="Where would you like to live?"
                 placeholderTextColor="#ccc"
                 style={localStyles.searchInput}
-              />
-              <View style={localStyles.filterActions}>
+              /> */}
+              {/* <View style={localStyles.filterActions}>
                 <TouchableOpacity
                   style={localStyles.actionButton}
                   onPress={() => router.push("/payment/paymentPage")}
@@ -6460,14 +6462,54 @@ export default function CommunityCenter() {
                 >
                   <Text style={localStyles.actionButtonText}>Rent</Text>
                 </TouchableOpacity>
+              </View> */}
+              <View style={localStyles.submitButtonView}>
+                <TouchableOpacity
+                  style={{
+                    backgroundColor: "#38bdf8",
+                    paddingHorizontal: 16,
+                    paddingVertical: 12,
+                    borderRadius: 12,
+                    width: "98%",
+                    // marginVertical: 8,
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    shadowColor: "#38bdf8",
+                    shadowOffset: { width: 0, height: 4 },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 5,
+                    elevation: 6,
+                  }}
+                  onPress={() =>
+                    router.push("/pages/Map/showAllLocationsOnMap")
+                  }
+                  activeOpacity={0.7}
+                >
+                  {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
+                  <Feather
+                    name="map"
+                    size={24}
+                    color="white"
+                    style={{ marginRight: 8 }}
+                  />
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "600",
+                      textAlign: "center",
+                    }}
+                  >
+                    Show Map
+                  </Text>
+                </TouchableOpacity>
               </View>
             </View>
 
             {/* Latest Listings Section */}
             <View style={localStyles.latestListings}>
-              <Text style={localStyles.latestListingsHeader}>
-                Home For Rent
-              </Text>
+              <Text style={localStyles.sectionTitle}>Available Homes</Text>
               <TouchableOpacity onPress={handleShowAllPress}>
                 <Text style={localStyles.showAll}>Show all</Text>
               </TouchableOpacity>
@@ -6789,6 +6831,24 @@ const localStyles = StyleSheet.create({
     marginBottom: 1,
     marginTop: 1,
   },
+
+  submitButtonView: {
+    // marginBottom: 40,
+  },
+  submitButton: {
+    // marginBottom: 40,
+    // marginTop: 30,
+    padding: 12,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    alignItems: "center",
+    width: "100%",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
   filterActions: {
     flexDirection: "row",
     // justifyContent: "space-around",
@@ -6818,9 +6878,21 @@ const localStyles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 12,
   },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    // marginTop: 30,
+    marginBottom: 6,
+    paddingVertical: 4,
+    color: "black",
+    backgroundColor: "#66e0ff",
+    textAlign: "center",
+    borderRadius: 8,
+  },
   showAll: {
     color: "#38bdf8",
     marginBottom: 12,
+    marginTop: 10,
     fontSize: 18,
     fontWeight: "bold",
     // fontStyle: "italic",
@@ -6890,7 +6962,6 @@ const localStyles = StyleSheet.create({
     padding: 16,
     zIndex: 2,
     transform: [{ translateX: -300 }],
-    transition: "transform 0.3s ease-in-out",
     // Add overflow handling to prevent scrolling
     overflow: "hidden",
   },

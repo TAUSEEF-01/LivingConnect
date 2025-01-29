@@ -19,7 +19,7 @@
 // //         // }
 
 // //         // Fetch user data
-// //         const response = await axios.get("http://192.168.50.242:5000/verify", {
+// //         const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
 // //           headers: { Authorization: `Bearer ${token}` },
 // //         });
 
@@ -61,7 +61,7 @@
 // //               const token = await AsyncStorage.getItem("userToken");
 // //               if (token) {
 // //                 await axios.post(
-// //                   "http://192.168.50.242:5000/logout",
+// //                   "https://livingconnect-backend.vercel.app/logout",
 // //                   {},
 // //                   {
 // //                     headers: { Authorization: `Bearer ${token}` },
@@ -113,7 +113,7 @@
 // //       try {
 // //         const token = await AsyncStorage.getItem("userToken");
 
-// //         const response = await axios.get("http://192.168.50.242:5000/verify", {
+// //         const response = await axios.get("https://livingconnect-backend.vercel.app/verify", {
 // //           headers: { Authorization: `Bearer ${token}` },
 // //         });
 
@@ -133,7 +133,7 @@
 // //     try {
 // //       const token = await AsyncStorage.getItem("userToken");
 // //       await axios.post(
-// //         "http://192.168.50.242:5000/update-profile",
+// //         "https://livingconnect-backend.vercel.app/update-profile",
 // //         { name: userName, contact: contactNumber, profileImage },
 // //         { headers: { Authorization: `Bearer ${token}` } }
 // //       );
@@ -170,7 +170,7 @@
 // //               const token = await AsyncStorage.getItem("userToken");
 // //               if (token) {
 // //                 await axios.post(
-// //                   "http://192.168.50.242:5000/logout",
+// //                   "https://livingconnect-backend.vercel.app/logout",
 // //                   {},
 // //                   { headers: { Authorization: `Bearer ${token}` } }
 // //                 );
@@ -489,7 +489,7 @@
 // //     }
 
 // //     try {
-// //       const response = await axios.post("http://192.168.50.242:5000/update-profile", {
+// //       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", {
 // //         email: "user@example.com", // Replace with the actual user email
 // //         name: userName,
 // //         profileImage,
@@ -671,7 +671,7 @@
 
 // //   //   console.log('FormData contents:', formData);
 
-// //   //   const response = await axios.post("http://192.168.50.242:5000/update-profile", formData, {
+// //   //   const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", formData, {
 // //   //     headers: {
 // //   //       'Content-Type': 'multipart/form-data'
 // //   //     },
@@ -799,8 +799,8 @@
 
 //       setLoading(true);
 //       const response = await axios.get(
-//         "http://192.168.50.242:5000/profile/get-profile",
-//         // "http://192.168.50.242:5000/profile/get-profile",
+//         "https://livingconnect-backend.vercel.app/profile/get-profile",
+//         // "https://livingconnect-backend.vercel.app/profile/get-profile",
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
@@ -842,8 +842,8 @@
 //       const token = await AsyncStorage.getItem("userToken");
 
 //       const response = await axios.post(
-//         // "http://192.168.50.242:5000/profile/update-profile",
-//         "http://192.168.50.242:5000/profile/update-profile",
+//         // "https://livingconnect-backend.vercel.app/profile/update-profile",
+//         "https://livingconnect-backend.vercel.app/profile/update-profile",
 //         {
 //           // email: 'abc02@gmail.com',
 //           name: userName,
@@ -1091,7 +1091,7 @@
 // //     }
 
 // //     try {
-// //       const response = await axios.post("http://192.168.50.242:5000/update-profile", {
+// //       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", {
 // //         email: "abc01@gmail.com", // Replace with the actual user email
 // //         name: userName,
 // //         contactNumber,
@@ -1148,7 +1148,7 @@
 
 // //       console.log('mark 3');
 
-// //       const response = await axios.post("http://192.168.50.242:5000/update-profile", formData, {
+// //       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", formData, {
 // //         headers: {
 // //           'Content-Type': 'multipart/form-data'
 // //         }
@@ -1211,7 +1211,7 @@
 // //       // console.log(formData);
 
 // //       // Detailed error logging
-// //       const response = await axios.post("http://192.168.50.242:5000/update-profile", formData, {
+// //       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", formData, {
 // //         headers: {
 // //           'Content-Type': 'multipart/form-data'
 // //         },
@@ -1274,7 +1274,7 @@
 // //         name: 'profile.jpg'
 // //       });
 
-// //       const response = await axios.post("http://192.168.50.242:5000/update-profile", formData, {
+// //       const response = await axios.post("https://livingconnect-backend.vercel.app/update-profile", formData, {
 // //         headers: {
 // //           'Content-Type': 'multipart/form-data'
 // //         }
@@ -1463,10 +1463,6 @@
 // //   },
 // // });
 
-
-
-
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -1485,8 +1481,6 @@ import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
 
 export default function Profile() {
   const [profileImage, setProfileImage] = useState(null);
@@ -1545,7 +1539,7 @@ export default function Profile() {
       if (!token) throw new Error("No token found");
 
       const response = await axios.get(
-        "http://192.168.50.242:5000/profile/get-profile",
+        "https://livingconnect-backend.vercel.app/profile/get-profile",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -1585,7 +1579,7 @@ export default function Profile() {
       const token = await AsyncStorage.getItem("userToken");
 
       const response = await axios.post(
-        "http://192.168.50.242:5000/profile/update-profile",
+        "https://livingconnect-backend.vercel.app/profile/update-profile",
         {
           name: userName,
           contactNumber: contactNumber,
@@ -1622,14 +1616,14 @@ export default function Profile() {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#38bdf8" />
-      
+
       <View style={styles.headerContainer}>
         <View style={styles.headerContent}>
           <Text style={styles.headerTitle}>Update Profile</Text>
           <Text style={styles.headerSubtitle}>Edit Your Information</Text>
         </View>
       </View>
-    
+
       <View style={styles.profileCard}>
         <View style={styles.imageContainer}>
           {/* <TouchableOpacity onPress={pickImage}>
@@ -1642,15 +1636,18 @@ export default function Profile() {
             )}
           </TouchableOpacity> */}
 
-        <TouchableOpacity onPress={pickImage}>
-          {profileImage ? (
-            <Image source={{ uri: profileImage }} style={styles.profileImage} />
-          ) : (
-            <View style={styles.imagePlaceholder}>
-              <Text style={styles.imagePlaceholderText}>Pick an Image</Text>
-            </View>
-          )}
-        </TouchableOpacity>
+          <TouchableOpacity onPress={pickImage}>
+            {profileImage ? (
+              <Image
+                source={{ uri: profileImage }}
+                style={styles.profileImage}
+              />
+            ) : (
+              <View style={styles.imagePlaceholder}>
+                <Text style={styles.imagePlaceholderText}>Pick an Image</Text>
+              </View>
+            )}
+          </TouchableOpacity>
           <View style={styles.imageBorder} />
         </View>
 
@@ -1695,16 +1692,16 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFF',
-    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    backgroundColor: "#F8FAFF",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   headerContainer: {
-    backgroundColor: '#38bdf8',
+    backgroundColor: "#38bdf8",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingVertical: 24,
     paddingHorizontal: 20,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 4,
@@ -1715,26 +1712,26 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   headerContent: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   headerTitle: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#FFFFFF',
+    fontWeight: "700",
+    color: "#FFFFFF",
     letterSpacing: 0.5,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: '#E0E7FF',
+    color: "#E0E7FF",
     marginTop: 4,
     letterSpacing: 0.5,
   },
   profileCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 16,
     margin: 16,
     padding: 24,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -1743,7 +1740,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     borderWidth: 1,
-    borderColor: 'rgba(229, 229, 229, 0.5)',
+    borderColor: "rgba(229, 229, 229, 0.5)",
   },
 
   imagePlaceholderText: {
@@ -1753,15 +1750,15 @@ const styles = StyleSheet.create({
   },
 
   imageContainer: {
-    position: 'relative',
-    alignItems: 'center',
+    position: "relative",
+    alignItems: "center",
     marginBottom: 24,
   },
   profileImage: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#E0E7FF',
+    backgroundColor: "#E0E7FF",
   },
   imageBorder: {
     top: -3,
@@ -1770,21 +1767,21 @@ const styles = StyleSheet.create({
     bottom: -3,
     borderRadius: 63,
     borderWidth: 3,
-    borderColor: '#38bdf8',
+    borderColor: "#38bdf8",
     opacity: 0.2,
   },
   imagePlaceholder: {
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: '#E0E7FF',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#E0E7FF",
+    justifyContent: "center",
+    alignItems: "center",
   },
   placeholderText: {
-    color: '#6B7280',
+    color: "#6B7280",
     fontSize: 16,
-    fontWeight: '500',
+    fontWeight: "500",
   },
   detailsContainer: {
     gap: 16,
@@ -1794,28 +1791,28 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 14,
-    color: '#6B7280',
+    color: "#6B7280",
     marginBottom: 8,
     letterSpacing: 0.3,
   },
   input: {
-    backgroundColor: '#F8FAFF',
+    backgroundColor: "#F8FAFF",
     borderWidth: 1,
-    borderColor: '#E0E7FF',
+    borderColor: "#E0E7FF",
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
-    color: '#38bdf8',
+    color: "#38bdf8",
   },
   buttonContainer: {
     padding: 16,
   },
   actionButton: {
-    backgroundColor: '#38bdf8',
+    backgroundColor: "#38bdf8",
     padding: 16,
     borderRadius: 12,
-    alignItems: 'center',
-    shadowColor: '#000',
+    alignItems: "center",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -1825,9 +1822,9 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
     letterSpacing: 0.3,
   },
 });

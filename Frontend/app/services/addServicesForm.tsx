@@ -136,7 +136,7 @@
 
 //     try {
 //       const response = await axios.post(
-//         "http://192.168.50.242:5000/serviceDetails/services",
+//         "https://livingconnect-backend.vercel.app/serviceDetails/services",
 //         formData,
 //         {
 //           headers: {
@@ -449,8 +449,6 @@
 
 // export default CreateServiceForm;
 
-
-
 import React, { useState } from "react";
 import {
   View,
@@ -488,9 +486,9 @@ const CreateServiceForm = () => {
   const serviceType = ["Home Coloring", "Home Repair", "Home Shift"];
 
   const handleInputChange = (path, value) => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [path]: value
+      [path]: value,
     }));
   };
 
@@ -523,7 +521,7 @@ const CreateServiceForm = () => {
     const updatedLocation = { ...formData.location };
     delete updatedLocation[cityToRemove];
     handleInputChange("location", updatedLocation);
-    
+
     if (selectedCity === cityToRemove) {
       setSelectedCity("");
       setCurrentArea("");
@@ -532,10 +530,14 @@ const CreateServiceForm = () => {
   };
 
   const pickImage = async () => {
-    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissionResult =
+      await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissionResult.granted) {
-      Alert.alert("Permission required", "Please grant permission to access photos.");
+      Alert.alert(
+        "Permission required",
+        "Please grant permission to access photos."
+      );
       return;
     }
 
@@ -561,7 +563,9 @@ const CreateServiceForm = () => {
   };
 
   const removeImage = (indexToRemove) => {
-    const updatedImages = formData.images.filter((_, index) => index !== indexToRemove);
+    const updatedImages = formData.images.filter(
+      (_, index) => index !== indexToRemove
+    );
     handleInputChange("images", updatedImages);
   };
 
@@ -581,7 +585,7 @@ const CreateServiceForm = () => {
     try {
       const token = await AsyncStorage.getItem("userToken");
       const response = await axios.post(
-        "http://192.168.50.242:5000/serviceDetails/services",
+        "https://livingconnect-backend.vercel.app/serviceDetails/services",
         formData,
         {
           headers: {
@@ -610,7 +614,10 @@ const CreateServiceForm = () => {
 
       {/* Service Type Dropdown */}
       <Text style={styles.sectionTitle}>Service Type</Text>
-      <TouchableOpacity style={styles.dropdown} onPress={() => setIsOpen(!isOpen)}>
+      <TouchableOpacity
+        style={styles.dropdown}
+        onPress={() => setIsOpen(!isOpen)}
+      >
         <View style={styles.dropdownContent}>
           <Text style={styles.dropdownText}>{selectedType}</Text>
           <Text style={styles.dropdownIcon}>{isOpen ? "▲" : "▼"}</Text>
@@ -622,14 +629,22 @@ const CreateServiceForm = () => {
           {serviceType.map((type) => (
             <TouchableOpacity
               key={type}
-              style={[styles.dropdownItem, selectedType === type && styles.selectedItem]}
+              style={[
+                styles.dropdownItem,
+                selectedType === type && styles.selectedItem,
+              ]}
               onPress={() => {
                 setSelectedType(type);
                 handleInputChange("serviceType", type);
                 setIsOpen(false);
               }}
             >
-              <Text style={[styles.dropdownItemText, selectedType === type && styles.selectedItemText]}>
+              <Text
+                style={[
+                  styles.dropdownItemText,
+                  selectedType === type && styles.selectedItemText,
+                ]}
+              >
                 {type}
               </Text>
             </TouchableOpacity>
@@ -773,7 +788,10 @@ const CreateServiceForm = () => {
           <ScrollView horizontal>
             {formData.images.map((image, index) => (
               <View key={index} style={stylesImages.imageWrapper}>
-                <Image source={{ uri: image }} style={stylesImages.imagePreview} />
+                <Image
+                  source={{ uri: image }}
+                  style={stylesImages.imagePreview}
+                />
                 <TouchableOpacity
                   style={stylesImages.cancelButton}
                   onPress={() => removeImage(index)}
@@ -784,7 +802,9 @@ const CreateServiceForm = () => {
             ))}
           </ScrollView>
         ) : (
-          <Text style={stylesImages.placeholderText}>No images uploaded yet.</Text>
+          <Text style={stylesImages.placeholderText}>
+            No images uploaded yet.
+          </Text>
         )}
       </View>
 
@@ -800,7 +820,6 @@ const CreateServiceForm = () => {
 
 // Your existing styles remain the same
 export default CreateServiceForm;
-
 
 const styles = StyleSheet.create({
   container: {
@@ -1117,9 +1136,6 @@ const stylesImages = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-
-
 
 //   return (
 //     <ScrollView style={styles.container}>

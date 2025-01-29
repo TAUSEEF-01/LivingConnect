@@ -48,12 +48,19 @@ const communityDetails = new mongoose.Schema({
     perHourPrice: { type: Number }
   },
 
+  // location: {
+  //   city: { type: String, required: true },
+  //   area: { type: String, required: true },
+  //   sector: { type: String },
+  //   road: { type: String },
+  //   buildingNumber: { type: String }
+  // },
+
   location: {
-    city: { type: String, required: true },
+    latitude: { type: Number, required: true },
+    longitude: { type: Number, required: true },
     area: { type: String, required: true },
-    sector: { type: String },
-    road: { type: String },
-    buildingNumber: { type: String }
+    city: { type: String, required: true },
   },
 
   facilities: {

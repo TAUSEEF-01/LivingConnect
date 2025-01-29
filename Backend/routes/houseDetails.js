@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModelDB"); // Import the User model
 const Session = require("../models/sessionModelDB"); // Ensure correct import
 const HomeDetails = require("../models/homeDetailsDB");
+const Location = require("../models/locationDB");
 
 const { generateToken } = require("../utils/generateToken");
 const { validateToken } = require("../utils/validateToken");
@@ -86,6 +87,7 @@ router.post("/home-details", async (req, res) => {
       availability,
       images,
     });
+    
 
     console.log(newHomeDetails); // Check if _id is available
 
@@ -93,6 +95,26 @@ router.post("/home-details", async (req, res) => {
     const savedHomeDetails = await newHomeDetails.save();
 
     console.log("Saved Home Details!");
+
+
+
+    // Step 2: Save location with houseId
+    if (location?.latitude && location?.longitude) {
+      const newLocation = new Location({
+        coordinates: {
+          latitude: location.latitude,
+          longitude: location.longitude,
+        },
+        city: location.city || "Unknown City",
+        area: location.area || "Unknown Area",
+        houseId: savedHomeDetails._id.toString(), // Use the created home's _id as houseId
+      });
+
+      await newLocation.save();
+      console.log("Location saved successfully!");
+    } else {
+      console.warn("Location data is missing or invalid. Skipping location save.");
+    }
 
     res.status(200).json({
       message: "Home details added successfully",
@@ -473,6 +495,19 @@ router.get("/homes/locations", async (req, res) => {
   } catch (error) {
     console.error("Error fetching locations:", error);
     res.status(500).json({ error: "Failed to fetch locations" });
+  }
+});
+
+
+
+// Fetch all locations
+router.get("/locations", async (req, res) => {
+  try {
+    const locations = await Location.find(); // Fetch all location data
+    res.status(200).json({ locations });
+  } catch (error) {
+    console.error("Error fetching locations:", error);
+    res.status(500).json({ message: "Error fetching locations", error: error.message });
   }
 });
 

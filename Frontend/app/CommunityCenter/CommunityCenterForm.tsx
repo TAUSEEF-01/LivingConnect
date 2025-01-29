@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -17,7 +17,8 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import axios from "axios";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
+import WebView from "react-native-webview";
 
 const CommunityCenterForm = () => {
   const pickImage = async () => {
@@ -143,7 +144,7 @@ const CommunityCenterForm = () => {
 
     try {
       const response = await axios.post(
-        "http://192.168.50.242:5000/communityDetails/add-community-center",
+        "https://livingconnect-backend.vercel.app/communityDetails/add-community-center",
         formData,
         {
           headers: {
@@ -202,6 +203,106 @@ const CommunityCenterForm = () => {
       );
     }
   };
+
+  const [location, setLocation] = useState(null);
+  const params = useLocalSearchParams();
+
+  // // ✅ Prevent infinite re-renders by updating state only if it hasn't been set
+  // useEffect(() => {
+  //   if (!location && params?.latitude && params?.longitude) {
+  //     setLocation({
+  //       latitude: parseFloat(params.latitude),
+  //       longitude: parseFloat(params.longitude),
+  //       city: params.city || 'Unknown City',
+  //       area: params.area || 'Unknown Area',
+  //     });
+  //     console.log("location", location);
+  //     handleInputChange("location", location);
+  //   }
+  // }, [params]); // Run effect only when params change
+
+  // ✅ Prevent infinite loop by using a functional update
+  useEffect(() => {
+    if (params?.latitude && params?.longitude) {
+      setLocation(
+        (prev) =>
+          prev || {
+            // Only update if location is still null
+            latitude: parseFloat(params.latitude),
+            longitude: parseFloat(params.longitude),
+            city: params.city || "Unknown City",
+            area: params.area || "Unknown Area",
+          }
+      );
+    }
+  }, [params]); // Runs only when params change
+
+  // ✅ Ensure handleInputChange runs AFTER location updates
+  useEffect(() => {
+    if (location) {
+      console.log("location", location);
+      handleInputChange("location", location);
+    }
+  }, [location]); // Runs only when location updates
+
+  const [showWebView, setShowWebView] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState("");
+
+  const API_URL = Platform.select({
+    ios: "https://livingconnect-backend.vercel.app",
+    android: "https://livingconnect-backend.vercel.app",
+  });
+
+  const handlePayment = async () => {
+    try {
+      const response = await fetch(
+        "https://livingconnect-backend.vercel.app/init",
+        {
+          method: "GET",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.url) {
+        setPaymentUrl(data.url);
+        setShowWebView(true);
+      } else {
+        Alert.alert("Error", "Payment URL not found in response");
+      }
+    } catch (error) {
+      Alert.alert("Error", "Connection failed. Please try again.");
+      console.error("Error fetching payment URL:", error);
+    }
+  };
+
+  const handleNavigationStateChange = (navState) => {
+    const { url } = navState;
+    if (url.includes("/success")) {
+      setShowWebView(false);
+      Alert.alert("Success", "Payment successful!");
+    } else if (url.includes("/fail")) {
+      setShowWebView(false);
+      Alert.alert("Failed", "Payment failed");
+    } else if (url.includes("/cancel")) {
+      setShowWebView(false);
+      Alert.alert("Cancelled", "Payment cancelled");
+    }
+  };
+
+  if (showWebView && paymentUrl) {
+    return (
+      <WebView
+        style={{ flex: 1, marginTop: 30 }}
+        source={{ uri: paymentUrl }}
+        onNavigationStateChange={handleNavigationStateChange}
+      />
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -349,7 +450,7 @@ const CommunityCenterForm = () => {
         </View>
       ))}
 
-      <Text style={styles.sectionTitle}>Location</Text>
+      {/* <Text style={styles.sectionTitle}>Location</Text>
       {["city", "area", "sector", "road", "buildingNumber"].map((field) => (
         <TextInput
           key={field}
@@ -359,7 +460,27 @@ const CommunityCenterForm = () => {
           value={formData.location[field]}
           onChangeText={(text) => handleInputChange(`location.${field}`, text)}
         />
-      ))}
+      ))} */}
+
+      <Text style={styles.sectionTitle}>Location</Text>
+
+      {/* <Button title="Select Location on Map" onPress={() => router.push('/pages/Map/locationCheck')} /> */}
+      <TouchableOpacity
+        style={styles.locationButton}
+        onPress={() => router.push("/pages/Map/locationInputCommunityCenter")}
+      >
+        <Text style={styles.buttonText}>Select Location on Map</Text>
+      </TouchableOpacity>
+      {location && (
+        <View style={styles.locationDetails}>
+          <Text style={styles.locationText}>Latitude: {location.latitude}</Text>
+          <Text style={styles.locationText}>
+            Longitude: {location.longitude}
+          </Text>
+          <Text style={styles.locationText}>City: {location.city}</Text>
+          <Text style={styles.locationText}>Area: {location.area}</Text>
+        </View>
+      )}
 
       <Text style={styles.sectionTitle}>Availability</Text>
       <View>
@@ -436,7 +557,11 @@ const CommunityCenterForm = () => {
         )}
       </View>
 
-      <View style={styles.submitButtonView}>
+      <View style={styles.buttonView}>
+        <TouchableOpacity style={styles.paymentButton} onPress={handlePayment}>
+          <Text style={styles.buttonText}>Payment</Text>
+        </TouchableOpacity>
+
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <Text style={styles.buttonText}>Submit</Text>
         </TouchableOpacity>
@@ -523,17 +648,51 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: 15,
   },
-  submitButtonView: {
-    marginBottom: 40,
+  buttonView: {
+    marginBottom: 70,
+    marginTop: 20,
   },
-  submitButton: {
-    marginBottom: 40,
-    marginTop: 30,
+  paymentButton: {
+    // marginTop: 20,
+    marginBottom: 10,
+    // marginTop: 30,
     padding: 12,
     backgroundColor: "#38bdf8",
     borderRadius: 8,
     alignItems: "center",
     width: "100%",
+  },
+  submitButton: {
+    // marginTop: 20,
+    // marginBottom: 40,
+    // marginTop: 30,
+    padding: 12,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    alignItems: "center",
+    width: "100%",
+  },
+  locationButton: {
+    marginBottom: 5,
+    padding: 12,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    alignItems: "center",
+    width: "100%",
+  },
+  locationDetails: {
+    backgroundColor: "#2d3748",
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    padding: 8,
+    paddingLeft: 16,
+    marginBottom: 5,
+    borderColor: "black",
+  },
+  locationText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "white",
   },
   buttonText: {
     color: "#fff",

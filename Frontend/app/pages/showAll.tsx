@@ -167,7 +167,7 @@
 // //               const token = await AsyncStorage.getItem("userToken");
 // //               if (token) {
 // //                 await axios.post(
-// //                   "http://192.168.50.242:5000/logout",
+// //                   "https://livingconnect-backend.vercel.app/logout",
 // //                   {},
 // //                   { headers: { Authorization: `Bearer ${token}` } }
 // //                 );
@@ -235,7 +235,7 @@
 //   useEffect(() => {
 //     async function fetchProperties() {
 //       try {
-//         const response = await fetch("http://192.168.50.242:5000/properties");
+//         const response = await fetch("https://livingconnect-backend.vercel.app/properties");
 //         const data = await response.json();
 
 //         // console.log('Fetched properties:', data);
@@ -684,8 +684,8 @@ const AllHomesPage = () => {
   const fetchAllHomeDetails = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
-        // "http://192.168.50.242:5000/houseDetails/get-all-Homes-details"
+        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
     } catch (error) {
@@ -716,7 +716,9 @@ const AllHomesPage = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "black", paddingVertical: 0 }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "black", paddingVertical: 0 }}
+    >
       <View style={localStyles.statusBarWrapper}>
         <StatusBar
           barStyle="light-content" // Light content for white text/icons on a dark background
@@ -780,20 +782,20 @@ const AllHomesPage = () => {
 
         <View style={styles.container}>
           {/* Header */}
-          <View style={styles.header}>
-            <TextInput
+          {/* <View style={styles.header}> */}
+          {/* <TextInput
               style={styles.input}
               placeholder="Where would you like to live?"
               placeholderTextColor="gray"
-            />
-          </View>
+            /> */}
+          {/* </View> */}
 
           {/* Filters and Sorting */}
           <View style={styles.filterContainer}>
             <View style={styles.filterRow}>
               <TouchableOpacity
                 style={styles.filterButtonPrimary}
-                onPress={() => router.push("/pages/Map/GoogleMapView")}
+                onPress={() => router.push("/pages/Map/showAllLocationsOnMap")}
               >
                 <Text style={styles.filterButtonText}>Show map</Text>
               </TouchableOpacity>
@@ -937,6 +939,7 @@ const styles = StyleSheet.create({
 
   filterContainer: {
     padding: 16,
+    paddingTop: 24,
     borderBottomWidth: 1,
     borderBottomColor: "#1f2937",
   },

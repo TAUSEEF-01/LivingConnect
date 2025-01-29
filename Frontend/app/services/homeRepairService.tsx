@@ -14,7 +14,7 @@
 
 // // //   const fetchHomes = async () => {
 // // //     try {
-// // //       const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
+// // //       const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
 // // //         params: filters,
 // // //       });
 // // //       setHomes(response.data);
@@ -112,7 +112,7 @@
 
 // // //     const fetchHomes = async () => {
 // // //       try {
-// // //         const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
+// // //         const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
 // // //           params: filters,
 // // //         });
 // // //         setHomes(response.data);
@@ -249,7 +249,7 @@
 
 // //   const fetchHomes = async () => {
 // //     try {
-// //       const response = await axios.get("http://192.168.50.242:5000/houseDetails/searchHomes", {
+// //       const response = await axios.get("https://livingconnect-backend.vercel.app/houseDetails/searchHomes", {
 // //         params: filters,
 // //       });
 // //       setHomes(response.data);
@@ -541,8 +541,8 @@
 //       console.log("Filters:", filters);
 
 //       const response = await axios.get(
-//         "http://192.168.50.242:5000/houseDetails/searchHomes",
-//         // "http://192.168.50.242:5000/houseDetails/searchHomes",
+//         "https://livingconnect-backend.vercel.app/houseDetails/searchHomes",
+//         // "https://livingconnect-backend.vercel.app/houseDetails/searchHomes",
 //         {
 //           params: filters,
 //         }
@@ -1218,9 +1218,9 @@ const AllHomesPage = () => {
 
   const fetchAllHomeDetails = async () => {
     try {
-        console.log("Fetching all home repair details...");
+      console.log("Fetching all home repair details...");
       const response = await axios.get(
-        "http://192.168.50.242:5000/serviceDetails/get-all-service-details-houseRepair"
+        "https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details-houseRepair"
       );
       setHomes(response.data);
     } catch (error) {
@@ -1251,7 +1251,9 @@ const AllHomesPage = () => {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "black", paddingVertical: 0 }}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "black", paddingVertical: 0 }}
+    >
       <View style={localStyles.statusBarWrapper}>
         <StatusBar
           barStyle="light-content" // Light content for white text/icons on a dark background
