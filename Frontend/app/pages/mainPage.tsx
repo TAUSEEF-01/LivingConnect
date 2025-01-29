@@ -5232,7 +5232,8 @@ export default function CommunityCenter() {
   const handleRentAHomePress = async () => {
     // const handleRentAHomePress = () => {
 
-    router.push("/Rent/rentAHomeForm");
+    // router.push("/Rent/rentAHomeForm");
+    router.push("/pages/Map/locationCheck");
     // router.replace("/Rent/rentAHomeForm");
   };
 
@@ -6454,7 +6455,8 @@ export default function CommunityCenter() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={localStyles.actionButton}
-                  onPress={() => router.push("/pages/Map/locationCheck")}
+                  // onPress={() => router.push("/pages/Map/locationCheck")}
+                  onPress={() => router.push("/pages/Map/locationRedirect")}
                 >
                   <Text style={localStyles.actionButtonText}>Rent</Text>
                 </TouchableOpacity>

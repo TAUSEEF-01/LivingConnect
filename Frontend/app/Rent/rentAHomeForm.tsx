@@ -1639,7 +1639,7 @@
 // });
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -1657,7 +1657,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import * as ImagePicker from "expo-image-picker";
 import * as ImageManipulator from "expo-image-manipulator";
 import axios from "axios";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import MapView, { Marker } from "react-native-maps";
 
 const HomeDetailsForm = () => {
@@ -1816,82 +1816,47 @@ const HomeDetailsForm = () => {
   };
 
 
-  const [locationDetails, setLocationDetails] = useState({
-    latitude: 23.8103,
-    longitude: 90.4125,
-    area: "Dhaka",
-    city: "Dhanmondi",
-  });
+  // const setLocation = (location) => {
+  //   handleInputChange("location", location);
+  // };
 
-  interface LocationAddress {
-    neighbourhood?: string;
-    suburb?: string;
-    city?: string;
-    municipality?: string;
-    state?: string;
-    postcode?: string;
-    country?: string;
+  const [location, setLocation] = useState(null);
+    const params = useLocalSearchParams();
+  
+    // // ✅ Prevent infinite re-renders by updating state only if it hasn't been set
+    // useEffect(() => {
+    //   if (!location && params?.latitude && params?.longitude) {
+    //     setLocation({
+    //       latitude: parseFloat(params.latitude),
+    //       longitude: parseFloat(params.longitude),
+    //       city: params.city || 'Unknown City',
+    //       area: params.area || 'Unknown Area',
+    //     });
+    //     console.log("location", location);
+    //     handleInputChange("location", location);
+    //   }
+    // }, [params]); // Run effect only when params change
+
+    // ✅ Prevent infinite loop by using a functional update
+useEffect(() => {
+  if (params?.latitude && params?.longitude) {
+    setLocation(prev => prev || { // Only update if location is still null
+      latitude: parseFloat(params.latitude),
+      longitude: parseFloat(params.longitude),
+      city: params.city || 'Unknown City',
+      area: params.area || 'Unknown Area',
+    });
   }
+}, [params]); // Runs only when params change
 
-  interface NominatimResponse {
-    place_id: number;
-    lat: string;
-    lon: string;
-    display_name: string;
-    address: LocationAddress;
+// ✅ Ensure handleInputChange runs AFTER location updates
+useEffect(() => {
+  if (location) {
+    console.log("location", location);  
+    handleInputChange("location", location);
   }
-
-  const handleMapPress = async (event: {
-    nativeEvent: { coordinate: { latitude: number; longitude: number } };
-  }) => {
-    const { latitude, longitude } = event.nativeEvent.coordinate;
-    console.log("Map Pressed:", latitude, longitude);
-
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=en`,
-        {
-          headers: {
-            "User-Agent": "LivingConnect (nafim1703@gmail.com)", // Replace with your app name and email
-          },
-        }
-      );
-
-      // Check for response status
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      // console.log("Reverse Geocoding Response:", response);
-      // Parse the JSON response
-      const data = await response.json();
-      // console.log("Reverse Geocoding Response:", data);
-      // console.log("Reverse Geocoding Response:", data);
-
-      const locationInfo = {
-        latitude,
-        longitude,
-        // area: data.address.suburb || "unknown area",
-        // city: data.address.city || data.address.municipality || "unknown city",
-        area: (
-          data.address.suburb ||
-          "unknown area"
-        ).toLowerCase(),
-        city: (
-          data.address.city ||
-          data.address.municipality ||
-          "unknown city"
-        ).toLowerCase(),
-      };
-
-      console.log(locationInfo);
-
-      // Update state with location details
-      setLocationDetails(locationInfo);
-    } catch (error) {
-      console.error("Error fetching location details:", error);
-    }
-    formData.location = locationDetails;
-  };
+}, [location]); // Runs only when location updates
+  
 
   return (
     <ScrollView style={styles.container}>
@@ -1993,30 +1958,35 @@ const HomeDetailsForm = () => {
 
       {/* Location */}
       <Text style={styles.sectionTitle}>Location</Text>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: 23.8103,
-          longitude: 90.4125,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-        onPress={handleMapPress}
-      >
-        <Marker
-          coordinate={{
-            latitude: locationDetails.latitude || 0,
-            longitude: locationDetails.longitude || 0,
-          }}
-        />
-      </MapView>
 
-      <View style={styles.details}>
-        <Text>Latitude: {locationDetails.latitude}</Text>
-        <Text>Longitude: {locationDetails.longitude}</Text>
-        <Text>Area: {locationDetails.area}</Text>
-        <Text>City: {locationDetails.city}</Text>
-      </View>
+      {/* <Button title="Select Location on Map" onPress={() => router.push('/pages/Map/locationCheck')} /> */}
+      <TouchableOpacity
+        style={styles.locationButton}
+        onPress={() => router.push('/pages/Map/locationCheck')}
+      ><Text style={styles.buttonText}>Select Location on Map</Text></TouchableOpacity>
+            {location && (
+              <View style={styles.locationDetails}>
+                <Text style={styles.locationText}>Latitude: {location.latitude}</Text>
+                <Text style={styles.locationText}>Longitude: {location.longitude}</Text>
+                <Text style={styles.locationText}>City: {location.city}</Text>
+                <Text style={styles.locationText}>Area: {location.area}</Text>
+              </View>
+            )}
+        {/* <View style={styles.details}>
+          <Text>Latitude: {formData.location.latitude}</Text>
+          <Text>Longitude: {formData.location.longitude}</Text>
+          <Text>Area: {formData.location.area}</Text>
+          <Text>City: {formData.location.city}</Text>
+        </View>
+
+        
+        <TouchableOpacity
+        style={styles.submitButton}
+        onPress={() => router.push(`/pages/Map/locationCheck?setLocation=${setLocation}`)}
+      >
+        <Text style={styles.buttonText}>Select Location on Map</Text>
+      </TouchableOpacity> */}
+
       {/* Facilities */}
       <Text style={styles.sectionTitle}>Facilities</Text>
       {Object.keys(formData.facilities).map((facility) => (
@@ -2497,6 +2467,28 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: "center",
     width: "100%",
+  },
+  locationButton:{
+    marginBottom:5,
+    padding: 12,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    alignItems: "center",
+    width: "100%",
+  },
+  locationDetails:{
+    backgroundColor: "#2d3748",
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    padding: 8,
+    paddingLeft: 16,
+    marginBottom: 5,
+    borderColor: "black",
+  },
+  locationText:{
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "white",
   },
   buttonText: {
     color: "#fff",
