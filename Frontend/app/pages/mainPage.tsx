@@ -6466,7 +6466,7 @@ export default function CommunityCenter() {
             {/* Latest Listings Section */}
             <View style={localStyles.latestListings}>
               <Text style={localStyles.latestListingsHeader}>
-                Home For Rent or Sale
+                Home For Rent
               </Text>
               <TouchableOpacity onPress={handleShowAllPress}>
                 <Text style={localStyles.showAll}>Show all</Text>

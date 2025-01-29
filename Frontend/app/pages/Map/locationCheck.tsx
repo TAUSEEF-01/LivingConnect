@@ -1335,7 +1335,7 @@ import axios from 'axios';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { FontAwesome } from '@expo/vector-icons';
 
-const INITIAL_COORDINATES = { latitude: 37.78825, longitude: -122.4324 };
+const INITIAL_COORDINATES = { latitude: 23.7544529, longitude: 90.393336 };
 
 const MapPage = () => {
   const [coordinates, setCoordinates] = useState(INITIAL_COORDINATES);

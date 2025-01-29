@@ -1659,6 +1659,7 @@ import * as ImageManipulator from "expo-image-manipulator";
 import axios from "axios";
 import { router, useLocalSearchParams } from "expo-router";
 import MapView, { Marker } from "react-native-maps";
+import { WebView } from "react-native-webview";
 
 const HomeDetailsForm = () => {
   const pickImage = async () => {
@@ -1856,6 +1857,65 @@ useEffect(() => {
     handleInputChange("location", location);
   }
 }, [location]); // Runs only when location updates
+
+
+
+
+const [showWebView, setShowWebView] = useState(false);
+  const [paymentUrl, setPaymentUrl] = useState("");
+
+  const API_URL = Platform.select({
+    ios: "http://192.168.50.242:5000",
+    android: "http://192.168.50.242:5000",
+  });
+
+  const handlePayment = async () => {
+    try {
+      const response = await fetch("http://192.168.50.242:5000/init", {
+        method: "GET",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data.url) {
+        setPaymentUrl(data.url);
+        setShowWebView(true);
+      } else {
+        Alert.alert("Error", "Payment URL not found in response");
+      }
+    } catch (error) {
+      Alert.alert("Error", "Connection failed. Please try again.");
+      console.error("Error fetching payment URL:", error);
+    }
+  };
+
+  const handleNavigationStateChange = (navState) => {
+    const { url } = navState;
+    if (url.includes("/success")) {
+      setShowWebView(false);
+      Alert.alert("Success", "Payment successful!");
+    } else if (url.includes("/fail")) {
+      setShowWebView(false);
+      Alert.alert("Failed", "Payment failed");
+    } else if (url.includes("/cancel")) {
+      setShowWebView(false);
+      Alert.alert("Cancelled", "Payment cancelled");
+    }
+  };
+
+  if (showWebView && paymentUrl) {
+    return (
+      <WebView
+      style={{ flex: 1, marginTop: 30 }}
+        source={{ uri: paymentUrl }}
+        onNavigationStateChange={handleNavigationStateChange}
+      />
+    );
+  }
   
 
   return (
@@ -2086,12 +2146,16 @@ useEffect(() => {
         )}
       </View>
 
-      {/* <View>  */}
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-        {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
-        <Text style={styles.buttonText}>Submit</Text>
-      </TouchableOpacity>
-      {/* </View> */}
+      <View style={styles.buttonView}> 
+        <TouchableOpacity style={styles.paymentButton} onPress={handlePayment}>
+          <Text style={styles.buttonText}>Payment</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+          {/* <Button title="Submit" style={styles.submitButton} onPress={handleSubmit} /> */}
+          <Text style={styles.buttonText}>Submit</Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 };
@@ -2280,6 +2344,7 @@ const stylesRadio = StyleSheet.create({
 const styles = StyleSheet.create({
   details: {
     padding: 10,
+    paddingBottom: 30,
     backgroundColor: "#f9f9f9",
     borderTopWidth: 1,
     borderTopColor: "#ddd",
@@ -2458,10 +2523,24 @@ const styles = StyleSheet.create({
     color: "white",
     marginLeft: 15,
   },
+  buttonView:{
+    marginBottom: 70,
+    marginTop: 20,
+  },
+  paymentButton: {
+    // marginTop: 20,
+    marginBottom:10,
+    // marginTop: 30,
+    padding: 12,
+    backgroundColor: "#38bdf8",
+    borderRadius: 8,
+    alignItems: "center",
+    width: "100%",
+  },
   submitButton: {
     // marginTop: 20,
-    marginBottom: 40,
-    marginTop: 30,
+    // marginBottom: 40,
+    // marginTop: 30,
     padding: 12,
     backgroundColor: "#38bdf8",
     borderRadius: 8,
