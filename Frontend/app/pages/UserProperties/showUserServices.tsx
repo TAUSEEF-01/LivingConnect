@@ -23,7 +23,7 @@ const UserServicesList = () => {
     try {
       const token = await AsyncStorage.getItem("userToken");
       const response = await axios.get(
-        "http://192.168.50.242:5000/communityDetails/get-user-CommunityCenter-properties",
+        "https://livingconnect-backend.vercel.app/serviceDetails/get-user-services-properties",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ const UserServicesList = () => {
             style={styles.card}
             onPress={() =>
               router.push({
-                pathname: "/CommunityCenter/CommunityCenterEditForm",
+                pathname: "/services/editServicesFrom",
                 params: { id: form._id },
               })
             }

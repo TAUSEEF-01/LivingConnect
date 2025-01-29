@@ -174,7 +174,7 @@
 //   const fetchSuccessTrue = async () => {
 //     try {
 //       const response = await axios.get(
-//         "http://192.168.50.242:5000/houseDetails/successTrue" // Replace with your API endpoint
+//         "https://livingconnect-backend.vercel.app/houseDetails/successTrue" // Replace with your API endpoint
 //       );
 //       setForms(response.data);
 //     } catch (error) {
@@ -307,7 +307,7 @@ const AdminApprovalPage = () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        "http://192.168.50.242:5000/houseDetails/successTrue"
+        "https://livingconnect-backend.vercel.app/houseDetails/successTrue"
       );
       setForms(response.data);
     } catch (error) {

@@ -491,6 +491,26 @@ const FormVerifyPage = () => {
               Road: {home?.location?.road || "N/A"}, House:{" "}
               {home?.location?.houseNumber || "N/A"}
             </Text>
+
+            <TouchableOpacity
+              style={styles.callButton}
+              onPress={() => {
+                router.push({
+                  pathname: "/pages/Map/showLocationOnMap",
+                  params: {
+                    latitude: home.location.latitude,
+                    longitude: home.location.longitude,
+                    // locationName: 'My Location'
+                    city: home.location.city,
+                    area: home.location.area,
+                  },
+                });
+                // console.log("recipientId: ", ownerId);
+                // console.log("currentUserId: ", profile?.id);
+              }}
+            >
+              <Text style={styles.buttonText}>Show location on map</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.section}>

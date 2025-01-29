@@ -38,12 +38,19 @@ const homeDetails = new mongoose.Schema({
     required: true,
   },
 
+  // location: {
+  //   city: { type: String, required: true },
+  //   area: { type: String, required: true },
+  //   sector: { type: String },
+  //   road: { type: String },
+  //   houseNumber: { type: String },
+  // },
+
   location: {
-    city: { type: String, required: true },
+    latitude: { type: Number, required: true },
+    longitude: { type: Number, required: true },
     area: { type: String, required: true },
-    sector: { type: String },
-    road: { type: String },
-    houseNumber: { type: String },
+    city: { type: String, required: true },
   },
 
   facilities: {

@@ -1218,12 +1218,13 @@ const AllHomesPage = () => {
 
   const fetchAllHomeDetails = async () => {
     try {
+      console.log("Fetching all home repair details...");
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details-houseColoring"
+        "https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details-houseRepair"
       );
       setHomes(response.data);
     } catch (error) {
-      Alert.alert("Error", "Failed to fetch all House Coloring details.");
+      Alert.alert("Error", "Failed to fetch all House Repair details.");
     } finally {
       setLoading(false);
     }
@@ -1335,7 +1336,7 @@ const AllHomesPage = () => {
                 style={styles.card}
                 onPress={() =>
                   router.push({
-                    pathname: "/services/homeColorPage",
+                    pathname: "/services/homeRepairPage",
                     params: { homeId: home._id }, // Pass the home ID as a query parameter
                   })
                 } // Navigate to the details page

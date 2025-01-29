@@ -198,7 +198,7 @@ const CommunityCenterForm = () => {
       console.log("Update data:", updateData);
 
       const url = `https://livingconnect-backend.vercel.app/communityDetails/update-CommunityCenter/${id}`;
-      console.log("Request URL:", url);
+      // console.log("Request URL:", url);
 
       const response = await axios({
         method: "PATCH",
