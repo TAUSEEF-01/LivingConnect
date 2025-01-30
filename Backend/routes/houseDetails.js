@@ -195,6 +195,10 @@ router.get("/get-all-Homes-details", async (req, res) => {
   }
 });
 
+
+
+
+
 // router.get("/searchHomes", async (req, res) => {
 //   try {
 //     const { city, area, rentMin, rentMax, propertyType } = req.query;
@@ -341,6 +345,19 @@ router.get("/successFalse", async (req, res) => {
   } catch (error) {
     console.error("Error retrieving homes:", error);
     res.status(500).json({ message: "Failed to retrieve homes", error });
+  }
+});
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-Homes-details-successFalse", async (req, res) => {
+  try {
+    const query = { success: false };
+
+    const homes = await HomeDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
   }
 });
 

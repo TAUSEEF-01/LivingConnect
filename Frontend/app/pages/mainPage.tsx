@@ -6058,9 +6058,7 @@ export default function CommunityCenter() {
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
                   <Image
-                    source={{
-                      uri: "http://images.unsplash.com/photo-1581578731548-c64695cc6952",
-                    }}
+                    source={require("../../assets/images/coloring.jpg")}
                     style={{
                       width: "90%", // Set the width of the image
                       height: 100, // Set the height of the image
@@ -6166,9 +6164,7 @@ export default function CommunityCenter() {
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
                   <Image
-                    source={{
-                      uri: "http://images.unsplash.com/photo-1621905252507-b35492cc74b4",
-                    }}
+                    source={require("../../assets/images/repair.jpg")}
                     style={{
                       width: "90%", // Set the width of the image
                       height: 100, // Set the height of the image
@@ -6271,9 +6267,7 @@ export default function CommunityCenter() {
         <View key={service.name} style={{ marginRight: 12 }}>
           {service.images.length > 0 && ( */}
                   <Image
-                    source={{
-                      uri: "http://images.unsplash.com/photo-1600585152220-90363fe7e115",
-                    }}
+                    source={require("../../assets/images/cleaning.jpg")}
                     style={{
                       width: "90%", // Set the width of the image
                       height: 100, // Set the height of the image
