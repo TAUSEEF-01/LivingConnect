@@ -16,6 +16,7 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 
 import SidePanel from "../sidePanel/sidePanel";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AllHomesPage = () => {
   const [homes, setHomes] = useState([]);
@@ -30,8 +31,15 @@ const AllHomesPage = () => {
 
   const fetchAllHomeDetails = async () => {
     try {
+      const token = await AsyncStorage.getItem("userToken");
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details-houseShift"
+        "https://livingconnect-backend.vercel.app/serviceDetails/get-all-service-details-houseShift-otherUsers",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       setHomes(response.data);
     } catch (error) {
@@ -56,7 +64,7 @@ const AllHomesPage = () => {
   if (homes.length === 0) {
     return (
       <View style={localStyles.noDataContainer}>
-        <Text style={localStyles.noDataText}>No homes available.</Text>
+        <Text style={localStyles.noDataText}>No Services available.</Text>
       </View>
     );
   }

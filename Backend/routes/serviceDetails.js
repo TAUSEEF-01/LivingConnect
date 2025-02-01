@@ -183,6 +183,90 @@ router.get("/get-all-service-details-houseShift", async (req, res) => {
 
 
 
+
+// Endpoint to fetch all home details
+router.get("/get-all-service-details-houseColoring-otherUsers", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    // Get user info from the token
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    console.log("Get Homes Details API called");
+    console.log("User ID:", userId);
+
+
+    const query = { success: true, serviceType: "Home Coloring", userId: { $ne: userId } };
+
+    const homes = await ServicesDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home Coloring", error });
+  }
+});
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-service-details-houseRepair-otherUsers", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    // Get user info from the token
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    console.log("Get Homes Details API called");
+    console.log("User ID:", userId);
+
+
+    const query = { success: true, serviceType: "Home Repair", userId: { $ne: userId } };
+
+    const homes = await ServicesDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home Repair", error });
+  }
+});
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-service-details-houseShift-otherUsers", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    // Get user info from the token
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    console.log("Get Homes Details API called");
+    console.log("User ID:", userId);
+
+
+    const query = { success: true, serviceType: "Home Shift", userId: { $ne: userId } };
+
+    const homes = await ServicesDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home Shift", error });
+  }
+});
+
+
+
+
 // // router.get("/searchHomes", async (req, res) => {
 // //   try {
 // //     const { city, area, rentMin, rentMax, propertyType } = req.query;
