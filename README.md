@@ -4,7 +4,7 @@
 **Department of Computer Science & Engineering 💻**  
 **CSE 2216 - Application Development Lab (Batch 28) 📚**
 
-### **Assignment 2 - Project Progress ✨**
+### **Project Details ✨**
 
 ---
 
@@ -17,10 +17,10 @@ LivingConnect is a mobile application designed to simplify the process of findin
 **Team Name:** DU_CodeX_Legends
 
 #### **Team Members 👥:**
-- **Md. Tauseef - Ur - Rahman** (Roll: 24)
-- **Tamzid Bin Tariq** (Roll: 48)
 - **Md. Ashraful Alam** (Roll: 02)
+- **Md. Tauseef - Ur - Rahman** (Roll: 24)
 - **Sumaiya Tabassum** (Roll: 29)
+- **Tamzid Bin Tariq** (Roll: 48)
 
 ---
 
@@ -46,7 +46,7 @@ LivingConnect is a mobile application designed to simplify the process of findin
 ### **Installation Instructions 🔧**
 1. Clone the repository from GitHub.
    ```bash
-   git clone [repository-url]
+   git clone https://github.com/TAUSEEF-01/LivingConnect.git
    cd LivingConnect
    ```
 2. Install project dependencies:
