@@ -186,6 +186,20 @@ router.get("/successFalse", async (req, res) => {
 });
 
 
+
+// Endpoint to fetch all home details
+router.get("/get-all-CommunityCenter-details-successFalse", async (req, res) => {
+  try {
+    const query = { success: false };
+
+    const homes = await CommunityDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching Community details", error });
+  }
+});
+
+
 // Fixed successFalse Search Endpoint
 router.get("/successTrue", async (req, res) => {
     try {
@@ -199,6 +213,20 @@ router.get("/successTrue", async (req, res) => {
       console.error("Error retrieving Community Centers:", error);
       res.status(500).json({ message: "Failed to retrieve Community Centers", error });
     }
+});
+
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-CommunityCenter-details-successTrue", async (req, res) => {
+  try {
+    const query = { success: true };
+
+    const homes = await CommunityDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching Community details", error });
+  }
 });
 
 

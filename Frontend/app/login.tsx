@@ -84,16 +84,17 @@ export default function LoginScreen() {
         // router.replace("/screens/about_us"); // Navigate to the main page
       } else {
         // Login failed
-        setError(data.message || "Failed to log in.");
+        setError("Failed to log in.");
         console.error("Login error:", data.message);
       }
     } catch (err) {
-      console.error("Error during login:", err.message);
+      // console.error("Error during login:", err.message);
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <View style={styles.container}>

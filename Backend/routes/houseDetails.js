@@ -393,6 +393,8 @@ router.get("/get-all-Homes-details-successFalse", async (req, res) => {
   }
 });
 
+
+
 // Fixed successTrue Search Endpoint
 router.get("/successTrue", async (req, res) => {
   try {
@@ -407,6 +409,22 @@ router.get("/successTrue", async (req, res) => {
     res.status(500).json({ message: "Failed to retrieve homes", error });
   }
 });
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-Homes-details-successTrue", async (req, res) => {
+  try {
+    const query = { success: true };
+
+    const homes = await HomeDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
+  }
+});
+
+
+
 
 // Endpoint to accept a home and set success to true
 router.patch("/accept/:id", async (req, res) => {

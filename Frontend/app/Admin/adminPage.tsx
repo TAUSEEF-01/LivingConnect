@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
     borderColor: '#38bdf8',
   },
   approvedButton: {
-    backgroundColor: '#10B981',
+    backgroundColor:  '#10B981',//"#48A6A7",//
     borderColor: '#059669',
   },
   buttonText: {

@@ -416,6 +416,20 @@ router.get("/successFalse", async (req, res) => {
   }
 });
 
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-service-details-successFalse", async (req, res) => {
+  try {
+    const query = { success: false };
+
+    const homes = await ServicesDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching service details", error });
+  }
+});
+
 // Fixed successTrue Search Endpoint
 router.get("/successTrue", async (req, res) => {
   try {
@@ -428,6 +442,19 @@ router.get("/successTrue", async (req, res) => {
   } catch (error) {
     console.error("Error retrieving Services:", error);
     res.status(500).json({ message: "Failed to retrieve Services", error });
+  }
+});
+
+
+// Endpoint to fetch all home details
+router.get("/get-all-service-details-successTrue", async (req, res) => {
+  try {
+    const query = { success: true };
+
+    const homes = await ServicesDetails.find(query);
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching service details", error });
   }
 });
 

@@ -300,7 +300,7 @@ const localStyles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 8,
     padding: 10,
-    backgroundColor: "#38bdf8",
+    backgroundColor: "#66e0ff",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
