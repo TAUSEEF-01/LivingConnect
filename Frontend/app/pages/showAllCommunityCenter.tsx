@@ -802,7 +802,7 @@ const AllHomesPage = () => {
             <View style={styles.filterRow}>
               <TouchableOpacity
                 style={styles.filterButtonPrimary}
-                onPress={() => router.push("/pages/Map/showAllLocationsOnMap")}
+                onPress={() => router.push("/pages/Map/showAllCommunityCenterLocationsOnMap")}
               >
                 <Text style={styles.filterButtonText}>Show map</Text>
               </TouchableOpacity>

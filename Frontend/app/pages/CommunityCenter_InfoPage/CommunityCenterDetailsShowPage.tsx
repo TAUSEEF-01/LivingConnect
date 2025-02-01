@@ -153,6 +153,40 @@ const CommunityApprovedDetailsPage = ({ route }) => {
           </Text>
         </View>
 
+        {/* Location */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Location</Text>
+          <Text style={styles.text}>City: {community.location.city}</Text>
+          <Text style={styles.text}>Area: {community.location.area}</Text>
+          <Text style={styles.text}>
+            Sector: {community.location.sector || "N/A"}
+          </Text>
+          <Text style={styles.text}>
+            Road: {community.location.road || "N/A"}
+          </Text>
+          <Text style={styles.text}>
+            Building Number: {community.location.buildingNumber || "N/A"}
+          </Text>
+
+          <TouchableOpacity
+            style={styles.callButton}
+            onPress={() => {
+              router.push({
+                pathname: "/pages/Map/showLocationOnMap",
+                params: {
+                  latitude: community.location.latitude,
+                  longitude: community.location.longitude,
+                  // locationName: 'My Location'
+                  city: community.location.city,
+                  area: community.location.area,
+                },
+              });
+            }}
+          >
+            <Text style={styles.buttonText}>Show location on map</Text>
+          </TouchableOpacity>
+        </View>
+
         {/* Basic Details */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Details</Text>
@@ -188,22 +222,6 @@ const CommunityApprovedDetailsPage = ({ route }) => {
           </Text>
           <Text style={styles.text}>
             Per Hour Price: {community.price.perHourPrice || "N/A"} Tk
-          </Text>
-        </View>
-
-        {/* Location */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Location</Text>
-          <Text style={styles.text}>City: {community.location.city}</Text>
-          <Text style={styles.text}>Area: {community.location.area}</Text>
-          <Text style={styles.text}>
-            Sector: {community.location.sector || "N/A"}
-          </Text>
-          <Text style={styles.text}>
-            Road: {community.location.road || "N/A"}
-          </Text>
-          <Text style={styles.text}>
-            Building Number: {community.location.buildingNumber || "N/A"}
           </Text>
         </View>
 
