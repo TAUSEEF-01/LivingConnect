@@ -480,4 +480,48 @@ router.get("/searchCenters", async (req, res) => {
   }
 });
 
+
+
+
+// Fetch all locations and include userId from homeDetails
+router.get("/locations-otherUsers", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    // Get user info from the token
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    // Fetch locations of houses where success is true and userId is not the current user's
+    const locations = await CommunityDetails.find({
+      success: true,
+      userId: { $ne: userId },
+    });
+
+    // Transform the response to the required format
+    const formattedLocations = locations.map(location => ({
+      coordinates: {
+        latitude: location.location.latitude,
+        longitude: location.location.longitude,
+      },
+      _id: location._id,
+      city: location.location.city,
+      area: location.location.area,
+      houseId: location._id,
+      __v: location.__v,
+    }));
+
+    res.status(200).json({ locations: formattedLocations });
+  } catch (error) {
+    console.error("Error fetching locations:", error);
+    res.status(500).json({ message: "Error fetching locations", error: error.message });
+  }
+});
+
+
+
 module.exports = router;
