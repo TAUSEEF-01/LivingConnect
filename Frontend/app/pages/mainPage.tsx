@@ -5277,8 +5277,15 @@ export default function CommunityCenter() {
   const [homes, setHomes] = useState([]);
   const fetchAllHomeDetails = async () => {
     try {
+      const token = await AsyncStorage.getItem("userToken");
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
+        "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details-otherUsers",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setHomes(response.data);
@@ -5296,8 +5303,15 @@ export default function CommunityCenter() {
   const [communityCenter, setCommunityCenter] = useState([]);
   const fetchAllCommunityCenterDetails = async () => {
     try {
+      const token = await AsyncStorage.getItem("userToken");
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details"
+        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details-otherUsers",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
         // "https://livingconnect-backend.vercel.app/houseDetails/get-all-Homes-details"
       );
       setCommunityCenter(response.data);

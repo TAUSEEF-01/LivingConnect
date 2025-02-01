@@ -669,6 +669,7 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 
 import SidePanel from "../sidePanel/sidePanel";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const AllHomesPage = () => {
   const [homes, setHomes] = useState([]);
@@ -683,8 +684,15 @@ const AllHomesPage = () => {
 
   const fetchAllHomeDetails = async () => {
     try {
+      const token = await AsyncStorage.getItem("userToken");
       const response = await axios.get(
-        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details"
+        "https://livingconnect-backend.vercel.app/communityDetails/get-all-CommunityCenter-details-otherUsers",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       setHomes(response.data);
     } catch (error) {

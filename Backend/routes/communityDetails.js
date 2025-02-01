@@ -137,6 +137,39 @@ router.get("/get-all-CommunityCenter-details", async (req, res) => {
   });
 
 
+
+
+  // Endpoint to fetch all Community Center details
+router.get("/get-all-CommunityCenter-details-otherUsers", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    // Get user info from the token
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    console.log("Get Homes Details API called");
+    console.log("User ID:", userId);
+
+    // Query homes with success: true and exclude the current user's homes
+    const query = {
+      success: true,
+      userId: { $ne: userId }, // Exclude homes with the same userId
+    };
+
+    const homes = await CommunityDetails.find(query);
+    // const homes = await HomeDetails.find({});
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
+  }
+});
+
+
 // Fixed successFalse Search Endpoint
 router.get("/successFalse", async (req, res) => {
     try {

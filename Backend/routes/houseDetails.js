@@ -197,6 +197,38 @@ router.get("/get-all-Homes-details", async (req, res) => {
 
 
 
+// Endpoint to fetch all home details excluding user's own houses
+router.get("/get-all-Homes-details-otherUsers", async (req, res) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Get token from Authorization header
+
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  }
+
+  try {
+    // Get user info from the token
+    const userInfo = await getUserInfo(token);
+    const userId = userInfo.userId;
+
+    console.log("Get Homes Details API called");
+    console.log("User ID:", userId);
+
+    // Query homes with success: true and exclude the current user's homes
+    const query = {
+      success: true,
+      userId: { $ne: userId }, // Exclude homes with the same userId
+    };
+
+    const homes = await HomeDetails.find(query);
+
+    res.status(200).json(homes);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching home details", error });
+  }
+});
+
+
+
 
 
 // router.get("/searchHomes", async (req, res) => {
