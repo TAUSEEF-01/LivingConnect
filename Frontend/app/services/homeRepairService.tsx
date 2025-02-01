@@ -1314,7 +1314,7 @@ const AllHomesPage = () => {
 
           <View style={styles.bannerImageContainer}>
             <Image
-              source={require("../../assets/images/showAll_page_image.jpg")}
+              source={require("../../assets/images/repair-page.jpg")}
               // source={{
               //   // uri: "http://images.pexels.com/photos/6045328/pexels-photo-6045328.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
               // }} // Replace with actual image URL
@@ -1325,17 +1325,14 @@ const AllHomesPage = () => {
 
         <View style={styles.container}>
           {/* Filters and Sorting */}
-          <View style={styles.filterContainer}>
-            {/* <View style={styles.filterRow}> */}
-
+          {/* <View style={styles.filterContainer}>
             <TouchableOpacity
               style={styles.filterButtonSecondary}
               onPress={() => router.push("/pages/FiltersPage/filterInfo")}
             >
               <Text style={styles.filterButtonText}>Show filters</Text>
             </TouchableOpacity>
-            {/* </View> */}
-          </View>
+          </View> */}
 
           <ScrollView style={styles.scrollContainer}>
             {homes.map((home) => (
