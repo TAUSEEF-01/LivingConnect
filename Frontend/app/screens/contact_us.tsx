@@ -164,6 +164,241 @@
 //   },
 // });
 
+
+
+
+
+
+
+
+
+// import React from "react";
+// import { 
+//   View, 
+//   Text, 
+//   Image, 
+//   StyleSheet, 
+//   FlatList, 
+//   StatusBar, 
+//   TouchableOpacity, 
+//   Linking, 
+//   Alert,
+//   SafeAreaView,
+//   Platform 
+// } from "react-native";
+
+// const contactDetails = [
+//   {
+//     id: "1",
+//     name: "Md. Tauseef - Ur - Rahman",
+//     role: "Project Lead",
+//     email: "mdtauseef.rahmang01@gmail.com",
+//     phone: "+1234567890",
+//     image: require("../../assets/images/email1.jpg"),
+//   },
+//   {
+//     id: "2",
+//     name: "Tamzid Bin Tariq",
+//     role: "Developer",
+//     email: "tamzidbintariq@gmail.com",
+//     phone: "+1234567891",
+//     image: require("../../assets/images/email1.jpg"),
+//   },
+//   {
+//     id: "3",
+//     name: "Ashraful Alam",
+//     role: "Designer",
+//     email: "mdtauseef.rahman01@gmail.com",
+//     phone: "+1234567892",
+//     image: require("../../assets/images/email1.jpg"),
+//   },
+//   {
+//     id: "4",
+//     name: "Sumaiya Tabassum",
+//     role: "Designer",
+//     email: "mdtauseef.rahman02@gmail.com",
+//     phone: "+1234567893",
+//     image: require("../../assets/images/email1.jpg"),
+//   },
+// ];
+
+// const handleEmailPress = (email) => {
+//   const subject = "Customer Inquiry";
+//   const mailto = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+//   Linking.openURL(mailto).catch(() =>
+//     Alert.alert("Error", "Could not open email client.")
+//   );
+// };
+
+// export default function ContactUsPage() {
+//   const renderContactCard = ({ item }) => (
+    
+
+//     <View style={styles.contactCard}>
+//       <View style={styles.imageContainer}>
+//         <Image source={require("../../assets/images/email1.jpg")} style={styles.memberImage} />
+//         <View style={styles.imageBorder} />
+//       </View>
+//       <View style={styles.contactInfo}>
+//         <Text style={styles.memberName}>{item.name}</Text>
+//         <Text style={styles.memberRole}>{item.role}</Text>
+//         <TouchableOpacity 
+//           style={styles.emailButton}
+//           onPress={() => handleEmailPress(item.email)}
+//         >
+//           <Text style={styles.emailButtonText}>Send Email</Text>
+//         </TouchableOpacity>
+//         <Text style={styles.memberEmail}>{item.email}</Text>
+//       </View>
+//     </View>
+//   );
+
+//   return (
+//     <SafeAreaView style={styles.container}>
+//       <StatusBar barStyle="light-content" backgroundColor="#38bdf8" />
+      
+//       <View style={styles.headerContainer}>
+//         <View style={styles.headerContent}>
+//           <Text style={styles.headerTitle}>Contact Us</Text>
+//           <Text style={styles.headerSubtitle}>Get in Touch</Text>
+//         </View>
+//       </View>
+
+//       <FlatList
+//         data={contactDetails}
+//         keyExtractor={(item) => item.id}
+//         renderItem={renderContactCard}
+//         contentContainerStyle={styles.listContainer}
+//         showsVerticalScrollIndicator={false}
+//       />
+//     </SafeAreaView>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#F8FAFF',
+//     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+//   },
+//   headerContainer: {
+//     backgroundColor: '#38bdf8',
+//     borderBottomLeftRadius: 30,
+//     borderBottomRightRadius: 30,
+//     paddingVertical: 24,
+//     paddingHorizontal: 20,
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 4,
+//     },
+//     shadowOpacity: 0.15,
+//     shadowRadius: 12,
+//     elevation: 8,
+//     marginBottom: 24,
+//   },
+//   headerContent: {
+//     alignItems: 'center',
+//   },
+//   headerTitle: {
+//     fontSize: 28,
+//     fontWeight: '700',
+//     color: '#FFFFFF',
+//     letterSpacing: 0.5,
+//   },
+//   headerSubtitle: {
+//     fontSize: 16,
+//     color: '#E0E7FF',
+//     marginTop: 4,
+//     letterSpacing: 0.5,
+//   },
+//   listContainer: {
+//     padding: 16,
+//     paddingBottom: 24,
+//   },
+//   contactCard: {
+//     backgroundColor: '#FFFFFF',
+//     borderRadius: 16,
+//     marginBottom: 16,
+//     padding: 20,
+//     alignItems: 'center',
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 2,
+//     },
+//     shadowOpacity: 0.08,
+//     shadowRadius: 4,
+//     elevation: 3,
+//     borderWidth: 1,
+//     borderColor: 'rgba(229, 229, 229, 0.5)',
+//   },
+//   imageContainer: {
+//     position: 'relative',
+//     marginBottom: 16,
+//   },
+//   memberImage: {
+//     width: 100,
+//     height: 100,
+//     borderRadius: 50,
+//     backgroundColor: '#E0E7FF',
+//   },
+//   imageBorder: {
+//     position: 'absolute',
+//     top: -3,
+//     left: -3,
+//     right: -3,
+//     bottom: -3,
+//     borderRadius: 53,
+//     borderWidth: 3,
+//     borderColor: '#38bdf8',
+//     opacity: 0.2,
+//   },
+//   contactInfo: {
+//     alignItems: 'center',
+//     width: '100%',
+//   },
+//   memberName: {
+//     fontSize: 20,
+//     fontWeight: '600',
+//     color: '#38bdf8',
+//     marginBottom: 4,
+//     letterSpacing: 0.3,
+//   },
+//   memberRole: {
+//     fontSize: 16,
+//     color: '#6B7280',
+//     marginBottom: 12,
+//     letterSpacing: 0.2,
+//   },
+//   emailButton: {
+//     backgroundColor: '#38bdf8',
+//     paddingVertical: 8,
+//     paddingHorizontal: 16,
+//     borderRadius: 8,
+//     marginBottom: 8,
+//   },
+//   emailButtonText: {
+//     color: '#FFFFFF',
+//     fontSize: 14,
+//     fontWeight: '600',
+//     letterSpacing: 0.3,
+//   },
+//   memberEmail: {
+//     fontSize: 14,
+//     color: '#6B7280',
+//     letterSpacing: 0.2,
+//   },
+// });
+
+
+
+
+
+
+
+
+
 import React from "react";
 import { 
   View, 
@@ -186,7 +421,7 @@ const contactDetails = [
     role: "Project Lead",
     email: "mdtauseef.rahmang01@gmail.com",
     phone: "+1234567890",
-    image: require("../../assets/images/email1.jpg"),
+    image: require("../../assets/images/email1.jpg"), // Ensure this path is correct
   },
   {
     id: "2",
@@ -194,7 +429,7 @@ const contactDetails = [
     role: "Developer",
     email: "tamzidbintariq@gmail.com",
     phone: "+1234567891",
-    image: require("../../assets/images/email1.jpg"),
+    image: require("../../assets/images/email1.jpg"), // Ensure this path is correct
   },
   {
     id: "3",
@@ -202,7 +437,7 @@ const contactDetails = [
     role: "Designer",
     email: "mdtauseef.rahman01@gmail.com",
     phone: "+1234567892",
-    image: require("../../assets/images/email1.jpg"),
+    image: require("../../assets/images/email1.jpg"), // Ensure this path is correct
   },
   {
     id: "4",
@@ -210,9 +445,14 @@ const contactDetails = [
     role: "Designer",
     email: "mdtauseef.rahman02@gmail.com",
     phone: "+1234567893",
-    image: require("../../assets/images/email1.jpg"),
+    image: require("../../assets/images/email1.jpg"), // Ensure this path is correct
   },
 ];
+
+// Log the image paths to verify they are correct
+contactDetails.forEach((contact, index) => {
+  console.log(`Contact ${index + 1} image path:`, contact.image);
+});
 
 const handleEmailPress = (email) => {
   const subject = "Customer Inquiry";
@@ -223,25 +463,28 @@ const handleEmailPress = (email) => {
 };
 
 export default function ContactUsPage() {
-  const renderContactCard = ({ item }) => (
-    <View style={styles.contactCard}>
-      <View style={styles.imageContainer}>
-        <Image source={item.image} style={styles.memberImage} />
-        <View style={styles.imageBorder} />
+  const renderContactCard = ({ item }) => {
+    console.log(`Rendering contact card for: ${item.name}`); // Debugging log
+    return (
+      <View style={styles.contactCard}>
+        <View style={styles.imageContainer}>
+          <Image source={item.image} style={styles.memberImage} />
+          <View style={styles.imageBorder} />
+        </View>
+        <View style={styles.contactInfo}>
+          <Text style={styles.memberName}>{item.name}</Text>
+          <Text style={styles.memberRole}>{item.role}</Text>
+          <TouchableOpacity 
+            style={styles.emailButton}
+            onPress={() => handleEmailPress(item.email)}
+          >
+            <Text style={styles.emailButtonText}>Send Email</Text>
+          </TouchableOpacity>
+          <Text style={styles.memberEmail}>{item.email}</Text>
+        </View>
       </View>
-      <View style={styles.contactInfo}>
-        <Text style={styles.memberName}>{item.name}</Text>
-        <Text style={styles.memberRole}>{item.role}</Text>
-        <TouchableOpacity 
-          style={styles.emailButton}
-          onPress={() => handleEmailPress(item.email)}
-        >
-          <Text style={styles.emailButtonText}>Send Email</Text>
-        </TouchableOpacity>
-        <Text style={styles.memberEmail}>{item.email}</Text>
-      </View>
-    </View>
-  );
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
