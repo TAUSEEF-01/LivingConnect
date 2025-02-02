@@ -61,9 +61,15 @@ LivingConnect is a mobile application designed to simplify the process of findin
    ```
 3. Start the Expo development server:
    ```bash
+   cd Frontend
    npx expo start
    ```
-4. Test the app on an emulator or a physical device using Expo Go.
+4. To run the backend server:
+   ```bash
+   cd Backend
+   nodemon app.js
+   ```
+5. Test the app on an emulator or a physical device using Expo Go.
 
 ---
 
