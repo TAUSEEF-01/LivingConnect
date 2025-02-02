@@ -4,16 +4,14 @@
 **Department of Computer Science & Engineering 💻**  
 **CSE 2216 - Application Development Lab (Batch 28) 📚**
 
-### **Project Details ✨**
-
 ---
 
 ### **Project Overview 🔍**
-LivingConnect is a mobile application designed to simplify the process of finding and renting homes. The app integrates personalized filters, real-time map views, and an intuitive interface for seamless interaction between renters and property owners.
+LivingConnect is a mobile application designed to simplify the process of finding and renting homes. The app integrates personalized filters, real-time map views, and an intuitive interface for seamless interaction between renters and property owners. Additionally, the platform offers services such as community centers for program purposes and essential home-related services like house shifting, coloring, and repairs.
 
 ---
 
-### **Team Details 🧠**
+### **Team Details  ✨🧠**
 **Team Name:** DU_CodeX_Legends
 
 #### **Team Members 👥:**
@@ -83,5 +81,7 @@ To run the built APK on Android:
 
 ### **Acknowledgments 🙏**
 This project is submitted as part of the coursework for **CSE 2216 - Application Development Lab** at **University of Dhaka**.
+
+🌟 If you find this project interesting or helpful, please consider giving it a star on GitHub! Your support motivates us to keep improving. 😊
 
 
