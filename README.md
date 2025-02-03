@@ -86,7 +86,7 @@ This project is submitted as part of the coursework for **CSE 2216 - Application
 
 ---
 
-### **Project video 🙏**
+### **Project video 🌟**
 Link: https://drive.google.com/file/d/19_j8Cuiw-_XMlaF6haGIp_Nzf3CmLG42/view
 
 
