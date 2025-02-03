@@ -84,4 +84,9 @@ This project is submitted as part of the coursework for **CSE 2216 - Application
 
 🌟 If you find this project interesting or helpful, please consider giving it a star on GitHub! Your support motivates us to keep improving. 😊
 
+---
+
+### **Project video 🙏**
+Link: https://drive.google.com/file/d/19_j8Cuiw-_XMlaF6haGIp_Nzf3CmLG42/view
+
 
